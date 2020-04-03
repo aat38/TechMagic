@@ -1,11 +1,8 @@
-// server.js
-// where your node app starts
-
-// we've started you off with Express (https://expressjs.com/)
-// but feel free to use whatever libraries or frameworks you'd like through `package.json`.
+const path = require("path");
 const express = require("express");
 const app = express();
-
+app.use(express.static("public"));
+app.set('view engine', 'ejs');
 // our default array of dreams
 const dreams = [
   "Find and count some sheep",
@@ -13,17 +10,14 @@ const dreams = [
   "Wash the dishes"
 ];
 
-// make all the files in 'public' available
-// https://expressjs.com/en/starter/static-files.html
-app.use(express.static("public"));
 
 // https://expressjs.com/en/starter/basic-routing.html
 app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
+  response.render('in')
 });
 
 // send the default array of dreams to the webpage
-app.get("/dreams", (request, response) => {
+app.get("/", (request, response) => {
   // express helps us take JS objects and send them as JSON
   response.json(dreams);
 });
