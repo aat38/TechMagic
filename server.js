@@ -1,28 +1,16 @@
-const path = require("path");
-const express = require("express");
+const express = require('express');
+const path = require('path');
 const app = express();
-app.use(express.static("public"));
-app.set('view engine', 'ejs');
-// our default array of dreams
-const dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
 
-
-// https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.render('in')
+app.use('/public',express.static(path.join(__dirname,'static')));
+app.set('view engine','ejs');
+app.get('/:userQuery',(req,res)=>{
+    res.render('index',{data : {userQuery: req.params.userQuery,
+                               searchResults : ['book1','book2','book3'],
+                               loggedIn : true,
+                               username : 'lkjslkjdf'}});
 });
 
-// send the default array of dreams to the webpage
-app.get("/", (request, response) => {
-  // express helps us take JS objects and send them as JSON
-  response.json(dreams);
-});
 
-// listen for requests :)
-const listener = app.listen(process.env.PORT, () => {
-  console.log("Your app is listening on port " + listener.address().port);
-});
+
+app.listen(3000);
