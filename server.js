@@ -48,35 +48,34 @@ app.get("/pages/getNames", (request, response) => {
   });     
 });
 
-
+//-------------------figuring out how to post:------------------------
 
 app.post("/pages/sendNames", (request, response) => {
-// const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
-// const values = [7, request.name, request.desc]
+const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
+const values = [7, request.name, request.desc]
   console.log("in pages/sendNames");
   console.log(request.query.id)
-//   client.connect();
-// // promise
-// client
-//   .query(text, values)
-//   .then(res => {
-//     console.log(res.rows[0])
-//   })
-//   .catch(e => console.error(e.stack))   
-    
+  client.connect();
+  client
+    .query(text, values)
+    .then(res => {
+      console.log(res.rows[0])
 //     response.locals.updatedData = resp.rows;
 //     response.render('database', {data : response.locals.updatedData.rows  })
-//         console.log(response.locals.updatedData.rows );
-//   },function(err){
-//     console.log(err);
-//   });                                              
+//     console.log(response.locals.updatedData.rows );
+    })
+    .catch(e => console.error(e.stack))                                      
 });
 
+//-------------------still figuring it out... ------------------------
 
-fetch('/pages/sendNames', {
-  method: 'POST',
-  body: formData
-});
+
+// let myForm = document.getElementById('myForm');
+// let formData = new FormData(myForm);
+// fetch("https://ejs-views-practice.glitch.me/pages/sendNames", {
+//   method: 'POST',
+//   body: formData
+// });
 
 // fetch("https://ejs-views-practice.glitch.me/pages/sendNames", {
 //     method: 'POST',
