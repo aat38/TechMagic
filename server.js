@@ -35,6 +35,17 @@ app.get("/pages/database", (request, response) => {
   });                                              
 });
 
+app.get("/getNames", (request, response) => {
+  client.connect();
+  client.query("select * from test").then(function(resp){
+    //^use THEN because we are writing a "promise
+    console.log(resp.rows);
+    response.render('index', {names : resp.rows })
+  },function(err){
+    console.log(err);
+  });                                              
+});
+
 
 
 app.listen(3000);

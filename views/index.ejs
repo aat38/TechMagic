@@ -10,7 +10,26 @@
 <body>
 <h1>hey</h1>
 <button><a href="https://ejs-views-practice.glitch.me/pages/database">Click me</a></button>
-<button onclick="fetchNames()">Click me next</button>
+<form>
+  <button type="submit" action="/getNames"> Click me next </button>
+</form>
+  
+  <% if (names) { %>
+      <table class="table">
+      <tbody><tr><th>Test Id</th><th>Name</th><th>Description</th></tr>
+        <% JSON.stringify(data) %> 
+        <% data.forEach(result=>{ %>
+        <tr>
+          <td><%= result.testid %></td>
+           <td><%= result.name %></td>
+          <td><%= result.description %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <% } else { %>
+  <% } %>
+  
 </body>
 
 </html>
