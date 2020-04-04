@@ -2,14 +2,23 @@
 
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 
 <body>
 <h1>Database enteries:</h1>
-    <ul>
+  <table class="table">
+    <tbody><tr>
+        <th>TestId</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
     <% data.forEach(result=>{ %>
-    <li> <%= result %> </li> 
+      <tr>
+        <td><%=  JSON.stringify(result.testid) %><td>
+        <td><%=  JSON.stringify(result.name) %><td>
+        <td><%=  JSON.stringify(result.description) %><td>
+      </tr>
     <% }); %>
-     </ul>
 </body>
 </html>
