@@ -35,12 +35,12 @@ app.get("/pages/database", (request, response) => {
   });                                              
 });
 
-app.get("/getNames", (request, response) => {
+app.get("/data/getNames", (request, response) => {
+      console.log("hi");
   client.connect();
   client.query("select * from test").then(function(resp){
-    //^use THEN because we are writing a "promise
-    console.log(resp.rows);
-    response.render('index', {names : resp.rows })
+
+    response.locals.username = resp.rows;
   },function(err){
     console.log(err);
   });                                              
