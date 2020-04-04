@@ -49,10 +49,10 @@ app.get("/pages/getNames", (request, response) => {
 
 // app.post("/pages/sendNames", (request, response) => {
 //   client.connect();
-//   client.query("insert into" + "test(testid, name, description) values(request.num, requuest.name, request.desc)" newName from test").then(function(resp){
-
-//     response.locals.names = resp.rows;
-//     response.render('index', {names : response.locals.names  })
+//   client.query("insert into" + "test(testid, name, description) values(request.num, requuest.name, request.desc)")
+      // .then(function(resp){
+//     response.locals.updatedData = resp.rows;
+//     response.render('index', {updatedData : response.locals.updatedData  })
 //   },function(err){
 //     console.log(err);
 //   });                                              
