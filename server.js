@@ -72,10 +72,17 @@ app.post("/pages/sendNames", (request, response) => {
 //   });                                              
 });
 
-fetch("https://ejs-views-practice.glitch.me/pages/sendNames", {
-    method: 'POST',
-    headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
-    body: 'id=6&name=amber&desc=hi'
+
+fetch('/pages/sendNames', {
+  method: 'POST',
+  body: formData
 });
+
+// fetch("https://ejs-views-practice.glitch.me/pages/sendNames", {
+//     method: 'POST',
+//     headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
+//     body: 'id=6&name=amber&desc=hi'
+// })
+// .then(console.log("sent form data"));
 
 app.listen(3000);
