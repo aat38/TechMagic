@@ -19,26 +19,20 @@
         <% }); %>
       </tbody>
     </table>
-  <form>
-    <h4>
-      Add a new entry:
-    </h4>
-    <label>id</label><input name="id" value="id">
-    <label>name</label><input name="name" value="name">
-    <label>description</label><input name="desc" value="id">
-
-
-  <button formaction="/pages/sendNames" formmethod"POST" type="submit"> Click me</button>
-</form>
   
-  <% if (locals.updatedData) { %> 
-    <% JSON.stringify(updatedData) %> 
-    <h4>Names inside our database:</h4>
-    <% updatedData.forEach(result=>{ %>
-    <ol>
-       <li><%= result.name %></li> 
-    </ol>
-    <% }); %>
-  <% }%>
+  <form>
+    <h4>Add a new entry:</h4>
+    <div>
+      <label>id</label><input name="id" type="text" maxlength="100" required placeholder="id">
+    </div>
+    <div>
+      <label>name</label><input name="name" type="text" maxlength="100" required placeholder="name">
+    </div>
+    <div>
+      <label>description</label><input name="desc" type="text" maxlength="100" required placeholder="description">
+      <button formaction="/pages/sendNames" formmethod"POST" type="submit">Submit</button>
+    </div>
+  </form>
+  
 </body>
 </html>
