@@ -48,23 +48,43 @@ app.get("/pages/getNames", (request, response) => {
   });     
 });
 
+
+
 app.post("/pages/sendNames", (request, response) => {
-   console.log("in pages/sendNames");
+const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
+const values = [request.query.id, request.query.name, request.query.desc]
+  console.log("in pages/sendNames");
   client.connect();
-  client.query("insert into " + "test(testid, name, description) values("+request.query.id+","+ request.query.name+","+ request.query.desc+")")
-      .then(function(resp){
-    response.locals.updatedData = resp.rows;
-    response.render('database', {data : response.locals.updatedData.rows  })
-        console.log(response.locals.updatedData.rows );
-  },function(err){
-    console.log(err);
-  });                                              
+// callback
+client.query(text, values, (err, res) => {
+  if (err) {
+    console.log(err.stack)
+  } else {
+    console.log(res.rows[0])
+    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+  }
+})
+// promise
+client
+  .query(text, values)
+  .then(res => {
+    console.log(res.rows[0])
+    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+  })
+  .catch(e => console.error(e.stack))   
+    
+//     response.locals.updatedData = resp.rows;
+//     response.render('database', {data : response.locals.updatedData.rows  })
+//         console.log(response.locals.updatedData.rows );
+//   },function(err){
+//     console.log(err);
+//   });                                              
 });
 
-fetch("https://ejs-views-practice.glitch.me/pages/sendNames", {
-    method: 'POST',
-    headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
-    body: 'id=6&name=amber&desc=hi'
-});
+// fetch("https://ejs-views-practice.glitch.me/pages/sendNames", {
+//     method: 'POST',
+//     headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
+//     body: 'id=6&name=amber&desc=hi'
+// });
 
 app.listen(3000);
