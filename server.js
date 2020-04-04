@@ -45,6 +45,20 @@ app.get("/pages/getNames", (request, response) => {
     response.render('index', {names : response.locals.names  })
   },function(err){
     console.log(err);
+  });     
+});
+
+app.post("/pages/sendNames", (request, response) => {
+  console.log(request);
+  client.connect();
+  client.query("insert into" + "test(testid, name, description) values("+request.query.id+","+ request.query.name+","+ request.query.desc)")
+      .then(function(resp){
+        console.log("hey");
+    response.locals.updatedData = resp.rows;
+    response.render('database', {data : response.locals.updatedData.rows  })
+        console.log(response.locals.updatedData.rows );
+  },function(err){
+    console.log(err);
   });                                              
 });
 
@@ -56,15 +70,17 @@ app.get("/pages/getNames", (request, response) => {
         headers: {
             "Content-Type": "application/json; charset=utf-8",
         },
+       
         // redirect: "follow", 
         // referrer: "no-referrer", 
         body: JSON.stringify(data)
     }).then(function (response) {
+       
         return response.json();
-    })
-        .then(function (myJson) {
-            console.log(myJson);
-        });
+    },function(err){
+              console.log("hey");
+     });
+
 
  
 // app.post("/pages/sendNames", (request, response) => {
