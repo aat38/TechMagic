@@ -29,7 +29,9 @@ app.get("/pages/database", (request, response) => {
   client.connect();
   client.query("select * from test").then(function(resp){
     //^use THEN because we are writing a "promise"
-    response.render('database', {data : resp.rows })
+    let obj = JSON.parse(resp.rows);
+    console.log(obj.name);
+    response.render('database', {data : obj.name })
   },function(err){
     console.log(err);
   });                                              
