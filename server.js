@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+
 const { Client } = require("pg");
 // import {Client} from "pg"; ^^^ is what line above is absically saying
 const client = new Client({
@@ -47,17 +48,18 @@ app.get("/pages/getNames", (request, response) => {
   });                                              
 });
 
-// app.post("/pages/sendNames", (request, response) => {
-//   client.connect();
-//   client.query("insert into" + "test(testid, name, description) values(request.query.id, request.query.name, request.query.desc)")
-//       .then(function(resp){
-//         console.log("hey");
-//     response.locals.updatedData = resp.rows;
-//     response.render('database', {data : response.locals.updatedData.rows  })
-//         console.log(response.locals.updatedData.rows );
-//   },function(err){
-//     console.log(err);
-//   });                                              
-// });
+app.post("/pages/sendNames", (request, response) => {
+  console.log("hey");
+  client.connect();
+  client.query("insert into" + "test(testid, name, description) values(request.query.id, request.query.name, request.query.desc)")
+      .then(function(resp){
+        console.log("hey");
+    response.locals.updatedData = resp.rows;
+    response.render('database', {data : response.locals.updatedData.rows  })
+        console.log(response.locals.updatedData.rows );
+  },function(err){
+    console.log(err);
+  });                                              
+});
 
 app.listen(3000);
