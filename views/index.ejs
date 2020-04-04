@@ -13,11 +13,11 @@
 <form>
   <button type="submit" action="/getNames"> Click me next </button>
 </form>
-  
-  <% if (names) { %>
+
+  <% if (locals.names) { %> 
       <table class="table">
       <tbody><tr><th>Test Id</th><th>Name</th><th>Description</th></tr>
-        <% JSON.stringify(data) %> 
+        <% JSON.stringify(names) %> 
         <% data.forEach(result=>{ %>
         <tr>
           <td><%= result.testid %></td>
@@ -27,8 +27,7 @@
         <% }); %>
       </tbody>
     </table>
-    <% } else { %>
-  <% } %>
+    <% }%>
   
 </body>
 
