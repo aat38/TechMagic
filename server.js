@@ -49,9 +49,9 @@ app.get("/pages/getNames", (request, response) => {
 });
 
 app.post("/pages/sendNames", (request, response) => {
-  console.log(request);
+   console.log("in pages/sendNames");
   client.connect();
-  client.query("insert into" + "test(testid, name, description) values("+request.query.id+","+ request.query.name+","+ request.query.desc+")")
+  client.query("insert into " + "test(testid, name, description) values("+request.query.id+","+ request.query.name+","+ request.query.desc+")")
       .then(function(resp){
     response.locals.updatedData = resp.rows;
     response.render('database', {data : response.locals.updatedData.rows  })
@@ -61,39 +61,10 @@ app.post("/pages/sendNames", (request, response) => {
   });                                              
 });
 
-//      fetch("/pages/sendNames", {
-//         method: "POST",
-//         // mode: "cors",
-//         // cache: "no-cache", 
-//         // credentials: "same-origin", 
-//         headers: {
-//             "Content-Type": "application/json; charset=utf-8",
-//         },
-       
-//         // redirect: "follow", 
-//         // referrer: "no-referrer", 
-//         // body: JSON.stringify(data)
-//     }).then(function (response) {
-       
-//         return response.json();
-//     },function(err){
-//               console.log("hey");
-//      });
-
-
- 
-// app.post("/pages/sendNames", (request, response) => {
-//   console.log("hey");
-//   client.connect();
-//   client.query("insert into" + "test(testid, name, description) values(request.query.id, request.query.name, request.query.desc)")
-//       .then(function(resp){
-//         console.log("hey");
-//     response.locals.updatedData = resp.rows;
-//     response.render('database', {data : response.locals.updatedData.rows  })
-//         console.log(response.locals.updatedData.rows );
-//   },function(err){
-//     console.log(err);
-//   });                                              
-// });
+fetch("https://ejs-views-practice.glitch.me/pages/sendNames", {
+    method: 'POST',
+    headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
+    body: 'id=6&name=amber&desc=hi'
+});
 
 app.listen(3000);
