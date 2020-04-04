@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bodyParser =require('body-parser');
 const app = express();
 const { Client } = require("pg");
 // import {Client} from "pg"; ^^^ is what line above is absically saying
@@ -10,6 +11,8 @@ const client = new Client({
   //^ssl is true bc heroku reqires this 
 });
 
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use('/public',express.static(path.join(__dirname)));
 app.set('view engine','ejs');
 
@@ -25,13 +28,13 @@ app.get('/:userQuery',(req,res)=>{
 });
 
     
-app.get("/pages/database", (request, response) => {
+app.get("/pages/database",, (request, response) => {
   client.connect();
   client.query("select * from test").then(function(resp){
-    //^use THEN because we are writing a "promise"
-    let obj = JSON.parse(resp.rows);
-    console.log(obj.name);
-    response.render('database', {data : obj.name })
+    //^use THEN because we are writing a "promise
+    console.log(resp.rows);
+    console.log(JSON.parse(resp.rows));
+    response.render('database', {data : resp.rows })
   },function(err){
     console.log(err);
   });                                              
