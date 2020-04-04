@@ -4,3 +4,5 @@
 - [noobcoder1137/ejs_templates_express](https://github.com/noobcoder1137/ejs_templates_express)
 
 - [JSON Stringify](https://stackoverflow.com/questions/47066222/can-i-render-json-parse-data-to-ejs)
+
+- ['formaction' instead of 'action'](https://stackoverflow.com/questions/38512402/ejs-form-action-is-not-working-with-node-js)

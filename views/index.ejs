@@ -9,19 +9,22 @@
 
 <body>
 <h1>hey</h1>
-<button><a href="https://ejs-views-practice.glitch.me/pages/database">Click me</a></button>
 <form>
-  <button formaction="/pages/getNames" formmethod"GET" type="submit"> Click me next </button>
+  <button formaction="/pages/getNames" formmethod"GET" type="submit"> Click me</button>
 </form>
+<button><a href="https://ejs-views-practice.glitch.me/pages/database">Click me next</a></button>
+
 
   <% if (locals.names) { %> 
     <% JSON.stringify(names) %> 
+    <h4>Names inside our database:</h4>
+    <% names.forEach(result=>{ %>
     <ol>
-     <% names.forEach(result=>{ %>
        <li><%= result.name %></li> 
     </ol>
     <% }); %>
   <% }%>
+  
   
 </body>
 
