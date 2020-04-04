@@ -6,19 +6,18 @@
 </head>
 
 <body>
-<h1>Database enteries:</h1>
-  <table class="table">
-    <tbody><tr>
-        <th>TestId</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    <% data.forEach(result=>{ %>
-      <tr>
-        <td><%=  JSON.stringify(result.testid) %><td>
-        <td><%=  JSON.stringify(result.name) %><td>
-        <td><%=  JSON.stringify(result.description) %><td>
-      </tr>
-    <% }); %>
+<h1>Heroku enteries:</h1>
+    <table class="table">
+      <tbody><tr><th>Test Id</th><th>Name</th><th>Description</th></tr>
+        <% JSON.stringify(data) %> 
+        <% data.forEach(result=>{ %>
+        <tr>
+          <td><%= result.testid %></td>
+           <td><%= result.name %></td>
+          <td><%= result.description %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
 </body>
 </html>
