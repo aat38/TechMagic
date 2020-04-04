@@ -24,8 +24,15 @@ app.get('/:userQuery',(req,res)=>{
                                username : 'lkjslkjdf'}});
 });
 
-app.get('/pages/database',(req,res)=>{
-    res.render('database', {data : })
+    
+app.get("/pages/database", (request, response) => {
+  client.connect();
+  client.query("select * from test").then(function(resp){
+    //^use THEN because we are writing a "promise"
+    response.render('database', {data : resp.rows })
+  },function(err){
+    console.log(err);
+  });                                              
 });
 
 
