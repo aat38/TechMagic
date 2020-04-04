@@ -8,7 +8,7 @@ const client = new Client({
   connectionString:process.env.DATABASE_URL,
   //database url is stored in env 
   ssl: true
-  //^ssl is true bc heroku reqires this 
+  //^ssl needs to be set to true bc heroku reqires this 
 });
 
 app.use('/public',express.static(path.join(__dirname)));
