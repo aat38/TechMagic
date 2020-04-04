@@ -11,23 +11,17 @@
 <h1>hey</h1>
 <button><a href="https://ejs-views-practice.glitch.me/pages/database">Click me</a></button>
 <form>
-  <button method="GET" type="submit" action="/data/getNames"> Click me next </button>
+  <button formaction="/pages/getNames" formmethod"GET" type="submit"> Click me next </button>
 </form>
 
   <% if (locals.names) { %> 
-      <table class="table">
-      <tbody><tr><th>Test Id</th><th>Name</th><th>Description</th></tr>
-        <% JSON.stringify(names) %> 
-        <% data.forEach(result=>{ %>
-        <tr>
-          <td><%= result.testid %></td>
-           <td><%= result.name %></td>
-          <td><%= result.description %></td>
-        </tr>
-        <% }); %>
-      </tbody>
-    </table>
-    <% }%>
+    <% JSON.stringify(names) %> 
+    <ol>
+     <% names.forEach(result=>{ %>
+       <li><%= result.name %></li> 
+    </ol>
+    <% }); %>
+  <% }%>
   
 </body>
 
