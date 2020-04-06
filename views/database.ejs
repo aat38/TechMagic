@@ -23,13 +23,13 @@
   <form id ="myForm">
     <h4>Add a new entry:</h4>
     <div>
-      <label>id</label><input name="id" type="text" maxlength="100" required placeholder="id">
+      <label>id</label><input value="id" name="id" type="text" maxlength="100" required placeholder="id">
     </div>
     <div>
-      <label>name</label><input  value= name="name" type="text" maxlength="100" required placeholder="name">
+      <label>name</label><input  value="name" name="name" type="text" maxlength="100" required placeholder="name">
     </div>
     <div>
-      <label>description</label><input name="desc" type="text" maxlength="100" required placeholder="description">
+      <label>description</label><input value="desc" name="desc" type="text" maxlength="100" required placeholder="description">
       <button formaction="/pages/sendNames" method"POST" type="submit">Submit</button>
     </div>
   </form>
