@@ -116,7 +116,7 @@ app.post("/data/newAddress", (request, response) => {
       res => {
         // client.end();
         console.log("Successfully added address");
-        console.log(res.body[0])
+        console.log(res.rows[0].addressid)
       },
       err => {
         // client.end();
@@ -134,7 +134,7 @@ app.post("/data/newAddress", (request, response) => {
 //POST new employee WITH new address -- still in the works 
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
 app.post("/data/newEmployee/newAddress", (request, response) => {
-  const returnedAddId =[];
+  var returnedAddId;
   const addressQuery =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
   const addressValues = [
@@ -148,7 +148,7 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
 
   const employeeQuery =
     "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4 $5, $6)";
-  const employeeValues = [
+  var employeeValues = [
     returnedAddId,
     request.body.email,
     request.body.firstname,
@@ -161,27 +161,23 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
     .query(addressQuery, addressValues)
     .then(
       res => {
-        client.end();
-        console.log("Successfully added address values." + res.rows[0]);
-        returnedAddId=res.rows[0];
+        returnedAddId=res.rows[0].addressid;
+        console.log("Successfully added address values." + returnedAddId);
         //call employee query inside resolution of address promise
-        client.connect();
         client
           .query(employeeQuery, employeeValues)
           .then(res => {
-            console.log("Employee successfully added.");
+            console.log("Employee successfully added with new address.");
           })
           .catch();
-          client.end();
       },
       err => {
-        client.end();
         console.log(
           "Failed to add address. Employee will not be added since it is dependent on address."
         );
       }
     )
-    .catch(e =>  {client.end(); console.error(e.stack)});
+    .catch(e =>  {console.error(e.stack)});
 });
 
 
