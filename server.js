@@ -33,7 +33,8 @@ app.get('/',(req,res)=>{
 
 app.get("/pages/names", (request, response) => {
   client.connect();
-  client.query("SELECT firstname, lastname from employee").then(function(resp){
+  client.query("SELECT firstname, lastname from employee")
+    .then(function(resp){
 
     response.locals.emp = resp.rows;
     response.render('index', {emp : response.locals.emp  })
@@ -43,7 +44,7 @@ app.get("/pages/names", (request, response) => {
 });
 
 app.post("/pages/new/", (request, response) => {
-const text = 'INSERT INTO employee(firstname, lastname)VALUES($1, $2)'
+const text = 'INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title)VALUES($1, , $2 $2 $2,$2, $2 )'
 const values = [request.name, request.desc]
   console.log("in pages/sendNames");
   console.log(request.query.id)
