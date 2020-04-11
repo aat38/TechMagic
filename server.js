@@ -58,12 +58,9 @@ app.get("/pages/names", (request, response) => {
   });     
 });
 
-
-//-------------------figuring out how to post:------------------------
-
-app.post("/pages/sendNames", (request, response) => {
-const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
-const values = [7, request.name, request.desc]
+app.post("/pages/names", (request, response) => {
+const text = 'INSERT INTO employee(firstname, lastname) VALUES($1, $2)'
+const values = [request.name, request.desc]
   console.log("in pages/sendNames");
   console.log(request.query.id)
   client.connect();
@@ -77,6 +74,19 @@ const values = [7, request.name, request.desc]
     })
     .catch(e => console.error(e.stack))                                      
 });
+
+
+// app.post("/pages/names", (request, response) => {
+// const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2)'
+// const values = [request.body.firstname, request.body.lastname]
+//   client.connect();
+//   client
+//     .query(text, values)
+//     .then(res => {
+//       console.log(res.rows)
+//     })
+//     .catch(e => console.error(e.stack))                                      
+// });
 
 
 app.listen(3000);
