@@ -45,43 +45,47 @@ app.get("/pages/names", (request, response) => {
 
 app.post("/pages/new/", (request, response) => {
   const addressQuery =
-    "INSERT INTO address(addressid, city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5,$6)";
+    "SET transaction_read_only = off;INSERT INTO address(addressid, city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5,$6)";
   const addressValues = [
-    request.addId,
-    request.city,
-    request.state,
-    request.streetaddress,
-    request.streetaddress2,
-    request.zip
+    response.body.addId,
+    response.body.city,
+    response.body.state,
+    response.body.streetaddress,
+    response.body.streetaddress2,
+    response.body.zip
   ];
   ("INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )");
 
   const employeeQuery =
     "INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )";
   const employeeValues = [
-    request.addId,
-    request.email,
-    request.empId,
-    request.firstname,
-    request.lastname,
-    request.phone,
-    request.title
+    response.body.addId,
+    response.body.email,
+    response.body.empId,
+    response.body.firstname,
+    response.body.lastname,
+    response.body.phone,
+    response.body.title
   ];
   client.connect();
   client
     .query(addressQuery, addressValues)
     .then(
       res => {
+        client.end();
         console.log("Successfully added address values." + res.rows[0]);
         //call employee query inside resolution of address promise
+        client.connect();
         client
           .query(employeeQuery, employeeValues)
           .then(res => {
             console.log("Employee successfully added.");
           })
           .catch();
+          client.end();
       },
       err => {
+        client.end();
         console.log(
           "Failed to add address. Emplyee will not be added since it is dependent on address."
         );
