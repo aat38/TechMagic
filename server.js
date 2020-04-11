@@ -40,11 +40,39 @@ app.get("/data/employeenames", (request, response) => {
   );
 });
 
+
+app.post("/data/newItem", (request, response) => {
+  // console.log(request.body)
+  const quer =
+    "INSERT INTO product(name, description, unitcost) VALUES($1,$2,$3)";
+  const vals = [
+    request.body.name,
+    request.body.des,
+    request.body.cost
+    ];
+  client.connect();
+  client
+    .query(quer, vals)
+    .then(
+      res => {
+        // client.end();
+        console.log("Successfully added item");
+      },
+      err => {
+        // client.end();
+        console.log(
+          "Failed to add item."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
+
 //POST new employee given existing address ---isnt working
 app.post("/data/newEmployee", (request, response) => {
   // console.log(request.body)
   const employeeQuery =
-    "SET transaction_read_only = off;INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2,$3, $4, $5, $6 )";
+    "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2,$3, $4, $5, $6 )";
   const employeeValues = [
     request.body.addId,
     request.body.email,
