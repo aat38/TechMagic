@@ -148,15 +148,7 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
   ];
 
   const employeeQuery =
-    "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4 $5, $6)";
-  // const employeeValues = [
-  //   returnedAddId,
-  //   request.body.email,
-  //   request.body.firstname,
-  //   request.body.lastname,
-  //   request.body.phone,
-  //   request.body.title
-  // ];
+    "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4, $5, $6)";
   client.connect();
   client
     .query(addressQuery, addressValues)
@@ -165,13 +157,12 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
         console.log("Successfully added address values.");
         //call employee query inside resolution of address promise
         client
-          .query( 'INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4 $5, $6)', [ res.rows[0].addressid,
+          .query(employeeQuery, [ res.rows[0].addressid,
               request.body.email,
               request.body.firstname,
               request.body.lastname,
               request.body.phone,
-              request.body.title],
-                 
+              request.body.title])
           .then(res => {
             console.log("Employee successfully added with new address.");
           })
