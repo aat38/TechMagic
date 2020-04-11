@@ -137,7 +137,6 @@ app.post("/data/newAddress", (request, response) => {
 //POST new employee WITH new address -- still in the works 
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
 app.post("/data/newEmployee/newAddress", (request, response) => {
-  var returnedAddId;
   const addressQuery =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
   const addressValues = [
@@ -163,20 +162,20 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
     .query(addressQuery, addressValues)
     .then(
       res => {
-        returnedAddId=res.rows[0].addressid;
         console.log("Successfully added address values.");
         //call employee query inside resolution of address promise
         client
-          .query(employeeQuery, [ returnedAddId,
+          .query( 'INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4 $5, $6)', [ res.rows[0].addressid,
               request.body.email,
               request.body.firstname,
               request.body.lastname,
               request.body.phone,
-              request.body.title])
+              request.body.title],
+                 
           .then(res => {
             console.log("Employee successfully added with new address.");
           })
-          .catch();
+          .catch(e =>  {console.error(e.stack);console.log("catching1.")});
       },
       err => {
         console.log(
@@ -184,7 +183,7 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
         );
       }
     )
-    .catch(e =>  {console.error(e.stack)});
+    .catch(e =>  {console.error(e.stack);console.log("catching2.");});
 });
 
 
