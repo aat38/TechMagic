@@ -12,6 +12,11 @@ const client = new Client({
 
 app.use("/public", express.static(path.join(__dirname)));
 app.set("view engine", "ejs");
+var bodyParser = require('body-parser')
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 
 //--------------------- Routes -------------------------------
 
@@ -44,55 +49,54 @@ app.get("/pages/names", (request, response) => {
 });
 
 app.post("/pages/new/", (request, response) => {
-  console.log(response.body)
-//   const addressQuery =
-//     "SET transaction_read_only = off;INSERT INTO address(addressid, city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5,$6)";
-//   const addressValues = [
-//     response.body.addId,
-//     response.body.city,
-//     response.body.state,
-//     response.body.streetaddress,
-//     response.body.streetaddress2,
-//     response.body.zip
-//   ];
-//   ("INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )");
+  const addressQuery =
+    "SET transaction_read_only = off;INSERT INTO address(addressid, city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5,$6)";
+  const addressValues = [
+    request.body.addId,
+    request.body.city,
+    request.body.state,
+    request.body.streetaddress,
+    request.body.streetaddress2,
+    request.body.zip
+  ];
+  ("INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )");
 
-//   const employeeQuery =
-//     "INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )";
-//   const employeeValues = [
-//     response.body.addId,
-//     response.body.email,
-//     response.body.empId,
-//     response.body.firstname,
-//     response.body.lastname,
-//     response.body.phone,
-//     response.body.title
-//   ];
-//   client.connect();
-//   client
-//     .query(addressQuery, addressValues)
-//     .then(
-//       res => {
-//         client.end();
-//         console.log("Successfully added address values." + res.rows[0]);
-//         //call employee query inside resolution of address promise
-//         client.connect();
-//         client
-//           .query(employeeQuery, employeeValues)
-//           .then(res => {
-//             console.log("Employee successfully added.");
-//           })
-//           .catch();
-//           client.end();
-//       },
-//       err => {
-//         client.end();
-//         console.log(
-//           "Failed to add address. Emplyee will not be added since it is dependent on address."
-//         );
-//       }
-//     )
-//     .catch(e => console.error(e.stack));
+  const employeeQuery =
+    "INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )";
+  const employeeValues = [
+    request.body.addId,
+    request.body.email,
+    request.body.empId,
+    request.body.firstname,
+    request.body.lastname,
+    request.body.phone,
+    request.body.title
+  ];
+  client.connect();
+  client
+    .query(addressQuery, addressValues)
+    .then(
+      res => {
+        client.end();
+        console.log("Successfully added address values." + res.rows[0]);
+        //call employee query inside resolution of address promise
+        client.connect();
+        client
+          .query(employeeQuery, employeeValues)
+          .then(res => {
+            console.log("Employee successfully added.");
+          })
+          .catch();
+          client.end();
+      },
+      err => {
+        client.end();
+        console.log(
+          "Failed to add address. Employee will not be added since it is dependent on address."
+        );
+      }
+    )
+    .catch(e => console.error(e.stack));
 });
 
 // app.post("/pages/names", (request, response) => {
