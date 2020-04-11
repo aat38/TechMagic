@@ -68,7 +68,7 @@ app.post("/data/newItem", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
-//POST new employee given existing address ---isnt working
+//POST new employee given existing address 
 app.post("/data/newEmployee", (request, response) => {
   // console.log(request.body)
   const employeeQuery =
@@ -98,6 +98,9 @@ app.post("/data/newEmployee", (request, response) => {
     )
     .catch(e =>  { console.error(e.stack)});
 });
+
+
+
 
 app.post("/data/newAddress", (request, response) => {
   const quer =
@@ -144,28 +147,32 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
     request.body.streetaddress2,
     request.body.zip
   ];
-  ("INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )");
 
   const employeeQuery =
     "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4 $5, $6)";
-  var employeeValues = [
-    returnedAddId,
-    request.body.email,
-    request.body.firstname,
-    request.body.lastname,
-    request.body.phone,
-    request.body.title
-  ];
+  // const employeeValues = [
+  //   returnedAddId,
+  //   request.body.email,
+  //   request.body.firstname,
+  //   request.body.lastname,
+  //   request.body.phone,
+  //   request.body.title
+  // ];
   client.connect();
   client
     .query(addressQuery, addressValues)
     .then(
       res => {
         returnedAddId=res.rows[0].addressid;
-        console.log("Successfully added address values." + returnedAddId);
+        console.log("Successfully added address values.");
         //call employee query inside resolution of address promise
         client
-          .query(employeeQuery, employeeValues)
+          .query(employeeQuery, [ returnedAddId,
+              request.body.email,
+              request.body.firstname,
+              request.body.lastname,
+              request.body.phone,
+              request.body.title])
           .then(res => {
             console.log("Employee successfully added with new address.");
           })
