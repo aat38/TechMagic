@@ -40,15 +40,14 @@ app.get("/data/employeenames", (request, response) => {
   );
 });
 
-//POST new employee given existing address
+//POST new employee given existing address ---isnt working
 app.post("/data/newEmployee", (request, response) => {
   // console.log(request.body)
   const employeeQuery =
-    "SET transaction_read_only = off;INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )";
+    "SET transaction_read_only = off;INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2,$3, $4, $5, $6 )";
   const employeeValues = [
     request.body.addId,
     request.body.email,
-    request.body.empId,
     request.body.firstname,
     request.body.lastname,
     request.body.phone,
@@ -74,7 +73,7 @@ app.post("/data/newEmployee", (request, response) => {
 
 
 
-//POST new employee AND new address -- still in the works 
+//POST new employee WITH new address -- still in the works 
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
 app.post("/data/newEmployee/newAddress", (request, response) => {
   const addressQuery =
