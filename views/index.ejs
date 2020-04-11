@@ -25,6 +25,15 @@
     <% }); %>
   <% }%>
   
+    <% if (locals.emp) { %> 
+    <h4>Names inside our database:</h4>
+    <% emp.forEach(result=>{ %>
+    <ul>
+       <li><%= result.firstname %> <%= result.lastname %></li> 
+    </ul>
+    <% }); %>
+  <% }%>
+  
   
   
 </body>

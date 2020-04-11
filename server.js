@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const fetch = require('node-fetch');
 const { Client } = require("pg");
 // import {Client} from "pg"; ^^^ is what line above is absically saying
 const client = new Client({
@@ -48,6 +47,18 @@ app.get("/pages/getNames", (request, response) => {
   });     
 });
 
+app.get("/pages/names", (request, response) => {
+  client.connect();
+  client.query("SELECT firstname, lastname from employee").then(function(resp){
+
+    response.locals.emp = resp.rows;
+    response.render('index', {emp : response.locals.emp  })
+  },function(err){
+    console.log(err);
+  });     
+});
+
+
 //-------------------figuring out how to post:------------------------
 
 app.post("/pages/sendNames", (request, response) => {
@@ -67,21 +78,5 @@ const values = [7, request.name, request.desc]
     .catch(e => console.error(e.stack))                                      
 });
 
-//-------------------still figuring it out... ------------------------
-
-
-// let myForm = document.getElementById('myForm');
-// let formData = new FormData(myForm);
-// fetch("https://ejs-views-practice.glitch.me/pages/sendNames", {
-//   method: 'POST',
-//   body: formData
-// });
-
-// fetch("https://ejs-views-practice.glitch.me/pages/sendNames", {
-//     method: 'POST',
-//     headers: {'Content-Type':'application/x-www-form-urlencoded'}, 
-//     body: 'id=6&name=amber&desc=hi'
-// })
-// .then(console.log("sent form data"));
 
 app.listen(3000);
