@@ -99,15 +99,45 @@ app.post("/data/newEmployee", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
+app.post("/data/newAddress", (request, response) => {
+  const quer =
+    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5)";
+  const addressValues = [
+    request.body.city,
+    request.body.state,
+    request.body.streetaddress,
+    request.body.streetaddress2,
+    request.body.zip
+  ];
+  client.connect();
+  client
+    .query(quer, addressValues)
+    .then(
+      res => {
+        // client.end();
+        console.log("Successfully added address");
+        res.send(res);
+        console.log(res)
+      },
+      err => {
+        // client.end();
+        console.log(
+          "Failed to add address."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
+
+
 
 
 //POST new employee WITH new address -- still in the works 
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
 app.post("/data/newEmployee/newAddress", (request, response) => {
   const addressQuery =
-    "SET transaction_read_only = off;INSERT INTO address(addressid, city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5,$6)";
+    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5,$6)";
   const addressValues = [
-    request.body.addId,
     request.body.city,
     request.body.state,
     request.body.streetaddress,
@@ -117,11 +147,10 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
   ("INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )");
 
   const employeeQuery =
-    "INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )";
+    "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4 $5, $6)";
   const employeeValues = [
     request.body.addId,
     request.body.email,
-    request.body.empId,
     request.body.firstname,
     request.body.lastname,
     request.body.phone,
