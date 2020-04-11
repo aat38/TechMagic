@@ -10,3 +10,8 @@
 - [Why certificates need to be disabled - heroku specific](https://stackoverflow.com/questions/45088006/nodejs-error-self-signed-certificate-in-certificate-chain/45088585)
 
 - [Writing parameterized queries](https://node-postgres.com/features/queries)
+
+
+- [Set transaction to read/write(postgres)](https://www.postgresql.org/docs/9.3/sql-set-transaction.html)
+
+-[Postgres query language](https://www.postgresqltutorial.com/postgresql-insert/)

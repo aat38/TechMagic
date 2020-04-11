@@ -13,39 +13,23 @@ const client = new Client({
 app.use('/public',express.static(path.join(__dirname)));
 app.set('view engine','ejs');
 
+
+//--------------------- Routes -------------------------------
+
 app.get('/',(req,res)=>{
     res.render('index')
 });
-
-app.get('/:userQuery',(req,res)=>{
-    res.render('search',{data : {userQuery: req.params.userQuery,
-                               searchResults : ['book1','book2','book3'],
-                               loggedIn : true,
-                               username : 'lkjslkjdf'}});
-});
     
-app.get("/pages/database", (request, response) => {
-  client.connect();
-  client.query("select * from test").then(function(resp){
-    //^use THEN because we are writing a "promise
-    console.log(resp.rows);
-    response.render('database', {data : resp.rows })
-  },function(err){
-    console.log(err);
-  });                                              
-});
-
-app.get("/pages/getNames", (request, response) => {
-  console.log("hi");
-  client.connect();
-  client.query("select * from test").then(function(resp){
-
-    response.locals.names = resp.rows;
-    response.render('index', {names : response.locals.names  })
-  },function(err){
-    console.log(err);
-  });     
-});
+// app.get("/pages/database", (request, response) => {
+//   client.connect();
+//   client.query("select * from test").then(function(resp){
+//     //^use THEN because we are writing a "promise
+//     console.log(resp.rows);
+//     response.render('database', {data : resp.rows })
+//   },function(err){
+//     console.log(err);
+//   });                                              
+// });
 
 app.get("/pages/names", (request, response) => {
   client.connect();
@@ -58,8 +42,8 @@ app.get("/pages/names", (request, response) => {
   });     
 });
 
-app.post("/pages/names", (request, response) => {
-const text = 'INSERT INTO employee(firstname, lastname) VALUES($1, $2)'
+app.post("/pages/new/", (request, response) => {
+const text = 'INSERT INTO employee(firstname, lastname)VALUES($1, $2)'
 const values = [request.name, request.desc]
   console.log("in pages/sendNames");
   console.log(request.query.id)
