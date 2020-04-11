@@ -13,6 +13,17 @@
   <button formaction="/pages/names" formmethod"GET" type="submit"> Click me</button>
 </form>
 <button><a href="https://ejs-views-practice.glitch.me/pages/database">Click me next</a></button>
+
+
+  <% if (locals.names) { %> 
+    <% JSON.stringify(names) %> 
+    <h4>Names inside our database:</h4>
+    <% names.forEach(result=>{ %>
+    <ul>
+       <li><%= result.name %></li> 
+    </ul>
+    <% }); %>
+  <% }%>
   
     <% if (locals.emp) { %> 
     <h4>Names inside our database:</h4>

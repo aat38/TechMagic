@@ -24,16 +24,16 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-// app.get("/pages/database", (request, response) => {
-//   client.connect();
-//   client.query("select * from test").then(function(resp){
-//     //^use THEN because we are writing a "promise
-//     console.log(resp.rows);
-//     response.render('database', {data : resp.rows })
-//   },function(err){
-//     console.log(err);
-//   });
-// });
+app.get("/pages/database", (request, response) => {
+  client.connect();
+  client.query("select * from test").then(function(resp){
+    //^use THEN because we are writing a "promise
+    console.log(resp.rows);
+    response.render('database', {data : resp.rows })
+  },function(err){
+    console.log(err);
+  });
+});
 
 app.get("/pages/names", (request, response) => {
   client.connect();
@@ -49,6 +49,8 @@ app.get("/pages/names", (request, response) => {
 });
 
 app.post("/pages/new/", (request, response) => {
+//   INSERT NEW ADDRESS FIRST BECAUSE EMPLOYEE ENTRY IS DEPENDENT ON IT 
+// NESTED PROMISES- first adds address, second adds employee
   const addressQuery =
     "SET transaction_read_only = off;INSERT INTO address(addressid, city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5,$6)";
   const addressValues = [
@@ -96,19 +98,32 @@ app.post("/pages/new/", (request, response) => {
         );
       }
     )
-    .catch(e => console.error(e.stack));
+    .catch(e =>  {client.end(); console.error(e.stack)});
 });
 
-// app.post("/pages/names", (request, response) => {
-// const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2)'
-// const values = [request.body.firstname, request.body.lastname]
-//   client.connect();
-//   client
-//     .query(text, values)
-//     .then(res => {
-//       console.log(res.rows)
-//     })
-//     .catch(e => console.error(e.stack))
-// });
+app.post("/pages/names/post", (request, response) => {
+const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
+const values = [request.body.addId, request.body.firstname, request.body.lastname]
+  client.connect();
+  client
+    .query(text, values)
+    .then(res => {
+      console.log(res.rows)
+    })
+    .catch(e => console.error(e.stack))
+});
+
+
+app.post("/pages/names/post", (request, response) => {
+const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
+const values = [request.body.addId, request.body.firstname, request.body.lastname]
+  client.connect();
+  client
+    .query(text, values)
+    .then(res => {
+      console.log(res.rows)
+    })
+    .catch(e => console.error(e.stack))
+});
 
 app.listen(3000);
