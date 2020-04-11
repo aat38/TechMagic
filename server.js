@@ -24,16 +24,6 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/pages/database", (request, response) => {
-  client.connect();
-  client.query("select * from test").then(function(resp){
-    //^use THEN because we are writing a "promise
-    console.log(resp.rows);
-    response.render('database', {data : resp.rows })
-  },function(err){
-    console.log(err);
-  });
-});
 
 app.get("/pages/names", (request, response) => {
   client.connect();
@@ -101,6 +91,25 @@ app.post("/pages/new/", (request, response) => {
     .catch(e =>  {client.end(); console.error(e.stack)});
 });
 
+
+
+/////////////////////////TEST TABLE ENDPOINTS////////////////////////////////////
+///////////////////just api endpoints-use with postman////////////////////////////
+// https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en
+
+//GET
+app.get("/pages/database", (request, response) => {
+  client.connect();
+  client.query("select * from test").then(function(resp){
+    //^use THEN because we are writing a "promise
+    console.log(resp.rows);
+    response.render('database', {data : resp.rows })
+  },function(err){
+    console.log(err);
+  });
+});
+
+//POST 
 app.post("/pages/names/post", (request, response) => {
 const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
 const values = [request.body.addId, request.body.firstname, request.body.lastname]
@@ -120,6 +129,18 @@ const values = [request.body.addId, request.body.firstname, request.body.lastnam
   client.connect();
   client
     .query(text, values)
+    .then(res => {
+      console.log(res.rows)
+    })
+    .catch(e => console.error(e.stack))
+});
+
+app.post("/pages/names/delete", (request, response) => {
+const id = [request.body.testid]
+const text = 'DELETE FROM test WHERE testid = $1';
+client.connect();
+  client
+    .query(text, id)
     .then(res => {
       console.log(res.rows)
     })
