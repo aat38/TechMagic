@@ -18,14 +18,16 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-//--------------------- Routes -------------------------------
-
 app.get("/", (req, res) => {
   res.render("index");
 });
 
+/////////////////////////REAL DATA ENDPOINTS////////////////////////////////////
+///////////////////just api endpoints-use with postman////////////////////////////
+/////////////////clickable frontend buttons havent been setup////////////////////
 
-app.get("/pages/names", (request, response) => {
+//GET
+app.get("/data/employeenames", (request, response) => {
   client.connect();
   client.query("SELECT firstname, lastname from employee").then(
     function(resp) {
@@ -38,9 +40,43 @@ app.get("/pages/names", (request, response) => {
   );
 });
 
-app.post("/pages/new/", (request, response) => {
-//   INSERT NEW ADDRESS FIRST BECAUSE EMPLOYEE ENTRY IS DEPENDENT ON IT 
-// NESTED PROMISES- first adds address, second adds employee
+//POST new employee given existing address
+app.post("/data/newEmployee", (request, response) => {
+  // console.log(request.body)
+  const employeeQuery =
+    "SET transaction_read_only = off;INSERT INTO employee(addressid, email, employeeid, firstname, lastname, phone, title) VALUES($1, $2 $3 ,$4 $5, $6, $7 )";
+  const employeeValues = [
+    request.body.addId,
+    request.body.email,
+    request.body.empId,
+    request.body.firstname,
+    request.body.lastname,
+    request.body.phone,
+    request.body.title
+  ];
+  client.connect();
+  client
+    .query(employeeQuery, employeeValues)
+    .then(
+      res => {
+        // client.end();
+        console.log("Successfully added employee");
+      },
+      err => {
+        // client.end();
+        console.log(
+          "Failed to add employee."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
+
+
+
+//POST new employee AND new address -- still in the works 
+//[needs to be a nested promise where address is added first and then second promise actually adds employee]
+app.post("/data/newEmployee/newAddress", (request, response) => {
   const addressQuery =
     "SET transaction_read_only = off;INSERT INTO address(addressid, city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5,$6)";
   const addressValues = [
@@ -97,10 +133,11 @@ app.post("/pages/new/", (request, response) => {
 ///////////////////just api endpoints-use with postman////////////////////////////
 // https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en
 
-//GET
-app.get("/pages/database", (request, response) => {
+//GET all test data
+app.get("/test", (request, response) => {
   client.connect();
-  client.query("select * from test").then(function(resp){
+  client.query("select * from test")
+    .then(function(resp){
     //^use THEN because we are writing a "promise
     console.log(resp.rows);
     response.render('database', {data : resp.rows })
@@ -109,10 +146,10 @@ app.get("/pages/database", (request, response) => {
   });
 });
 
-//POST 
-app.post("/pages/names/post", (request, response) => {
+//POST new test entry
+app.post("/test/post", (request, response) => {
 const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
-const values = [request.body.addId, request.body.firstname, request.body.lastname]
+const values = [request.body.testid, request.body.name, request.body.description]
   client.connect();
   client
     .query(text, values)
@@ -122,20 +159,8 @@ const values = [request.body.addId, request.body.firstname, request.body.lastnam
     .catch(e => console.error(e.stack))
 });
 
-
-app.post("/pages/names/post", (request, response) => {
-const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
-const values = [request.body.addId, request.body.firstname, request.body.lastname]
-  client.connect();
-  client
-    .query(text, values)
-    .then(res => {
-      console.log(res.rows)
-    })
-    .catch(e => console.error(e.stack))
-});
-
-app.post("/pages/names/delete", (request, response) => {
+//DELETE test entry based on testid
+app.post("/test/delete", (request, response) => {
 const id = [request.body.testid]
 const text = 'DELETE FROM test WHERE testid = $1';
 client.connect();
