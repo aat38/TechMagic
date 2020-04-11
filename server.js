@@ -101,7 +101,7 @@ app.post("/data/newEmployee", (request, response) => {
 
 app.post("/data/newAddress", (request, response) => {
   const quer =
-    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5)";
+    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
   const addressValues = [
     request.body.city,
     request.body.state,
@@ -116,8 +116,7 @@ app.post("/data/newAddress", (request, response) => {
       res => {
         // client.end();
         console.log("Successfully added address");
-        res.send(res);
-        console.log(res)
+        console.log(res.body[0])
       },
       err => {
         // client.end();
@@ -135,8 +134,9 @@ app.post("/data/newAddress", (request, response) => {
 //POST new employee WITH new address -- still in the works 
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
 app.post("/data/newEmployee/newAddress", (request, response) => {
+  const returnedAddId =[];
   const addressQuery =
-    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5,$6)";
+    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
   const addressValues = [
     request.body.city,
     request.body.state,
@@ -149,7 +149,7 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
   const employeeQuery =
     "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4 $5, $6)";
   const employeeValues = [
-    request.body.addId,
+    returnedAddId,
     request.body.email,
     request.body.firstname,
     request.body.lastname,
@@ -163,6 +163,7 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
       res => {
         client.end();
         console.log("Successfully added address values." + res.rows[0]);
+        returnedAddId=res.rows[0];
         //call employee query inside resolution of address promise
         client.connect();
         client
