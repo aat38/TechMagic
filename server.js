@@ -181,7 +181,7 @@ app.get("/data/purchases/:customerId", (request, response) => {
 
 //GET resolutions by product////////////////////////////////////////////
 app.get("/data/resolutions/:productname", (request, response) => {
-  var prod= [request.params.productname];
+  var prod= [''+ request.params.productname];
 var query=("select product.name as product, resolution.name as resolution, claim.description as Claim from resolution, claim, productpurchase, product where resolution.resolutionid = claim.resolutionid and claim.productpurchaseid = productpurchase.productpurchaseid and productpurchase.productid = product.productid and product.name = $1");
   client.connect();
   client.query(query, prod)
