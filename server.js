@@ -56,14 +56,15 @@ app.get("/data/claims", (request, response) => {
 });
 
 //GET all claims belonging to an EMPLOYEE(independent of claim status)
-app.get("/data/claims/:employee", (request, response) => {
-  var employee= [request.body.employee];
-  var query=("Select * from all_claims WHERE employee=$1");
+app.get("/data/claims/:employeeId", (request, response) => {
+  console.log(request.employeeId)
+  var employeeId= [request.body.employeeId];
+  var query=("SELECT concat_ws(' ', customer.firstname, customer.lastname) AS customer, product.name AS product, issue.name AS issue, claim.status, claim.description, concat_ws(' ',  employee.firstname, employee.lastname) AS employee, claim.dateopened, resolution.name AS resolution, claim.dateclosed FROM claim, productpurchase, purchase, product, customer, employee, issue, resolution WHERE claim.productpurchaseid = productpurchase.productpurchaseid AND productpurchase.productid = product.productid AND productpurchase.purchaseid = purchase.purchaseid AND purchase.customerid = customer.customerid AND claim.employeeid = employee.employeeid AND claim.issueid = issue.issueid AND claim.resolutionid = resolution.resolutionid AND employee.employeeid = $1");
   client.connect();
-  client.query(query, employee)
+  client.query(query, employeeId)
     .then(
     function(resp) {
-      console.log("Successfully retrieved ALL claims belonging to "+ employee);
+      console.log("Successfully retrieved ALL claims belonging to "+ employeeId);
       console.log(resp.rows)
       //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
     },
