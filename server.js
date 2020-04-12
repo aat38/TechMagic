@@ -162,8 +162,22 @@ app.get("/data/claims/opendate/newest", (request, response) => {
   );
 });
 
-
-
+//GET purchase history by customer/////////////////////////////////////
+app.get("/data/purchases/:customerId", (request, response) => {
+  var vars= ['item count', request.params.customerId];
+  var query =("select concat_ws(' ', customer.firstname, customer.lastname)AS customer, purchase.date, count(productpurchase.purchaseid) as $1::text, purchase.totalcost from customer left join purchase on customer.customerid = purchase.customerid left join productpurchase on purchase.purchaseid = productpurchase.purchaseid where customer.customerid = $2 group by purchase.purchaseid, customer.customerid order by purchase.date desc")
+  client.connect();
+  client.query(query, vars)
+    .then(
+    function(resp) {
+      console.log("Successfully retrieved purchase history of customer "+ request.params.customerId);
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
 
 //-------------------------------POSTS-----------------------------------
 
