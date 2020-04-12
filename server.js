@@ -80,9 +80,27 @@ app.get("/data/claims/:employeeId", (request, response) => {
   );
 });
 
+//GET claim information based on claimId
+app.get("/data/claims/comments/:claimId", (request, response) => {
+  var claimId= [request.params.claimId];
+  var query=("select claim.claimid, claim.description as claim, comment.description as comment, claim.status from claim left join comment on claim.claimid = comment.claimid where claim.claimid = $1");
+  client.connect();
+  client.query(query, claimId)
+    .then(
+    function(resp) {
+      console.log("Successfully retrieved claim information from claimId="+ claimId);
+      console.log(resp.rows)
+      //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+
+
 //-------------------------------POSTS-----------------------------------
-
-
 
 // POST new product//////////////////////////////////////////////////////
 app.post("/data/newItem", (request, response) => {
