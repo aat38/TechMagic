@@ -198,8 +198,45 @@ var query=("select product.name as product, resolution.name as resolution, claim
 
 //-------------------------------POSTS-----------------------------------
 
-//POST new issue type
+//POST a new claim///////////////////////////////////////////////////////
+app.post("/data/newClaim", (request, response) => {
+  // const vars=[request.body.issue, request.body.description]
+  const quer =("insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values(10, 'Open', 'The is HUGE', current_timestamp, NULL)");
+  client.connect();
+  client
+    .query(quer)
+    .then(
+      res => {
+        console.log("Successfully added claim");
+      },
+      err => {
+        console.log(
+          "Failed to add claim."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
 
+//POST new issue type////////////////////////////////////////////////////
+app.post("/data/newIssue", (request, response) => {
+  const vars=[request.body.issue, request.body.description]
+  const quer =("INSERT INTO issue(name, description) VALUES ($1, $2)")
+  client.connect();
+  client
+    .query(quer, vars)
+    .then(
+      res => {
+        console.log("Successfully added issue");
+      },
+      err => {
+        console.log(
+          "Failed to add issue."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
 
 // POST new product//////////////////////////////////////////////////////
 app.post("/data/newItem", (request, response) => {
