@@ -1,9 +1,9 @@
+//***********SETUP****************//
 const express = require("express");
 const path = require("path");
 const app = express();
 const { Client } = require("pg");
 // import {Client} from "pg"; ^^^ is what line above is absically saying
-
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -12,7 +12,6 @@ const client = new Client({
   //^ssl needs to be set to true bc heroku reqires this
 });
 
-
 app.use("/public", express.static(path.join(__dirname)));
 app.set("view engine", "ejs");
 var bodyParser = require('body-parser')
@@ -20,14 +19,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json from RESPONSE.body
 app.use(bodyParser.json())
 
-
 app.get("/", (req, res) => {
   res.render("index");
-});
+});//*****************************//
 
-/////////////////////////REAL DATA ENDPOINTS////////////////////////////
-///////////////////just api endpoints-use with postman//////////////////
-/////////////////clickable frontend buttons havent been setup///////////
+
+///////////////////////////////ENDPOINTS////////////////////////////////
 
 //-------------------------------GETS-----------------------------------
 
@@ -80,7 +77,7 @@ app.get("/data/claims/:employeeId", (request, response) => {
   );
 });
 
-//GET claim information based on claimId
+//GET claim information based on claimId////////////////////////////////////
 app.get("/data/claims/comments/:claimId", (request, response) => {
   var claimId= [request.params.claimId];
   var query=("select claim.claimid, claim.description as claim, comment.description as comment, claim.status from claim left join comment on claim.claimid = comment.claimid where claim.claimid = $1");
@@ -97,6 +94,7 @@ app.get("/data/claims/comments/:claimId", (request, response) => {
     }
   );
 });
+
 
 
 
@@ -231,6 +229,9 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
     .catch(e =>  {console.error(e.stack);console.log("catching2.");});
 });
 
+//-------------------------------PUTS------------------------------------
+
+//------------------------------DELETES----------------------------------
 
 
 /////////////////////////TEST TABLE ENDPOINTS/////////////////////////////////////
