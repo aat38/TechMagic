@@ -40,11 +40,30 @@ app.get("/data/employeenames", (request, response) => {
   );
 });
 
+//GET all claims (independent of claim status)
 app.get("/data/claims", (request, response) => {
   client.connect();
   client.query("Select * from all_claims").then(
     function(resp) {
       console.log("Successfully retrieved ALL claims and claims information");
+      console.log(resp.rows)
+      //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//GET all claims belonging to an EMPLOYEE(independent of claim status)
+app.get("/data/claims/:employee", (request, response) => {
+  var employee= [request.body.employee];
+  var query=("Select * from all_claims WHERE employee=$1");
+  client.connect();
+  client.query(query, employee)
+    .then(
+    function(resp) {
+      console.log("Successfully retrieved ALL claims belonging to "+ employee);
       console.log(resp.rows)
       //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
     },
