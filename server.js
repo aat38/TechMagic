@@ -92,9 +92,9 @@ app.get("/data/claims/comments/:claimId", (request, response) => {
 });
 
 //GET claim information based on STATUS////////////////////////////////////
-app.get("/data/claims/status", (request, response) => {
+app.get("/data/claims/stat", (request, response) => {
   client.connect();
-  client.query("select * from all_claims ORDER BY status[DESC]").then(
+  client.query("select * from all_claims").then(
     function(resp) {
       console.log("Successfully retrieved claims by status");
       console.log(resp.rows)
