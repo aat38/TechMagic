@@ -24,8 +24,6 @@ app.get("/", (req, res) => {
 });//*****************************//
 
 
-///////////////////////////////ENDPOINTS////////////////////////////////
-
 //-------------------------------GETS-----------------------------------
 
 //GET list of employees/////////////////////////////////////////////////
@@ -69,7 +67,6 @@ app.get("/data/claims/:employeeId", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved ALL claims belonging to "+ employeeId);
       console.log(resp.rows)
-      //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
     },
     function(err) {
       console.log(err);
@@ -87,13 +84,28 @@ app.get("/data/claims/comments/:claimId", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved claim information from claimId="+ claimId);
       console.log(resp.rows)
-      //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
     },
     function(err) {
       console.log(err);
     }
   );
 });
+
+//GET claim information based on STATUS////////////////////////////////////
+app.get("/data/claims/status", (request, response) => {
+  client.connect();
+  client.query("select * from all_claims ORDER BY status[DESC]").then(
+    function(resp) {
+      console.log("Successfully retrieved claims by status");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+
 
 
 
@@ -237,7 +249,6 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
 /////////////////////////TEST TABLE ENDPOINTS/////////////////////////////////////
 ///////////////////just api endpoints-use with postman////////////////////////////
 // https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en (chrome extension)
-
 // //GET all test data
 // app.get("/test", (request, response) => {
 //   client.connect();
@@ -250,7 +261,6 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
 //     console.log(err);
 //   });
 // });
-
 // //POST new test entry
 // app.post("/test/post", (request, response) => {
 // const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
@@ -263,7 +273,6 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
 //     })
 //     .catch(e => console.error(e.stack))
 // });
-
 // //DELETE test entry based on testid
 // app.post("/test/delete", (request, response) => {
 // const id = [request.body.testid]
