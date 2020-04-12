@@ -198,6 +198,9 @@ var query=("select product.name as product, resolution.name as resolution, claim
 
 //-------------------------------POSTS-----------------------------------
 
+//POST new issue type
+
+
 // POST new product//////////////////////////////////////////////////////
 app.post("/data/newItem", (request, response) => {
   // console.log(request.body)
