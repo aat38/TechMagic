@@ -200,14 +200,20 @@ var query=("select product.name as product, resolution.name as resolution, claim
 
 //POST a new claim///////////////////////////////////////////////////////
 app.post("/data/newClaim", (request, response) => {
-  // const vars=[request.body.issue, request.body.description]
-  const quer =("insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values(10, 'Open', 'The is HUGE', current_timestamp, NULL)");
+  const quer =("insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)");
+  const vals =[
+    request.body.productpurchaseid, 
+    request.body.status, 
+    request.body.description, 
+    request.body.dateopened, 
+    request.body.resolutionid
+  ];
   client.connect();
   client
-    .query(quer)
+    .query(quer,vals)
     .then(
       res => {
-        console.log("Successfully added claim");
+        console.log("Successfully added claim,("+request.body.productpurchaseid+ ", " + request.body.status + ", " + request.body.description+ ", " + request.body.dateopened+ ", " +  request.body.resolutionid);
       },
       err => {
         console.log(
@@ -368,6 +374,29 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
 });
 
 //-------------------------------PUTS------------------------------------
+//PUT//Update claims/////////////////////////////////////////////////////
+app.put("/data/update/claim", (request, response) => {
+  const quer =("UPDATE claim SET status = $1, dateclosed = current_timestamp WHERE claimid = $2; RETURNING claim WHERE claimid=$2");
+  const vals =[
+    request.body.status, 
+    request.body.claimid
+  ];
+  client.connect();
+  client
+    .query(quer,vals)
+    .then(
+      res => {
+        console.log("Successfully updated claim "+ res.rows);
+      },
+      err => {
+        console.log(
+          "Failed to update claim."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
+
 
 //------------------------------DELETES----------------------------------
 
