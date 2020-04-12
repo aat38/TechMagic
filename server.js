@@ -196,8 +196,6 @@ var query=("select product.name as product, resolution.name as resolution, claim
   );
 });
 
-
-
 //-------------------------------POSTS-----------------------------------
 
 // POST new product//////////////////////////////////////////////////////
