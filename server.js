@@ -86,15 +86,15 @@ app.get("/data/claims/closed", (request, response) => {
 
 //GET all claims belonging to an EMPLOYEE based on their ID passed to this endpoint
 //(independent of claim status)/////////////////////////////////////////////////////
-app.get("/data/claims/:employeeId", (request, response) => {
+app.get("/data/claims/:employeeid", (request, response) => {
   // console.log(request.params.employeeId)
-  var employeeId= [request.params.employeeId];
+  var employeeid= [request.params.employeeid];
   var query=("SELECT concat_ws(' ', customer.firstname, customer.lastname) AS customer, product.name AS product, issue.name AS issue, claim.status, claim.description, concat_ws(' ',  employee.firstname, employee.lastname) AS employee, claim.dateopened, resolution.name AS resolution, claim.dateclosed FROM claim, productpurchase, purchase, product, customer, employee, issue, resolution WHERE claim.productpurchaseid = productpurchase.productpurchaseid AND productpurchase.productid = product.productid AND productpurchase.purchaseid = purchase.purchaseid AND purchase.customerid = customer.customerid AND claim.employeeid = employee.employeeid AND claim.issueid = issue.issueid AND claim.resolutionid = resolution.resolutionid AND employee.employeeid = $1");
   client.connect();
-  client.query(query, employeeId)
+  client.query(query, employeeid)
     .then(
     function(resp) {
-      console.log("Successfully retrieved ALL claims belonging to "+ employeeId);
+      console.log("Successfully retrieved ALL claims belonging to "+ employeeid);
       console.log(resp.rows)
     },
     function(err) {
@@ -104,14 +104,14 @@ app.get("/data/claims/:employeeId", (request, response) => {
 });
 
 //GET claim information based on claimId////////////////////////////////////
-app.get("/data/claims/comments/:claimId", (request, response) => {
-  var claimId= [request.params.claimId];
+app.get("/data/claims/comments/:claimid", (request, response) => {
+  var claimid= [request.params.claimid];
   var query=("select claim.claimid, claim.description as claim, comment.description as comment, claim.status from claim left join comment on claim.claimid = comment.claimid where claim.claimid = $1");
   client.connect();
-  client.query(query, claimId)
+  client.query(query, claimid)
     .then(
     function(resp) {
-      console.log("Successfully retrieved claim information from claimId="+ claimId);
+      console.log("Successfully retrieved claim information from claimId="+ claimid);
       console.log(resp.rows)
     },
     function(err) {
@@ -192,14 +192,14 @@ app.get("/data/claims/opendate/newest", (request, response) => {
 });
 
 //GET purchase history by customer --DOESNT WORK because "item count" needs to be changed to "itemcount" first
-app.get("/data/purchases/:customerId", (request, response) => {
-  var vars= [request.params.customerId];
+app.get("/data/purchases/:customerid", (request, response) => {
+  var vars= [request.params.customerid];
   var query =("select concat_ws(' ', customer.firstname, customer.lastname)AS customer, purchase.date, count(productpurchase.purchaseid) as itemcount, purchase.totalcost from customer left join purchase on customer.customerid = purchase.customerid left join productpurchase on purchase.purchaseid = productpurchase.purchaseid where customer.customerid = $1 group by purchase.purchaseid, customer.customerid order by purchase.date desc")
   client.connect();
   client.query(query, vars)
     .then(
     function(resp) {
-      console.log("Successfully retrieved purchase history of customer "+ request.params.customerId);
+      console.log("Successfully retrieved purchase history of customer "+ request.params.customerid);
       console.log(resp.rows)
     },
     function(err) {
@@ -227,7 +227,11 @@ var query=("select product.name as product, resolution.name as resolution, claim
 
 //-------------------------------POSTS-----------------------------------
 //POST// close a claim and submit a resolution in one request////////////
-app.post("/data/resolveandclose", (request, response) => {
+// update claim
+// set resolutionid = 2, status = 'Closed', dateclosed = current_timestamp
+// where claimid = 7
+//POST a new resolution/////////////////////////////////////////////////
+app.post("/data/addresolution", (request, response) => {
   const quer =("INSERT INTO resolution (name, description) VALUES ($1, $2)");
   const vals =[
     request.body.name, 
@@ -238,11 +242,11 @@ app.post("/data/resolveandclose", (request, response) => {
     .query(quer,vals)
     .then(
       res => {
-        console.log("Successfully resolved and closed claim,("+request.body.name+ ", " + request.body.description + ", " + request.body.description+ ", " + request.body.dateopened+ ", " +  request.body.resolutionid);
+        console.log("Successfully added resolution,("+request.body.name+ ", " + request.body.description + ", " + request.body.description);
       },
       err => {
         console.log(
-          "Failed to add claim."
+          "Failed to add resolution."
         );
       }
     )
@@ -250,7 +254,7 @@ app.post("/data/resolveandclose", (request, response) => {
 });
 
 //POST a new claim///////////////////////////////////////////////////////
-app.post("/data/newClaim", (request, response) => {
+app.post("/data/newclaim", (request, response) => {
   const quer =("insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)");
   const vals =[
     request.body.productpurchaseid, 
@@ -276,7 +280,7 @@ app.post("/data/newClaim", (request, response) => {
 });
 
 //POST new issue type////////////////////////////////////////////////////
-app.post("/data/newIssue", (request, response) => {
+app.post("/data/newissue", (request, response) => {
   const vars=[request.body.issue, request.body.description]
   const quer =("INSERT INTO issue(name, description) VALUES ($1, $2)")
   client.connect();
@@ -296,14 +300,13 @@ app.post("/data/newIssue", (request, response) => {
 });
 
 // POST new product//////////////////////////////////////////////////////
-app.post("/data/newItem", (request, response) => {
-  // console.log(request.body)
+app.post("/data/newitem", (request, response) => {
   const quer =
     "INSERT INTO product(name, description, unitcost) VALUES($1,$2,$3)";
   const vals = [
     request.body.name,
-    request.body.des,
-    request.body.cost
+    request.body.description,
+    request.body.unitcost
     ];
   client.connect();
   client
@@ -327,7 +330,7 @@ app.post("/data/newEmployee", (request, response) => {
   const employeeQuery =
     "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2,$3, $4, $5, $6 )";
   const employeeValues = [
-    request.body.addId,
+    request.body.addressid,
     request.body.email,
     request.body.firstname,
     request.body.lastname,
@@ -353,7 +356,7 @@ app.post("/data/newEmployee", (request, response) => {
 });
 
 //POST new address///////////////////////////////////////////////////
-app.post("/data/newAddress", (request, response) => {
+app.post("/data/newaddress", (request, response) => {
   const quer =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
   const addressValues = [
@@ -384,7 +387,7 @@ app.post("/data/newAddress", (request, response) => {
 
 //POST new employee WITH new address/////////////////////////////////////////
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
-app.post("/data/newEmployee/newAddress", (request, response) => {
+app.post("/data/newemployee/newaddress", (request, response) => {
   const addressQuery =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
   const addressValues = [
