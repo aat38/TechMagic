@@ -55,6 +55,35 @@ app.get("/data/claims", (request, response) => {
   );
 });
 
+//GET all open claims//////////////////////////////////////////////////
+app.get("/data/claims/open", (request, response) => {
+  client.connect();
+  client.query("select * from claim where status = 'Open'").then(
+    function(resp) {
+      console.log("Successfully retrieved all open claims");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//GET all closed claims//////////////////////////////////////////////////
+app.get("/data/claims/closed", (request, response) => {
+  client.connect();
+  client.query("select * from claim where status = 'Closed'").then(
+    function(resp) {
+      console.log("Successfully retrieved all closed claims");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+
 //GET all claims belonging to an EMPLOYEE based on their ID passed to this endpoint
 //(independent of claim status)/////////////////////////////////////////////////////
 app.get("/data/claims/:employeeId", (request, response) => {
@@ -197,6 +226,28 @@ var query=("select product.name as product, resolution.name as resolution, claim
 });
 
 //-------------------------------POSTS-----------------------------------
+//POST// close a claim and submit a resolution in one request////////////
+app.post("/data/resolveandclose", (request, response) => {
+  const quer =("INSERT INTO resolution (name, description) VALUES ($1, $2)");
+  const vals =[
+    request.body.name, 
+    request.body.description
+  ];
+  client.connect();
+  client
+    .query(quer,vals)
+    .then(
+      res => {
+        console.log("Successfully resolved and closed claim,("+request.body.name+ ", " + request.body.description + ", " + request.body.description+ ", " + request.body.dateopened+ ", " +  request.body.resolutionid);
+      },
+      err => {
+        console.log(
+          "Failed to add claim."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
 
 //POST a new claim///////////////////////////////////////////////////////
 app.post("/data/newClaim", (request, response) => {
@@ -376,9 +427,9 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
 //-------------------------------PUTS------------------------------------
 //PUT//Update claims/////////////////////////////////////////////////////
 app.put("/data/update/claim", (request, response) => {
-  const quer =("UPDATE claim SET status = $1, dateclosed = current_timestamp WHERE claimid = $2; RETURNING claim WHERE claimid=$2");
+  const quer =("UPDATE claim SET status = $1, dateclosed = current_timestamp WHERE claimid = $2");
   const vals =[
-    request.body.status, 
+    ''+request.body.status, 
     request.body.claimid
   ];
   client.connect();
@@ -386,7 +437,7 @@ app.put("/data/update/claim", (request, response) => {
     .query(quer,vals)
     .then(
       res => {
-        console.log("Successfully updated claim "+ res.rows);
+        console.log("Successfully updated claim ");
       },
       err => {
         console.log(
