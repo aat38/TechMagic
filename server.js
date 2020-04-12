@@ -40,7 +40,21 @@ app.get("/data/employeenames", (request, response) => {
   );
 });
 
+app.get("/data/claims", (request, response) => {
+  client.connect();
+  client.query("Select * from all_claims").then(
+    function(resp) {
+      console.log("Successfully retrieved ALL claims and claims information");
+      console.log(resp.rows)
+      //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
 
+// POST new product
 app.post("/data/newItem", (request, response) => {
   // console.log(request.body)
   const quer =
@@ -55,11 +69,9 @@ app.post("/data/newItem", (request, response) => {
     .query(quer, vals)
     .then(
       res => {
-        // client.end();
         console.log("Successfully added item");
       },
       err => {
-        // client.end();
         console.log(
           "Failed to add item."
         );
@@ -101,7 +113,7 @@ app.post("/data/newEmployee", (request, response) => {
 
 
 
-
+//POST new address
 app.post("/data/newAddress", (request, response) => {
   const quer =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
@@ -134,7 +146,7 @@ app.post("/data/newAddress", (request, response) => {
 
 
 
-//POST new employee WITH new address -- still in the works 
+//POST new employee WITH new address 
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
 app.post("/data/newEmployee/newAddress", (request, response) => {
   const addressQuery =
