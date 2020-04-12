@@ -162,10 +162,10 @@ app.get("/data/claims/opendate/newest", (request, response) => {
   );
 });
 
-//GET purchase history by customer/////////////////////////////////////
+//GET purchase history by customer --DOESNT WORK because "item count" needs to be changed to "itemcount" first
 app.get("/data/purchases/:customerId", (request, response) => {
-  var vars= ['date', request.params.customerId];
-  var query =("select concat_ws(' ', customer.firstname, customer.lastname)AS customer, purchase.date, count(productpurchase.purchaseid) as data, purchase.totalcost from customer left join purchase on customer.customerid = purchase.customerid left join productpurchase on purchase.purchaseid = productpurchase.purchaseid where customer.customerid = $2 group by purchase.purchaseid, customer.customerid order by purchase.date desc")
+  var vars= [request.params.customerId];
+  var query =("select concat_ws(' ', customer.firstname, customer.lastname)AS customer, purchase.date, count(productpurchase.purchaseid) as itemcount, purchase.totalcost from customer left join purchase on customer.customerid = purchase.customerid left join productpurchase on purchase.purchaseid = productpurchase.purchaseid where customer.customerid = $1 group by purchase.purchaseid, customer.customerid order by purchase.date desc")
   client.connect();
   client.query(query, vars)
     .then(
@@ -178,6 +178,25 @@ app.get("/data/purchases/:customerId", (request, response) => {
     }
   );
 });
+
+//GET resolutions by product////////////////////////////////////////////
+app.get("/data/resolutions/:productname", (request, response) => {
+  var prod= [request.params.productname];
+var query=("select product.name as product, resolution.name as resolution, claim.description as Claim from resolution, claim, productpurchase, product where resolution.resolutionid = claim.resolutionid and claim.productpurchaseid = productpurchase.productpurchaseid and productpurchase.productid = product.productid and product.name = $1");
+  client.connect();
+  client.query(query, prod)
+    .then(
+    function(resp) {
+      console.log("Successfully retrieved resolutions for "+ request.params.productname);
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+
 
 //-------------------------------POSTS-----------------------------------
 
