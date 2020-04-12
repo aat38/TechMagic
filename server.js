@@ -226,27 +226,55 @@ var query=("select product.name as product, resolution.name as resolution, claim
 });
 
 //-------------------------------POSTS-----------------------------------
-//POST// close a claim and submit a resolution in one request////////////
+//PUT// close a claim and submit a resolution in one request////////////
 // update claim
 // set resolutionid = 2, status = 'Closed', dateclosed = current_timestamp
 // where claimid = 7
-//POST a new resolution/////////////////////////////////////////////////
-app.post("/data/addresolution", (request, response) => {
-  const quer =("INSERT INTO resolution (name, description) VALUES ($1, $2)");
+
+//POST// create a customer /////////////////////////////////////////////
+app.post("/data/customers", (request, response) => {
+  const quer =("INSERT INTO customer (firstname, lastname, addressid, income, email, phone) VALUES ($1, $2, $3, $4, $5, $6)");
   const vals =[
-    request.body.name, 
-    request.body.description
+    ''+request.body.firstname, 
+    ''+request.body.lastname,
+    request.body.addressid,
+    request.body.income,
+    ''+request.body.email,
+    request.body.phone
   ];
   client.connect();
   client
     .query(quer,vals)
     .then(
       res => {
-        console.log("Successfully added resolution,("+request.body.name+ ", " + request.body.description + ", " + request.body.description);
+        console.log("Successfully added comments");
       },
       err => {
         console.log(
-          "Failed to add resolution."
+          "Failed to add comments."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
+
+app.post("/data/claims/comments", (request, response) => {
+  const quer =("insert into comment (claimid, description, date, employeeid) values($1, $2, current_timestamp, $3)");
+  const vals =[
+    request.body.claimid, 
+    ''+request.body.description,
+    request.body.employeeid
+  ];
+  client.connect();
+  client
+    .query(quer,vals)
+    .then(
+      res => {
+        console.log("Successfully added comments");
+      },
+      err => {
+        console.log(
+          "Failed to add comments."
         );
       }
     )
@@ -298,6 +326,12 @@ app.post("/data/newissue", (request, response) => {
     )
     .catch(e =>  { console.error(e.stack)});
 });
+
+//POST// create a new comment on a case//////////////////////////////////
+ insert into comment (claimid, description, date, employeeid)
+values(7, 'The customer knew the size of the desktop when they made purchase. No change required.',
+      current_timestamp, 3)
+
 
 // POST new product//////////////////////////////////////////////////////
 app.post("/data/newitem", (request, response) => {
