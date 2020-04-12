@@ -92,8 +92,8 @@ app.get("/data/claims/comments/:claimId", (request, response) => {
 });
 
 
-//GET claim information based on STATUS////////////////////////////////////
-app.get("/data/claims/sortby/status", (request, response) => {
+//GET claim information based on STATUS DESC/////////////shows open first//////////////////
+app.get("/data/claims/status/desc", (request, response) => {
   client.connect();
   client.query("select * from all_claims order by status DESC").then(
     function(resp) {
@@ -106,7 +106,61 @@ app.get("/data/claims/sortby/status", (request, response) => {
   );
 });
 
+//GET claim information based on STATUS ASC/////////////shows closed first////////////////
+app.get("/data/claims/status/asc", (request, response) => {
+  client.connect();
+  client.query("select * from all_claims order by status ASC").then(
+    function(resp) {
+      console.log("Successfully retrieved claims by status");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
 
+//GET all customers//////////////////////////////////////////////////
+app.get("/data/customers", (request, response) => {
+  client.connect();
+  client.query("select * from customer").then(
+    function(resp) {
+      console.log("Successfully retrieved all customers");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//GET claims by oldest//////////////////////////////////////////////////
+app.get("/data/claims/opendate/oldest", (request, response) => {
+  client.connect();
+  client.query("select * from claim order by dateopened ASC").then(
+    function(resp) {
+      console.log("Successfully retrieved claims in order of oldest");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//GET claims by newest//////////////////////////////////////////////////
+app.get("/data/claims/opendate/newest", (request, response) => {
+  client.connect();
+  client.query("select * from claim order by dateopened DESC").then(
+    function(resp) {
+      console.log("Successfully retrieved claims in order of newest");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
 
 
 
