@@ -428,13 +428,10 @@ app.post("/data/newemployee/newaddress", (request, response) => {
 });
 
 //-------------------------------PUTS------------------------------------
-//PUT//Update claims/////////////////////////////////////////////////////
+//PUT//CLOSE claims/////////////////////////////////////////////////////
 app.put("/data/update/claim", (request, response) => {
-  const quer =("UPDATE claim SET status = $1, dateclosed = current_timestamp WHERE claimid = $2");
-  const vals =[
-    ''+request.body.status, 
-    request.body.claimid
-  ];
+  const quer =("UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1");
+  const vals =[request.body.claimid];
   client.connect();
   client
     .query(quer,vals)
