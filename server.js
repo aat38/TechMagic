@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 
 //-------------------------------GETS-----------------------------------
 
+
 //GET list of employees/////////////////////////////////////////////////
 app.get("/data/employeenames", (request, response) => {
   client.connect();
@@ -225,11 +226,9 @@ var query=("select product.name as product, resolution.name as resolution, claim
   );
 });
 
+
 //-------------------------------POSTS-----------------------------------
-//PUT// close a claim and submit a resolution in one request////////////
-// update claim
-// set resolutionid = 2, status = 'Closed', dateclosed = current_timestamp
-// where claimid = 7
+
 
 //POST// create a customer /////////////////////////////////////////////
 app.post("/data/customers", (request, response) => {
@@ -258,6 +257,7 @@ app.post("/data/customers", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
+//POST claim comments///////////////////////////////////////////
 app.post("/data/claims/comments", (request, response) => {
   const quer =("insert into comment (claimid, description, date, employeeid) values($1, $2, current_timestamp, $3)");
   const vals =[
@@ -327,13 +327,7 @@ app.post("/data/newissue", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
-//POST// create a new comment on a case//////////////////////////////////
- insert into comment (claimid, description, date, employeeid)
-values(7, 'The customer knew the size of the desktop when they made purchase. No change required.',
-      current_timestamp, 3)
-
-
-// POST new product//////////////////////////////////////////////////////
+//POST new product//////////////////////////////////////////////////////
 app.post("/data/newitem", (request, response) => {
   const quer =
     "INSERT INTO product(name, description, unitcost) VALUES($1,$2,$3)";
@@ -439,7 +433,7 @@ app.post("/data/newemployee/newaddress", (request, response) => {
     .then(
       res => {
         console.log("Successfully added address values.");
-        //call employee query inside resolution of address promise
+        //call employee query inside res(aka resolution) of returned address promise
         client
           .query(employeeQuery, [ res.rows[0].addressid,
               request.body.email,
@@ -461,7 +455,31 @@ app.post("/data/newemployee/newaddress", (request, response) => {
     .catch(e =>  {console.error(e.stack);console.log("catching2.");});
 });
 
+
 //-------------------------------PUTS------------------------------------
+
+
+//PUT// close a claim and submit a resolution in one request////////////
+app.put("/data/update/addresolutionandclose", (request, response) => {
+  const quer =("update claim set resolutionid = $1, status = 'Closed', dateclosed = current_timestamp where claimid = $2");
+  const vals =[request.body.resolutionid,request.body.claimid];
+  client.connect();
+  client
+    .query(quer)
+    .then(
+      res => {
+        console.log("Successfully added resolution and closed claim ");
+      },
+      err => {
+        console.log(
+          "Failed to add resolution and close claim."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
+
+
 //PUT//CLOSE claims/////////////////////////////////////////////////////
 app.put("/data/update/claim", (request, response) => {
   const quer =("UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1");
@@ -483,7 +501,6 @@ app.put("/data/update/claim", (request, response) => {
 });
 
 
-//------------------------------DELETES----------------------------------
 
 
 /////////////////////////TEST TABLE ENDPOINTS/////////////////////////////////////
