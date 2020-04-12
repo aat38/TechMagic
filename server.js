@@ -3,6 +3,8 @@ const path = require("path");
 const app = express();
 const { Client } = require("pg");
 // import {Client} from "pg"; ^^^ is what line above is absically saying
+
+
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   //database url is stored in env
@@ -10,23 +12,26 @@ const client = new Client({
   //^ssl needs to be set to true bc heroku reqires this
 });
 
+
 app.use("/public", express.static(path.join(__dirname)));
 app.set("view engine", "ejs");
 var bodyParser = require('body-parser')
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
+// parse application/json from RESPONSE.body
 app.use(bodyParser.json())
+
 
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-/////////////////////////REAL DATA ENDPOINTS////////////////////////////////////
-///////////////////just api endpoints-use with postman////////////////////////////
-/////////////////clickable frontend buttons havent been setup////////////////////
+/////////////////////////REAL DATA ENDPOINTS////////////////////////////
+///////////////////just api endpoints-use with postman//////////////////
+/////////////////clickable frontend buttons havent been setup///////////
 
-//GET
+//-------------------------------GETS-----------------------------------
+
+//GET list of employees/////////////////////////////////////////////////
 app.get("/data/employeenames", (request, response) => {
   client.connect();
   client.query("SELECT firstname, lastname from employee").then(
@@ -40,7 +45,7 @@ app.get("/data/employeenames", (request, response) => {
   );
 });
 
-//GET all claims (independent of claim status)
+//GET all claims (independent of claim status)//////////////////////////
 app.get("/data/claims", (request, response) => {
   client.connect();
   client.query("Select * from all_claims").then(
@@ -55,10 +60,11 @@ app.get("/data/claims", (request, response) => {
   );
 });
 
-//GET all claims belonging to an EMPLOYEE(independent of claim status)
+//GET all claims belonging to an EMPLOYEE based on their ID passed to this endpoint
+//(independent of claim status)/////////////////////////////////////////////////////
 app.get("/data/claims/:employeeId", (request, response) => {
-  console.log(request.employeeId)
-  var employeeId= [request.body.employeeId];
+  // console.log(request.params.employeeId)
+  var employeeId= [request.params.employeeId];
   var query=("SELECT concat_ws(' ', customer.firstname, customer.lastname) AS customer, product.name AS product, issue.name AS issue, claim.status, claim.description, concat_ws(' ',  employee.firstname, employee.lastname) AS employee, claim.dateopened, resolution.name AS resolution, claim.dateclosed FROM claim, productpurchase, purchase, product, customer, employee, issue, resolution WHERE claim.productpurchaseid = productpurchase.productpurchaseid AND productpurchase.productid = product.productid AND productpurchase.purchaseid = purchase.purchaseid AND purchase.customerid = customer.customerid AND claim.employeeid = employee.employeeid AND claim.issueid = issue.issueid AND claim.resolutionid = resolution.resolutionid AND employee.employeeid = $1");
   client.connect();
   client.query(query, employeeId)
@@ -74,7 +80,11 @@ app.get("/data/claims/:employeeId", (request, response) => {
   );
 });
 
-// POST new product
+//-------------------------------POSTS-----------------------------------
+
+
+
+// POST new product//////////////////////////////////////////////////////
 app.post("/data/newItem", (request, response) => {
   // console.log(request.body)
   const quer =
@@ -100,7 +110,7 @@ app.post("/data/newItem", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
-//POST new employee given existing address 
+//POST new employee given existing address//////////////////////////////
 app.post("/data/newEmployee", (request, response) => {
   // console.log(request.body)
   const employeeQuery =
@@ -131,9 +141,7 @@ app.post("/data/newEmployee", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
-
-
-//POST new address
+//POST new address///////////////////////////////////////////////////
 app.post("/data/newAddress", (request, response) => {
   const quer =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
@@ -163,10 +171,7 @@ app.post("/data/newAddress", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
-
-
-
-//POST new employee WITH new address 
+//POST new employee WITH new address/////////////////////////////////////////
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
 app.post("/data/newEmployee/newAddress", (request, response) => {
   const addressQuery =
@@ -178,7 +183,6 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
     request.body.streetaddress2,
     request.body.zip
   ];
-
   const employeeQuery =
     "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4, $5, $6)";
   client.connect();
@@ -211,47 +215,47 @@ app.post("/data/newEmployee/newAddress", (request, response) => {
 
 
 
-/////////////////////////TEST TABLE ENDPOINTS////////////////////////////////////
+/////////////////////////TEST TABLE ENDPOINTS/////////////////////////////////////
 ///////////////////just api endpoints-use with postman////////////////////////////
-// https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en
+// https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en (chrome extension)
 
-//GET all test data
-app.get("/test", (request, response) => {
-  client.connect();
-  client.query("select * from test")
-    .then(function(resp){
-    //^use THEN because we are writing a "promise
-    console.log(resp.rows);
-    response.render('database', {data : resp.rows })
-  },function(err){
-    console.log(err);
-  });
-});
+// //GET all test data
+// app.get("/test", (request, response) => {
+//   client.connect();
+//   client.query("select * from test")
+//     .then(function(resp){
+//     //^use THEN because we are writing a "promise
+//     console.log(resp.rows);
+//     response.render('database', {data : resp.rows })
+//   },function(err){
+//     console.log(err);
+//   });
+// });
 
-//POST new test entry
-app.post("/test/post", (request, response) => {
-const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
-const values = [request.body.testid, request.body.name, request.body.description]
-  client.connect();
-  client
-    .query(text, values)
-    .then(res => {
-      console.log(res.rows)
-    })
-    .catch(e => console.error(e.stack))
-});
+// //POST new test entry
+// app.post("/test/post", (request, response) => {
+// const text = 'INSERT INTO test(testid, name, description) VALUES($1, $2, $3)'
+// const values = [request.body.testid, request.body.name, request.body.description]
+//   client.connect();
+//   client
+//     .query(text, values)
+//     .then(res => {
+//       console.log(res.rows)
+//     })
+//     .catch(e => console.error(e.stack))
+// });
 
-//DELETE test entry based on testid
-app.post("/test/delete", (request, response) => {
-const id = [request.body.testid]
-const text = 'DELETE FROM test WHERE testid = $1';
-client.connect();
-  client
-    .query(text, id)
-    .then(res => {
-      console.log(res.rows)
-    })
-    .catch(e => console.error(e.stack))
-});
+// //DELETE test entry based on testid
+// app.post("/test/delete", (request, response) => {
+// const id = [request.body.testid]
+// const text = 'DELETE FROM test WHERE testid = $1';
+// client.connect();
+//   client
+//     .query(text, id)
+//     .then(res => {
+//       console.log(res.rows)
+//     })
+//     .catch(e => console.error(e.stack))
+// });
 
 app.listen(3000);
