@@ -194,7 +194,7 @@ app.get("/employees", (request, response) => {
 
 //PURCHASES
 //GET purchase history by customer --DOESNT WORK because "item count" needs to be changed to "itemcount" first
-app.get("/purchases/:customerid", (request, response) => {
+app.get("/purchases/customer/:customerid", (request, response) => {
   var vars= [request.params.customerid];
   var query =("select concat_ws(' ', customer.firstname, customer.lastname)AS customer, purchase.date, count(productpurchase.purchaseid) as itemcount, purchase.totalcost from customer left join purchase on customer.customerid = purchase.customerid left join productpurchase on purchase.purchaseid = productpurchase.purchaseid where customer.customerid = $1 group by purchase.purchaseid, customer.customerid order by purchase.date desc")
   client.connect();
@@ -232,28 +232,26 @@ var query=("select product.name as product, resolution.name as resolution, claim
 //-------------------------------POSTS-----------------------------------
 
 //CLAIMS
-
-//POST// create a customer /////////////////////////////////////////////
-app.post("/customers", (request, response) => {
-  const quer =("INSERT INTO customer (firstname, lastname, addressid, income, email, phone) VALUES ($1, $2, $3, $4, $5, $6)");
+//POST a new claim///////////////////////////////////////////////////////
+app.post("/claims", (request, response) => {
+  const quer =("insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)");
   const vals =[
-    ''+request.body.firstname, 
-    ''+request.body.lastname,
-    request.body.addressid,
-    request.body.income,
-    ''+request.body.email,
-    request.body.phone
+    request.body.productpurchaseid, 
+    request.body.status, 
+    request.body.description, 
+    request.body.dateopened, 
+    request.body.resolutionid
   ];
   client.connect();
   client
     .query(quer,vals)
     .then(
       res => {
-        console.log("Successfully added comments");
+        console.log("Successfully added claim,("+request.body.productpurchaseid+ ", " + request.body.status + ", " + request.body.description+ ", " + request.body.dateopened+ ", " +  request.body.resolutionid);
       },
       err => {
         console.log(
-          "Failed to add comments."
+          "Failed to add claim."
         );
       }
     )
@@ -284,34 +282,39 @@ app.post("/claims/comments", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
-//POST a new claim///////////////////////////////////////////////////////
-app.post("/claims", (request, response) => {
-  const quer =("insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)");
+
+//CUSTOMERS
+//POST// create a customer /////////////////////////////////////////////
+app.post("/customers", (request, response) => {
+  const quer =("INSERT INTO customer (firstname, lastname, addressid, income, email, phone) VALUES ($1, $2, $3, $4, $5, $6)");
   const vals =[
-    request.body.productpurchaseid, 
-    request.body.status, 
-    request.body.description, 
-    request.body.dateopened, 
-    request.body.resolutionid
+    ''+request.body.firstname, 
+    ''+request.body.lastname,
+    request.body.addressid,
+    request.body.income,
+    ''+request.body.email,
+    request.body.phone
   ];
   client.connect();
   client
     .query(quer,vals)
     .then(
       res => {
-        console.log("Successfully added claim,("+request.body.productpurchaseid+ ", " + request.body.status + ", " + request.body.description+ ", " + request.body.dateopened+ ", " +  request.body.resolutionid);
+        console.log("Successfully added comments");
       },
       err => {
         console.log(
-          "Failed to add claim."
+          "Failed to add comments."
         );
       }
     )
     .catch(e =>  { console.error(e.stack)});
 });
 
+
+//ISSUES
 //POST new issue type////////////////////////////////////////////////////
-app.post("/issues/new", (request, response) => {
+app.post("/issues", (request, response) => {
   const vars=[request.body.issue, request.body.description]
   const quer =("INSERT INTO issue(name, description) VALUES ($1, $2)")
   client.connect();
@@ -330,8 +333,9 @@ app.post("/issues/new", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
+//PRODUCTS
 //POST new product//////////////////////////////////////////////////////
-app.post("/product/new", (request, response) => {
+app.post("/products", (request, response) => {
   const quer =
     "INSERT INTO product(name, description, unitcost) VALUES($1,$2,$3)";
   const vals = [
@@ -355,8 +359,9 @@ app.post("/product/new", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
+//EMPLOYEES
 //POST new employee given existing address//////////////////////////////
-app.post("/employees/new", (request, response) => {
+app.post("/employees", (request, response) => {
   // console.log(request.body)
   const employeeQuery =
     "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2,$3, $4, $5, $6 )";
@@ -386,39 +391,9 @@ app.post("/employees/new", (request, response) => {
     .catch(e =>  { console.error(e.stack)});
 });
 
-//POST new address///////////////////////////////////////////////////
-app.post("/addresses/new", (request, response) => {
-  const quer =
-    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
-  const addressValues = [
-    request.body.city,
-    request.body.state,
-    request.body.streetaddress,
-    request.body.streetaddress2,
-    request.body.zip
-  ];
-  client.connect();
-  client
-    .query(quer, addressValues)
-    .then(
-      res => {
-        // client.end();
-        console.log("Successfully added address");
-        console.log(res.rows[0].addressid)
-      },
-      err => {
-        // client.end();
-        console.log(
-          "Failed to add address."
-        );
-      }
-    )
-    .catch(e =>  { console.error(e.stack)});
-});
-
 //POST new employee WITH new address/////////////////////////////////////////
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
-app.post("/employees/new/address", (request, response) => {
+app.post("/employees/address", (request, response) => {
   const addressQuery =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
   const addressValues = [
@@ -458,6 +433,37 @@ app.post("/employees/new/address", (request, response) => {
     .catch(e =>  {console.error(e.stack);console.log("catching2.");});
 });
 
+//ADDRESSES
+//POST new address///////////////////////////////////////////////////
+app.post("/addresses", (request, response) => {
+  const quer =
+    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
+  const addressValues = [
+    request.body.city,
+    request.body.state,
+    request.body.streetaddress,
+    request.body.streetaddress2,
+    request.body.zip
+  ];
+  client.connect();
+  client
+    .query(quer, addressValues)
+    .then(
+      res => {
+        // client.end();
+        console.log("Successfully added address");
+        console.log(res.rows[0].addressid)
+      },
+      err => {
+        // client.end();
+        console.log(
+          "Failed to add address."
+        );
+      }
+    )
+    .catch(e =>  { console.error(e.stack)});
+});
+
 
 //-------------------------------PUTS------------------------------------
 
@@ -483,7 +489,7 @@ app.put("/resolutions/update/close", (request, response) => {
 });
 
 
-//PUT//CLOSE claims/////////////////////////////////////////////////////
+//PUT// change status of claims/////////////////////////////////////////////////////
 app.put("/claims/update", (request, response) => {
   const quer =("UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1");
   const vals =[request.body.claimid];
@@ -507,7 +513,6 @@ app.put("/claims/update", (request, response) => {
 
 
 /////////////////////////TEST TABLE ENDPOINTS/////////////////////////////////////
-///////////////////just api endpoints-use with postman////////////////////////////
 // https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en (chrome extension)
 // //GET all test data
 // app.get("/test", (request, response) => {
