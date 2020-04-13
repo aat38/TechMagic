@@ -183,8 +183,7 @@ app.get("/employees", (request, response) => {
   client.connect();
   client.query("SELECT * from employee").then(
     function(resp) {
-      response.locals.emp = resp.rows;
-      response.render("index", { emp: response.locals.emp });
+      console.log(resp.rows);
     },
     function(err) {
       console.log(err);
@@ -370,7 +369,7 @@ app.post("/employees", (request, response) => {
     request.body.email,
     request.body.firstname,
     request.body.lastname,
-    request.body.phone,
+    request.body.phone,//varchar
     request.body.title
   ];
   client.connect();
