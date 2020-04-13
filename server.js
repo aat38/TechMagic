@@ -28,9 +28,9 @@ app.get("/", (req, res) => {
 
 
 //GET list of employees/////////////////////////////////////////////////
-app.get("/data/employeenames", (request, response) => {
+app.get("/employees", (request, response) => {
   client.connect();
-  client.query("SELECT firstname, lastname from employee").then(
+  client.query("SELECT * from employee").then(
     function(resp) {
       response.locals.emp = resp.rows;
       response.render("index", { emp: response.locals.emp });
@@ -42,7 +42,7 @@ app.get("/data/employeenames", (request, response) => {
 });
 
 //GET all claims (independent of claim status)//////////////////////////
-app.get("/data/claims", (request, response) => {
+app.get("/claims", (request, response) => {
   client.connect();
   client.query("Select * from all_claims").then(
     function(resp) {
@@ -57,7 +57,7 @@ app.get("/data/claims", (request, response) => {
 });
 
 //GET all open claims//////////////////////////////////////////////////
-app.get("/data/claims/open", (request, response) => {
+app.get("/claims/open", (request, response) => {
   client.connect();
   client.query("select * from claim where status = 'Open'").then(
     function(resp) {
@@ -71,7 +71,7 @@ app.get("/data/claims/open", (request, response) => {
 });
 
 //GET all closed claims//////////////////////////////////////////////////
-app.get("/data/claims/closed", (request, response) => {
+app.get("/claims/closed", (request, response) => {
   client.connect();
   client.query("select * from claim where status = 'Closed'").then(
     function(resp) {
@@ -87,7 +87,7 @@ app.get("/data/claims/closed", (request, response) => {
 
 //GET all claims belonging to an EMPLOYEE based on their ID passed to this endpoint
 //(independent of claim status)/////////////////////////////////////////////////////
-app.get("/data/claims/:employeeid", (request, response) => {
+app.get("/claims/employees/:employeeid", (request, response) => {
   // console.log(request.params.employeeId)
   var employeeid= [request.params.employeeid];
   var query=("SELECT concat_ws(' ', customer.firstname, customer.lastname) AS customer, product.name AS product, issue.name AS issue, claim.status, claim.description, concat_ws(' ',  employee.firstname, employee.lastname) AS employee, claim.dateopened, resolution.name AS resolution, claim.dateclosed FROM claim, productpurchase, purchase, product, customer, employee, issue, resolution WHERE claim.productpurchaseid = productpurchase.productpurchaseid AND productpurchase.productid = product.productid AND productpurchase.purchaseid = purchase.purchaseid AND purchase.customerid = customer.customerid AND claim.employeeid = employee.employeeid AND claim.issueid = issue.issueid AND claim.resolutionid = resolution.resolutionid AND employee.employeeid = $1");
@@ -105,7 +105,7 @@ app.get("/data/claims/:employeeid", (request, response) => {
 });
 
 //GET claim information based on claimId////////////////////////////////////
-app.get("/data/claims/comments/:claimid", (request, response) => {
+app.get("/claims/comments/:commentid", (request, response) => {
   var claimid= [request.params.claimid];
   var query=("select claim.claimid, claim.description as claim, comment.description as comment, claim.status from claim left join comment on claim.claimid = comment.claimid where claim.claimid = $1");
   client.connect();
@@ -123,7 +123,7 @@ app.get("/data/claims/comments/:claimid", (request, response) => {
 
 
 //GET claim information based on STATUS DESC/////////////shows open first//////////////////
-app.get("/data/claims/status/desc", (request, response) => {
+app.get("/claims/status/desc", (request, response) => {
   client.connect();
   client.query("select * from all_claims order by status DESC").then(
     function(resp) {
@@ -137,7 +137,7 @@ app.get("/data/claims/status/desc", (request, response) => {
 });
 
 //GET claim information based on STATUS ASC/////////////shows closed first////////////////
-app.get("/data/claims/status/asc", (request, response) => {
+app.get("/claims/status/asc", (request, response) => {
   client.connect();
   client.query("select * from all_claims order by status ASC").then(
     function(resp) {
@@ -151,7 +151,7 @@ app.get("/data/claims/status/asc", (request, response) => {
 });
 
 //GET all customers//////////////////////////////////////////////////
-app.get("/data/customers", (request, response) => {
+app.get("/customers", (request, response) => {
   client.connect();
   client.query("select * from customer").then(
     function(resp) {
