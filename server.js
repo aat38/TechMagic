@@ -26,21 +26,7 @@ app.get("/", (req, res) => {
 
 //-------------------------------GETS-----------------------------------
 
-
-//GET list of employees/////////////////////////////////////////////////
-app.get("/employees", (request, response) => {
-  client.connect();
-  client.query("SELECT * from employee").then(
-    function(resp) {
-      response.locals.emp = resp.rows;
-      response.render("index", { emp: response.locals.emp });
-    },
-    function(err) {
-      console.log(err);
-    }
-  );
-});
-
+//CLAIMS
 //GET all claims (independent of claim status)//////////////////////////
 app.get("/claims", (request, response) => {
   client.connect();
@@ -84,6 +70,61 @@ app.get("/claims/closed", (request, response) => {
   );
 });
 
+//GET claims by oldest//////////////////////////////////////////////////
+app.get("/claims/oldest", (request, response) => {
+  client.connect();
+  client.query("select * from claim order by dateopened ASC").then(
+    function(resp) {
+      console.log("Successfully retrieved claims in order of oldest");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//GET claims by newest//////////////////////////////////////////////////
+app.get("/claims/newest", (request, response) => {
+  client.connect();
+  client.query("select * from claim order by dateopened DESC").then(
+    function(resp) {
+      console.log("Successfully retrieved claims in order of newest");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//GET claim information based on STATUS DESC/////////////shows open first//////////////////
+app.get("/claims/status/desc", (request, response) => {
+  client.connect();
+  client.query("select * from all_claims order by status DESC").then(
+    function(resp) {
+      console.log("Successfully retrieved claims by status");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//GET claim information based on STATUS ASC/////////////shows closed first////////////////
+app.get("/claims/status/asc", (request, response) => {
+  client.connect();
+  client.query("select * from all_claims order by status ASC").then(
+    function(resp) {
+      console.log("Successfully retrieved claims by status");
+      console.log(resp.rows)
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
 
 //GET all claims belonging to an EMPLOYEE based on their ID passed to this endpoint
 //(independent of claim status)/////////////////////////////////////////////////////
@@ -121,35 +162,7 @@ app.get("/claims/comments/:commentid", (request, response) => {
   );
 });
 
-
-//GET claim information based on STATUS DESC/////////////shows open first//////////////////
-app.get("/claims/status/desc", (request, response) => {
-  client.connect();
-  client.query("select * from all_claims order by status DESC").then(
-    function(resp) {
-      console.log("Successfully retrieved claims by status");
-      console.log(resp.rows)
-    },
-    function(err) {
-      console.log(err);
-    }
-  );
-});
-
-//GET claim information based on STATUS ASC/////////////shows closed first////////////////
-app.get("/claims/status/asc", (request, response) => {
-  client.connect();
-  client.query("select * from all_claims order by status ASC").then(
-    function(resp) {
-      console.log("Successfully retrieved claims by status");
-      console.log(resp.rows)
-    },
-    function(err) {
-      console.log(err);
-    }
-  );
-});
-
+//CUSTOMERS
 //GET all customers//////////////////////////////////////////////////
 app.get("/customers", (request, response) => {
   client.connect();
@@ -164,13 +177,14 @@ app.get("/customers", (request, response) => {
   );
 });
 
-//GET claims by oldest//////////////////////////////////////////////////
-app.get("/claims/oldest", (request, response) => {
+//EMPLOYEES
+//GET list of employees/////////////////////////////////////////////////
+app.get("/employees", (request, response) => {
   client.connect();
-  client.query("select * from claim order by dateopened ASC").then(
+  client.query("SELECT * from employee").then(
     function(resp) {
-      console.log("Successfully retrieved claims in order of oldest");
-      console.log(resp.rows)
+      response.locals.emp = resp.rows;
+      response.render("index", { emp: response.locals.emp });
     },
     function(err) {
       console.log(err);
@@ -178,20 +192,7 @@ app.get("/claims/oldest", (request, response) => {
   );
 });
 
-//GET claims by newest//////////////////////////////////////////////////
-app.get("/claims/newest", (request, response) => {
-  client.connect();
-  client.query("select * from claim order by dateopened DESC").then(
-    function(resp) {
-      console.log("Successfully retrieved claims in order of newest");
-      console.log(resp.rows)
-    },
-    function(err) {
-      console.log(err);
-    }
-  );
-});
-
+//PURCHASES
 //GET purchase history by customer --DOESNT WORK because "item count" needs to be changed to "itemcount" first
 app.get("/purchases/:customerid", (request, response) => {
   var vars= [request.params.customerid];
@@ -209,6 +210,7 @@ app.get("/purchases/:customerid", (request, response) => {
   );
 });
 
+//RESOLUTIONS
 //GET resolutions by product////////////////////////////////////////////
 app.get("/resolutions/product/:productname", (request, response) => {
   var prod= [''+ request.params.productname];
@@ -229,6 +231,7 @@ var query=("select product.name as product, resolution.name as resolution, claim
 
 //-------------------------------POSTS-----------------------------------
 
+//CLAIMS
 
 //POST// create a customer /////////////////////////////////////////////
 app.post("/customers", (request, response) => {
@@ -282,7 +285,7 @@ app.post("/claims/comments", (request, response) => {
 });
 
 //POST a new claim///////////////////////////////////////////////////////
-app.post("/claims/new", (request, response) => {
+app.post("/claims", (request, response) => {
   const quer =("insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)");
   const vals =[
     request.body.productpurchaseid, 
