@@ -165,7 +165,7 @@ app.get("/customers", (request, response) => {
 });
 
 //GET claims by oldest//////////////////////////////////////////////////
-app.get("/data/claims/opendate/oldest", (request, response) => {
+app.get("/claims/oldest", (request, response) => {
   client.connect();
   client.query("select * from claim order by dateopened ASC").then(
     function(resp) {
@@ -179,7 +179,7 @@ app.get("/data/claims/opendate/oldest", (request, response) => {
 });
 
 //GET claims by newest//////////////////////////////////////////////////
-app.get("/data/claims/opendate/newest", (request, response) => {
+app.get("/claims/newest", (request, response) => {
   client.connect();
   client.query("select * from claim order by dateopened DESC").then(
     function(resp) {
@@ -193,7 +193,7 @@ app.get("/data/claims/opendate/newest", (request, response) => {
 });
 
 //GET purchase history by customer --DOESNT WORK because "item count" needs to be changed to "itemcount" first
-app.get("/data/purchases/:customerid", (request, response) => {
+app.get("/purchases/:customerid", (request, response) => {
   var vars= [request.params.customerid];
   var query =("select concat_ws(' ', customer.firstname, customer.lastname)AS customer, purchase.date, count(productpurchase.purchaseid) as itemcount, purchase.totalcost from customer left join purchase on customer.customerid = purchase.customerid left join productpurchase on purchase.purchaseid = productpurchase.purchaseid where customer.customerid = $1 group by purchase.purchaseid, customer.customerid order by purchase.date desc")
   client.connect();
@@ -210,7 +210,7 @@ app.get("/data/purchases/:customerid", (request, response) => {
 });
 
 //GET resolutions by product////////////////////////////////////////////
-app.get("/data/resolutions/:productname", (request, response) => {
+app.get("/resolutions/product/:productname", (request, response) => {
   var prod= [''+ request.params.productname];
 var query=("select product.name as product, resolution.name as resolution, claim.description as Claim from resolution, claim, productpurchase, product where resolution.resolutionid = claim.resolutionid and claim.productpurchaseid = productpurchase.productpurchaseid and productpurchase.productid = product.productid and product.name = $1");
   client.connect();
@@ -231,7 +231,7 @@ var query=("select product.name as product, resolution.name as resolution, claim
 
 
 //POST// create a customer /////////////////////////////////////////////
-app.post("/data/customers", (request, response) => {
+app.post("/customers", (request, response) => {
   const quer =("INSERT INTO customer (firstname, lastname, addressid, income, email, phone) VALUES ($1, $2, $3, $4, $5, $6)");
   const vals =[
     ''+request.body.firstname, 
@@ -258,7 +258,7 @@ app.post("/data/customers", (request, response) => {
 });
 
 //POST claim comments///////////////////////////////////////////
-app.post("/data/claims/comments", (request, response) => {
+app.post("/claims/comments", (request, response) => {
   const quer =("insert into comment (claimid, description, date, employeeid) values($1, $2, current_timestamp, $3)");
   const vals =[
     request.body.claimid, 
@@ -282,7 +282,7 @@ app.post("/data/claims/comments", (request, response) => {
 });
 
 //POST a new claim///////////////////////////////////////////////////////
-app.post("/data/newclaim", (request, response) => {
+app.post("/claims/new", (request, response) => {
   const quer =("insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)");
   const vals =[
     request.body.productpurchaseid, 
@@ -308,7 +308,7 @@ app.post("/data/newclaim", (request, response) => {
 });
 
 //POST new issue type////////////////////////////////////////////////////
-app.post("/data/newissue", (request, response) => {
+app.post("/issues/new", (request, response) => {
   const vars=[request.body.issue, request.body.description]
   const quer =("INSERT INTO issue(name, description) VALUES ($1, $2)")
   client.connect();
@@ -328,7 +328,7 @@ app.post("/data/newissue", (request, response) => {
 });
 
 //POST new product//////////////////////////////////////////////////////
-app.post("/data/newitem", (request, response) => {
+app.post("/product/new", (request, response) => {
   const quer =
     "INSERT INTO product(name, description, unitcost) VALUES($1,$2,$3)";
   const vals = [
@@ -353,7 +353,7 @@ app.post("/data/newitem", (request, response) => {
 });
 
 //POST new employee given existing address//////////////////////////////
-app.post("/data/newEmployee", (request, response) => {
+app.post("/employees/new", (request, response) => {
   // console.log(request.body)
   const employeeQuery =
     "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2,$3, $4, $5, $6 )";
@@ -384,7 +384,7 @@ app.post("/data/newEmployee", (request, response) => {
 });
 
 //POST new address///////////////////////////////////////////////////
-app.post("/data/newaddress", (request, response) => {
+app.post("/addresses/new", (request, response) => {
   const quer =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
   const addressValues = [
@@ -415,7 +415,7 @@ app.post("/data/newaddress", (request, response) => {
 
 //POST new employee WITH new address/////////////////////////////////////////
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
-app.post("/data/newemployee/newaddress", (request, response) => {
+app.post("/employees/new/address", (request, response) => {
   const addressQuery =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
   const addressValues = [
@@ -460,7 +460,7 @@ app.post("/data/newemployee/newaddress", (request, response) => {
 
 
 //PUT// close a claim and submit a resolution in one request////////////
-app.put("/data/update/addresolutionandclose", (request, response) => {
+app.put("/resolutions/update/close", (request, response) => {
   const quer =("update claim set resolutionid = $1, status = 'Closed', dateclosed = current_timestamp where claimid = $2");
   const vals =[request.body.resolutionid,request.body.claimid];
   client.connect();
@@ -481,7 +481,7 @@ app.put("/data/update/addresolutionandclose", (request, response) => {
 
 
 //PUT//CLOSE claims/////////////////////////////////////////////////////
-app.put("/data/update/claim", (request, response) => {
+app.put("/claims/update", (request, response) => {
   const quer =("UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1");
   const vals =[request.body.claimid];
   client.connect();
