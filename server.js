@@ -34,6 +34,7 @@ app.get("/claims", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved ALL claims and claims information");
       console.log(resp.rows)
+      return resp.rows
       //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
     },
     function(err) {
@@ -49,6 +50,7 @@ app.get("/claims/open", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved all open claims");
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -63,6 +65,7 @@ app.get("/claims/closed", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved all closed claims");
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -77,6 +80,7 @@ app.get("/claims/oldest", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved claims in order of oldest");
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -90,7 +94,7 @@ app.get("/claims/newest", (request, response) => {
   client.query("select * from claim order by dateopened DESC").then(
     function(resp) {
       console.log("Successfully retrieved claims in order of newest");
-      console.log(resp.rows)
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -105,6 +109,7 @@ app.get("/claims/status/desc", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved claims by status");
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -119,6 +124,7 @@ app.get("/claims/status/asc", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved claims by status");
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -138,6 +144,7 @@ app.get("/claims/employees/:employeeid", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved ALL claims belonging to "+ employeeid);
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -155,6 +162,7 @@ app.get("/claims/comments/:commentid", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved claim information from claimId="+ claimid);
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -170,6 +178,7 @@ app.get("/customers", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved all customers");
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -183,7 +192,8 @@ app.get("/employees", (request, response) => {
   client.connect();
   client.query("SELECT * from employee").then(
     function(resp) {
-      console.log(resp.rows);
+      console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -202,6 +212,7 @@ app.get("/purchases/customer/:customerid", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved purchase history of customer "+ request.params.customerid);
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -220,6 +231,7 @@ var query=("select product.name as product, resolution.name as resolution, claim
     function(resp) {
       console.log("Successfully retrieved resolutions for "+ request.params.productname);
       console.log(resp.rows)
+      return resp.rows
     },
     function(err) {
       console.log(err);
@@ -247,6 +259,7 @@ app.post("/claims", (request, response) => {
     .then(
       res => {
         console.log("Successfully added claim,("+request.body.productpurchaseid+ ", " + request.body.status + ", " + request.body.description+ ", " + request.body.dateopened+ ", " +  request.body.resolutionid);
+        //return res.rows
       },
       err => {
         console.log(
@@ -271,6 +284,7 @@ app.post("/claims/comments", (request, response) => {
     .then(
       res => {
         console.log("Successfully added comments");
+        //return res.rows
       },
       err => {
         console.log(
