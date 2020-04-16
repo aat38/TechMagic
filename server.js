@@ -4,7 +4,7 @@ const path = require("path");
 const app = express();
 
 app.use("/public", express.static(path.join(__dirname)));
-app.use('/', routes)
+app.use('/', __dirname + "/routes/")
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views/");//tell express where to get views and which template engine to use
 var bodyParser = require('body-parser')
