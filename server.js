@@ -26,34 +26,18 @@ app.get("/", (req, res) => {
 
 ///////////////////////routing client side only//////////////////////////
 app.get("/test", function(req, res, next) {
-  let status; 
-fetch('https://ejs-views-practice.glitch.me/claims/open')
-  .then((res) => { 
-    status = res.rows; 
-    return res.json() 
-  })
-  .then((jsonData) => {
-    console.log(jsonData);
-    console.log(status);
-  })
-  .catch((err) => {
-    // handle error for example
-    console.error(err);
-  });
-  // var returned;
-  // fetch("https://ejs-views-practice.glitch.me/claims/open").then(
-  //   function(data) {      
-  //     returned = JSON.stringify(data);
-  //     console.log(returned);
-  //     res.render("test", { claims: returned });
-  //   },
-  //   err => {
-  //     console.log("err");
-  //   }
-  // );
+  var returned;
+  fetch("https://ejs-views-practice.glitch.me/claims/open").then(
+    function(data) {      
+      returned = JSON.stringify(data);
+      console.log(returned);
+      res.render("test", { claims: returned });
+    },
+    err => {
+      console.log("err");
+    }
+  );
 });
-
-
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -83,8 +67,8 @@ app.get("/claims/open", (request, response) => {
     .query("select * from claim where status = 'Open'")
     .then(
       function(resp) {
-        console.log("Successfully retrieved all open claims");
-       response.json();
+      console.log("Successfully retrieved all open claims");
+       resp.rows;
 
       },
       function(err) {
