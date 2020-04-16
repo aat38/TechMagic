@@ -1,3 +1,6 @@
+<%- include("partials/header") %>
+
+
 <% if (locals.claims) { %> 
 <h1>
   Closed Claims
@@ -6,25 +9,29 @@
 <% var myDate = new Date(result.dateopened) %>
 <% var output = myDate.getDate() + "\\" +  (myDate.getMonth()+1) + "\\" + myDate.getFullYear() %>
 
-<table class="table .table-hover">
-  <tr>
-    <th>Customer</th>
-    <th>Product</th>
-    <th>Issue</th>
-    <th>Description</th>
-    <th>Technician</th>
-    <th>Open Date</th>
-    <th>Resolution</th>
-  </tr>
-  <tr>
-    <td><%=result.customer%></td>
-    <td><%=result.product%></td>
-    <td><%=result.issue%></td>
-    <td><%=result.description%></td>
-    <td><%=result.employee%></td>
-    <td><%= output %></td>
-    <td><%=result.resolution%></td>
-  </tr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Product</th>
+      <th>Issue</th>
+      <th>Description</th>
+      <th>Technician</th>
+      <th>Open Date</th>
+      <th>Resolution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%=result.customer%></td>
+      <td><%=result.product%></td>
+      <td><%=result.issue%></td>
+      <td><%=result.description%></td>
+      <td><%=result.employee%></td>
+      <td><%= output %></td>
+      <td><%=result.resolution%></td>
+    </tr>    
+  </tbody>
 </table>
 </p>
 <%})%>
@@ -33,3 +40,5 @@
  No Closed Claims Found
 </h1>
 <%}%>
+
+<%- include("partials/footer") %>
