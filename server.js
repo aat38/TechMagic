@@ -2,6 +2,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const fetch = require("node-fetch");
 const { Client } = require("pg");
 // import {Client} from "pg"; ^^^ is what line above is absically saying
 
@@ -24,16 +25,14 @@ app.get("/", (req, res) => {
 });//*****************************//
 
 ///////////////////////routing client side only//////////////////////////
+app.get('/test', function(req, res, next) {
+  // fetch('https://ejs-views-practice.glitch.me/claims/open').then(res => res.json()).then(function(data) {
+    // res.render("test", { claims: data.json()});
+    // });
 
-app.get("/test", async(req, res) => {
-  const obj = await fetchData()
-  res.render("test", { "claims"obj });
+  res.render("test")
 });
 
-function fetchData(){
-  return fetch("https://ejs-views-practice.glitch.me/claims/open")
-      .then(res => res.json())
-}
 
 /////////////////////////////////////////////////////////////////////////
 
