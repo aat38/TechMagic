@@ -16,7 +16,7 @@ clientrouter.get("/", (req, res) => {
 
 clientrouter.get("/openclaims", function(req, res, next) {
   axios
-    .get("https://ejs-views-practice.glitch.me/api/claims/open", { headers })
+    .get("/api/claims/open", { headers })
     .then(function(response) {
       res.render("openclaims", { claims: response.data });
     })
@@ -27,7 +27,7 @@ clientrouter.get("/openclaims", function(req, res, next) {
 
 clientrouter.get("/closedclaims", function(req, res, next) {
   axios
-    .get("https://ejs-views-practice.glitch.me/api/claims/closed", { headers })
+    .get("/api/claims/closed", { headers })
     .then(function(response) {
       res.render("closedclaims", { claims: response.data });
     })
