@@ -29,12 +29,12 @@ app.get("/test", function(req, res, next) {
   var returned;
   fetch("https://ejs-views-practice.glitch.me/claims/open").then(
     function(data) {
-      console.log('asdl;fkjasd;lfkjas;ldf');
       returned = data.json();
+      console.log(returned);
       res.render("test", { claims: returned });
     },
     err => {
-      console.log("shidd n fard");
+      console.log("err");
     }
   );
 });
@@ -63,15 +63,13 @@ app.get("/claims", (request, response) => {
 //GET all open claims//////////////////////////////////////////////////
 app.get("/claims/open", (request, response) => {
   client.connect();
-  let resp = client
+  client
     .query("select * from claim where status = 'Open'")
     .then(
       function(resp) {
         console.log("Successfully retrieved all open claims");
         console.log(resp.rows);
-        console.log("Successfully retrieved all open claims");
-        return resp.rows;
-        console.log("Successfully retrieved all open claims");
+        response.json();
       },
       function(err) {
         console.log("NOOOOOOOOOOOOOOOOOOOOOOOOO retrieved all open claims");
