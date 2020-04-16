@@ -1,4 +1,5 @@
 ///////////////////////////////// API ///////////////////////////////////
+//////////////////////// all routes begin with /api /////////////////////
 const express = require("express");
 const apirouter = express.Router();
 const { Client } = require("pg");// import {Client} from "pg"; is what line is absically saying
@@ -8,10 +9,12 @@ const client = new Client({
   ssl: true//ssl needs to be set to true bc heroku reqires this
 });
 
-//-------------------------------GETS-----------------------------------
+
+/////////////////////////////// ROUTES//////////////////////////////////
+//-------------------------------GETS----------------------------------
 
 //CLAIMS
-//GET all claims (independent of claim status)//////////////////////////
+//GET all claims (independent of claim status)-------------------------
 apirouter.get("/claims", (request, response) => {
   client.connect();
   return client.query("Select * from all_claims").then(
@@ -27,12 +30,13 @@ apirouter.get("/claims", (request, response) => {
   );
 });
 
-//GET all open claims//////////////////////////////////////////////////
+//GET all open claims -------------------------------------------------
 apirouter.get("/claims/open", (request, response) => {
   client.connect();
   client.query("select * from claim where status = 'Open'").then(
     function(resp) {
       console.log("Successfully retrieved all open claims");
+      console.log(resp.rows)
       response.send(resp.rows);
     },
     function(err) {
@@ -43,7 +47,7 @@ apirouter.get("/claims/open", (request, response) => {
   );
 });
 
-//GET all closed claims//////////////////////////////////////////////////
+//GET all closed claims ----------------------------------------------
 apirouter.get("/claims/closed", (request, response) => {
   client.connect();
   client.query("select * from claim where status = 'Closed'").then(
@@ -58,7 +62,7 @@ apirouter.get("/claims/closed", (request, response) => {
   );
 });
 
-//GET claims by oldest//////////////////////////////////////////////////
+//GET claims by oldest -----------------------------------------------
 apirouter.get("/claims/oldest", (request, response) => {
   client.connect();
   client.query("select * from claim order by dateopened ASC").then(
@@ -73,7 +77,7 @@ apirouter.get("/claims/oldest", (request, response) => {
   );
 });
 
-//GET claims by newest//////////////////////////////////////////////////
+//GET claims by newest -----------------------------------------------
 apirouter.get("/claims/newest", (request, response) => {
   client.connect();
   client.query("select * from claim order by dateopened DESC").then(
@@ -87,7 +91,7 @@ apirouter.get("/claims/newest", (request, response) => {
   );
 });
 
-//GET claim information based on STATUS DESC/////////////shows open first//////////////////
+//GET claim information based on STATUS DESC ---------shows open first 
 apirouter.get("/claims/status/desc", (request, response) => {
   client.connect();
   client.query("select * from all_claims order by status DESC").then(
@@ -102,7 +106,7 @@ apirouter.get("/claims/status/desc", (request, response) => {
   );
 });
 
-//GET claim information based on STATUS ASC/////////////shows closed first////////////////
+//GET claim information based on STATUS ASC ----------shows closed first 
 apirouter.get("/claims/status/asc", (request, response) => {
   client.connect();
   client.query("select * from all_claims order by status ASC").then(
@@ -118,7 +122,7 @@ apirouter.get("/claims/status/asc", (request, response) => {
 });
 
 //GET all claims belonging to an EMPLOYEE based on their ID passed to this endpoint
-//(independent of claim status)/////////////////////////////////////////////////////
+//(independent of claim status) ---------------------------------------------------
 apirouter.get("/claims/employees/:employeeid", (request, response) => {
   // console.log(request.params.employeeId)
   var employeeid = [request.params.employeeid];
@@ -139,7 +143,7 @@ apirouter.get("/claims/employees/:employeeid", (request, response) => {
   );
 });
 
-//GET claim information based on claimId////////////////////////////////////
+//GET claim information based on claimId ----------------------------
 apirouter.get("/claims/comments/:commentid", (request, response) => {
   var claimid = [request.params.claimid];
   var query =
@@ -160,7 +164,7 @@ apirouter.get("/claims/comments/:commentid", (request, response) => {
 });
 
 //CUSTOMERS
-//GET all customers//////////////////////////////////////////////////
+//GET all customers --------------------------------------------------
 apirouter.get("/customers", (request, response) => {
   client.connect();
   client.query("select * from customer").then(
@@ -176,7 +180,7 @@ apirouter.get("/customers", (request, response) => {
 });
 
 //EMPLOYEES
-//GET list of employees/////////////////////////////////////////////////
+//GET list of employees ----------------------------------------------
 apirouter.get("/employees", (request, response) => {
   client.connect();
   client.query("SELECT * from employee").then(
@@ -213,7 +217,7 @@ apirouter.get("/purchases/customer/:customerid", (request, response) => {
 });
 
 //RESOLUTIONS
-//GET resolutions by product////////////////////////////////////////////
+//GET resolutions by product ----------------------------------------
 apirouter.get("/resolutions/product/:productname", (request, response) => {
   var prod = ["" + request.params.productname];
   var query =
@@ -233,10 +237,10 @@ apirouter.get("/resolutions/product/:productname", (request, response) => {
   );
 });
 
-//-------------------------------POSTS-----------------------------------
+//-------------------------------POSTS--------------------------------
 
 //CLAIMS
-//POST a new claim///////////////////////////////////////////////////////
+//POST a new claim ---------------------------------------------------
 apirouter.post("/claims", (request, response) => {
   const quer =
     "insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)";
@@ -275,7 +279,7 @@ apirouter.post("/claims", (request, response) => {
     });
 });
 
-//POST claim comments///////////////////////////////////////////
+//POST claim comments -----------------------------------------------
 apirouter.post("/claims/comments", (request, response) => {
   const quer =
     "insert into comment (claimid, description, date, employeeid) values($1, $2, current_timestamp, $3)";
@@ -302,7 +306,7 @@ apirouter.post("/claims/comments", (request, response) => {
 });
 
 //CUSTOMERS
-//POST// create a customer /////////////////////////////////////////////
+//POST// create a customer -------------------------------------------
 apirouter.post("/customers", (request, response) => {
   const quer =
     "INSERT INTO customer (firstname, lastname, addressid, income, email, phone) VALUES ($1, $2, $3, $4, $5, $6)";
@@ -331,7 +335,7 @@ apirouter.post("/customers", (request, response) => {
 });
 
 //ISSUES
-//POST new issue type////////////////////////////////////////////////////
+//POST new issue type ------------------------------------------------
 apirouter.post("/issues", (request, response) => {
   const vars = [request.body.issue, request.body.description];
   const quer = "INSERT INTO issue(name, description) VALUES ($1, $2)";
@@ -352,7 +356,7 @@ apirouter.post("/issues", (request, response) => {
 });
 
 //PRODUCTS
-//POST new product//////////////////////////////////////////////////////
+//POST new product ---------------------------------------------------
 apirouter.post("/products", (request, response) => {
   const quer =
     "INSERT INTO product(name, description, unitcost) VALUES($1,$2,$3)";
@@ -378,7 +382,7 @@ apirouter.post("/products", (request, response) => {
 });
 
 //EMPLOYEES
-//POST new employee given existing address//////////////////////////////
+//POST new employee given existing address -------------------------
 apirouter.post("/employees", (request, response) => {
   // console.log(request.body)
   const employeeQuery =
@@ -409,7 +413,7 @@ apirouter.post("/employees", (request, response) => {
     });
 });
 
-//POST new employee WITH new address/////////////////////////////////////////
+//POST new employee WITH new address ---------------------------------
 //[needs to be a nested promise where address is added first and then second promise actually adds employee]
 apirouter.post("/employees/address", (request, response) => {
   const addressQuery =
@@ -460,7 +464,7 @@ apirouter.post("/employees/address", (request, response) => {
 });
 
 //ADDRESSES
-//POST new address///////////////////////////////////////////////////
+//POST new address --------------------------------------------------
 apirouter.post("/addresses", (request, response) => {
   const quer =
     "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
@@ -490,9 +494,9 @@ apirouter.post("/addresses", (request, response) => {
     });
 });
 
-//-------------------------------PUTS------------------------------------
+//-------------------------------PUTS----------------------------------
 
-//PUT// close a claim and submit a resolution in one request////////////
+//PUT// close a claim and submit a resolution in one request ----------
 apirouter.put("/resolutions/update/close", (request, response) => {
   const quer =
     "update claim set resolutionid = $1, status = 'Closed', dateclosed = current_timestamp where claimid = $2";
@@ -513,7 +517,7 @@ apirouter.put("/resolutions/update/close", (request, response) => {
     });
 });
 
-//PUT// change status of claims/////////////////////////////////////////////////////
+//PUT// change status of claims -----------------------------------------
 apirouter.put("/claims/update", (request, response) => {
   const quer =
     "UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1";
