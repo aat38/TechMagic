@@ -7,6 +7,7 @@ const headers = {
   "Access-Control-Allow-Origin": "*" //not necessary. really only needed if calling api from outside our application
 };
 
+const baseURL = "https://ejs-views-practice.glitch.me";
 
 /////////////////////////////////ROUTES//////////////////////////////////
 
@@ -16,7 +17,7 @@ clientrouter.get("/", (req, res) => {
 
 clientrouter.get("/openclaims", function(req, res, next) {
   axios
-    .get("/api/claims/open", { headers })
+    .get(baseURL +"/api/claims/open", { headers })
     .then(function(response) {
       res.render("openclaims", { claims: response.data });
     })
@@ -27,7 +28,7 @@ clientrouter.get("/openclaims", function(req, res, next) {
 
 clientrouter.get("/closedclaims", function(req, res, next) {
   axios
-    .get("/api/claims/closed", { headers })
+    .get(baseURL + "/api/claims/closed", { headers })
     .then(function(response) {
       res.render("closedclaims", { claims: response.data });
     })

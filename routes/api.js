@@ -20,7 +20,7 @@ apirouter.get("/claims", (request, response) => {
   return client.query("Select * from all_claims").then(
     function(resp) {
       console.log("Successfully retrieved ALL claims and claims information");
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
       //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
     },
@@ -36,7 +36,7 @@ apirouter.get("/claims/open", (request, response) => {
   client.query("select * from all_claims where status = 'Open'").then(
     function(resp) {
       console.log("Successfully retrieved all open claims");
-      console.log(resp.rows)
+      // console.log(resp.rows)
       response.send(resp.rows);
     },
     function(err) {
@@ -53,7 +53,7 @@ apirouter.get("/claims/closed", (request, response) => {
   client.query("select * from all_claims where status = 'Closed'").then(
     function(resp) {
       console.log("Successfully retrieved all closed claims");
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -68,7 +68,7 @@ apirouter.get("/claims/oldest", (request, response) => {
   client.query("select * from all_claims order by dateopened ASC").then(
     function(resp) {
       console.log("Successfully retrieved claims in order of oldest");
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -97,7 +97,7 @@ apirouter.get("/claims/status/desc", (request, response) => {
   client.query("select * from all_claims order by status DESC").then(
     function(resp) {
       console.log("Successfully retrieved claims by status");
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -112,7 +112,7 @@ apirouter.get("/claims/status/asc", (request, response) => {
   client.query("select * from all_claims order by status ASC").then(
     function(resp) {
       console.log("Successfully retrieved claims by status");
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -134,7 +134,7 @@ apirouter.get("/claims/employees/:employeeid", (request, response) => {
       console.log(
         "Successfully retrieved ALL claims belonging to " + employeeid
       );
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -154,7 +154,7 @@ apirouter.get("/claims/comments/:commentid", (request, response) => {
       console.log(
         "Successfully retrieved claim information from claimId=" + claimid
       );
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -170,7 +170,7 @@ apirouter.get("/customers", (request, response) => {
   client.query("select * from customer").then(
     function(resp) {
       console.log("Successfully retrieved all customers");
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -185,7 +185,7 @@ apirouter.get("/employees", (request, response) => {
   client.connect();
   client.query("SELECT * from employee").then(
     function(resp) {
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -207,7 +207,7 @@ apirouter.get("/purchases/customer/:customerid", (request, response) => {
         "Successfully retrieved purchase history of customer " +
           request.params.customerid
       );
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -228,7 +228,7 @@ apirouter.get("/resolutions/product/:productname", (request, response) => {
       console.log(
         "Successfully retrieved resolutions for " + request.params.productname
       );
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
