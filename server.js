@@ -4,6 +4,10 @@ const path = require("path");
 const app = express();
 const fetch = require("node-fetch");
 const { Client } = require("pg");
+const axios = require("axios");
+const headers = {
+  "Access-Control-Allow-Origin": "*"
+};
 // import {Client} from "pg"; ^^^ is what line above is absically saying
 
 const client = new Client({
@@ -26,17 +30,14 @@ app.get("/", (req, res) => {
 
 ///////////////////////routing client side only//////////////////////////
 app.get("/test", function(req, res, next) {
-  var returned;
-  fetch("https://ejs-views-practice.glitch.me/claims/open").then(
-    function(data) {      
-      returned = JSON.stringify(data);
-      console.log(returned);
-      res.render("test", { claims: returned });
-    },
-    err => {
-      console.log("err");
-    }
-  );
+  axios
+    .get("https://ejs-views-practice.glitch.me/claims/open", { headers })
+    .then(function(response) {
+      res.render("test", { claims: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 });
 
 /////////////////////////////////////////////////////////////////////////
@@ -51,7 +52,7 @@ app.get("/claims", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved ALL claims and claims information");
       console.log(resp.rows);
-      return resp.rows;
+      response.send(resp.rows);
       //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
     },
     function(err) {
@@ -63,21 +64,17 @@ app.get("/claims", (request, response) => {
 //GET all open claims//////////////////////////////////////////////////
 app.get("/claims/open", (request, response) => {
   client.connect();
-  client
-    .query("select * from claim where status = 'Open'")
-    .then(
-      function(resp) {
+  client.query("select * from claim where status = 'Open'").then(
+    function(resp) {
       console.log("Successfully retrieved all open claims");
-       resp.rows;
-
-      },
-      function(err) {
-        console.log("Could not retrieve all open claims");
-        console.log(err);
-        return err;
-      }
-    );
-
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log("Could not retrieve all open claims");
+      console.log(err);
+      return err;
+    }
+  );
 });
 
 //GET all closed claims//////////////////////////////////////////////////
@@ -87,7 +84,7 @@ app.get("/claims/closed", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved all closed claims");
       console.log(resp.rows);
-      return resp.rows;
+      response.send(resp.rows);
     },
     function(err) {
       console.log(err);
@@ -102,7 +99,7 @@ app.get("/claims/oldest", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved claims in order of oldest");
       console.log(resp.rows);
-      return resp.rows;
+      response.send(resp.rows);
     },
     function(err) {
       console.log(err);
@@ -116,7 +113,7 @@ app.get("/claims/newest", (request, response) => {
   client.query("select * from claim order by dateopened DESC").then(
     function(resp) {
       console.log("Successfully retrieved claims in order of newest");
-      return resp.rows;
+      response.send(resp.rows);
     },
     function(err) {
       console.log(err);
@@ -131,7 +128,7 @@ app.get("/claims/status/desc", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved claims by status");
       console.log(resp.rows);
-      return resp.rows;
+      response.send(resp.rows);
     },
     function(err) {
       console.log(err);
@@ -146,7 +143,7 @@ app.get("/claims/status/asc", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved claims by status");
       console.log(resp.rows);
-      return resp.rows;
+      response.send(resp.rows);
     },
     function(err) {
       console.log(err);
