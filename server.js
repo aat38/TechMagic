@@ -27,11 +27,16 @@ app.get("/", (req, res) => {
 ///////////////////////routing client side only//////////////////////////
 app.get("/test", function(req, res, next) {
   var returned;
-  fetch("https://ejs-views-practice.glitch.me/claims/open")
-    .then(function(data) {
+  fetch("https://ejs-views-practice.glitch.me/claims/open").then(
+    function(data) {
+      console.log('asdl;fkjasd;lfkjas;ldf');
       returned = data.json();
       res.render("test", { claims: returned });
-    });
+    },
+    err => {
+      console.log("shidd n fard");
+    }
+  );
 });
 
 /////////////////////////////////////////////////////////////////////////
@@ -42,7 +47,7 @@ app.get("/test", function(req, res, next) {
 //GET all claims (independent of claim status)//////////////////////////
 app.get("/claims", (request, response) => {
   client.connect();
-  client.query("Select * from all_claims").then(
+  return client.query("Select * from all_claims").then(
     function(resp) {
       console.log("Successfully retrieved ALL claims and claims information");
       console.log(resp.rows);
@@ -58,17 +63,23 @@ app.get("/claims", (request, response) => {
 //GET all open claims//////////////////////////////////////////////////
 app.get("/claims/open", (request, response) => {
   client.connect();
-  client.query("select * from claim where status = 'Open'").then(
-    function(resp) {
-      console.log("Successfully retrieved all open claims");
-      console.log(resp.rows);
-      return resp.rows;
-    },
-    function(err) {
-      console.log(err);
-      return err;
-    }
-  );
+  let resp = client
+    .query("select * from claim where status = 'Open'")
+    .then(
+      function(resp) {
+        console.log("Successfully retrieved all open claims");
+        console.log(resp.rows);
+        console.log("Successfully retrieved all open claims");
+        return resp.rows;
+        console.log("Successfully retrieved all open claims");
+      },
+      function(err) {
+        console.log("NOOOOOOOOOOOOOOOOOOOOOOOOO retrieved all open claims");
+        console.log(err);
+        return err;
+      }
+    );
+
 });
 
 //GET all closed claims//////////////////////////////////////////////////
