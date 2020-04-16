@@ -14,11 +14,22 @@ clientrouter.get("/", (req, res) => {
   res.render("index");
 }); 
 
-clientrouter.get("/claims", function(req, res, next) {
+clientrouter.get("/openclaims", function(req, res, next) {
   axios
     .get("https://ejs-views-practice.glitch.me/api/claims/open", { headers })
     .then(function(response) {
-      res.render("claims", { claims: response.data });
+      res.render("openclaims", { claims: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
+
+clientrouter.get("/closedclaims", function(req, res, next) {
+  axios
+    .get("https://ejs-views-practice.glitch.me/api/claims/closed", { headers })
+    .then(function(response) {
+      res.render("closedclaims", { claims: response.data });
     })
     .catch(function(error) {
       console.log(error);

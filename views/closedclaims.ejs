@@ -1,9 +1,12 @@
 <% if (locals.claims) { %> 
 <h1>
-  Open Claims
+  Closed Claims
 </h1>
 <% claims.forEach(result=>{ %>
-<table>
+<% var myDate = new Date(result.dateopened) %>
+<% var output = myDate.getDate() + "\\" +  (myDate.getMonth()+1) + "\\" + myDate.getFullYear() %>
+
+<table class="table .table-hover">
   <tr>
     <th>Customer</th>
     <th>Product</th>
@@ -19,7 +22,7 @@
     <td><%=result.issue%></td>
     <td><%=result.description%></td>
     <td><%=result.employee%></td>
-    <td><%=result.dateopened%> </td>
+    <td><%= output %></td>
     <td><%=result.resolution%></td>
   </tr>
 </table>
@@ -27,6 +30,6 @@
 <%})%>
 <%}else{%>
 <h1>
- No Open Claims
+ No Closed Claims Found
 </h1>
 <%}%>
