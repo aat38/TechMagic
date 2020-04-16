@@ -68,7 +68,8 @@ app.get("/claims/open", (request, response) => {
     .then(
       function(resp) {
         console.log("Successfully retrieved all open claims");
-        response.send({data: resp.rows})  
+        resp();
+
       },
       function(err) {
         console.log("Could not retrieve all open claims");
