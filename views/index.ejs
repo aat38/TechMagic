@@ -1,41 +1,10 @@
-<!doctype html>
 
-<html lang="en">
-  
-<head>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="/static/script.js"></script>
-  </head>
+
+<%- include("partials/header") %>
 
 <body>
-<h1>hey</h1>
-<form>
-  <button formmethod"GET" type="submit"> Click me</button>
-</form>
-<button><a href="https://ejs-views-practice.glitch.me/test">Click me next</a></button>
-
-
-  <% if (locals.names) { %> 
-    <% JSON.stringify(names) %> 
-    <h4>Names inside our database:</h4>
-    <% names.forEach(result=>{ %>
-    <ul>
-       <li><%= result.name %></li> 
-    </ul>
-    <% }); %>
-  <% }%>
-  
-    <% if (locals.emp) { %> 
-    <h4>Names inside our database:</h4>
-    <% emp.forEach(result=>{ %>
-    <ul>
-       <li><%= result.firstname %> <%= result.lastname %></li> 
-    </ul>
-    <% }); %>
-  <% }%>
-  
-  
-  
+  <h1>DBMS</h1>
+  <button><a href="https://ejs-views-practice.glitch.me/claims">Claims</a></button>
 </body>
 
-</html>
+<%- include("partials/footer") %>

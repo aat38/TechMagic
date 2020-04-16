@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 // ----------Load routes to api-info and routes to page displays----------
 
 const apiRouter = require("./routes/api");
-const viewsRouter = require("./routes/views");
+const clientRouter = require("./routes/views");
 
-app.use("/", viewsRouter);
+app.use("/", clientRouter);
 app.use("/api/", apiRouter);
 
 //----------------------------ROUTER-------------------------------------
