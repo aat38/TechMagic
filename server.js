@@ -29,7 +29,7 @@ app.get("/test", function(req, res, next) {
   var returned;
   fetch("https://ejs-views-practice.glitch.me/claims/open").then(
     function(data) {
-      returned = data.json();
+      returned = data;
       console.log(returned);
       res.render("test", { claims: returned });
     },
@@ -68,11 +68,10 @@ app.get("/claims/open", (request, response) => {
     .then(
       function(resp) {
         console.log("Successfully retrieved all open claims");
-        console.log(resp.rows);
-        response.json();
+        response.json
       },
       function(err) {
-        console.log("NOOOOOOOOOOOOOOOOOOOOOOOOO retrieved all open claims");
+        console.log("Could not retrieve all open claims");
         console.log(err);
         return err;
       }
