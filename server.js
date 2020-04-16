@@ -24,9 +24,17 @@ app.get("/", (req, res) => {
 });//*****************************//
 
 ///////////////////////routing client side only//////////////////////////
-app.get("/test", (req, res) => {
-  res.render("index");
+
+app.get("/test", async(req, res) => {
+  const obj = await fetchData()
+  res.render("test", { "claims"obj });
 });
+
+function fetchData(){
+  return fetch("https://ejs-views-practice.glitch.me/claims/open")
+      .then(res => res.json())
+}
+
 /////////////////////////////////////////////////////////////////////////
 
 
