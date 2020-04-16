@@ -33,7 +33,7 @@ apirouter.get("/claims", (request, response) => {
 //GET all open claims -------------------------------------------------
 apirouter.get("/claims/open", (request, response) => {
   client.connect();
-  client.query("select * from claim where status = 'Open'").then(
+  client.query("select * from all_claims where status = 'Open'").then(
     function(resp) {
       console.log("Successfully retrieved all open claims");
       console.log(resp.rows)
@@ -50,7 +50,7 @@ apirouter.get("/claims/open", (request, response) => {
 //GET all closed claims ----------------------------------------------
 apirouter.get("/claims/closed", (request, response) => {
   client.connect();
-  client.query("select * from claim where status = 'Closed'").then(
+  client.query("select * from all_claims where status = 'Closed'").then(
     function(resp) {
       console.log("Successfully retrieved all closed claims");
       console.log(resp.rows);
@@ -65,7 +65,7 @@ apirouter.get("/claims/closed", (request, response) => {
 //GET claims by oldest -----------------------------------------------
 apirouter.get("/claims/oldest", (request, response) => {
   client.connect();
-  client.query("select * from claim order by dateopened ASC").then(
+  client.query("select * from all_claims order by dateopened ASC").then(
     function(resp) {
       console.log("Successfully retrieved claims in order of oldest");
       console.log(resp.rows);
@@ -80,7 +80,7 @@ apirouter.get("/claims/oldest", (request, response) => {
 //GET claims by newest -----------------------------------------------
 apirouter.get("/claims/newest", (request, response) => {
   client.connect();
-  client.query("select * from claim order by dateopened DESC").then(
+  client.query("select * from all_claims order by dateopened DESC").then(
     function(resp) {
       console.log("Successfully retrieved claims in order of newest");
       response.send(resp.rows);

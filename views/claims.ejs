@@ -1,11 +1,32 @@
 <% if (locals.claims) { %> 
+<h1>
+  Open Claims
+</h1>
 <% claims.forEach(result=>{ %>
-<p>
-  Descriptions: <%=result.description%>
+<table>
+  <tr>
+    <th>Customer</th>
+    <th>Product</th>
+    <th>Issue</th>
+    <th>Description</th>
+    <th>Technician</th>
+    <th>Open Date</th>
+    <th>Resolution</th>
+  </tr>
+  <tr>
+    <td><%=result.customer%></td>
+    <td><%=result.product%></td>
+    <td><%=result.issue%></td>
+    <td><%=result.description%></td>
+    <td><%=result.employee%></td>
+    <td><%=result.dateopened%> </td>
+    <td><%=result.resolution%></td>
+  </tr>
+</table>
 </p>
 <%})%>
+<%}else{%>
+<h1>
+ No Open Claims
+</h1>
 <%}%>
-
-<p>
-  Nothing
-</p>
