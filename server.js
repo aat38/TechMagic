@@ -15,27 +15,26 @@ const client = new Client({
 
 app.use("/public", express.static(path.join(__dirname)));
 app.set("view engine", "ejs");
-var bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended: false }))
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json from RESPONSE.body
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.render("index");
-});//*****************************//
+}); //*****************************//
 
 ///////////////////////routing client side only//////////////////////////
-app.get('/test', function(req, res, next) {
-  // fetch('https://ejs-views-practice.glitch.me/claims/open').then(res => res.json()).then(function(data) {
-    // res.render("test", { claims: data.json()});
-    // });
-
-  res.render("test")
+app.get("/test", function(req, res, next) {
+  var returned;
+  fetch("https://ejs-views-practice.glitch.me/claims/open")
+    .then(function(data) {
+      returned = data.json();
+      res.render("test", { claims: returned });
+    });
 });
 
-
 /////////////////////////////////////////////////////////////////////////
-
 
 //-------------------------------GETS-----------------------------------
 
@@ -46,8 +45,8 @@ app.get("/claims", (request, response) => {
   client.query("Select * from all_claims").then(
     function(resp) {
       console.log("Successfully retrieved ALL claims and claims information");
-      console.log(resp.rows)
-      return resp.rows
+      console.log(resp.rows);
+      return resp.rows;
       //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
     },
     function(err) {
@@ -62,11 +61,12 @@ app.get("/claims/open", (request, response) => {
   client.query("select * from claim where status = 'Open'").then(
     function(resp) {
       console.log("Successfully retrieved all open claims");
-      console.log(resp.rows)
-      return resp.rows
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
+      return err;
     }
   );
 });
@@ -77,8 +77,8 @@ app.get("/claims/closed", (request, response) => {
   client.query("select * from claim where status = 'Closed'").then(
     function(resp) {
       console.log("Successfully retrieved all closed claims");
-      console.log(resp.rows)
-      return resp.rows
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -92,8 +92,8 @@ app.get("/claims/oldest", (request, response) => {
   client.query("select * from claim order by dateopened ASC").then(
     function(resp) {
       console.log("Successfully retrieved claims in order of oldest");
-      console.log(resp.rows)
-      return resp.rows
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -121,8 +121,8 @@ app.get("/claims/status/desc", (request, response) => {
   client.query("select * from all_claims order by status DESC").then(
     function(resp) {
       console.log("Successfully retrieved claims by status");
-      console.log(resp.rows)
-      return resp.rows
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -136,8 +136,8 @@ app.get("/claims/status/asc", (request, response) => {
   client.query("select * from all_claims order by status ASC").then(
     function(resp) {
       console.log("Successfully retrieved claims by status");
-      console.log(resp.rows)
-      return resp.rows
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -149,15 +149,17 @@ app.get("/claims/status/asc", (request, response) => {
 //(independent of claim status)/////////////////////////////////////////////////////
 app.get("/claims/employees/:employeeid", (request, response) => {
   // console.log(request.params.employeeId)
-  var employeeid= [request.params.employeeid];
-  var query=("SELECT concat_ws(' ', customer.firstname, customer.lastname) AS customer, product.name AS product, issue.name AS issue, claim.status, claim.description, concat_ws(' ',  employee.firstname, employee.lastname) AS employee, claim.dateopened, resolution.name AS resolution, claim.dateclosed FROM claim, productpurchase, purchase, product, customer, employee, issue, resolution WHERE claim.productpurchaseid = productpurchase.productpurchaseid AND productpurchase.productid = product.productid AND productpurchase.purchaseid = purchase.purchaseid AND purchase.customerid = customer.customerid AND claim.employeeid = employee.employeeid AND claim.issueid = issue.issueid AND claim.resolutionid = resolution.resolutionid AND employee.employeeid = $1");
+  var employeeid = [request.params.employeeid];
+  var query =
+    "SELECT concat_ws(' ', customer.firstname, customer.lastname) AS customer, product.name AS product, issue.name AS issue, claim.status, claim.description, concat_ws(' ',  employee.firstname, employee.lastname) AS employee, claim.dateopened, resolution.name AS resolution, claim.dateclosed FROM claim, productpurchase, purchase, product, customer, employee, issue, resolution WHERE claim.productpurchaseid = productpurchase.productpurchaseid AND productpurchase.productid = product.productid AND productpurchase.purchaseid = purchase.purchaseid AND purchase.customerid = customer.customerid AND claim.employeeid = employee.employeeid AND claim.issueid = issue.issueid AND claim.resolutionid = resolution.resolutionid AND employee.employeeid = $1";
   client.connect();
-  client.query(query, employeeid)
-    .then(
+  client.query(query, employeeid).then(
     function(resp) {
-      console.log("Successfully retrieved ALL claims belonging to "+ employeeid);
-      console.log(resp.rows)
-      return resp.rows
+      console.log(
+        "Successfully retrieved ALL claims belonging to " + employeeid
+      );
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -167,15 +169,17 @@ app.get("/claims/employees/:employeeid", (request, response) => {
 
 //GET claim information based on claimId////////////////////////////////////
 app.get("/claims/comments/:commentid", (request, response) => {
-  var claimid= [request.params.claimid];
-  var query=("select claim.claimid, claim.description as claim, comment.description as comment, claim.status from claim left join comment on claim.claimid = comment.claimid where claim.claimid = $1");
+  var claimid = [request.params.claimid];
+  var query =
+    "select claim.claimid, claim.description as claim, comment.description as comment, claim.status from claim left join comment on claim.claimid = comment.claimid where claim.claimid = $1";
   client.connect();
-  client.query(query, claimid)
-    .then(
+  client.query(query, claimid).then(
     function(resp) {
-      console.log("Successfully retrieved claim information from claimId="+ claimid);
-      console.log(resp.rows)
-      return resp.rows
+      console.log(
+        "Successfully retrieved claim information from claimId=" + claimid
+      );
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -190,8 +194,8 @@ app.get("/customers", (request, response) => {
   client.query("select * from customer").then(
     function(resp) {
       console.log("Successfully retrieved all customers");
-      console.log(resp.rows)
-      return resp.rows
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -205,8 +209,8 @@ app.get("/employees", (request, response) => {
   client.connect();
   client.query("SELECT * from employee").then(
     function(resp) {
-      console.log(resp.rows)
-      return resp.rows
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -217,15 +221,18 @@ app.get("/employees", (request, response) => {
 //PURCHASES
 //GET purchase history by customer --DOESNT WORK because "item count" needs to be changed to "itemcount" first
 app.get("/purchases/customer/:customerid", (request, response) => {
-  var vars= [request.params.customerid];
-  var query =("select concat_ws(' ', customer.firstname, customer.lastname)AS customer, purchase.date, count(productpurchase.purchaseid) as itemcount, purchase.totalcost from customer left join purchase on customer.customerid = purchase.customerid left join productpurchase on purchase.purchaseid = productpurchase.purchaseid where customer.customerid = $1 group by purchase.purchaseid, customer.customerid order by purchase.date desc")
+  var vars = [request.params.customerid];
+  var query =
+    "select concat_ws(' ', customer.firstname, customer.lastname)AS customer, purchase.date, count(productpurchase.purchaseid) as itemcount, purchase.totalcost from customer left join purchase on customer.customerid = purchase.customerid left join productpurchase on purchase.purchaseid = productpurchase.purchaseid where customer.customerid = $1 group by purchase.purchaseid, customer.customerid order by purchase.date desc";
   client.connect();
-  client.query(query, vars)
-    .then(
+  client.query(query, vars).then(
     function(resp) {
-      console.log("Successfully retrieved purchase history of customer "+ request.params.customerid);
-      console.log(resp.rows)
-      return resp.rows
+      console.log(
+        "Successfully retrieved purchase history of customer " +
+          request.params.customerid
+      );
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -236,15 +243,17 @@ app.get("/purchases/customer/:customerid", (request, response) => {
 //RESOLUTIONS
 //GET resolutions by product////////////////////////////////////////////
 app.get("/resolutions/product/:productname", (request, response) => {
-  var prod= [''+ request.params.productname];
-var query=("select product.name as product, resolution.name as resolution, claim.description as Claim from resolution, claim, productpurchase, product where resolution.resolutionid = claim.resolutionid and claim.productpurchaseid = productpurchase.productpurchaseid and productpurchase.productid = product.productid and product.name = $1");
+  var prod = ["" + request.params.productname];
+  var query =
+    "select product.name as product, resolution.name as resolution, claim.description as Claim from resolution, claim, productpurchase, product where resolution.resolutionid = claim.resolutionid and claim.productpurchaseid = productpurchase.productpurchaseid and productpurchase.productid = product.productid and product.name = $1";
   client.connect();
-  client.query(query, prod)
-    .then(
+  client.query(query, prod).then(
     function(resp) {
-      console.log("Successfully retrieved resolutions for "+ request.params.productname);
-      console.log(resp.rows)
-      return resp.rows
+      console.log(
+        "Successfully retrieved resolutions for " + request.params.productname
+      );
+      console.log(resp.rows);
+      return resp.rows;
     },
     function(err) {
       console.log(err);
@@ -252,97 +261,108 @@ var query=("select product.name as product, resolution.name as resolution, claim
   );
 });
 
-
 //-------------------------------POSTS-----------------------------------
 
 //CLAIMS
 //POST a new claim///////////////////////////////////////////////////////
 app.post("/claims", (request, response) => {
-  const quer =("insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)");
-  const vals =[
-    request.body.productpurchaseid, 
-    request.body.status, 
-    request.body.description, 
-    request.body.dateopened, 
+  const quer =
+    "insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)";
+  const vals = [
+    request.body.productpurchaseid,
+    request.body.status,
+    request.body.description,
+    request.body.dateopened,
     request.body.resolutionid
   ];
   client.connect();
   client
-    .query(quer,vals)
+    .query(quer, vals)
     .then(
       res => {
-        console.log("Successfully added claim,("+request.body.productpurchaseid+ ", " + request.body.status + ", " + request.body.description+ ", " + request.body.dateopened+ ", " +  request.body.resolutionid);
+        console.log(
+          "Successfully added claim,(" +
+            request.body.productpurchaseid +
+            ", " +
+            request.body.status +
+            ", " +
+            request.body.description +
+            ", " +
+            request.body.dateopened +
+            ", " +
+            request.body.resolutionid
+        );
         //return res.rows
       },
       err => {
-        console.log(
-          "Failed to add claim."
-        );
+        console.log("Failed to add claim.");
       }
     )
-    .catch(e =>  { console.error(e.stack)});
+    .catch(e => {
+      console.error(e.stack);
+    });
 });
 
 //POST claim comments///////////////////////////////////////////
 app.post("/claims/comments", (request, response) => {
-  const quer =("insert into comment (claimid, description, date, employeeid) values($1, $2, current_timestamp, $3)");
-  const vals =[
-    request.body.claimid, 
-    ''+request.body.description,
+  const quer =
+    "insert into comment (claimid, description, date, employeeid) values($1, $2, current_timestamp, $3)";
+  const vals = [
+    request.body.claimid,
+    "" + request.body.description,
     request.body.employeeid
   ];
   client.connect();
   client
-    .query(quer,vals)
+    .query(quer, vals)
     .then(
       res => {
         console.log("Successfully added comments");
         //return res.rows
       },
       err => {
-        console.log(
-          "Failed to add comments."
-        );
+        console.log("Failed to add comments.");
       }
     )
-    .catch(e =>  { console.error(e.stack)});
+    .catch(e => {
+      console.error(e.stack);
+    });
 });
-
 
 //CUSTOMERS
 //POST// create a customer /////////////////////////////////////////////
 app.post("/customers", (request, response) => {
-  const quer =("INSERT INTO customer (firstname, lastname, addressid, income, email, phone) VALUES ($1, $2, $3, $4, $5, $6)");
-  const vals =[
-    ''+request.body.firstname, 
-    ''+request.body.lastname,
+  const quer =
+    "INSERT INTO customer (firstname, lastname, addressid, income, email, phone) VALUES ($1, $2, $3, $4, $5, $6)";
+  const vals = [
+    "" + request.body.firstname,
+    "" + request.body.lastname,
     request.body.addressid,
     request.body.income,
-    ''+request.body.email,
+    "" + request.body.email,
     request.body.phone
   ];
   client.connect();
   client
-    .query(quer,vals)
+    .query(quer, vals)
     .then(
       res => {
         console.log("Successfully added comments");
       },
       err => {
-        console.log(
-          "Failed to add comments."
-        );
+        console.log("Failed to add comments.");
       }
     )
-    .catch(e =>  { console.error(e.stack)});
+    .catch(e => {
+      console.error(e.stack);
+    });
 });
-
 
 //ISSUES
 //POST new issue type////////////////////////////////////////////////////
 app.post("/issues", (request, response) => {
-  const vars=[request.body.issue, request.body.description]
-  const quer =("INSERT INTO issue(name, description) VALUES ($1, $2)")
+  const vars = [request.body.issue, request.body.description];
+  const quer = "INSERT INTO issue(name, description) VALUES ($1, $2)";
   client.connect();
   client
     .query(quer, vars)
@@ -351,12 +371,12 @@ app.post("/issues", (request, response) => {
         console.log("Successfully added issue");
       },
       err => {
-        console.log(
-          "Failed to add issue."
-        );
+        console.log("Failed to add issue.");
       }
     )
-    .catch(e =>  { console.error(e.stack)});
+    .catch(e => {
+      console.error(e.stack);
+    });
 });
 
 //PRODUCTS
@@ -368,7 +388,7 @@ app.post("/products", (request, response) => {
     request.body.name,
     request.body.description,
     request.body.unitcost
-    ];
+  ];
   client.connect();
   client
     .query(quer, vals)
@@ -377,12 +397,12 @@ app.post("/products", (request, response) => {
         console.log("Successfully added item");
       },
       err => {
-        console.log(
-          "Failed to add item."
-        );
+        console.log("Failed to add item.");
       }
     )
-    .catch(e =>  { console.error(e.stack)});
+    .catch(e => {
+      console.error(e.stack);
+    });
 });
 
 //EMPLOYEES
@@ -396,7 +416,7 @@ app.post("/employees", (request, response) => {
     request.body.email,
     request.body.firstname,
     request.body.lastname,
-    request.body.phone,//varchar
+    request.body.phone, //varchar
     request.body.title
   ];
   client.connect();
@@ -409,12 +429,12 @@ app.post("/employees", (request, response) => {
       },
       err => {
         // client.end();
-        console.log(
-          "Failed to add employee."
-        );
+        console.log("Failed to add employee.");
       }
     )
-    .catch(e =>  { console.error(e.stack)});
+    .catch(e => {
+      console.error(e.stack);
+    });
 });
 
 //POST new employee WITH new address/////////////////////////////////////////
@@ -439,16 +459,21 @@ app.post("/employees/address", (request, response) => {
         console.log("Successfully added address values.");
         //call employee query inside res(aka resolution) of returned address promise
         client
-          .query(employeeQuery, [ res.rows[0].addressid,
-              request.body.email,
-              request.body.firstname,
-              request.body.lastname,
-              request.body.phone,
-              request.body.title])
+          .query(employeeQuery, [
+            res.rows[0].addressid,
+            request.body.email,
+            request.body.firstname,
+            request.body.lastname,
+            request.body.phone,
+            request.body.title
+          ])
           .then(res => {
             console.log("Employee successfully added with new address.");
           })
-          .catch(e =>  {console.error(e.stack);console.log("catching1.")});
+          .catch(e => {
+            console.error(e.stack);
+            console.log("catching1.");
+          });
       },
       err => {
         console.log(
@@ -456,7 +481,10 @@ app.post("/employees/address", (request, response) => {
         );
       }
     )
-    .catch(e =>  {console.error(e.stack);console.log("catching2.");});
+    .catch(e => {
+      console.error(e.stack);
+      console.log("catching2.");
+    });
 });
 
 //ADDRESSES
@@ -478,26 +506,25 @@ app.post("/addresses", (request, response) => {
       res => {
         // client.end();
         console.log("Successfully added address");
-        console.log(res.rows[0].addressid)
+        console.log(res.rows[0].addressid);
       },
       err => {
         // client.end();
-        console.log(
-          "Failed to add address."
-        );
+        console.log("Failed to add address.");
       }
     )
-    .catch(e =>  { console.error(e.stack)});
+    .catch(e => {
+      console.error(e.stack);
+    });
 });
-
 
 //-------------------------------PUTS------------------------------------
 
-
 //PUT// close a claim and submit a resolution in one request////////////
 app.put("/resolutions/update/close", (request, response) => {
-  const quer =("update claim set resolutionid = $1, status = 'Closed', dateclosed = current_timestamp where claimid = $2");
-  const vals =[request.body.resolutionid,request.body.claimid];
+  const quer =
+    "update claim set resolutionid = $1, status = 'Closed', dateclosed = current_timestamp where claimid = $2";
+  const vals = [request.body.resolutionid, request.body.claimid];
   client.connect();
   client
     .query(quer)
@@ -506,37 +533,34 @@ app.put("/resolutions/update/close", (request, response) => {
         console.log("Successfully added resolution and closed claim ");
       },
       err => {
-        console.log(
-          "Failed to add resolution and close claim."
-        );
+        console.log("Failed to add resolution and close claim.");
       }
     )
-    .catch(e =>  { console.error(e.stack)});
+    .catch(e => {
+      console.error(e.stack);
+    });
 });
-
 
 //PUT// change status of claims/////////////////////////////////////////////////////
 app.put("/claims/update", (request, response) => {
-  const quer =("UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1");
-  const vals =[request.body.claimid];
+  const quer =
+    "UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1";
+  const vals = [request.body.claimid];
   client.connect();
   client
-    .query(quer,vals)
+    .query(quer, vals)
     .then(
       res => {
         console.log("Successfully updated claim ");
       },
       err => {
-        console.log(
-          "Failed to update claim."
-        );
+        console.log("Failed to update claim.");
       }
     )
-    .catch(e =>  { console.error(e.stack)});
+    .catch(e => {
+      console.error(e.stack);
+    });
 });
-
-
-
 
 /////////////////////////TEST TABLE ENDPOINTS/////////////////////////////////////
 // https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en (chrome extension)
