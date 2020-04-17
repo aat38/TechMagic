@@ -15,22 +15,45 @@ clientrouter.get("/", (req, res) => {
   res.render("index");
 }); 
 
-clientrouter.get("/openclaims", function(req, res, next) {
+
+clientrouter.get("/claims", function(req, res, next) {
   axios
-    .get(baseURL +"/api/claims/open", { headers })
+    .get(baseURL +"/api/claims", { headers })
     .then(function(response) {
-      res.render("openclaims", { claims: response.data });
+      res.render("claims", { claims: response.data });
     })
     .catch(function(error) {
       console.log(error);
     });
 });
 
-clientrouter.get("/closedclaims", function(req, res, next) {
+clientrouter.get("/customers", function(req, res, next) {
   axios
-    .get(baseURL + "/api/claims/closed", { headers })
+    .get(baseURL +"/api/customers", { headers })
     .then(function(response) {
-      res.render("closedclaims", { claims: response.data });
+      res.render("customers", { cust: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
+
+clientrouter.get("/employees", function(req, res, next) {
+  axios
+    .get(baseURL +"/api/employees", { headers })
+    .then(function(response) {
+      res.render("employees", { techs: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
+
+clientrouter.get("/prod", function(req, res, next) {
+  axios
+    .get(baseURL +"/api/employees", { headers })
+    .then(function(response) {
+      res.render("employees", { techs: response.data });
     })
     .catch(function(error) {
       console.log(error);

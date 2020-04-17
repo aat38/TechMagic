@@ -3,7 +3,7 @@
 
 <% if (locals.claims) { %> 
 <h1>
-  Open Claims
+  Claims
 </h1>
 <table class="table table-hover">
   <thead>
@@ -14,6 +14,7 @@
       <th>Description</th>
       <th>Technician</th>
       <th>Open Date</th>
+      <th>Status</th>
       <th>Resolution</th>
     </tr>
   </thead>
@@ -29,6 +30,7 @@
       <td><%=result.description%></td>
       <td><%=result.employee%></td>
       <td><%= output %></td>
+      <td><%=result.status%></td>
       <td><%=result.resolution%></td>
     </tr>    
   </tbody>
