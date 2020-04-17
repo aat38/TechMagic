@@ -29,7 +29,7 @@
     <div>
       <h2 id="name">Product Name</h2>
       <p id="description">Product description</p>
-      <button>View Claims for this Product</button>
+      <button id="claims">View Claims for this Product</button>
     </div>
   </div>
 </div>
@@ -40,32 +40,28 @@
 <script type=text/javascript>
  
   function  getId(element) {
-    fetch('https://aat38-assignment3b.glitch.me/api/cart/', {
+    var num;
+    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(",")[1], {
         headers:{
           "content-type":"application/json",
         },
         body: JSON.stringify({
-          item: result.item,
-          price: result.price,
-          ingredients: result.ingredients,
-          incart: true
+          productid:element.name.split(",")[1]
         }),
-        method: 'POST'
+        method: 'GET'
     }).then(resp=>{
-       window.location.reload();//so changes render
+       num = JSON.stringify(resp);
     }, err=>{
       console.log(err);
     })
-  }
-    
-    
+        
     var product=element.value
     var description=element.name.split(",")[0];
     var modal = document.getElementById("descriptionModal");
 
     document.getElementById("name").innerHTML=product;
     document.getElementById("description").innerHTML=description;
-    
+    document.getElementById("claims").innerHTML="View "+ num+ " claims for this product";
     modal.style.display = "block";
     
     var closeBtn = document.getElementsByClassName("close")[0];
