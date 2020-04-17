@@ -24,29 +24,53 @@
     
 <div id="descriptionModal" class="modal">
   <!-- Modal content -->
-  <span class="close">&times;</span>
   <div class="modal-content">
-    <h2 id="name">Product Name</h2>
-    <p id="description">Product description</p>
-    <button></button>
+    <span class="close">&times;</span>
+    <div>
+      <h2 id="name">Product Name</h2>
+      <p id="description">Product description</p>
+      <button>View Claims for this Product</button>
+    </div>
   </div>
-
 </div>
   
-  <button><a href="/">Return</a></button>
+<button><a href="/">Admin Home</a></button>
 
   
 <script type=text/javascript>
-
-  
+ 
   function  getId(element) {
-    var span = document.getElementsByClassName("close")[0];
-    var info=element.name.split(",")[0];
+    fetch('https://aat38-assignment3b.glitch.me/api/cart/', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          item: result.item,
+          price: result.price,
+          ingredients: result.ingredients,
+          incart: true
+        }),
+        method: 'POST'
+    }).then(resp=>{
+       window.location.reload();//so changes render
+    }, err=>{
+      console.log(err);
+    })
+  }
+    
+    
+    var product=element.value
+    var description=element.name.split(",")[0];
     var modal = document.getElementById("descriptionModal");
-    document.getElementById("description").innerHTML=info;
+
+    document.getElementById("name").innerHTML=product;
+    document.getElementById("description").innerHTML=description;
+    
     modal.style.display = "block";
     
-    span.onclick = function() {
+    var closeBtn = document.getElementsByClassName("close")[0];
+    
+    closeBtn.onclick = function() {
       modal.style.display = "none";
     }
     window.onclick = function(event) {
@@ -55,6 +79,7 @@
       }
     }
 }
+  
 </script>
 
 

@@ -121,6 +121,25 @@ apirouter.get("/claims/status/asc", (request, response) => {
   );
 });
 
+// get claim based on products
+apirouter.get("/claims/products/:productid", (request, response) => {
+  var productid = [request.params.productid];
+  var query =
+  client.connect();
+  client.query("select * from all_claims order by status ASC").then(
+    function(resp) {
+      console.log("Successfully retrieved claims by status");
+      // console.log(resp.rows);
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+select * from all_claims where productid=1
+
+
 //GET all claims belonging to an EMPLOYEE based on their ID passed to this endpoint
 //(independent of claim status) ---------------------------------------------------
 apirouter.get("/claims/employees/:employeeid", (request, response) => {
