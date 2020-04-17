@@ -63,5 +63,16 @@ clientrouter.get("/products", function(req, res, next) {
     });
 });
 
+clientrouter.get("/products/claims/:productid", function(req, res, next) {
+  axios
+    .get(baseURL +"/api/claims/products/"+req.params.productid)
+    .then(function(response) {
+      res.render("product-claims", { claims: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
+
 
 module.exports = clientrouter;

@@ -14,9 +14,9 @@
   <tbody>
   <% products.forEach(result=>{ %>
     <tr > 
-      <!--   using 'placeholder' attribute to access related variables through javascript function     -->
-      <td><input type="button" class="clickable-row" onclick="modal(this)" placeholder='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.name%>'></td>
-      <td><input type="button" class="clickable-row" onclick="modal(this)" placeholder='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.unitcost%>'></td>
+      <!--  ** using 'name' attribute to access related variables through javascript function **    -->
+      <td><input type="button" class="clickable-row" onclick="modal(this)" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.name%>'></td>
+      <td><input type="button" class="clickable-row" onclick="modal(this)" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.unitcost%>'></td>
     </tr>
   <%})%>
   <% } %>
@@ -30,7 +30,7 @@
     <div class="d-flex justify-content-center flex-column">
       <h2 id="name" >Product Name</h2>
       <p id="description">Product description</p>
-      <button id="claims">View Claims for this Product</button>
+      <button id="claims"><a href="/">View Claims</a></button>
       <p id="noclaims">No claims for this product</p>
     </div>
   </div>
@@ -42,8 +42,8 @@
 <script type=text/javascript>
  
   function modal(element) {
-    var product=element.placeholder.split(";")[2];
-    var description=element.placeholder.split(";")[0];
+    var product=element.name.split(";")[2];
+    var description=element.name.split(";")[0];
     var modal = document.getElementById("descriptionModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
 
