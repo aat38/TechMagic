@@ -45,12 +45,10 @@
         headers:{
           "content-type":"application/json",
         },
-        body: JSON.stringify({
-          productid:element.name.split(",")[1]
-        }),
         method: 'GET'
     }).then(resp=>{
-       num = JSON.stringify(resp);
+      console.log("RESPONSE" +resp)
+       console.log(JSON.stringify(resp).length)
     }, err=>{
       console.log(err);
     })

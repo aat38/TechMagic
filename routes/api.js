@@ -122,18 +122,18 @@ apirouter.get("/claims/status/asc", (request, response) => {
 });
 
 // get claim based on products //////NEEEEEEEEEWWWWWWW
-apirouter.get("/claims/products", (request, response) => {
-  var productid = [response.body.productid];
+apirouter.get("/claims/products/:productid", (request, response) => {
+  var productid = [request.params.productid];
   var query =("select * from all_claims where productid=$1")
   client.connect();
   client.query(query, productid).then(
     function(resp) {
       console.log("Successfully retrieved all claims for productid=" + productid);
-      console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
-      console.log(err);
+      console.log("ERROR" +err);
+      
     }
   );
 });
