@@ -47,16 +47,8 @@
         },
         method: 'GET'
     }).then(resp=>{
-      if (resp===[]){
-        num=0;
-      }else{
-        num=1
-      }
-    }, err=>{
-      console.log("EEERRROR" +err);
-    })
-        
-    var product=element.value
+      console.log("hey")
+  var product=element.value
     var description=element.name.split(";")[0];
     var modal = document.getElementById("descriptionModal");
 
@@ -75,6 +67,11 @@
       modal.style.display = "none";
       }
     }
+    }, err=>{
+      console.log("EEERRROR");
+    })
+        
+    
 }
   
 </script>
