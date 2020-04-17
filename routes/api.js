@@ -170,7 +170,7 @@ apirouter.get("/customers", (request, response) => {
   client.query("select * from customer").then(
     function(resp) {
       console.log("Successfully retrieved all customers");
-      // console.log(resp.rows);
+      console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {

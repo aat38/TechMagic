@@ -10,19 +10,19 @@
     <tr>
       <th>First Name</th>
       <th>Last Name</th>
-      <th>Title</th>
+      <th>Total Customer Expenditure</th>
     </tr>
   </thead>
-  <% employees.forEach(result=>{ %>
+  <% customers.forEach(result=>{ %>
   <tbody>
     <tr>
       <td><%=result.firstname%></td>
       <td><%=result.lastname%></td>
-      <td><%=result.title%></td>
+      <td><%=result.income%></td>
     </tr>    
   </tbody>
   <%})%>
-<% } %>
+
 <% } %>
 
   <button><a href="/">Return</a></button>

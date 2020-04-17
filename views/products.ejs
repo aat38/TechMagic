@@ -5,7 +5,21 @@
 <h1>
   Products
 </h1>
-
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Unit Cost</th>
+    </tr>
+  </thead>
+  <% products.forEach(result=>{ %>
+  <tbody>
+    <tr>
+      <td><%=result.name%></td>
+      <td><%=result.unitcost%></td>
+    </tr>    
+  </tbody>
+  <%})%>
 <% } %>
 
   <button><a href="/">Return</a></button>
