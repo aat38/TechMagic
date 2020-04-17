@@ -15,9 +15,9 @@
   <% var descriptions =[] %>
   <% var i=0 %>
   <% products.forEach(result=>{ %>
-    <tr id='<%=i%>' data-toggle="modal" data-target="#descriptionModal" style="cursor:pointer">
-      <td><input type="button" class="clickable-row" onclick="getId(this)" descr='<%=result.description%>' value='<%=result.name%>'></td>
-      <td><input type="button" class="clickable-row" onclick="getId(this)" descr='<%=result.description%>' value='<%=result.unitcost%>'></td>
+    <tr > 
+      <td><input id ='<% = i %>' type="button" class="clickable-row" onclick="getId(this)" name='<%=result.unitcost%>' value='<%=result.name%>'></td>
+      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.unitcost%>' value='<%=result.unitcost%>'></td>
     </tr>    
   
   
@@ -49,8 +49,10 @@
   
 <script type=text/javascript>
   function  getId(element) {
+    var id = element.id
+    var info=document.getElementsByClassName("clickable-row")[6].name
     alert("row" + element.parentNode.parentNode.rowIndex + 
-    " - column" + element.parentNode.cellIndex + JSON.stringify(this.descr);
+    " - column" + element.parentNode.cellIndex + info + id);
 }
 </script>
 
