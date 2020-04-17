@@ -9,3 +9,6 @@
 - [Postgres query language](https://www.postgresqltutorial.com/postgresql-insert/)
 - [PG package docs](https://node-postgres.com/api/client)
 - [Parse date](https://stackoverflow.com/questions/9363263/how-to-format-json-date)
+
+
+added get products

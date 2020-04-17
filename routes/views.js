@@ -18,7 +18,7 @@ clientrouter.get("/", (req, res) => {
 
 clientrouter.get("/claims", function(req, res, next) {
   axios
-    .get(baseURL +"/api/claims", { headers })
+    .get(baseURL +"/api/claims")
     .then(function(response) {
       res.render("claims", { claims: response.data });
     })
@@ -27,37 +27,41 @@ clientrouter.get("/claims", function(req, res, next) {
     });
 });
 
+
 clientrouter.get("/customers", function(req, res, next) {
   axios
-    .get(baseURL +"/api/customers", { headers })
+    .get(baseURL +"/api/customers")
     .then(function(response) {
-      res.render("customers", { cust: response.data });
+      res.render("customers", { customers: response.data });
     })
     .catch(function(error) {
       console.log(error);
     });
 });
+
 
 clientrouter.get("/employees", function(req, res, next) {
   axios
-    .get(baseURL +"/api/employees", { headers })
+    .get(baseURL +"/api/employees")
     .then(function(response) {
-      res.render("employees", { techs: response.data });
+      res.render("employees", { employees: response.data });
     })
     .catch(function(error) {
       console.log(error);
     });
 });
 
-clientrouter.get("/prod", function(req, res, next) {
+
+clientrouter.get("/products", function(req, res, next) {
   axios
-    .get(baseURL +"/api/employees", { headers })
+    .get(baseURL +"/api/products")
     .then(function(response) {
-      res.render("employees", { techs: response.data });
+      res.render("products", { products: response.data });
     })
     .catch(function(error) {
       console.log(error);
     });
 });
+
 
 module.exports = clientrouter;

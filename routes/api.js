@@ -185,7 +185,22 @@ apirouter.get("/employees", (request, response) => {
   client.connect();
   client.query("SELECT * from employee").then(
     function(resp) {
-      // console.log(resp.rows);
+      console.log(resp.rows);
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//PRODUCTS
+//GET list of products ----------------------------------------------
+apirouter.get("/products", (request, response) => {
+  client.connect();
+  client.query("SELECT * from product").then(
+    function(resp) {
+      console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {

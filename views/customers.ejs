@@ -1,0 +1,31 @@
+<%- include("partials/header") %>
+
+
+<% if (locals.customers) { %> 
+<h1>
+  Customers
+</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <% employees.forEach(result=>{ %>
+  <tbody>
+    <tr>
+      <td><%=result.firstname%></td>
+      <td><%=result.lastname%></td>
+      <td><%=result.title%></td>
+    </tr>    
+  </tbody>
+  <%})%>
+<% } %>
+<% } %>
+
+  <button><a href="/">Return</a></button>
+
+
+<%- include("partials/footer") %>
