@@ -53,10 +53,16 @@
         if (data.length===0){
           document.getElementById("noclaims").style.display = "block";
           document.getElementById("claims").style.display = "none";
+          document.getElementById("name").innerHTML=product;
+          document.getElementById("description").innerHTML=description;
+          modal.style.display = "block";
         }else{
           document.getElementById("noclaims").style.display = "none";
           document.getElementById("claims").style.display = "block";
           document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
+          document.getElementById("name").innerHTML=product;
+          document.getElementById("description").innerHTML=description;
+          modal.style.display = "block";
         }
       })
 
