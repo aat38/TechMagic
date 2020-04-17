@@ -14,7 +14,7 @@
   </thead>
   <% products.forEach(result=>{ %>
   <tbody>
-    <tr>
+    <tr onclick="myFunction(this)">
       <td><%=result.name%></td>
       <td><%=result.unitcost%></td>
     </tr>    
@@ -25,3 +25,41 @@
   <button><a href="/">Return</a></button>
 
 <%- include("partials/footer") %>
+  
+<script type=text/javascript>
+   var baseURL = "https://ejs-views-practice.glitch.me"
+   
+   function myFunction() {
+    // productid = JSON.parse(productid);
+    // description = JSON.parse(description);
+    console.log("hey")
+    // fetch( baseURL+'/api/', {
+    //     headers:{
+    //       "content-type":"application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       item: result.item,
+    //       price: result.price,
+    //       ingredients: result.ingredients,
+    //       incart: true
+    //     }),
+    //     method: 'POST'
+    // }).then(resp=>{
+    //    window.location.reload();//so changes render
+    // }, err=>{
+    //   console.log(err);
+    // })
+  }
+   
+  function del(result) {
+    result = JSON.parse(result);
+    fetch('https://aat38-assignment3b.glitch.me/api/cart/'+result.item , {
+        method: 'DELETE'
+    }).then(resp=>{
+     window.location.reload();
+    }, err=>{
+      console.log(err);
+    })
+  }
+  
+</script> 
