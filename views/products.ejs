@@ -40,21 +40,20 @@
 <script type=text/javascript>
  
   function  getId(element) {
-    var num 
-    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1], {
-        headers:{
-          "content-type":"application/json",
-        },
-        method: 'GET'
-    }).then(resp=>{
-      console.log("hey")
-  var product=element.value
+    var product=element.value
     var description=element.name.split(";")[0];
     var modal = document.getElementById("descriptionModal");
 
     document.getElementById("name").innerHTML=product;
     document.getElementById("description").innerHTML=description;
-    document.getElementById("claims").innerHTML="View "+num+" claims for this product";
+    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1], {
+        method: 'GET'
+    }).then(resp=>{
+    document.getElementById("claims").innerHTML="View "+_.size(resp)+" claims for this product";
+    }, err=>{
+          console.log('errrr')
+      console.log(err);
+    })  
     modal.style.display = "block";
     
     var closeBtn = document.getElementsByClassName("close")[0];
@@ -67,11 +66,6 @@
       modal.style.display = "none";
       }
     }
-    }, err=>{
-      console.log("EEERRROR");
-    })
-        
-    
 }
   
 </script>
