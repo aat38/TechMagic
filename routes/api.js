@@ -129,6 +129,7 @@ apirouter.get("/claims/products/:productid", (request, response) => {
   client.query(query, productid).then(
     function(resp) {
       console.log("Successfully retrieved all claims for productid=" + productid);
+      console.log(resp.rows)
       response.send(resp.rows);
     },
     function(err) {
@@ -219,7 +220,7 @@ apirouter.get("/products", (request, response) => {
   client.connect();
   client.query("SELECT * from product").then(
     function(resp) {
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {

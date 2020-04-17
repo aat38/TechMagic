@@ -14,8 +14,8 @@
   <tbody>
   <% products.forEach(result=>{ %>
     <tr > 
-      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.description%>,<%=result.productid%>' value='<%=result.name%>'></td>
-      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.description%>,<%=result.productid%>' value='<%=result.unitcost%>'></td>
+      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.description%>;<%=result.productid%>' value='<%=result.name%>'></td>
+      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.description%>;<%=result.productid%>' value='<%=result.unitcost%>'></td>
     </tr>
   <%})%>
   <% } %>
@@ -40,26 +40,29 @@
 <script type=text/javascript>
  
   function  getId(element) {
-    var num;
-    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(",")[1], {
+    var num 
+    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1], {
         headers:{
           "content-type":"application/json",
         },
         method: 'GET'
     }).then(resp=>{
-      console.log("RESPONSE" +resp)
-       console.log(JSON.stringify(resp).length)
+      if (resp===[]){
+        num=0;
+      }else{
+        num=1
+      }
     }, err=>{
-      console.log(err);
+      console.log("EEERRROR" +err);
     })
         
     var product=element.value
-    var description=element.name.split(",")[0];
+    var description=element.name.split(";")[0];
     var modal = document.getElementById("descriptionModal");
 
     document.getElementById("name").innerHTML=product;
     document.getElementById("description").innerHTML=description;
-    document.getElementById("claims").innerHTML="View "+ num+ " claims for this product";
+    document.getElementById("claims").innerHTML="View "+num+" claims for this product";
     modal.style.display = "block";
     
     var closeBtn = document.getElementsByClassName("close")[0];
