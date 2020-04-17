@@ -12,14 +12,13 @@
     </tr>
   </thead>
   <tbody>
-  <% var descriptions =[] %>
-  <% var i=0 %>
   <% products.forEach(result=>{ %>
     <tr > 
-      <td><input id ='<% = i %>' type="button" class="clickable-row" onclick="getId(this)" name='<%=result.unitcost%>' value='<%=result.name%>'></td>
-      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.unitcost%>' value='<%=result.unitcost%>'></td>
-    </tr>    
-  
+      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.description%>,<%=result.productid%>' value='<%=result.name%>'></td>
+      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.description%>,<%=result.productid%>' value='<%=result.unitcost%>'></td>
+    </tr>
+  <%})%>
+  <% } %> 
   
   
   <!-- Modal -->
@@ -31,7 +30,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p><%= result.description %></p>
+        <p>hey</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -39,8 +38,7 @@
     </div>
   </div>
 </div>
-<%})%>
-  <% } %> 
+
   </tbody>
  
   
@@ -49,10 +47,9 @@
   
 <script type=text/javascript>
   function  getId(element) {
-    var id = element.id
-    var info=document.getElementsByClassName("clickable-row")[6].name
+    var info=element.name
     alert("row" + element.parentNode.parentNode.rowIndex + 
-    " - column" + element.parentNode.cellIndex + info + id);
+    " - column" + element.parentNode.cellIndex + info );
 }
 </script>
 
