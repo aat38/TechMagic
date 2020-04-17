@@ -14,9 +14,9 @@
   </thead>
   <tbody>
   <% var descriptions =[] %>
-  <% var i=0
+  <% var i=0 %>
   <% products.forEach(result=>{ %>
-    <tr id="modalBtn" data-toggle="modal" data-target="#descriptionModal"style="cursor:pointer">
+    <tr id='<%=i%>' data-toggle="modal" data-target="#descriptionModal" style="cursor:pointer">
       <td><%=result.name%></td>
       <td><%=result.unitcost%></td>
     </tr>    
@@ -44,10 +44,33 @@
   <% } %> 
   </tbody>
   
+  <table>
+  <tr>
+    <td><input type="button" value="button" onclick="getId(this)"></td>
+    <td><input type="button" value="button" onclick="getId(this)"></td>
+    <td><input type="button" value="button" onclick="getId(this)"></td>
+  </tr>
+  <tr>
+    <td><input type="button" value="button" onclick="getId(this)"></td>
+    <td><input type="button" value="button" onclick="getId(this)"></td>
+    <td><input type="button" value="button" onclick="getId(this)"></td>
+  </tr>
+  <tr>
+    <td><input type="button" value="button" onclick="getId(this)"></td>
+    <td><input type="button" value="button" onclick="getId(this)"></td>
+    <td><input type="button" value="button" onclick="getId(this)"></td>
+  </tr>
+</table>
+  
+  
   <button><a href="/">Return</a></button>
 
   
 <script type=text/javascript>
+  function  getId(element) {
+    alert("row" + element.parentNode.parentNode.rowIndex + 
+    " - column" + element.parentNode.cellIndex);
+}
 </script>
 
 
