@@ -50,7 +50,6 @@
     fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
       .then(resp=> {
         console.log("hey!")
-        console.log(resp)
         document.getElementById("claims").innerHTML="View "+JSON.stringify(resp)+" claims for this product";
       })
     

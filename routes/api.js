@@ -21,7 +21,7 @@ apirouter.get("/claims", (request, response) => {
     function(resp) {
       console.log("Successfully retrieved ALL claims and claims information");
       // console.log(resp.rows);
-      response.json(resp);
+      response.send(resp.rows);
       //this info can be further parsed on frontend ie: can view only issues from claims table, only employees or whatever combo of things. the important thing is that the data is here and ready to be manipulated
     },
     function(err) {
