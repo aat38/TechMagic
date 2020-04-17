@@ -14,8 +14,9 @@
   <tbody>
   <% products.forEach(result=>{ %>
     <tr > 
-      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.description%>;<%=result.productid%>' value='<%=result.name%>'></td>
-      <td><input type="button" class="clickable-row" onclick="getId(this)" name='<%=result.description%>;<%=result.productid%>' value='<%=result.unitcost%>'></td>
+      <!--   using 'placeholder' attribute to access related variables through javascript function     -->
+      <td><input type="button" class="clickable-row" onclick="modal(this)" placeholder='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.name%>'></td>
+      <td><input type="button" class="clickable-row" onclick="modal(this)" placeholder='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.unitcost%>'></td>
     </tr>
   <%})%>
   <% } %>
@@ -40,36 +41,34 @@
   
 <script type=text/javascript>
  
-  function  getId(element) {
-    var product=element.value
-    var description=element.name.split(";")[0];
+  function modal(element) {
+    var product=element.placeholder.split(";")[2];
+    var description=element.placeholder.split(";")[0];
     var modal = document.getElementById("descriptionModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
 
     fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
         .then((resp) => resp.json()) // Transform the data into json
         .then(function(data) {
-        // console.log(JSON.stringify(data))
-        if (data.length===0){
-          document.getElementById("noclaims").style.display = "block";
-          document.getElementById("claims").style.display = "none";
-          document.getElementById("name").innerHTML=product;
-          document.getElementById("description").innerHTML=description;
-          modal.style.display = "block";
-        }else{
-          document.getElementById("noclaims").style.display = "none";
-          document.getElementById("claims").style.display = "block";
-          document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
-          document.getElementById("name").innerHTML=product;
-          document.getElementById("description").innerHTML=description;
-          modal.style.display = "block";
-        }
-      })
-
-
-
-    
-    
+          // console.log(JSON.stringify(data))
+          //IF return no claims associated with this product, show the modal without providing a view claims button 
+          if (data.length===0){
+            document.getElementById("noclaims").style.display = "block";
+            document.getElementById("claims").style.display = "none";
+            document.getElementById("name").innerHTML=product;
+            document.getElementById("description").innerHTML=description;
+            modal.style.display = "block";
+          }else{
+            document.getElementById("noclaims").style.display = "none";
+            document.getElementById("claims").style.display = "block";
+            document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
+            document.getElementById("name").innerHTML=product;
+            document.getElementById("description").innerHTML=description;
+            modal.style.display = "block";
+          }
+      })  
+  
+    //close out of modal either when clicking 'x' or when clicking outside of the modal
     closeBtn.onclick = function() {
       modal.style.display = "none";
     }
@@ -78,7 +77,7 @@
       modal.style.display = "none";
       }
     }
-}
+  }//end modal()
   
 </script>
 
