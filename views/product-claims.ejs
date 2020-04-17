@@ -1,12 +1,33 @@
 <%- include("partials/header") %>
 
 <% if (locals.claims) { %> 
-<h1>
-  Product Claims
-</h1>
-<% claims.forEach(result=>{ %>
-<tr>
-  <td><%=result%></td>
-</tr>    
-      
+  <h1>
+    <%=claims[0].product%> Claims
+  </h1>
+  <table>
+    <% claims.forEach(result=>{ %>
+    <tr>
+      <td><%=result.description%></td>
+    </tr>    
+    <% }) %> 
+  </table>
 <% } %>
+
+
+<!--     customer: 'Russ Timco',
+    product: 'Desktop',
+    issue: 'Installation',
+    status: 'Closed',
+    description: 'Desktop return',
+    employee: 'Bruce Wayne',
+    dateopened: '2020-03-10T12:10:00.000Z',
+    resolution: 'return',
+    dateclosed: '2020-04-08T00:00:03.041Z',
+    claimid: 5,
+    productpurchaseid: 1,
+    issueid: 4,
+    employeeid: 3,
+    resolutionid: 1,
+    purchaseid: 1,
+    productid: 1,
+    customerid: 3 -->
