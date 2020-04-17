@@ -48,9 +48,10 @@
     document.getElementById("description").innerHTML=description;
     
     fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
-      .then(resp=> {
-        console.log("hey!")
-        document.getElementById("claims").innerHTML="View "+JSON.stringify(resp)+" claims for this product";
+        .then((resp) => resp.json()) // Transform the data into json
+        .then(function(data) {
+        console.log(JSON.stringify(data))
+        document.getElementById("claims").innerHTML="View "+data+" claims for this product";
       })
     
     modal.style.display = "block";
