@@ -18,7 +18,7 @@
   <% products.forEach(result=>{ %>
     <tr id='<%=i%>' data-toggle="modal" data-target="#descriptionModal" style="cursor:pointer">
       <td><input type="button" class="clickable-row" onclick="getId(this)" value='<%=result.name%>'></td>
-      <td><%=result.unitcost%></td>
+      <td><input type="button" class="clickable-row" onclick="getId(this)" value='<%=result.unitcost%>'></td>
        
     </tr>    
   
