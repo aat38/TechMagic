@@ -19,8 +19,8 @@
     </tr>
   </thead>
   <% claims.forEach(result=>{ %>
-  <% var myDate = new Date(result.dateopened) %>
-  <% var output = myDate.getDate() + "\\" +  (myDate.getMonth()+1) + "\\" + myDate.getFullYear() %>
+  <% var dateOpened = new Date(result.dateopened) %>
+  <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
 
   <tbody>
     <tr>
@@ -29,7 +29,7 @@
       <td><%=result.issue%></td>
       <td><%=result.description%></td>
       <td><%=result.employee%></td>
-      <td><%= output %></td>
+      <td><%= dateOpened %></td>
       <td><%=result.status%></td>
       <td><%=result.resolution%></td>
     </tr>    
@@ -43,10 +43,6 @@
  No Open Claims Found
 </h1>
 <%}%>
-
-  <button><a href="/">Return</a></button>
-
-
 
 <%- include("partials/footer") %>
 

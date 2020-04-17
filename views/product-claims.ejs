@@ -4,7 +4,7 @@
   <h1>
     <%=claims[0].product%> Claims
   </h1>
-<table class="table4">
+<table class="table">
   <thead>
     <tr>
       <th>Customer</th>
@@ -18,13 +18,17 @@
   </thead>
   <tbody>
   <% claims.forEach(result=>{ %>
+  <% var dateOpened = new Date(result.dateopened) %>
+  <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
+  <% var dateClosed = new Date(result.dateopened) %>
+  <% var dateClosed= dateClosed.getDate() + "/" +  (dateClosed.getMonth()+1) + "/" + dateClosed.getFullYear() %>
     <tr>
       <td><%=result.customer%></td>
       <td><%=result.issue%></td>
       <td><%=result.status%></td>
       <td><%=result.resolution%></td>
-      <td><%=result.dateopened%></td>
-      <td><%=result.dateclosed%></td>
+      <td><%=dateOpened%></td>
+      <td><%=dateClosed%></td>
       <td><%=result.employee%></td>
     </tr>   
   <%})%>
