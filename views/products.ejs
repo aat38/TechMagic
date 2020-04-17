@@ -1,6 +1,5 @@
 <%- include("partials/header") %>
 
-
 <% if (locals.products) { %> 
 <h1>
   Products
@@ -17,9 +16,8 @@
   <% var i=0 %>
   <% products.forEach(result=>{ %>
     <tr id='<%=i%>' data-toggle="modal" data-target="#descriptionModal" style="cursor:pointer">
-      <td><input type="button" class="clickable-row" onclick="getId(this)" value='<%=result.name%>'></td>
-      <td><input type="button" class="clickable-row" onclick="getId(this)" value='<%=result.unitcost%>'></td>
-       
+      <td><input type="button" class="clickable-row" onclick="getId(this)" descr='<%=result.description%>' value='<%=result.name%>'></td>
+      <td><input type="button" class="clickable-row" onclick="getId(this)" descr='<%=result.description%>' value='<%=result.unitcost%>'></td>
     </tr>    
   
   
@@ -52,7 +50,7 @@
 <script type=text/javascript>
   function  getId(element) {
     alert("row" + element.parentNode.parentNode.rowIndex + 
-    " - column" + element.parentNode.cellIndex);
+    " - column" + element.parentNode.cellIndex + JSON.stringify(this.descr);
 }
 </script>
 

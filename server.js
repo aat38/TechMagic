@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 const apiRouter = require("./routes/api");
 const clientRouter = require("./routes/views");
 
+app.use(express.static(__dirname + '/static'));
 app.use("/", clientRouter);
 app.use("/api/", apiRouter);
 
