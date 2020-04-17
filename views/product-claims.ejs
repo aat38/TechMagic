@@ -4,8 +4,27 @@
   <h1>
     <%=claims[0].product%> Claims
   </h1>
+<thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% claims.forEach(result=>{ %>
+    <tr>
+      <td><%=result.firstname%></td>
+      <td><%=result.lastname%></td>
+      <td><%=result.title%></td>
+    </tr>    
+  </tbody>
+  <%})%>
+<% } %>
+
+
+
   <table>
-    <% claims.forEach(result=>{ %>
     <tr>
       <td><%=result.description%></td>
     </tr>    

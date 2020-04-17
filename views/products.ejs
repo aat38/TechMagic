@@ -17,7 +17,10 @@
       <!--  ** using 'name' attribute to access related variables through javascript function **    -->
       <td><input type="button" class="clickable-row" onclick="modal(this)" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.name%>'></td>
       <td><input type="button" class="clickable-row" onclick="modal(this)" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.unitcost%>'></td>
-    
+    </tr>
+  <%})%>
+  <% } %>
+  </tbody> 
 <div id="descriptionModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
@@ -25,7 +28,7 @@
     <div class="d-flex justify-content-center flex-column">
       <h2 id="name" >Product Name</h2>
       <p id="description">Product description</p>
-      <form method="get" action='/products/claims/<%=result.productid%>'>
+      <form id="claimsBtn" method="get">
         <button type="submit" id="claims">View Claims</button>
       </form>
      <p id="noclaims">No claims for this product</p>
@@ -33,10 +36,7 @@
   </div>
 </div>
 
-  </tr>
-  <%})%>
-  <% } %>
-  </tbody>
+ 
       
       
 <button><a href="/">Admin Home</a></button>
@@ -46,6 +46,7 @@
  
   function modal(element) {
     var product=element.name.split(";")[2];
+    var productid=element.name.split(";")[1];
     var description=element.name.split(";")[0];
     var modal = document.getElementById("descriptionModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
@@ -67,6 +68,7 @@
             document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
             document.getElementById("name").innerHTML=product;
             document.getElementById("description").innerHTML=description;
+            document.getElementById("claimsBtn").action="/products/claims/"+productid;
             modal.style.display = "block";
           }
       })  
