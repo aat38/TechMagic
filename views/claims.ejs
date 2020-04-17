@@ -1,20 +1,24 @@
 <%- include("partials/header") %>
 
+  <%var edit=false%>
 
 <% if (locals.claims) { %> 
 <h1>
   Claims
 </h1>
+  <button name='fa'class="button">Edit </button>
 
+<%if (edit==true) {%>
 <div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn">Edit Claims</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="#">Create Claim</a>
-    <a href="#">Edit Claim</a>
-    <a href="#">Resolve Claim</a>
-    <a href="#">Close Claim</a>
+  <button onclick="myFunction()" class="button">Edit Claims</button>
+  <div id="dropdown" class="dropdown-content">
+    <a href="">Create New </a>
+    <a href="">Edit</a>
+    <a href="">Resolve</a>
+    <a href="">Close</a>
   </div>
 </div>
+<%}%>
 
 <table class="table table-hover">
   <thead>
@@ -55,16 +59,16 @@
 </h1>
 <%}%>
 
-<script>
+<script type=text/javascript>
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+  document.getElementById("dropdown").classList.toggle("show");
 }
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+  if (!event.target.matches('.button')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
