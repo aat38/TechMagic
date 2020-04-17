@@ -17,11 +17,6 @@
       <!--  ** using 'name' attribute to access related variables through javascript function **    -->
       <td><input type="button" class="clickable-row" onclick="modal(this)" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.name%>'></td>
       <td><input type="button" class="clickable-row" onclick="modal(this)" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.unitcost%>'></td>
-    </tr>
-  <%})%>
-  <% } %>
-  </tbody>
- 
     
 <div id="descriptionModal" class="modal">
   <!-- Modal content -->
@@ -30,12 +25,20 @@
     <div class="d-flex justify-content-center flex-column">
       <h2 id="name" >Product Name</h2>
       <p id="description">Product description</p>
-      <button id="claims"><a href="/">View Claims</a></button>
-      <p id="noclaims">No claims for this product</p>
+      <form method="get" action='/products/claims/<%=result.productid%>'>
+        <button type="submit" id="claims">View Claims</button>
+      </form>
+     <p id="noclaims">No claims for this product</p>
     </div>
   </div>
 </div>
-  
+
+  </tr>
+  <%})%>
+  <% } %>
+  </tbody>
+      
+      
 <button><a href="/">Admin Home</a></button>
 
   
