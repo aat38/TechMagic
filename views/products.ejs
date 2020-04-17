@@ -17,8 +17,9 @@
   <% var i=0 %>
   <% products.forEach(result=>{ %>
     <tr id='<%=i%>' data-toggle="modal" data-target="#descriptionModal" style="cursor:pointer">
-      <td><%=result.name%></td>
+      <td><input type="button" class="clickable-row" onclick="getId(this)" value='<%=result.name%>'></td>
       <td><%=result.unitcost%></td>
+       
     </tr>    
   
   
@@ -43,25 +44,7 @@
 <%})%>
   <% } %> 
   </tbody>
-  
-  <table>
-  <tr>
-    <td><input type="button" value="button" onclick="getId(this)"></td>
-    <td><input type="button" value="button" onclick="getId(this)"></td>
-    <td><input type="button" value="button" onclick="getId(this)"></td>
-  </tr>
-  <tr>
-    <td><input type="button" value="button" onclick="getId(this)"></td>
-    <td><input type="button" value="button" onclick="getId(this)"></td>
-    <td><input type="button" value="button" onclick="getId(this)"></td>
-  </tr>
-  <tr>
-    <td><input type="button" value="button" onclick="getId(this)"></td>
-    <td><input type="button" value="button" onclick="getId(this)"></td>
-    <td><input type="button" value="button" onclick="getId(this)"></td>
-  </tr>
-</table>
-  
+ 
   
   <button><a href="/">Return</a></button>
 
