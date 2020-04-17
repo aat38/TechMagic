@@ -30,6 +30,7 @@
       <h2 id="name">Product Name</h2>
       <p id="description">Product description</p>
       <button id="claims">View Claims for this Product</button>
+      <p id="noclaims">No claims for this product</p>
     </div>
   </div>
 </div>
@@ -42,21 +43,26 @@
   function  getId(element) {
     var product=element.value
     var description=element.name.split(";")[0];
-    var modal = document.getElementById("descriptionModal");
+    var modal = document.getElementById("descriptionModal"); 
+    var closeBtn = document.getElementsByClassName("close")[0];
 
-    document.getElementById("name").innerHTML=product;
-    document.getElementById("description").innerHTML=description;
-    
     fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
         .then((resp) => resp.json()) // Transform the data into json
         .then(function(data) {
-        console.log(JSON.stringify(data))
-        document.getElementById("claims").innerHTML="View "+data+" claims for this product";
+        // console.log(JSON.stringify(data))
+        if (data.length===0){
+          document.getElementById("noclaims").style.display = "block";
+          document.getElementById("claims").style.display = "none";
+        }else{
+          document.getElementById("noclaims").style.display = "none";
+          document.getElementById("claims").style.display = "block";
+          document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
+        }
       })
+
+
+
     
-    modal.style.display = "block";
-    
-    var closeBtn = document.getElementsByClassName("close")[0];
     
     closeBtn.onclick = function() {
       modal.style.display = "none";
