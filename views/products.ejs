@@ -46,14 +46,14 @@
 
     document.getElementById("name").innerHTML=product;
     document.getElementById("description").innerHTML=description;
-    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1], {
-        method: 'GET'
-    }).then(resp=>{
-    document.getElementById("claims").innerHTML="View "+_.size(resp)+" claims for this product";
-    }, err=>{
-          console.log('errrr')
-      console.log(err);
-    })  
+    
+    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
+      .then(resp=> {
+       window.location.reload();
+        console.log("hey!")
+        document.getElementById("claims").innerHTML="View "+JSON.stringify(resp)+" claims for this product";
+      })
+    
     modal.style.display = "block";
     
     var closeBtn = document.getElementsByClassName("close")[0];
