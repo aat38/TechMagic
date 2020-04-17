@@ -13,64 +13,26 @@
     </tr>
   </thead>
   <tbody>
+  <% var descriptions =[] %>
+  <% var i=0
   <% products.forEach(result=>{ %>
-    <tr class='clickable-row' data-toggle="modal" data-target="#modal" style="cursor:pointer">
+    <tr id="modalBtn" data-toggle="modal" data-target="#descriptionModal"style="cursor:pointer">
       <td><%=result.name%></td>
       <td><%=result.unitcost%></td>
     </tr>    
-  <% var description = result.description %>
-  <%})%>
-<% } %> 
-  </tbody>
-
-  
-  <button><a href="/">Return</a></button>
-
   
   
-<script type=text/javascript>
-
-</script>
   
-  <%- include("partials/footer") %>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Unit Cost</th>
-    </tr>
-  </thead>
-  <% products.forEach(result=>{ %>
-  <tbody>
-  <% products.forEach(result=>{ %>
-    <tr class='clickable-row' data-toggle="modal" data-target="#modal" style="cursor:pointer">
-    <tr data-toggle="modal" data-target="#descriptionModal">
-      <td><%=result.name%></td>
-      <td><%=result.unitcost%></td>
-    </tr>    
-  <% var description = result.description %>
-  </tbody>
-  <%})%>
-<% } %> 
-  </tbody>
-<% } %>
-
-  
-  <button><a href="/">Return</a></button>
-
-<!-- Modal -->
+  <!-- Modal -->
 <div class="modal fade" id="descriptionModal" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Title Example</h4>
       </div>
       <div class="modal-body">
-        <p>Testing 1 </p>
-        <p>Testing 2 </p>
-        <p>Testing 3 </p>
+        <p><%= result.description %></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -78,3 +40,16 @@
     </div>
   </div>
 </div>
+<%})%>
+  <% } %> 
+  </tbody>
+  
+  <button><a href="/">Return</a></button>
+
+  
+<script type=text/javascript>
+</script>
+
+
+<%- include("partials/footer") %>
+
