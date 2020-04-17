@@ -13,14 +13,16 @@
       <th>Title</th>
     </tr>
   </thead>
+  <tbody>
   <% employees.forEach(result=>{ %>
     <tr>
       <td><%=result.firstname%></td>
       <td><%=result.lastname%></td>
       <td><%=result.title%></td>
     </tr>    
-  </tbody>
   <%})%>
+  </tbody>
+</table>
 <% } %>
 
   <button><a href="/">Return</a></button>
