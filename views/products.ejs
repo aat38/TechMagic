@@ -14,7 +14,7 @@
   </thead>
   <% products.forEach(result=>{ %>
   <tbody>
-    <tr onclick="myFunction(this)">
+    <tr data-toggle="modal" data-target="#descriptionModal">
       <td><%=result.name%></td>
       <td><%=result.unitcost%></td>
     </tr>    
@@ -24,9 +24,31 @@
 
   <button><a href="/">Return</a></button>
 
+<!-- Modal -->
+<div class="modal fade" id="descriptionModal" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Title Example</h4>
+      </div>
+      <div class="modal-body">
+        <p>Testing 1 </p>
+        <p>Testing 2 </p>
+        <p>Testing 3 </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  
 <%- include("partials/footer") %>
   
-<script type=text/javascript>
+<!-- <script type=text/javascript>
    var baseURL = "https://ejs-views-practice.glitch.me"
    
    function myFunction() {
@@ -62,4 +84,4 @@
     })
   }
   
-</script> 
+</script>  -->
