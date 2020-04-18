@@ -37,7 +37,7 @@
   <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
 
   <tbody>
-    <tr onclick="openDropDown()">
+    <tr onclick="openDropDown(this)">
       <td><%=result.customer%></td>
       <td><%=result.product%></td>
       <td><%=result.issue%></td>
@@ -58,23 +58,28 @@
 </h1>
 <%}%>
 
-
-      <div class="dropdown" style="visibility:hidden">
-        <ul class="dropdown-menu" role="menu" aria-labelledby="editMenu">
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
-          <li role="presentation" class="divider"></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>    
-        </ul>
-      </div>
+<!-- style="visibility:hidden" -->
+<div class="dropdown" >
+    <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Dropdown Example
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>    
+    </ul>
+  </div>
 
 
 <script type=text/javascript>
   
-function openDropDown() {
-  
-document.getElementById("dropdown").style.visibility="visible";
+function openDropDown(element) {
+  // e = Mouse click event.
+  // var x = e.clientX - rect.left; //x position within the element.
+  // var y = e.clientY - rect.top;  //y position within the element.
+
+document.getElementsByClassName("dropdown").style.visibility="visible";
 }
 // /* When the user clicks on the button, 
 // toggle between hiding and showing the dropdown content */
