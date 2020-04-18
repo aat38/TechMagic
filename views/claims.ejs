@@ -40,8 +40,8 @@
     <tr>
       <td>
       <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="z-index: -1"><%=result.customer%></button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+        <button class="btn dropdown-toggle" id="editMenu" data-toggle="dropdown" onload="style()"><%=result.customer%></button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="editMenu">
           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
@@ -50,16 +50,14 @@
         </ul>
       </div>
       </td>
-      <td><input type="button" value='<%=result.product%>'</td>
-      <td><input type="button"  value='<%=result.issue%>'</td>
-      <td><input type="button" value='<%=result.description%>'</td>
-      <td><input type="button"  value='<%=result.employee%>'</td>
-      <td><input type="button"  value='<%= dateOpened %>'</td>
-      <td><input type="button"  value='<%=result.status%>'</td>
-      <td><input type="button"  value='<%=result.resolution%>'</td> 
+      <td><%=result.product%></td>
+      <td><%=result.issue%></td>
+      <td><%=result.description%></td>
+      <td><%=result.employee%></td>
+      <td><%= dateOpened %></td>
+      <td><%=result.status%></td>
+      <td><%=result.resolution%></td> 
     </tr>    
-    
-
   </tbody>
   <%})%>
 
@@ -73,9 +71,9 @@
 
 <script type=text/javascript>
   
-// function edit() {
-// document.getElementById("editDiv").style.display="block"
-// }
+function style() {
+document.getElementsByClassName("dropdown-toggle").style.width=window.innerWidth;
+}
 // /* When the user clicks on the button, 
 // toggle between hiding and showing the dropdown content */
 // function myFunction() {
