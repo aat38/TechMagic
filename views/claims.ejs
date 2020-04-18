@@ -6,6 +6,20 @@
   Claims
 </h1>
 
+<form id="add" onSubmit="add();">  
+  
+<input value="" id="word" name="word" placeholder="word to add" type="text" >
+<input value="" id="def" name="def" placeholder="definition" type="text" >
+<input type="submit"></form>
+<p>
+  To see your update, view dictionary by your word's first letter and scroll to the bottom of the page
+</p>
+<form id="return">
+<button formaction="/" method"GET" type="submit">Return</button>
+</form>
+</form>
+
+
 <button onclick="edit()" id="conditionalBtn" class="button">Edit</button>
 
 <div id="editDiv"class="dropdown" style="display:none">
@@ -65,20 +79,13 @@ document.getElementById("editDiv").style.display="block"
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function myFunction() {
-  document.getElementById("dropdown").classList.toggle("show");
+  document.getElementById("dropdown").style.display="block"
 }
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.button')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
+    document.getElementById("dropdown").style.display="none"
   }
 }
 </script>
