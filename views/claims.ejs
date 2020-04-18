@@ -48,7 +48,7 @@
   <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
 
   <tbody>
-    <tr onclick="openDropDown(this)">
+    <tr onclick="openDropDown(event)">
       <td><%=result.customer%></td>
       <td><%=result.product%></td>
       <td><%=result.issue%></td>
@@ -74,12 +74,12 @@
 
 <script type=text/javascript>
   
-function openDropDown(element) {
-  // e = Mouse click event.
-  // var x = e.clientX - rect.left; //x position within the element.
-  // var y = e.clientY - rect.top;  //y position within the element.
-
-document.getElementsByClassName("dropdown").style.visibility="visible";
+function openDropDown(e) {
+  var x = e.clientX  //x position within the element.
+  var y = e.clientY   //y position within the element.
+document.getElementsByClassName("dropdown")[0].style.top=x+"px"
+document.getElementsByClassName("dropdown")[0].style.left=y+"px";
+document.getElementsByClassName("dropdown")[0].style.display="block";
 }
 // /* When the user clicks on the button, 
 // toggle between hiding and showing the dropdown content */
