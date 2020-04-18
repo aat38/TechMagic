@@ -37,10 +37,17 @@
   <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
 
   <tbody>
-    <tr>
-      <td>
-      <div class="dropdown">
-        <button class="btn dropdown-toggle" id="editMenu" data-toggle="dropdown" onload="style()"><%=result.customer%></button>
+    <tr onclick="openDropDown(this)">
+      <td><%=result.customer%></td>
+      <td><%=result.product%></td>
+      <td><%=result.issue%></td>
+      <td><%=result.description%></td>
+      <td><%=result.employee%></td>
+      <td><%= dateOpened %></td>
+      <td><%=result.status%></td>
+      <td><%=result.resolution%></td> 
+    </tr> 
+      <div class="dropdown" style="visibility:hidden">
         <ul class="dropdown-menu" role="menu" aria-labelledby="editMenu">
           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
@@ -49,15 +56,6 @@
           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>    
         </ul>
       </div>
-      </td>
-      <td><%=result.product%></td>
-      <td><%=result.issue%></td>
-      <td><%=result.description%></td>
-      <td><%=result.employee%></td>
-      <td><%= dateOpened %></td>
-      <td><%=result.status%></td>
-      <td><%=result.resolution%></td> 
-    </tr>    
   </tbody>
   <%})%>
 
@@ -71,8 +69,8 @@
 
 <script type=text/javascript>
   
-function style() {
-document.getElementsByClassName("dropdown-toggle").style.width=window.innerWidth;
+function openDropDown(element) {
+document.getElementsByClassName("dropdown").style.visibility="visible";
 }
 // /* When the user clicks on the button, 
 // toggle between hiding and showing the dropdown content */
