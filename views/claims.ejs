@@ -38,23 +38,28 @@
 
   <tbody>
     <tr>
-      <td><input type="button" class="dropdown" onclick="edit(this)" value='<%=result.customer%>'</td>
-      <td><input type="button" class="dropdown" onclick="edit(this)" value='<%=result.product%>'</td>
-      <td><input type="button" class="dropdown" onclick="edit(this)" value='<%=result.issue%>'</td>
-      <td><input type="button" class="dropdown" onclick="edit(this)" value='<%=result.description%>'</td>
-      <td><input type="button" class="dropdown" onclick="edit(this)" value='<%=result.employee%>'</td>
-      <td><input type="button" class="dropdown" onclick="edit(this)" value='<%= dateOpened %>'</td>
-      <td><input type="button" class="dropdown" onclick="edit(this)" value='<%=result.status%>'</td>
-      <td><input type="button" class="dropdown" onclick="edit(this)" value='<%=result.resolution%>'</td>
+      <td>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="z-index: -1"><%=result.customer%></button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
+          <li role="presentation" class="divider"></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>    
+        </ul>
+      </div>
+      </td>
+      <td><input type="button" value='<%=result.product%>'</td>
+      <td><input type="button"  value='<%=result.issue%>'</td>
+      <td><input type="button" value='<%=result.description%>'</td>
+      <td><input type="button"  value='<%=result.employee%>'</td>
+      <td><input type="button"  value='<%= dateOpened %>'</td>
+      <td><input type="button"  value='<%=result.status%>'</td>
+      <td><input type="button"  value='<%=result.resolution%>'</td> 
     </tr>    
-    <div id="editDiv">
-      <div id="dropdownContent" class="dropdown-content">
-        <a href="">Create New </a>
-        <a href="">Edit</a>
-        <a href="">Resolve</a>
-        <a href="">Close</a>
-      </div> 
-    </div>
+    
+
   </tbody>
   <%})%>
 
@@ -68,21 +73,21 @@
 
 <script type=text/javascript>
   
-function edit() {
-document.getElementById("editDiv").style.display="block"
-}
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("dropdown").style.display="block"
-}
+// function edit() {
+// document.getElementById("editDiv").style.display="block"
+// }
+// /* When the user clicks on the button, 
+// toggle between hiding and showing the dropdown content */
+// function myFunction() {
+//   document.getElementById("dropdownContent").style.display="block"
+// }
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.button')) {
-    document.getElementById("dropdown").style.display="none"
-  }
-}
+// // Close the dropdown if the user clicks outside of it
+// window.onclick = function(event) {
+//   if (!event.target.matches('.button')) {
+//     document.getElementById("dropdownContent").style.display="none"
+//   }
+// }
 </script>
 
 
