@@ -37,7 +37,7 @@
   <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
 
   <tbody>
-    <tr onclick="openDropDown(this)">
+    <tr onclick="openDropDown()">
       <td><%=result.customer%></td>
       <td><%=result.product%></td>
       <td><%=result.issue%></td>
@@ -47,15 +47,6 @@
       <td><%=result.status%></td>
       <td><%=result.resolution%></td> 
     </tr> 
-      <div class="dropdown" style="visibility:hidden">
-        <ul class="dropdown-menu" role="menu" aria-labelledby="editMenu">
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
-          <li role="presentation" class="divider"></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>    
-        </ul>
-      </div>
   </tbody>
   <%})%>
 
@@ -67,10 +58,23 @@
 </h1>
 <%}%>
 
+
+      <div class="dropdown" style="visibility:hidden">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="editMenu">
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
+          <li role="presentation" class="divider"></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>    
+        </ul>
+      </div>
+
+
 <script type=text/javascript>
   
-function openDropDown(element) {
-document.getElementsByClassName("dropdown").style.visibility="visible";
+function openDropDown() {
+  
+document.getElementById("dropdown").style.visibility="visible";
 }
 // /* When the user clicks on the button, 
 // toggle between hiding and showing the dropdown content */
