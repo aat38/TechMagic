@@ -1,15 +1,14 @@
 <%- include("partials/header") %>
 
-  <%var edit=false%>
 
 <% if (locals.claims) { %> 
 <h1>
   Claims
 </h1>
-  <button name='fa'class="button">Edit </button>
 
-<%if (edit==true) {%>
-<div class="dropdown">
+<button onclick="edit()" id="conditionalBtn" class="button">Edit</button>
+
+<div id="editDiv"class="dropdown" style="display:none">
   <button onclick="myFunction()" class="button">Edit Claims</button>
   <div id="dropdown" class="dropdown-content">
     <a href="">Create New </a>
@@ -18,7 +17,6 @@
     <a href="">Close</a>
   </div>
 </div>
-<%}%>
 
 <table class="table table-hover">
   <thead>
@@ -60,6 +58,10 @@
 <%}%>
 
 <script type=text/javascript>
+  
+function edit() {
+document.getElementById("editDiv").style.display="block"
+}
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function myFunction() {
