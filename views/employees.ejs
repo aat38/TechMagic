@@ -1,4 +1,4 @@
-<!-- CLICKABLE LIST OF ALL EMPLOYEES  -->
+<!-- CLICKABLE, SORTABLE LIST OF ALL EMPLOYEES  -->
 
 <%- include("partials/header") %>
 
@@ -12,9 +12,9 @@ create employee
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
     <button class="dropdown-toggle" type="button" data-toggle="dropdown">Sort by <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><button type="submit" formaction="/employees/asc"> Ascending Last Name </button></li>
-      <li><button type="submit" formaction="/employees/desc"> Descending Last Name </button></li>
-      <li><button type="submit" formaction="/employees/title"> Title </button></li>
+      <li><button class="dropdown-sort-option-button" type="submit" formaction="/employees/asc"> Ascending Last Name </button></li>
+      <li><button class="dropdown-sort-option-button" type="submit" formaction="/employees/desc"> Descending Last Name </button></li>
+      <li><button class="dropdown-sort-option-button" type="submit" formaction="/employees/title"> Title </button></li>
     </ul>
   </div>
 </form>

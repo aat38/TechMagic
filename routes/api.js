@@ -340,6 +340,41 @@ apirouter.get("/products", (request, response) => {
   );
 });
 
+//GET list of SORTED products --------------------------------------
+apirouter.get("/products/:sort", (request, response) => {
+  var sortby = request.params.sort
+  if (sortby === 'asc' || sortby ==='desc'){
+    client.connect();
+    client.query("select * from product order by name "+sortby).then(
+    function(resp) {
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    });
+  }
+  if(sortby === 'greatest' ){
+    client.connect();
+    client.query("select * from product order by unitcost desc").then(
+    function(resp) {
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    });
+  }
+  if(sortby === 'least' ){
+    client.connect();
+    client.query("select * from product order by unitcost asc").then(
+    function(resp) {
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    });
+  }
+});
+
 //PURCHASES
 //GET purchase history by customer --DOESNT WORK because "item count" needs to be changed to "itemcount" first
 apirouter.get("/purchases/customer/:customerid", (request, response) => {
