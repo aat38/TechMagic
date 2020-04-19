@@ -13,3 +13,5 @@
 - [Dropdown menu to forefront](https://stackoverflow.com/questions/16149701/bootstrap-dropdowns-menus-appearing-behind-other-elements-ie7)
 added get products
 // get claim based on products //////NEEEEEEEEEWWWWWWW
+apirouter.get("/claims/search/:claimid", (request, response) => {
+

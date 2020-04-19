@@ -5,6 +5,11 @@
   Claims
 </h1>
 
+<% if (locals.claimid) { %> 
+
+<p>
+  <%=claimid.description%>
+</p>
 <!-- <form id="add" onSubmit="add();">  
 <input value="" id="word" name="word" placeholder="word to add" type="text" >
 <input value="" id="def" name="def" placeholder="definition" type="text" >
@@ -16,6 +21,8 @@
 <button formaction="/" method"GET" type="submit">Return</button>
 </form>
 </form> -->
+
+<%}%>
 
 <table class="table table-hover">
   <thead>

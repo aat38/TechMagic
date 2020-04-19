@@ -17,8 +17,8 @@ clientrouter.get("/", (req, res) => {
 
 
 clientrouter.get("/claims", function(req, res, next) {
-  axios
-    .get(baseURL +"/api/claims")
+axios
+  .get(baseURL +"/api/claims")
     .then(function(response) {
       res.render("claims", { claims: response.data });
     })
@@ -76,8 +76,16 @@ clientrouter.get("/products/claims/:productid", function(req, res, next) {
 });
 
 clientrouter.get("/claims/edit/:claimid", function(req, res, next) {
-      res.render("claims", { edit: req.params.claimid });
+  axios
+    .get(baseURL +"/api/claims/search/"+req.params.claimid)
+    .then(function(response) {
+      console.log(response.data)
+      res.render("claims", { claimid: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 });
-
+  
 
 module.exports = clientrouter;
