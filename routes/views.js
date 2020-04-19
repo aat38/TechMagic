@@ -31,7 +31,7 @@ clientrouter.get("/claims/:var", function(req, res, next) {
 axios
   .get(baseURL +"/api/claims/sortby/"+req.params.var)
     .then(function(response) {
-      res.render("claims", { claims: response.data });
+      res.render("claims", { claims: response.data , sort: req.params.var});
     })
     .catch(function(error) {
       console.log(error);
