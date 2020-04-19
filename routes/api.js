@@ -169,7 +169,7 @@ apirouter.get("/claims/products/:productid", (request, response) => {
 // get SORTED claim based on products //////NEEEEEEEEEWWWWWWW
 apirouter.get("/claims/:productid/sortby/:var", (request, response) => {
     client.connect();
-    client.query("select * from all_claims where productid="+request.params.productid+" order by "+request.params.var).then(
+    client.query("select * from all_claims where productid="+request.params.productid+" order by "+request.params.var+" asc").then(
     function(resp) {
       console.log("Successfully retrieved sorted claims for productid="+request.params.productid);
       // console.log(resp.rows)

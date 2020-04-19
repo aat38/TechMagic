@@ -9,6 +9,18 @@
 create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
+  <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
+    <button class="dropdown-toggle" type="button" data-toggle="dropdown">Sort by <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href='/claims/*/sortby/customer'>Customer</a></li>
+      <li><a href='/claims/*/sortby/issue'>Issue</a></li>
+      <li><a href='/claims/*/sortby/status'>Status</a></li>
+      <li><a href='/claims/*/sortby/resolution'>Resolution</a></li>
+      <li><a href='/claims/*/sortby/dateopened'>Date Open</a></li>
+      <li><a href='/claims/*/sortby/employee'>Technician</a></li>
+     </ul>
+  </div>
+
 <table class="table table-hover">
   <thead>
     <tr>
