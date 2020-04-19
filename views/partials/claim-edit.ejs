@@ -3,21 +3,69 @@
 <% data.forEach(result=>{ %>
 
 <p>
-  <%=result.customer%>
+  Edit Claim (Claim Id = <%=result.claimid%>)
 </p>
-<!-- <form id="add" onSubmit="add();">  
-<input value="" id="word" name="word" placeholder="word to add" type="text" >
+<form id="updateform" onsubmit="update(this);">  
+<input value="" id="customer" name="customer" placeholder='<>' type="text" >
+<input value="" id="product" name="product" placeholder='<>' type="text" >
+<input value="" id="issue" name="issue" placeholder='<>' type="text" >
+<input value="" id="status" name="status" placeholder='<>' type="text" >
+<input value="" id="description" name="description" placeholder='<>' type="text" >
+<input value="" id="employee" name="employee" placeholder='<>' type="text" >
+<input value="" id="dateopened" name="dateopened" placeholder='<>' type="text" >
+<input value="" id="resolution" name="resolution" placeholder='<>' type="text" >
+<input value="" id="dateclosed" name="dateclosed" placeholder='<>' type="text" >
+
 <input value="" id="def" name="def" placeholder="definition" type="text" >
 <input type="submit"></form>
-<p>
-  To see your update, view dictionary by your word's first letter and scroll to the bottom of the page
-</p>
 <form id="return">
 <button formaction="/" method"GET" type="submit">Return</button>
 </form>
-</form> -->
+</form> 
 
+<script type=text/javascript>
+ 
+  function update(form) {
+    var product=element.name.split(";")[2];
+    var productid=element.name.split(";")[1];
+    var description=element.name.split(";")[0];
+    var modal = document.getElementById("descriptionModal"); 
+    var closeBtn = document.getElementsByClassName("close")[0];
 
+    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
+        .then((resp) => resp.json()) // Transform the data into json
+        .then(function(data) {
+          // console.log(JSON.stringify(data))
+          //IF return no claims associated with this product, show the modal without providing a view claims button 
+          if (data.length===0){
+            document.getElementById("noclaims").style.display = "block";
+            document.getElementById("claims").style.display = "none";
+            document.getElementById("name").innerHTML=product;
+            document.getElementById("description").innerHTML=description;
+            modal.style.display = "block";
+          }else{
+            document.getElementById("noclaims").style.display = "none";
+            document.getElementById("claims").style.display = "block";
+            document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
+            document.getElementById("name").innerHTML=product;
+            document.getElementById("description").innerHTML=description;
+            document.getElementById("claimsBtn").action="/products/claims/"+productid;
+            modal.style.display = "block";
+          }
+      })  
+  
+    //close out of modal either when clicking 'x' or when clicking outside of the modal
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  }//end modal()
+  
+</script>
 <%})%>
 <%- include("footer") %>
 <%}%>
