@@ -20,13 +20,36 @@
    
     <% } %>
   </select>
-    
-    
-    <input value="" id="issue" name="issue" placeholder='<>' type="text" >
   </div>
-<input value="" id="status" name="status" placeholder='<>' type="text" >
-<input value="" id="description" name="description" placeholder='<>' type="text" >
-<input value="" id="employee" name="employee" placeholder='<>' type="text" >
+  <div>
+    <b>Status: </b>
+    <select id="status">
+      <option value="" disabled selected hidden><%=result.status%></option>
+      <%if (result.status==="Closed"){%>
+      <option value='Open'>Open</option>
+       <% }else{ %>
+      <option value='Closed'>Closed</option>
+      <% } %>
+    </select>
+  </div>
+  
+  <div><b>Description: </b>
+  <input value="<%=result.description%>" id="description" name="description" type="text" >
+<div>
+    <b>Employee: </b>
+    <select id="issueList">
+     <!--  keeping the selected letter visible in dropdown box -->
+    <% if (locals.issues) { %> 
+      <option value="" disabled selected hidden><%=result.issue%> </option>
+      <% issues.forEach(issue=>{ %>
+      <option value='<%=issue.name%>'><%=issue.name %></option>
+       <% } )%>
+   
+    <% } %>
+  </select>
+  </div>
+  
+  <input value="" id="employee" name="employee" placeholder='<>' type="text" >
 <input value="" id="dateopened" name="dateopened" placeholder='<>' type="text" >
 <input value="" id="resolution" name="resolution" placeholder='<>' type="text" >
 <input value="" id="dateclosed" name="dateclosed" placeholder='<>' type="text" >
