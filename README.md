@@ -11,6 +11,8 @@
 - [Parse date](https://stackoverflow.com/questions/9363263/how-to-format-json-date)
 - [Screen position of mouse](https://www.kirupa.com/html5/getting_mouse_click_position.htm)
 - [Dropdown menu to forefront](https://stackoverflow.com/questions/16149701/bootstrap-dropdowns-menus-appearing-behind-other-elements-ie7)
+- [Create div on button press](https://stackoverflow.com/questions/33154928/creating-div-on-button-click-with-javascript-not-working)
+
 get products
 // get claim based on products //////NEEEEEEEEEWWWWWWW
 apirouter.get("/claims/search/:claimid", (request, response) => {
