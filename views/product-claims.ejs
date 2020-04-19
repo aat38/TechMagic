@@ -7,7 +7,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th></th>
+      <!--   leaving this first col empty to accomidate the rows to follow that have an edit button here    -->
+      <th></th> 
       <th>Customer</th>
       <th>Issue</th>
       <th>Status</th>
@@ -18,6 +19,7 @@
     </tr>
   </thead>
   <tbody>
+  <!-- each row    -->
   <% claims.forEach(result=>{ %>
   <% var dateOpened = new Date(result.dateopened) %>
   <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
