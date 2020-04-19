@@ -9,15 +9,24 @@
 create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
+  <div>
+    <b>Sort by: </b>
+    <select id="issueList">
+      <% if (locals.issues) { %> 
+        <option value="" disabled selected hidden></option> <!--  keeping the selected issue visible in dropdown box -->
+        <option> <a href='/claims/customer'>Customer</a></option>
+    </select>
+  </div>
+
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
     <button class="dropdown-toggle" type="button" data-toggle="dropdown">Sort by <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><a href='/claims/*/sortby/customer'>Customer</a></li>
-      <li><a href='/claims/*/sortby/issue'>Issue</a></li>
-      <li><a href='/claims/*/sortby/status'>Status</a></li>
-      <li><a href='/claims/*/sortby/resolution'>Resolution</a></li>
-      <li><a href='/claims/*/sortby/dateopened'>Date Open</a></li>
-      <li><a href='/claims/*/sortby/employee'>Technician</a></li>
+      <li><a href='/claims/customer'>Customer</a></li>
+      <li><a href='/claims/issue'>Issue</a></li>
+      <li><a href='/claims/status'>Status</a></li>
+      <li><a href='/claims/resolution'>Resolution</a></li>
+      <li><a href='/claims/dateopened'>Date Open</a></li>
+      <li><a href='/claims/employee'>Technician</a></li>
      </ul>
   </div>
 

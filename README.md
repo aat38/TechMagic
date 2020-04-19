@@ -18,7 +18,7 @@ apirouter.get("/claims/search/:claimid", (request, response) => {
 //change d//GET claim information based on claimId ----------------------------
 //get all resolutions 
 //apirouter.get("/employees/:sort", (request, response) => {  //sorts by last name OR title depending on your input
-apirouter.get("/claims/:productid/sortby/:var", (request, response) => {
+clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 
 
 
