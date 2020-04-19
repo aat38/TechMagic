@@ -52,18 +52,25 @@
     </select>
   </div>
 <div>
+  <% if (locals.comments) { %> 
  <b>Employee Comments: </b>
+  <p>
+    <% comments.forEach(comment=>{ %>
+<%=comment.description%>-<%=result.employee%>
+<%})%>
+    <%}%>
+  </p>
 </div>
-<input value="" id="dateopened" name="dateopened" placeholder='<>' type="text" >
-<input value="" id="resolution" name="resolution" placeholder='<>' type="text" >
-<input value="" id="dateclosed" name="dateclosed" placeholder='<>' type="text" >
+<div>
+  <input value="" id="dateopened" name="dateopened" placeholder='<>' type="text" >
+  <input value="" id="dateclosed" name="dateclosed" placeholder='<>' type="text" >
+</div>
+  
+<div>
+  <input value="" id="resolution" name="resolution" placeholder='<>' type="text" >  
+</div>
 
-<input value="" id="def" name="def" placeholder="definition" type="text" >
 <input type="submit"></form>
-<form id="return">
-<button formaction="/" method"GET" type="submit">Return</button>
-</form>
-</form> 
 
 <script type=text/javascript>
  
