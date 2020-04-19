@@ -9,14 +9,13 @@
 create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
-  <div>
+<form method="get" action="/claims/customer">
     <b>Sort by: </b>
     <select id="issueList">
-      <% if (locals.issues) { %> 
-        <option value="" disabled selected hidden></option> <!--  keeping the selected issue visible in dropdown box -->
-        <option> <a href='/claims/customer'>Customer</a></option>
+      <option value="" disabled selected hidden></option> <!--  keeping the selected issue visible in dropdown box -->
+      <option value="customer" type="button" onclick="sortby(this);">Customer</option>
     </select>
-  </div>
+</form>
 
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
     <button class="dropdown-toggle" type="button" data-toggle="dropdown">Sort by <span class="caret"></span></button>
@@ -82,6 +81,35 @@ create claims, edit and resolve claims, email techs any questions about claims
 
 </table>
 </p>
+
+<script type=text/javascript>
+ 
+  function sortby(element) {
+    //grabbing element information from html to populate modal depending on which product row was selected
+    console.log("hey")
+    fetch('https://ejs-views-practice.glitch.me/claims/'+element.value)
+        .then(function(data) {
+        }
+        .catch(function(error) {
+          console.log(error);
+        });
+      })  
+  
+    //close out of modal either when clicking 'x' 
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    //or close modal when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  }//end function modal(element)
+  
+</script>
+
+
 <%}else{%>
 <h1>
  No Claims Found
