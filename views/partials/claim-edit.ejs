@@ -67,14 +67,17 @@
   
   <% if (locals.resolutions) { %>  
   <div>
-   <b>Resolution: </b>
-    <p>
-      <% resolutions.forEach(resolution=>{ %>
-        <%=resolution.description%>-<%=result.employee%>
-      <%})%>
-    </p>
+    <b>Resolution: </b>
+    <select id="resolutionList">
+       <!--  keeping the selected letter visible in dropdown box -->
+        <option value="" disabled selected hidden><%=result.resolution%> </option>
+        <% resolutions.forEach(resolution=>{ %>
+        <option value='<%=resolution.name%>'><%=resolution.name%></option>
+        <% } )%>
+    </select>
   </div>
-  <%}%>
+  <% } %>
+ 
   
   <div>
     <b>Date Opened: </b>

@@ -27,12 +27,11 @@ client.connect();
 });
 
 //get all resolutions 
-select * from resolution
 apirouter.get("/resolutions", (request, response) => {
 client.connect();
-  return client.query("select * from issue ").then(
+  return client.query("select * from resolution").then(
     function(resp) {
-      console.log("Successfully retrieved issue types");
+      console.log("Successfully retrieved resolutions");
       response.send(resp.rows);
     },
     function(err) {

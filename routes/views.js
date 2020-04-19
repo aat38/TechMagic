@@ -80,6 +80,7 @@ clientrouter.get("/edit/:claimid", function(req, res, next) {
   var response2;
   var response3;
   var response4;
+  var response5;
   axios
     .get(baseURL +"/api/claims/search/"+req.params.claimid)
     .then(function(response) {
@@ -96,21 +97,29 @@ clientrouter.get("/edit/:claimid", function(req, res, next) {
                 .get(baseURL + "/api/employees/")
                 .then(function(response) {
                   response4=response.data
-                  // console.log([response1, response3])
-                  res.render("partials/claim-edit", { claimdata: response1, issues: response2, comments:response3, employees: response4}) 
-                 })
-                .catch(function(error) {
-                  console.log(error);
-                });
-            })
+                  axios
+                    .get(baseURL + "/api/resolutions/")
+                    .then(function(response) {
+                      response5=response.data
+                      // console.log([response1, response3])
+                      res.render("partials/claim-edit", { claimdata: response1, issues: response2, comments:response3, employees: response4, resolutions: response5}) 
+                     })
+                    .catch(function(error) {
+                      console.log(error);
+                    });
+                  })
+                  .catch(function(error) {
+                    console.log(error);
+                  });
+                })
             .catch(function(error) {
               console.log(error);
             });
-        })
+          })
         .catch(function(error) {
           console.log(error);
         });
-   })
+     })
    .catch(function(error) {
       console.log(error);
    });

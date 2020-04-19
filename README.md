@@ -16,4 +16,5 @@ added get products
 apirouter.get("/claims/search/:claimid", (request, response) => {
 //added get all issue types
 //change d//GET claim information based on claimId ----------------------------
+//get all resolutions 
 
