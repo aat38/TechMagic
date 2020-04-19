@@ -2,12 +2,14 @@
 <%- include("header") %>
 <% data.forEach(result=>{ %>
 
-<p>
+<h1>
   Edit Claim (Claim Id = <%=result.claimid%>)
-</p>
+</h1>
 <form id="updateform" onsubmit="update(this);">  
-<input value="" id="customer" name="customer" placeholder='<>' type="text" >
-<input value="" id="product" name="product" placeholder='<>' type="text" >
+  <div><h3>
+    <%=result.customer%>
+    </h3></div>
+  <div><%=result.product%> (product id= <%=result.productid%>)</div>
 <input value="" id="issue" name="issue" placeholder='<>' type="text" >
 <input value="" id="status" name="status" placeholder='<>' type="text" >
 <input value="" id="description" name="description" placeholder='<>' type="text" >
