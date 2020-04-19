@@ -12,13 +12,12 @@
     <b>Issue: </b>
     <select id="issueList">
      <!--  keeping the selected letter visible in dropdown box -->
-    <% if (locals.firstLetter) { %> 
-      <option value="" disabled selected hidden><% JSON.stringify(firstLetter) %> <%= firstLetter %> </option>
-    <% }%>
-    <!--  using ascii values to populate alphabet -->
-    <% for (var i =97 ; i <=122;  i++ ) { %> 
-      <% var str =  String.fromCharCode(i) %>
-      <option value='<%= str %>'><%=str %></option>
+    <% if (locals.issues) { %> 
+      <option value="" disabled selected hidden><%=result.issue%> </option>
+      <% issues.forEach(issue=>{ %>
+      <option value='<%=issue.name%>'><%=issue.name %></option>
+       <% } )%>
+   
     <% } %>
   </select>
     

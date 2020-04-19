@@ -12,13 +12,12 @@ const client = new Client({
 
 /////////////////////////////// ROUTES//////////////////////////////////
 //-------------------------------GETS----------------------------------
-//GET all issue types {
+//GET all issues {
 apirouter.get("/issues", (request, response) => {
 client.connect();
-  return client.query("select name from issue ").then(
+  return client.query("select * from issue ").then(
     function(resp) {
       console.log("Successfully retrieved issue types");
-      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {

@@ -76,19 +76,22 @@ clientrouter.get("/products/claims/:productid", function(req, res, next) {
 });
 
 clientrouter.get("/edit/:claimid", function(req, res, next) {
+  var firstresponse;
+  var secondresponse;
   axios
     .get(baseURL +"/api/claims/search/"+req.params.claimid)
     .then(function(response) {
-    
-    axios
-        .get(baseURL + "/issues")
-        .then(function(secondresponse) {
-            res.render("partials/claim-edit", { data: response.data, 
-                                                issues: secondresponse.data});
+      firstresponse=response.data;
+      axios
+        .get(baseURL + "/api/issues")
+        .then(function(response) {
+          secondresponse=response.data
         })
         .catch(function(error) {
           console.log(error);
         });
+      console.log([firstresponse, secondresponse])
+      res.render("partials/claim-edit", { data: firstresponse, issues: secondresponse}) 
     })
     .catch(function(error) {
       console.log(error);
