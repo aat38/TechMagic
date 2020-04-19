@@ -80,7 +80,7 @@ clientrouter.get("/claims/edit/:claimid", function(req, res, next) {
     .get(baseURL +"/api/claims/search/"+req.params.claimid)
     .then(function(response) {
       console.log(response.data)
-      res.render("claims", { claimid: response.data });
+      res.render("partials/claim-edit", { data: response.data });
     })
     .catch(function(error) {
       console.log(error);

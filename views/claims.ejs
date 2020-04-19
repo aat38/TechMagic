@@ -5,24 +5,7 @@
   Claims
 </h1>
 
-<% if (locals.claimid) { %> 
-
-<p>
-  <%=claimid.description%>
-</p>
-<!-- <form id="add" onSubmit="add();">  
-<input value="" id="word" name="word" placeholder="word to add" type="text" >
-<input value="" id="def" name="def" placeholder="definition" type="text" >
-<input type="submit"></form>
-<p>
-  To see your update, view dictionary by your word's first letter and scroll to the bottom of the page
-</p>
-<form id="return">
-<button formaction="/" method"GET" type="submit">Return</button>
-</form>
-</form> -->
-
-<%}%>
+<%- include("partials/claim-edit") %>
 
 <table class="table table-hover">
   <thead>
@@ -58,7 +41,7 @@
             <% if (result.resolution!='unresolved' & result.status==='Open' ) {%>
             <li><a href="#">Close</a></li>
             <%}%>
-            <li><a href='claims/edit/<%=resolution.claimid%>'>Edit Claim</a></li> 
+            <li><a href='claims/edit/<%=result.claimid%>'>Edit Claim</a></li> 
           </ul>
         </div>
       </td>
@@ -78,7 +61,7 @@
 </p>
 <%}else{%>
 <h1>
- No Open Claims Found
+ No Claims Found
 </h1>
 <%}%>
 

@@ -1,0 +1,23 @@
+<% if (locals.data) { %>  
+<%- include("header") %>
+<% data.forEach(result=>{ %>
+
+<p>
+  <%=result.customer%>
+</p>
+<!-- <form id="add" onSubmit="add();">  
+<input value="" id="word" name="word" placeholder="word to add" type="text" >
+<input value="" id="def" name="def" placeholder="definition" type="text" >
+<input type="submit"></form>
+<p>
+  To see your update, view dictionary by your word's first letter and scroll to the bottom of the page
+</p>
+<form id="return">
+<button formaction="/" method"GET" type="submit">Return</button>
+</form>
+</form> -->
+<%})%>
+<%- include("footer") %>
+<%}%>
+
+
