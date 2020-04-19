@@ -26,11 +26,13 @@ create claims, edit and resolve claims, email techs any questions about claims
      </ul>
   </div>
 
+  <button onClick="filter()">Filter </button>
+
+
+
 <div id="create">
-    <button onClick="createDiv()">Click me!</button>
-  <div id="getText" style="display: none;">
-    INNERHTML
-  </div>
+    <button onClick="addFilter()">Add Filter</button>
+</div>
 
 
 <table class="table table-hover">
@@ -88,10 +90,14 @@ create claims, edit and resolve claims, email techs any questions about claims
 
 <script type=text/javascript>
 
- function createDiv() {
-    var div = document.createElement('div');
-    div.innerHTML = document.getElementById('getText').innerHTML;
-    document.body.appendChild(div);
+  function addFilter() {
+    var span = document.createElement('span');
+    span.innerHTML = "hey";
+    document.getElementById('create').appendChild(span)
+  }
+  
+  function filter() {
+    
   }
 
 </script>
