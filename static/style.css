@@ -49,10 +49,10 @@
   outline: inherit;
 }
 
-.dropdown {
+.dropdown, .dropdown-menu" {
   top: 0px;
   left: 0px;
-  z-index: 3;
-  position:absolute;
+  position: relative;
+  z-index: 10000;
 }
 

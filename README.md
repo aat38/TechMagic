@@ -9,7 +9,7 @@
 - [Postgres query language](https://www.postgresqltutorial.com/postgresql-insert/)
 - [PG package docs](https://node-postgres.com/api/client)
 - [Parse date](https://stackoverflow.com/questions/9363263/how-to-format-json-date)
-
-
+- [Screen position of mouse](https://www.kirupa.com/html5/getting_mouse_click_position.htm)
+- [Dropdown menu to forefront](https://stackoverflow.com/questions/16149701/bootstrap-dropdowns-menus-appearing-behind-other-elements-ie7)
 added get products
 // get claim based on products //////NEEEEEEEEEWWWWWWW
