@@ -248,6 +248,32 @@ apirouter.get("/customers", (request, response) => {
   );
 });
 
+//GET list of SORTED customers --------------------------------------
+apirouter.get("/customers/:sort", (request, response) => {
+  var sortby = request.params.sort
+  if (sortby === 'asc' || sortby ==='desc'){
+    client.connect();
+    client.query("select * from customer order by lastname "+sortby).then(
+    function(resp) {
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    });
+  }
+  if(sortby === 'greatest' ){
+    client.connect();
+    client.query("select * from customer ORDER BY income desc").then(
+    function(resp) {
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    });
+  }
+  
+});
+
 //EMPLOYEES
 //GET list of employees ----------------------------------------------
 apirouter.get("/employees", (request, response) => {
@@ -263,7 +289,7 @@ apirouter.get("/employees", (request, response) => {
   );
 });
 
-//GET list of employees ----------------------------------------------
+//GET list of SORTED employees ---------------------------------------
 apirouter.get("/employees/:sort", (request, response) => {
   var sortby = request.params.sort
   if (sortby === 'asc' || sortby ==='desc'){
