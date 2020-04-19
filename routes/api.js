@@ -167,18 +167,16 @@ apirouter.get("/claims/products/:productid", (request, response) => {
 });
 
 // get SORTED claim based on products //////NEEEEEEEEEWWWWWWW
-apirouter.get("/claims/products/sortby/:var", (request, response) => {
-  var query =("select * from all_claims where productid=$1")
-  client.connect();
-  client.query(query, productid).then(
+apirouter.get("/claims/:productid/sortby/:var", (request, response) => {
+    client.connect();
+    client.query("select * from all_claims where productid="+request.params.productid+" order by "+request.params.var).then(
     function(resp) {
-      console.log("Successfully retrieved all claims for productid=" + productid);
+      console.log("Successfully retrieved sorted claims for productid="+request.params.productid);
       // console.log(resp.rows)
       response.send(resp.rows)
     },
     function(err) {
       console.log("ERROR" +err);
-      
     }
   );
 });

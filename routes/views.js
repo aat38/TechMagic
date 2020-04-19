@@ -27,11 +27,11 @@ axios
     });
 });
 
-clientrouter.get("/claims/products/sortby/:var", function(req, res, next) {
+clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 axios
-  .get(baseURL +"/api/claims/products/sortby/"+req.params.var)
+  .get(baseURL +"/api/claims/"+req.params.productid+"/sortby/"+req.params.var)
     .then(function(response) {
-      res.render("claims", { claims: response.data });
+      res.render("product-claims", { claims: response.data });
     })
     .catch(function(error) {
       console.log(error);
