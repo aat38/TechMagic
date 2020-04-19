@@ -7,9 +7,20 @@
   Employees
 </h1>
 create employee
+<form id="sort" method="get">
+  <div class="dropdown">
+    <button class="dropdown-toggle" type="button" data-toggle="dropdown">Sort by
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><button type="submit" formaction="/employees/asc"> asc </button></li>
+      <li><button type="submit" formaction="/employees/desc"> desc </button></li>
+      <li><button type="submit" formaction="/employees/asc"> asc </button></li>
+    </ul>
+  </div>
+</form>
 
-<form id="claimsBtn" method="get">
-  <button type="submit" id="claims">View Claims for this product</button>  <!-- need button to be in a form to later redirect by setting form's action in javascript below -->
+<form id="asc" method="get" >
+  
 </form>
 
 <table class="table table-hover">
