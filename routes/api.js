@@ -26,6 +26,20 @@ client.connect();
   );
 });
 
+//get all resolutions 
+select * from resolution
+apirouter.get("/resolutions", (request, response) => {
+client.connect();
+  return client.query("select * from issue ").then(
+    function(resp) {
+      console.log("Successfully retrieved issue types");
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
 
 //CLAIMS
 //GET all claims (independent of claim status)-------------------------

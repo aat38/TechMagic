@@ -1,10 +1,10 @@
-<% if (locals.data) { %>  
+<% if (locals.claimdata) { %>  
 <%- include("header") %>
-<% data.forEach(result=>{ %>
+<% claimdata.forEach(result=>{ %>
 
-<h1>
+<h2>
   Edit Claim
-</h1>
+</h2>
 <form id="updateform" onsubmit="update(this);">  
   <div><b>Customer: </b><%=result.customer%></div>
  
@@ -44,10 +44,10 @@
     <b>Employee: </b>
     <select id="employeeList">
        <!--  keeping the selected letter visible in dropdown box -->
-      <% if (locals.issues) { %> 
-        <option value="" disabled selected hidden><%=result.issue%> </option>
-        <% issues.forEach(issue=>{ %>
-        <option value='<%=issue.name%>'><%=issue.name %></option>
+      <% if (locals.employees) { %> 
+        <option value="" disabled selected hidden><%=result.employee%> </option>
+        <% employees.forEach(employee=>{ %>
+        <option value='<%=employee.lastname%>'><%=employee.firstname %> <%=employee.lastname%></option>
          <% } )%>
 
       <% } %>
@@ -64,61 +64,67 @@
     </p>
   </div>
   <%}%>
-
+  
+  <% if (locals.resolutions) { %>  
+  <div>
+   <b>Resolution: </b>
+    <p>
+      <% resolutions.forEach(resolution=>{ %>
+        <%=resolution.description%>-<%=result.employee%>
+      <%})%>
+    </p>
+  </div>
+  <%}%>
+  
   <div>
     <b>Date Opened: </b>
   </div>
   <div>
     <b>Date Closed: </b>
   </div>
-
-  <div>
-    <input value="" id="resolution" name="resolution" placeholder='<>' type="text" >  
-  </div>
-
+  
 <input type="submit"></form>
 
 <script type=text/javascript>
- 
-  function update(form) {
-    var product=element.name.split(";")[2];
-    var productid=element.name.split(";")[1];
-    var description=element.name.split(";")[0];
-    var modal = document.getElementById("descriptionModal"); 
-    var closeBtn = document.getElementsByClassName("close")[0];
+//    function update(form) {
+//     var product=element.name.split(";")[2];
+//     var productid=element.name.split(";")[1];
+//     var description=element.name.split(";")[0];
+//     var modal = document.getElementById("descriptionModal"); 
+//     var closeBtn = document.getElementsByClassName("close")[0];
 
-    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
-        .then((resp) => resp.json()) // Transform the data into json
-        .then(function(data) {
-          // console.log(JSON.stringify(data))
-          //IF return no claims associated with this product, show the modal without providing a view claims button 
-          if (data.length===0){
-            document.getElementById("noclaims").style.display = "block";
-            document.getElementById("claims").style.display = "none";
-            document.getElementById("name").innerHTML=product;
-            document.getElementById("description").innerHTML=description;
-            modal.style.display = "block";
-          }else{
-            document.getElementById("noclaims").style.display = "none";
-            document.getElementById("claims").style.display = "block";
-            document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
-            document.getElementById("name").innerHTML=product;
-            document.getElementById("description").innerHTML=description;
-            document.getElementById("claimsBtn").action="/products/claims/"+productid;
-            modal.style.display = "block";
-          }
-      })  
+//     fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
+//         .then((resp) => resp.json()) // Transform the data into json
+//         .then(function(data) {
+//           // console.log(JSON.stringify(data))
+//           //IF return no claims associated with this product, show the modal without providing a view claims button 
+//           if (data.length===0){
+//             document.getElementById("noclaims").style.display = "block";
+//             document.getElementById("claims").style.display = "none";
+//             document.getElementById("name").innerHTML=product;
+//             document.getElementById("description").innerHTML=description;
+//             modal.style.display = "block";
+//           }else{
+//             document.getElementById("noclaims").style.display = "none";
+//             document.getElementById("claims").style.display = "block";
+//             document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
+//             document.getElementById("name").innerHTML=product;
+//             document.getElementById("description").innerHTML=description;
+//             document.getElementById("claimsBtn").action="/products/claims/"+productid;
+//             modal.style.display = "block";
+//           }
+//       })  
   
-    //close out of modal either when clicking 'x' or when clicking outside of the modal
-    closeBtn.onclick = function() {
-      modal.style.display = "none";
-    }
-    window.onclick = function(event) {
-      if (event.target == modal) {
-      modal.style.display = "none";
-      }
-    }
-  }//end modal()
+//     //close out of modal either when clicking 'x' or when clicking outside of the modal
+//     closeBtn.onclick = function() {
+//       modal.style.display = "none";
+//     }
+//     window.onclick = function(event) {
+//       if (event.target == modal) {
+//       modal.style.display = "none";
+//       }
+//     }
+//   }
   
 </script>
 <%})%>
