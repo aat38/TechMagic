@@ -26,6 +26,23 @@ create claims, edit and resolve claims, email techs any questions about claims
      </ul>
   </div>
 
+<div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
+    <b>Filter by:</b>
+    <% if (locals.sort) { %>
+    <button class="dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span></button>
+    <%}else{%>
+        <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
+    <%}%>
+    <ul class="dropdown-menu">
+      <li><a href='/claims/customer'>Customer</a></li>
+      <li><a href='/claims/issue'>Issue</a></li>
+      <li><a href='/claims/status'>Status</a></li>
+      <li><a href='/claims/resolution'>Resolution</a></li>
+      <li><a href='/claims/dateopened'>Date Open</a></li>
+      <li><a href='/claims/employee'>Employee</a></li>
+     </ul>
+  </div>
+
 <table class="table table-hover">
   <thead>
     <tr>
