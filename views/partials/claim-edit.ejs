@@ -1,7 +1,8 @@
+<!-- EDIT SPECIFIC CLAIM -->
+
 <% if (locals.claimdata) { %>  
 <%- include("header") %>
 <% claimdata.forEach(result=>{ %>
-
 <h2>
   Edit Claim
 </h2>
@@ -13,9 +14,8 @@
   <div>
     <b>Issue: </b>
     <select id="issueList">
-      <!--  keeping the selected issue visible in dropdown box -->
       <% if (locals.issues) { %> 
-        <option value="" disabled selected hidden><%=result.issue%> </option>
+        <option value="" disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
         <% issues.forEach(issue=>{ %>
         <option value='<%=issue.name%>'><%=issue.name %></option>
          <% } )%>
@@ -26,7 +26,7 @@
   <div>
     <b>Status: </b>
     <select id="status">
-      <option value="" disabled selected hidden><%=result.status%></option>
+      <option value="" disabled selected hidden><%=result.status%></option> <!--  keeping the selected status visible in dropdown box -->
       <%if (result.status==="Closed"){%>
       <option value='Open'>Open</option>
        <% }else{ %>
@@ -43,9 +43,8 @@
   <div>
     <b>Employee: </b>
     <select id="employeeList">
-       <!--  keeping the selected letter visible in dropdown box -->
       <% if (locals.employees) { %> 
-        <option value="" disabled selected hidden><%=result.employee%> </option>
+        <option value="" disabled selected hidden><%=result.employee%> </option> <!--  keeping the selected employee visible in dropdown box -->
         <% employees.forEach(employee=>{ %>
         <option value='<%=employee.lastname%>'><%=employee.firstname %> <%=employee.lastname%></option>
          <% } )%>
@@ -70,7 +69,7 @@
     <b>Resolution: </b>
     <select id="resolutionList">
        <!--  keeping the selected letter visible in dropdown box -->
-        <option value="" disabled selected hidden><%=result.resolution%> </option>
+        <option value="" disabled selected hidden><%=result.resolution%> </option> <!--  keeping the selected resolution visible in dropdown box -->
         <% resolutions.forEach(resolution=>{ %>
         <option value='<%=resolution.name%>'><%=resolution.name%></option>
         <% } )%>
@@ -78,58 +77,20 @@
   </div>
   <% } %>
  
-  
   <div>
     <b>Date Opened: </b>
   </div>
+ 
   <div>
     <b>Date Closed: </b>
   </div>
   
-<input type="submit"></form>
+  <input type="submit">
+</form>
 
 <script type=text/javascript>
-//    function update(form) {
-//     var product=element.name.split(";")[2];
-//     var productid=element.name.split(";")[1];
-//     var description=element.name.split(";")[0];
-//     var modal = document.getElementById("descriptionModal"); 
-//     var closeBtn = document.getElementsByClassName("close")[0];
-
-//     fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
-//         .then((resp) => resp.json()) // Transform the data into json
-//         .then(function(data) {
-//           // console.log(JSON.stringify(data))
-//           //IF return no claims associated with this product, show the modal without providing a view claims button 
-//           if (data.length===0){
-//             document.getElementById("noclaims").style.display = "block";
-//             document.getElementById("claims").style.display = "none";
-//             document.getElementById("name").innerHTML=product;
-//             document.getElementById("description").innerHTML=description;
-//             modal.style.display = "block";
-//           }else{
-//             document.getElementById("noclaims").style.display = "none";
-//             document.getElementById("claims").style.display = "block";
-//             document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
-//             document.getElementById("name").innerHTML=product;
-//             document.getElementById("description").innerHTML=description;
-//             document.getElementById("claimsBtn").action="/products/claims/"+productid;
-//             modal.style.display = "block";
-//           }
-//       })  
-  
-//     //close out of modal either when clicking 'x' or when clicking outside of the modal
-//     closeBtn.onclick = function() {
-//       modal.style.display = "none";
-//     }
-//     window.onclick = function(event) {
-//       if (event.target == modal) {
-//       modal.style.display = "none";
-//       }
-//     }
-//   }
-  
 </script>
+
 <%})%>
 <%- include("footer") %>
 <%}%>

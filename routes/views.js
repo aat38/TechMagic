@@ -51,6 +51,17 @@ clientrouter.get("/employees", function(req, res, next) {
     });
 });
 
+clientrouter.get("/employees/asc", function(req, res, next) {
+  axios
+    .get(baseURL +"/api/employees/asc")
+    .then(function(response) {
+      res.render("employees", { employees: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
+
 
 clientrouter.get("/products", function(req, res, next) {
   axios

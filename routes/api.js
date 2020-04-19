@@ -254,7 +254,7 @@ apirouter.get("/employees", (request, response) => {
   client.connect();
   client.query("SELECT * from employee").then(
     function(resp) {
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -262,6 +262,21 @@ apirouter.get("/employees", (request, response) => {
     }
   );
 });
+
+//GET list of employees ----------------------------------------------
+apirouter.get("/employees/asc", (request, response) => {
+  client.connect();
+  client.query("select * from employee order by lastname asc").then(
+    function(resp) {
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+
 
 //PRODUCTS
 //GET list of products ----------------------------------------------
