@@ -75,7 +75,7 @@ clientrouter.get("/products/claims/:productid", function(req, res, next) {
     });
 });
 
-clientrouter.get("/claims/edit/:claimid", function(req, res, next) {
+clientrouter.get("/edit/:claimid", function(req, res, next) {
   axios
     .get(baseURL +"/api/claims/search/"+req.params.claimid)
     .then(function(response) {
