@@ -24,17 +24,16 @@
   <%})%>
   <% } %>
   </tbody> 
+
+<!-- Modal div -->
 <div id="descriptionModal" class="modal">
-  <!-- Modal content -->
   <div class="modal-content">
-    <span class="close">&times;</span>
+    <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
       <h2 id="name" >Product Name</h2>
       <p id="description">Product description</p>
-      <form id="claimsBtn" method="get">
-        <button type="submit" id="claims">View Claims for this product</button>
-      </form>
-     <p id="noclaims">No claims for this product</p>
+      <button type="submit" id="claimsBtn">View Claims for this product</button>  <!-- set button action path in javascript -->
+      <p id="noclaims">No claims for this product</p>
     </div>
   </div>
 </div>
@@ -43,24 +42,25 @@
 <script type=text/javascript>
  
   function modal(element) {
+    //grabbing element information from html to populate modal depending on which product row was selected
     var product=element.name.split(";")[2];
     var productid=element.name.split(";")[1];
     var description=element.name.split(";")[0];
     var modal = document.getElementById("descriptionModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
 
+    
     fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
-        .then((resp) => resp.json()) // Transform the data into json
+        .then((resp) => resp.json()) //transform the data into json for workability 
         .then(function(data) {
-          // console.log(JSON.stringify(data))
           //IF return no claims associated with this product, show the modal without providing a view claims button 
-          if (data.length===0){
+          if (data.length===0){ //modal without button 
             document.getElementById("noclaims").style.display = "block";
             document.getElementById("claims").style.display = "none";
             document.getElementById("name").innerHTML=product;
             document.getElementById("description").innerHTML=description;
             modal.style.display = "block";
-          }else{
+          }else{ //modal with button 
             document.getElementById("noclaims").style.display = "none";
             document.getElementById("claims").style.display = "block";
             document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
@@ -71,16 +71,17 @@
           }
       })  
   
-    //close out of modal either when clicking 'x' or when clicking outside of the modal
+    //close out of modal either when clicking 'x' 
     closeBtn.onclick = function() {
       modal.style.display = "none";
     }
+    //or close modal when clicking outside of the modal
     window.onclick = function(event) {
       if (event.target == modal) {
       modal.style.display = "none";
       }
     }
-  }//end modal()
+  }//end function modal(element)
   
 </script>
 

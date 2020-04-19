@@ -7,8 +7,7 @@
 <table class="table">
   <thead>
     <tr>
-      <!--   leaving this first col empty to accomidate the rows to follow that have an edit button here    -->
-      <th></th> 
+      <th></th> <!--   leaving this first col empty to accomidate the rows to follow that have an edit button here    -->
       <th>Customer</th>
       <th>Issue</th>
       <th>Status</th>
@@ -19,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-  <!-- each row    -->
+  <!-- each row populates data for that claim    -->
   <% claims.forEach(result=>{ %>
   <% var dateOpened = new Date(result.dateopened) %>
   <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
@@ -30,16 +29,16 @@
           <button class="dropdown-toggle" type="button" data-toggle="dropdown">Edit
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <% if (result.resolution==='unresolved') { %>
+            <% if (result.resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
             <li><a href="#">Resolve</a></li>
             <%}%>
-            <% if (result.status==='Closed') { %>
+            <% if (result.status==='Closed') { %> <!--  add Re-open dropdown option if condition   -->
             <li><a href="">Re-open</a></li>
             <%}%>
-            <% if (result.resolution!='unresolved' & result.status==='Open' ) {%>
+            <% if (result.resolution!='unresolved' & result.status==='Open' ) {%> <!--  add Close dropdown option if condition   -->
             <li><a href="#">Close</a></li>
             <%}%>
-            <li><a href='/edit/<%=result.claimid%>'>Edit Claim</a></li> 
+            <li><a href='/edit/<%=result.claimid%>'>Edit Claim</a></li>  <!--  add Edit dropdown option  -->
           </ul>
         </div></td>
       <td><%=result.customer%></td>
@@ -50,7 +49,7 @@
       <td><%=dateClosed%></td>
       <td><%=result.employee%></td>
     </tr>   
-  <%})%>
+  <%})%> <!--  end claims for loop  -->
   </tbody>
 </table>
 <% } %>
