@@ -6,6 +6,17 @@
   <h1>
     <%=claims[0].product%> Claims
   </h1>
+
+  <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
+    <button class="dropdown-toggle" type="button" data-toggle="dropdown">Sort by <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href='claims/customer/products'>Customer</a></li>
+      <li><a href='claims//products/'>Descending Name</a></li>
+      <li><a href='/products/greatest'>Most Expensive</a></li>
+      <li><a href='/products/least'>Least Expensive</a></li>
+     </ul>
+  </div>
+
 <table class="table">
   <thead>
     <tr>

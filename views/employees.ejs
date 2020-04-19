@@ -8,20 +8,14 @@
 </h1>
 create employee
 
-<form id="sort" method="get">
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
     <button class="dropdown-toggle" type="button" data-toggle="dropdown">Sort by <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><button class="dropdown-sort-option-button" type="submit" formaction="/employees/asc"> Ascending Last Name </button></li>
-      <li><button class="dropdown-sort-option-button" type="submit" formaction="/employees/desc"> Descending Last Name </button></li>
-      <li><button class="dropdown-sort-option-button" type="submit" formaction="/employees/title"> Title </button></li>
-    </ul>
+      <li><a href='/employees/asc'>Ascending Last Name</a></li>
+      <li><a href='/employees/desc'>Descending Last Name</a></li>
+      <li><a href='/employees/title'>Title</a></li>
+     </ul>
   </div>
-</form>
-
-<form id="asc" method="get" >
-  
-</form>
 
 <table class="table table-hover">
   <thead>

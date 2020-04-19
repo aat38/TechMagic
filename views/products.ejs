@@ -10,17 +10,15 @@
   create new product 
 </p>
 
-<form id="sort" method="get">
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
     <button class="dropdown-toggle" type="button" data-toggle="dropdown">Sort by <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><button class="dropdown-sort-option-button" type="submit" formaction="/products/asc"> Ascending Name </button></li>
-      <li><button class="dropdown-sort-option-button" type="submit" formaction="/products/desc"> Descending Name </button></li>
-      <li><button class="dropdown-sort-option-button" type="submit" formaction="/products/greatest"> Most Expensive </button></li>
-      <li><button class="dropdown-sort-option-button" type="submit" formaction="/products/least"> Least Expensive </button></li>
-    </ul>
+      <li><a href='/products/asc'>Ascending Name</a></li>
+      <li><a href='/products/desc'>Descending Name</a></li>
+      <li><a href='/products/greatest'>Most Expensive</a></li>
+      <li><a href='/products/least'>Least Expensive</a></li>
+     </ul>
   </div>
-</form>
 
 <table class="table table-hover">
   <thead>
