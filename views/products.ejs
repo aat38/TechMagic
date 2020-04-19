@@ -1,3 +1,5 @@
+<!-- LIST OF ALL PRODUCTS  -->
+
 <%- include("partials/header") %>
 
 <% if (locals.products) { %> 
@@ -18,6 +20,7 @@
   <% products.forEach(result=>{ %>
     <tr > 
       <!--  ** using 'name' attribute to access related variables through javascript function **    -->
+      <!--  these columns are actually buttons whose button features i removed with css   -->
       <td><input type="button" class="clickable-row" onclick="modal(this)" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.name%>'></td>
       <td><input type="button" class="clickable-row" onclick="modal(this)" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' value='<%=result.unitcost%>'></td>
     </tr>
@@ -32,8 +35,10 @@
     <div class="d-flex justify-content-center flex-column">
       <h2 id="name" >Product Name</h2>
       <p id="description">Product description</p>
-      <button type="submit" id="claimsBtn">View Claims for this product</button>  <!-- set button action path in javascript -->
-      <p id="noclaims">No claims for this product</p>
+      <form id="claimsBtn" method="get">
+        <button type="submit" id="claims">View Claims for this product</button>  <!-- need button to be in a form to later redirect by setting form's action in javascript below -->
+      </form>
+     <p id="noclaims">No claims for this product</p> <!-- displays if button above is not (controlled in javascript below) -->
     </div>
   </div>
 </div>
