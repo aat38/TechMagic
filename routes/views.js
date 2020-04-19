@@ -75,5 +75,9 @@ clientrouter.get("/products/claims/:productid", function(req, res, next) {
     });
 });
 
+clientrouter.get("/claims/edit/:claimid", function(req, res, next) {
+      res.render("claims", { edit: req.params.claimid });
+});
+
 
 module.exports = clientrouter;
