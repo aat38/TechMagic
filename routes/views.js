@@ -78,6 +78,7 @@ clientrouter.get("/products/claims/:productid", function(req, res, next) {
 clientrouter.get("/edit/:claimid", function(req, res, next) {
   var response1;
   var response2;
+  var response3;
   axios
     .get(baseURL +"/api/claims/search/"+req.params.claimid)
     .then(function(response) {
@@ -86,16 +87,24 @@ clientrouter.get("/edit/:claimid", function(req, res, next) {
         .get(baseURL + "/api/issues")
         .then(function(response) {
           response2=response.data
-          // console.log([response1, JSON.stringify(response2)])
-          res.render("partials/claim-edit", { data: response1, issues: response2}) 
-         })
+          axios
+            .get(baseURL + "/api/claims/comments/"+req.params.claimid)
+            .then(function(response) {
+              response3=response.data
+              console.log([response1, response3])
+              res.render("partials/claim-edit", { data: response1, issues: response2, comments:response3}) 
+             })
+            .catch(function(error) {
+              console.log(error);
+            });
+        })
         .catch(function(error) {
           console.log(error);
         });
-    })
-    .catch(function(error) {
+   })
+   .catch(function(error) {
       console.log(error);
-    });
+   });
 });
   
 

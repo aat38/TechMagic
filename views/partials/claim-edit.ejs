@@ -33,23 +33,27 @@
     </select>
   </div>
   
-  <div><b>Description: </b>
-  <input value="<%=result.description%>" id="description" name="description" type="text" >
-<div>
-    <b>Employee: </b>
-    <select id="issueList">
-     <!--  keeping the selected letter visible in dropdown box -->
-    <% if (locals.issues) { %> 
-      <option value="" disabled selected hidden><%=result.issue%> </option>
-      <% issues.forEach(issue=>{ %>
-      <option value='<%=issue.name%>'><%=issue.name %></option>
-       <% } )%>
-   
-    <% } %>
-  </select>
+  <div>
+    <b>Description: </b>
+    <input value="<%=result.description%>" id="description" name="description" type="text" >
   </div>
   
-  <input value="" id="employee" name="employee" placeholder='<>' type="text" >
+  <div>
+    <b>Employee: </b>
+    <select id="employeeList">
+       <!--  keeping the selected letter visible in dropdown box -->
+      <% if (locals.issues) { %> 
+        <option value="" disabled selected hidden><%=result.issue%> </option>
+        <% issues.forEach(issue=>{ %>
+        <option value='<%=issue.name%>'><%=issue.name %></option>
+         <% } )%>
+
+      <% } %>
+    </select>
+  </div>
+<div>
+ <b>Employee Comments: </b>
+</div>
 <input value="" id="dateopened" name="dateopened" placeholder='<>' type="text" >
 <input value="" id="resolution" name="resolution" placeholder='<>' type="text" >
 <input value="" id="dateclosed" name="dateclosed" placeholder='<>' type="text" >

@@ -181,14 +181,14 @@ apirouter.get("/claims/employees/:employeeid", (request, response) => {
 apirouter.get("/claims/comments/:claimid", (request, response) => {
   var claimid = [request.params.claimid];
   var query =
-    "select claim.claimid, claim.description as claim, comment.description as comment, claim.status from claim left join comment on claim.claimid = comment.claimid where claim.claimid = $1";
+    "select * from comment where commentid= $1";
   client.connect();
   client.query(query, claimid).then(
     function(resp) {
       console.log(
         "Successfully retrieved claim information from claimId=" + claimid
       );
-      // console.log(resp.rows);
+      console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
