@@ -1,6 +1,4 @@
 <%- include("partials/header") %>
-<!--  -->
-
 
 <% if (locals.claims) { %> 
 <h1>
@@ -8,7 +6,6 @@
 </h1>
 
 <!-- <form id="add" onSubmit="add();">  
-  
 <input value="" id="word" name="word" placeholder="word to add" type="text" >
 <input value="" id="def" name="def" placeholder="definition" type="text" >
 <input type="submit"></form>
@@ -45,8 +42,12 @@
           <button class="dropdown-toggle" type="button" data-toggle="dropdown">Edit
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
+            <% if (result.resolution==='unresolved') { %>
             <li><a href="#">Resolve</a></li>
-            <li><a  href="#">Re-open</a></li>
+            <%}%>
+            <% if (result.status==='closed') { %>
+            <li><a href="#">Re-open</a></li>
+            <%}%>
             <li><a href="#">Edit</a></li> 
           </ul>
         </div>
@@ -71,11 +72,7 @@
 </h1>
 <%}%>
 
-
-
-
-<script type=text/javascript>
-  
+<script type=text/javascript>  
 // function openDropDown(e) {
 //   var x = e.clientX  //x position within the element.
 //   var y = e.clientY   //y position within the element.
@@ -96,7 +93,6 @@
 //   }
 // }
 </script>
-
 
 <%- include("partials/footer") %>
 
