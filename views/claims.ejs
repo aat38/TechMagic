@@ -1,16 +1,6 @@
 <%- include("partials/header") %>
 <!--  -->
-<div class="dropdown" style="display:none;">
-    <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Dropdown Example
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
-      <li role="presentation" class="divider"></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>    
-    </ul>
-  </div>
+
 
 <% if (locals.claims) { %> 
 <h1>
@@ -33,6 +23,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th></th>
       <th>Customer</th>
       <th>Product</th>
       <th>Issue</th>
@@ -48,7 +39,18 @@
   <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
 
   <tbody>
-    <tr onclick="openDropDown(event)">
+    <tr>
+      <td>
+        <div class="dropdown">
+          <button class="dropdown-toggle" type="button" data-toggle="dropdown">Edit
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#">HTML</a></li>
+            <li><a  href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li> 
+          </ul>
+        </div>
+      </td>
       <td><%=result.customer%></td>
       <td><%=result.product%></td>
       <td><%=result.issue%></td>
@@ -74,13 +76,13 @@
 
 <script type=text/javascript>
   
-function openDropDown(e) {
-  var x = e.clientX  //x position within the element.
-  var y = e.clientY   //y position within the element.
-document.getElementsByClassName("dropdown")[0].style.top=x+"px"
-document.getElementsByClassName("dropdown")[0].style.left=y+"px";
-document.getElementsByClassName("dropdown")[0].style.display="block";
-}
+// function openDropDown(e) {
+//   var x = e.clientX  //x position within the element.
+//   var y = e.clientY   //y position within the element.
+// document.getElementsByClassName("dropdown")[0].style.top=x+"px"
+// document.getElementsByClassName("dropdown")[0].style.left=y+"px";
+// document.getElementsByClassName("dropdown")[0].style.display="block";
+// }
 // /* When the user clicks on the button, 
 // toggle between hiding and showing the dropdown content */
 // function myFunction() {
