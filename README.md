@@ -14,4 +14,4 @@
 added get products
 // get claim based on products //////NEEEEEEEEEWWWWWWW
 apirouter.get("/claims/search/:claimid", (request, response) => {
-
+//added get all issue types

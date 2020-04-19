@@ -6,11 +6,25 @@
   Edit Claim (Claim Id = <%=result.claimid%>)
 </h1>
 <form id="updateform" onsubmit="update(this);">  
-  <div><h3>
-    <%=result.customer%>
-    </h3></div>
-  <div><%=result.product%> (product id= <%=result.productid%>)</div>
-<input value="" id="issue" name="issue" placeholder='<>' type="text" >
+  <div><b>Customer: </b><%=result.customer%></div>
+  <div><b>Product: </b><%=result.product%> <b>Product Id: </b><%=result.productid%></div>
+  <div>
+    <b>Issue: </b>
+    <select id="issueList">
+     <!--  keeping the selected letter visible in dropdown box -->
+    <% if (locals.firstLetter) { %> 
+      <option value="" disabled selected hidden><% JSON.stringify(firstLetter) %> <%= firstLetter %> </option>
+    <% }%>
+    <!--  using ascii values to populate alphabet -->
+    <% for (var i =97 ; i <=122;  i++ ) { %> 
+      <% var str =  String.fromCharCode(i) %>
+      <option value='<%= str %>'><%=str %></option>
+    <% } %>
+  </select>
+    
+    
+    <input value="" id="issue" name="issue" placeholder='<>' type="text" >
+  </div>
 <input value="" id="status" name="status" placeholder='<>' type="text" >
 <input value="" id="description" name="description" placeholder='<>' type="text" >
 <input value="" id="employee" name="employee" placeholder='<>' type="text" >
