@@ -27,6 +27,16 @@ axios
     });
 });
 
+clientrouter.get("/claims/products/sortby/:var", function(req, res, next) {
+axios
+  .get(baseURL +"/api/claims/products/sortby/"+req.params.var)
+    .then(function(response) {
+      res.render("claims", { claims: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
 
 clientrouter.get("/customers", function(req, res, next) {
   axios

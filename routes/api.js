@@ -166,7 +166,22 @@ apirouter.get("/claims/products/:productid", (request, response) => {
   );
 });
 
-
+// get SORTED claim based on products //////NEEEEEEEEEWWWWWWW
+apirouter.get("/claims/products/sortby/:var", (request, response) => {
+  var query =("select * from all_claims where productid=$1")
+  client.connect();
+  client.query(query, productid).then(
+    function(resp) {
+      console.log("Successfully retrieved all claims for productid=" + productid);
+      // console.log(resp.rows)
+      response.send(resp.rows)
+    },
+    function(err) {
+      console.log("ERROR" +err);
+      
+    }
+  );
+});
 
 //GET all claims belonging to an EMPLOYEE based on their ID passed to this endpoint
 //(independent of claim status) ---------------------------------------------------
