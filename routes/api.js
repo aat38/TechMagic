@@ -271,7 +271,16 @@ apirouter.get("/customers/:sort", (request, response) => {
       console.log(err);
     });
   }
-  
+  if(sortby === 'least' ){
+    client.connect();
+    client.query("select * from customer ORDER BY income asc").then(
+    function(resp) {
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    });
+  }
 });
 
 //EMPLOYEES
