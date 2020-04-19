@@ -62,6 +62,18 @@ clientrouter.get("/employees/:sort", function(req, res, next) {
     });
 });
 
+clientrouter.get("/customers/:sort", function(req, res, next) {
+  //can sort by lastname asc or desc. and also by total expenditure most or least
+  axios
+    .get(baseURL +"/api/customers/"+req.params.sort)
+    .then(function(response) {
+      res.render("customers", { customers: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
+
 
 clientrouter.get("/products", function(req, res, next) {
   axios

@@ -268,8 +268,7 @@ apirouter.get("/employees/:sort", (request, response) => {
   var sortby = request.params.sort
   if (sortby === 'asc' || sortby ==='desc'){
     client.connect();
-    var query = ("select * from employee order by lastname $1")
-    client.query(query, vars).then(
+    client.query("select * from employee order by lastname "+sortby).then(
     function(resp) {
       response.send(resp.rows);
     },
