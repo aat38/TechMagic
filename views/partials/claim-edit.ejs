@@ -3,24 +3,26 @@
 <% data.forEach(result=>{ %>
 
 <h1>
-  Edit Claim (Claim Id = <%=result.claimid%>)
+  Edit Claim
 </h1>
 <form id="updateform" onsubmit="update(this);">  
   <div><b>Customer: </b><%=result.customer%></div>
+ 
   <div><b>Product: </b><%=result.product%> <b>Product Id: </b><%=result.productid%></div>
+  
   <div>
     <b>Issue: </b>
     <select id="issueList">
-     <!--  keeping the selected letter visible in dropdown box -->
-    <% if (locals.issues) { %> 
-      <option value="" disabled selected hidden><%=result.issue%> </option>
-      <% issues.forEach(issue=>{ %>
-      <option value='<%=issue.name%>'><%=issue.name %></option>
-       <% } )%>
-   
-    <% } %>
-  </select>
+      <!--  keeping the selected issue visible in dropdown box -->
+      <% if (locals.issues) { %> 
+        <option value="" disabled selected hidden><%=result.issue%> </option>
+        <% issues.forEach(issue=>{ %>
+        <option value='<%=issue.name%>'><%=issue.name %></option>
+         <% } )%>
+      <% } %>
+    </select>
   </div>
+  
   <div>
     <b>Status: </b>
     <select id="status">
@@ -51,24 +53,28 @@
       <% } %>
     </select>
   </div>
-<div>
-  <% if (locals.comments) { %> 
- <b>Employee Comments: </b>
-  <p>
-    <% comments.forEach(comment=>{ %>
-<%=comment.description%>-<%=result.employee%>
-<%})%>
-    <%}%>
-  </p>
-</div>
-<div>
-  <input value="" id="dateopened" name="dateopened" placeholder='<>' type="text" >
-  <input value="" id="dateclosed" name="dateclosed" placeholder='<>' type="text" >
-</div>
   
-<div>
-  <input value="" id="resolution" name="resolution" placeholder='<>' type="text" >  
-</div>
+  <% if (locals.comments) { %>  
+  <div>
+   <b>Employee Comments: </b>
+    <p>
+      <% comments.forEach(comment=>{ %>
+        <%=comment.description%>-<%=result.employee%>
+      <%})%>
+    </p>
+  </div>
+  <%}%>
+
+  <div>
+    <b>Date Opened: </b>
+  </div>
+  <div>
+    <b>Date Closed: </b>
+  </div>
+
+  <div>
+    <input value="" id="resolution" name="resolution" placeholder='<>' type="text" >  
+  </div>
 
 <input type="submit"></form>
 
