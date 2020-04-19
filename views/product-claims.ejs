@@ -8,7 +8,12 @@
   </h1>
 
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
-    <button class="dropdown-toggle" type="button" data-toggle="dropdown">Sort by <span class="caret"></span></button>
+    <b>Sort by:</b>
+    <% if (locals.sort) { %>
+    <button class="dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span></button>
+    <%}else{%>
+    <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
+    <%}%>
     <ul class="dropdown-menu">
       <li><a href='/claims/<%=claims[0].productid%>/sortby/customer'>Customer</a></li>
       <li><a href='/claims/<%=claims[0].productid%>/sortby/issue'>Issue</a></li>

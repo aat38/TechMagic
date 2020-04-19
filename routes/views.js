@@ -42,7 +42,7 @@ clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 axios
   .get(baseURL +"/api/claims/"+req.params.productid+"/sortby/"+req.params.var)
     .then(function(response) {
-      res.render("product-claims", { claims: response.data });
+      res.render("product-claims", { claims: response.data , sort: req.params.var});
     })
     .catch(function(error) {
       console.log(error);
@@ -65,7 +65,7 @@ clientrouter.get("/customers/:sort", function(req, res, next) {
   axios
     .get(baseURL +"/api/customers/"+req.params.sort)
     .then(function(response) {
-      res.render("customers", { customers: response.data });
+      res.render("customers", { customers: response.data , sort: req.params.var});
     })
     .catch(function(error) {
       console.log(error);
@@ -88,7 +88,7 @@ clientrouter.get("/employees/:sort", function(req, res, next) {
   axios
     .get(baseURL +"/api/employees/"+req.params.sort)
     .then(function(response) {
-      res.render("employees", { employees: response.data });
+      res.render("employees", { employees: response.data , sort: req.params.var});
     })
     .catch(function(error) {
       console.log(error);
@@ -111,7 +111,7 @@ clientrouter.get("/products/:sort", function(req, res, next) {
   axios
     .get(baseURL +"/api/products/"+req.params.sort)
     .then(function(response) {
-      res.render("products", { products: response.data });
+      res.render("products", { products: response.data , sort: req.params.var});
     })
     .catch(function(error) {
       console.log(error);
@@ -123,7 +123,7 @@ clientrouter.get("/products/claims/:productid", function(req, res, next) {
     .get(baseURL +"/api/claims/products/"+req.params.productid)
     .then(function(response) {
       // console.log(response.data)
-      res.render("product-claims", { claims: response.data });
+      res.render("product-claims", { claims: response.data , sort: req.params.var});
     })
     .catch(function(error) {
       console.log(error);
