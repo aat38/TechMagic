@@ -264,16 +264,29 @@ apirouter.get("/employees", (request, response) => {
 });
 
 //GET list of employees ----------------------------------------------
-apirouter.get("/employees/asc", (request, response) => {
-  client.connect();
-  client.query("select * from employee order by lastname asc").then(
+apirouter.get("/employees/:sort", (request, response) => {
+  var sortby = request.params.sort
+  if (sortby === 'asc' || sortby ==='desc'){
+    client.connect();
+    var query = ("select * from employee order by lastname $1")
+    client.query(query, vars).then(
     function(resp) {
       response.send(resp.rows);
     },
     function(err) {
       console.log(err);
-    }
-  );
+    });
+  }
+  if(sortby === 'title'){
+    client.connect();
+    client.query("select * from employee order by title asc").then(
+    function(resp) {
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    });
+  }
 });
 
 

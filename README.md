@@ -17,5 +17,6 @@ apirouter.get("/claims/search/:claimid", (request, response) => {
 //added get all issue types
 //change d//GET claim information based on claimId ----------------------------
 //get all resolutions 
-//select * from employee order by lastname asc
+//apirouter.get("/employees/:sort", (request, response) => {  //sorts by last name OR title depending on your input
+
 

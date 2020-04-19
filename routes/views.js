@@ -51,9 +51,9 @@ clientrouter.get("/employees", function(req, res, next) {
     });
 });
 
-clientrouter.get("/employees/asc", function(req, res, next) {
+clientrouter.get("/employees/:sort", function(req, res, next) {
   axios
-    .get(baseURL +"/api/employees/asc")
+    .get(baseURL +"/api/employees/"+req.params.sort)
     .then(function(response) {
       res.render("employees", { employees: response.data });
     })

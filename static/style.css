@@ -38,7 +38,6 @@
 
 .clickable-row {
   background: none;
-  /* 	color: yellow; */
   border: none;
   width: 100%;
   height: 100%;
@@ -52,7 +51,7 @@
 .dropdown, .dropdown-menu" {
   top: 0px;
   left: 0px;
-  position: relative;
+  position: relative; /*so that dropdown menu is visible infront of objects no matter where it is placed*/
   z-index: 10000;
 }
 
