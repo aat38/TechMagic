@@ -9,19 +9,54 @@
 create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
+<nav>
+    <p id="menu"> Menu</p>
+        <ul id="menu-box">
+            <li><a href="index.html">Start</a></li>
+            <li><a href="animal.html">Animal</a></li>
+            <li><a href="pictures.html">Pictures</a></li>
+        </ul>
+    </nav> 
+
+
+
+
+
+
+  <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
+    <b>Filter by:</b>
+    <% if (locals.sort) { %>
+    <button class="dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span></button>
+    <%}else{%>
+        <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
+    <%}%>
+    <ul class="dropdown-menu">
+      <li><label for="menu2-toggle">Toggle menu</label>
+<input type="checkbox" id="menu2-toggle"/>
+<ul id="menu2">
+  <li><a href="#">Item 1</a></li>
+  <li><a href="#">Item 2</a></li>
+  <li><a href="#">Item 3</a></li>
+</ul></li>
+      <li><a href='/products/desc'>Descending Name</a></li>
+      <li><a href='/products/greatest'>Most Expensive</a></li>
+      <li><a href='/products/least'>Least Expensive</a></li>
+     </ul>
+  </div>
+
+<!-- <label for="menu2-toggle">Toggle menu</label>
+<input type="checkbox" id="menu2-toggle"/>
+<ul id="menu2">
+  <li><a href="#">Item 1</a></li>
+  <li><a href="#">Item 2</a></li>
+  <li><a href="#">Item 3</a></li>
+</ul> -->
 <label for="menu-toggle">Toggle menu</label>
 <input type="checkbox" id="menu-toggle"/>
 <ul id="menu">
   <li><a href="#">Item 1</a></li>
   <li><a href="#">Item 2</a></li>
   <li><a href="#">Item 3</a></li>
-  <label for="menu-toggle">Toggle menu</label>
-  <input type="checkbox" id="menu-toggle"/>
-  <ul id="menu">
-  <li><a href="#">Item 1</a></li>
-  <li><a href="#">Item 2</a></li>
-  <li><a href="#">Item 3</a></li>
-</ul>
 </ul>
 
 <style>
@@ -31,10 +66,10 @@ label {
 }
 
 
-#menu-toggle {
+#menu2-toggle,#menu-toggle {
   display: none;
 }
-#menu {
+#menu2, #menu {
   width: 780px;
   overflow: hidden;
   max-height: 0;
@@ -42,7 +77,10 @@ label {
   margin: 0 auto;
   -webkit-transition: all 0.3s ease;
 }
-#menu-toggle:checked + #menu {
+#menu2-toggle:checked + #menu2 {
+  max-height: 100px;
+}
+  #menu-toggle:checked + #menu {
   max-height: 100px;
 }
   </style>
@@ -154,13 +192,11 @@ label {
 //     e.preventDefault();
 //   });
     
-//       window.onclick = function(event) {
-//       if (event.target != dropdown) {
-//       document.getElementsByClassName("dropdown-menu").style.display = "none";
-        
-//       document.getElementsByClassName("dropdown-submenu").style.display = "none";
-//       }
-//     }
+      window.onclick = function(event) {
+      if (event.target === label) {
+      document.getElementsByClassName("dropdown-menu")= "show";
+      }
+    }
 // });
 </script>
 
