@@ -5,7 +5,7 @@
 <h1>
   Claims
 </h1>
-Goals for this page: create claims, edit and resolve claims, filter and sort claims ✓ 
+Goals for this page: create claims, Re-open a closed claim ✓, close a claim if theres a resolution attached ✓, edit and resolve claims, filter and sort claims based on existing claims ✓ 
 <%- include("partials/claim-edit") %>
 
 <div id="addFilter">
@@ -95,16 +95,16 @@ Goals for this page: create claims, edit and resolve claims, filter and sort cla
           <button class="dropdown-toggle" type="button" data-toggle="dropdown">Edit
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <% if (result.resolution==='unresolved') { %>
+            <% if (result.resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
             <li><a href="#">Resolve</a></li>
             <%}%>
-            <% if (result.status==='Closed') { %>
-            <li><a href="">Re-open</a></li>
+            <% if (result.status==='Closed') { %> <!--  add Re-open dropdown option if condition   -->
+            <li><a id="myLink" href="#" onclick="openClaim('<%=result.claimid%>','<%=claims[0].product%>')">Re-open</a></li>
             <%}%>
-            <% if (result.resolution!='unresolved' & result.status==='Open' ) {%>
-            <li><a href="#">Close</a></li>
+            <% if (result.resolution!='unresolved' & result.status==='Open' ) {%> <!--  add Close dropdown option if condition   -->
+            <li><a href="#" onclick="closeClaim('<%=result.claimid%>','<%=claims[0].product%>')">Close</a></li>
             <%}%>
-            <li><a href='/edit/<%=result.claimid%>'>Edit Claim</a></li> 
+            <li><a href='/edit/<%=result.claimid%>'>Edit Claim</a></li>  <!--  add Edit dropdown option  -->
           </ul>
         </div>
       </td>
@@ -129,6 +129,43 @@ Goals for this page: create claims, edit and resolve claims, filter and sort cla
 
 
 <script type=text/javascript>
+  
+  function closeClaim(id, prod){
+   fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid: id,
+          status: "Closed"
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+    }, err=>{
+      console.log(err);
+    })
+  location = location //refresh
+  }
+  
+function openClaim(id, prod){
+    fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid: id,
+          status: "Open"
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+         
+      
+    }, err=>{
+      console.log(err);
+    })
+   location = location //refresh
+  }
+  
   function addFilterCustomer(ele) {
           var rows = document.getElementsByTagName("tr").length
           for (var i = 1; i< rows; i++){
