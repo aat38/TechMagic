@@ -225,6 +225,15 @@ create claims, edit and resolve claims, filter and sort claims
     }
  
     );
+    for (var i=1; i<rows.length; i++){
+    if (i===(rows.length-1)){
+      document.getElementsByTagName("tbody")[0].replaceWith(rows[1])
+    }
+    document.getElementsByTagName("tbody")[0].remove()
+    }
+    for (var i=2; i<rows.length; i++){
+    document.getElementsByTagName("tbody")[0].appendChild(rows[i].style.display="contents")
+    }
       //         for (var i=1; i<rows.length; i++){
       //   for (var j=1; j<rows[i].cells.length;j++){
       //             document.getElementsByTagName("tr")[i+1].cells[j].innerText=rows[i].cells[j].innerText
