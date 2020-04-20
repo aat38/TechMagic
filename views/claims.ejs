@@ -14,6 +14,48 @@ create claims, edit and resolve claims, filter and sort claims
   </button>
 </div>
 
+<div class="dropdown">
+  <p id="menu" > Menu</p>
+  <ul id="menu-box" style="display: none" class="dropdown-menu">
+    <li><label for="menu-toggle">Customer</label>
+      <input type="checkbox" id="menu-toggle"/>
+      <ul id="menu">
+        <%var array=[]%>
+        <% claims.forEach(claim=>{ %>
+        <%if (array.includes(claim.customer)){%>
+        <%}else{%>
+        <%array=array + claim.customer%>
+        <li><a href="#" onclick="addFilterCustomer(this)"><%=claim.customer%></a></li>
+        <%}})%>
+      </ul>
+    </li>
+    <li><label for="menu2-toggle">Employee</label>
+      <input type="checkbox" id="menu2-toggle"/>
+      <ul id="menu2">
+        <%var array=[]%>
+        <% claims.forEach(claim=>{ %>
+        <%if (array.includes(claim.employee)){%>
+        <%}else{%>
+        <%array=array + claim.employee%>
+        <li><a href="#" onclick="addFilterEmployee(this)"><%=claim.employee%></a></li>
+        <%}})%>
+      </ul>
+    </li>
+    <li><label for="menu3-toggle">Products</label>
+      <input type="checkbox" id="menu3-toggle"/>
+      <ul id="menu3">
+        <%var array=[]%>
+        <% claims.forEach(claim=>{ %>
+        <%if (array.includes(claim.product)){%>
+        <%}else{%>
+        <%array=array + claim.product%>
+        <li><a href="#" onclick="addFilterProduct(this)"><%=claim.product%></a></li>
+        <%}})%>
+      </ul>
+    </li>
+  </ul>
+</div>
+
 <div id="create" style="display:none">
   <b>Filters: </b>
 </div>
@@ -23,9 +65,8 @@ create claims, edit and resolve claims, filter and sort claims
       <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
     <ul class="dropdown-menu">
        <li><a onclick="sortCustomer('name', 'desc')">Descending Customer</a></li>
-      <li><a onclick="sortResolution('name', 'desc')">Resolution</a></li>
+      <li><a onclick="sortProduct('name', 'desc')">Product</a></li>
       <li><a onclick="sortStatus('name', 'desc')">Status</a></li>
-      <li><a onclick="sortDate('name', 'desc')">Date</a></li>
      </ul>
   </div>
 
@@ -94,43 +135,7 @@ create claims, edit and resolve claims, filter and sort claims
             if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
               document.getElementsByTagName("tr")[i].style.display="none"
             }
-          }
-    
-    // fetch('https://ejs-views-practice.glitch.me/claims/filter/customer/'+ele.text)
-    // .then(function(response) {
-    // return response.text();
-    // }).then(function(text) {
-          // console.log(text)
-// .then(response => response.json())
-// .then(response => {
-//       // window.location.href = ("/claims/redirect/", {response})
-
-//     // console.log(response)
-//     // fetch('https://ejs-views-practice.glitch.me/claims/redirect/', {
-//     //     headers:{
-//     //       "content-type":"application/json",
-//     //     },
-//     //     body: JSON.stringify({
-//     //       customer: response
-//     //     }),
-//     //     method: 'POST'
-//     // }).then(resp=>{
-//           var rows = document.getElementsByTagName("tr").length
-//           for (var i = 1; i< rows; i++){
-//             if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
-//               document.getElementsByTagName("tr")[i].style.display="none"
-//             }
-//           }
-//         }, err=>{
-//           console.log(err);
-//         })
-
-//       // console.log(JSON.parse(data))
-//       // window.location.href = ("/claims/redirect/"{body}) //redirect
-//     .catch(function(error) {
-//       console.log(error);
-//     }); 
-    
+          } 
     
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
@@ -141,6 +146,42 @@ create claims, edit and resolve claims, filter and sort claims
             }
     document.getElementById('create').appendChild(button)
   } 
+  
+    function addFilterEmployee(ele) {
+          var rows = document.getElementsByTagName("tr").length
+          for (var i = 1; i< rows; i++){
+            if  (document.getElementsByTagName("tr")[i].children[5].innerText != ele.text ){
+              document.getElementsByTagName("tr")[i].style.display="none"
+            }
+          } 
+    
+    document.getElementById('create').style.display="block";
+    var button = document.createElement('button');
+    button.innerHTML = ele.text;
+    button.setAttribute("id", ele.text)
+    button.onclick = function () {
+                removeFilter(ele.text);
+            }
+    document.getElementById('create').appendChild(button)
+  } 
+  
+    function addFilterProduct(ele) {
+          var rows = document.getElementsByTagName("tr").length
+          for (var i = 1; i< rows; i++){
+            if  (document.getElementsByTagName("tr")[i].children[2].innerText != ele.text ){
+              document.getElementsByTagName("tr")[i].style.display="none"
+            }
+          } 
+    
+    document.getElementById('create').style.display="block";
+    var button = document.createElement('button');
+    button.innerHTML = ele.text;
+    button.setAttribute("id", ele.text)
+    button.onclick = function () {
+                removeFilter(ele.text);
+            }
+    document.getElementById('create').appendChild(button)
+  }
   
   function removeFilter(val) {
     document.getElementById(val).remove();
@@ -194,13 +235,13 @@ create claims, edit and resolve claims, filter and sort claims
     }
   }
   
-    //sort by resolution
-  function sortResolution(column, direction){
+    //sort by customer
+  function sortCustomer(column, direction){
     console.log("sort");
     let rows = document.getElementsByTagName("tbody");
     rows = [].slice.call(rows);
     rows.sort(function(a,b){
-      return a.rows[0].cells[8].innerText.localeCompare(b.rows[0].cells[8].innerText);
+      return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
     });
 
     let table = document.getElementById("table");
@@ -214,7 +255,47 @@ create claims, edit and resolve claims, filter and sort claims
     }
   }
   
-      //sort by status
+    //sort by customer
+  function sortCustomer(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
+    });
+
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  }
+  
+      //sort by sortProduct
+  function sortProduct(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[2].innerText.localeCompare(b.rows[0].cells[2].innerText);
+    });
+
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  }
+  
+      //sort by sortStatus
   function sortStatus(column, direction){
     console.log("sort");
     let rows = document.getElementsByTagName("tbody");
@@ -233,30 +314,10 @@ create claims, edit and resolve claims, filter and sort claims
       table.appendChild(rows[k]);
     }
   }
-        //sort by date
-  function sortDate(column, direction){
-    console.log("sort");
-    let rows = document.getElementsByTagName("tbody");
-    rows = [].slice.call(rows);
-
-    
-    rows.sort(function(a,b){
-      var a = new Date(a.rows[0].cells[6].innerText);
-      var b = new Date(b.rows[0].cells[6].innerText)
-      return a>b;
-    });
-
-    let table = document.getElementById("table");
-    let blep = document.getElementsByTagName("tbody");
-    while (blep.length >0){
-      table.removeChild(blep[0]);
-    }
-
-    for(let k =0; k < rows.length; k++){
-      table.appendChild(rows[k]);
-    }
-  }
   
+  
+  
+
 </script>
 
 
