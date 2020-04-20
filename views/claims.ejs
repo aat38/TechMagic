@@ -185,12 +185,13 @@ create claims, edit and resolve claims, filter and sort claims
   
   function removeFilter(val) {
     document.getElementById(val).remove();
-              var rows = document.getElementsByTagName("tr").length
-          for (var i = 1; i< rows; i++){
-            if  (document.getElementsByTagName("tr")[i].children[1].innerText != val ){
-              document.getElementsByTagName("tr")[i].style.display="block"
-            }
-          }
+    console.log(val);
+    var rows = document.getElementsByTagName("tr").length;
+    for (var i = 1; i< rows; i++){
+      if(document.getElementsByTagName("tr")[i].children[1].innerText != val ){
+        document.getElementsByTagName("tr")[i].style.display="contents";
+      }
+    }
   }  
    
   function searchMenu() {
@@ -213,6 +214,16 @@ create claims, edit and resolve claims, filter and sort claims
     menuBox.style.display = "none";
     }
   }  
+
+  
+  function sort(column, direction){
+    for (var i = 1; i< rows; i++){
+      if(document.getElementsByTagName("tr")[i].children[1].innerText != val ){
+        document.getElementsByTagName("tr")[i].style.display="contents";
+      }
+    }
+    document.getElementsByTagName("tr")[i].style.display="contents";
+  }
 </script>
 
 
