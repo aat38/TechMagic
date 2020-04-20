@@ -18,17 +18,14 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 <div class="dropdown">
   <p id="menu" > Menu</p>
   <ul id="menu-box" style="display: none" class="dropdown-menu">
-    <% if (locals.cust) { %> 
     <li><label for="menu-toggle">Customer</label>
       <input type="checkbox" id="menu-toggle"/>
       <ul id="menu">
-        <% cust.forEach(c=>{ %>
-        <li><a href="#" onclick="addFilterCustomer(this)"><%=c.firstname%> <%=c.lastname%></a></li>
+        <% claims.forEach(c=>{ %>
+        <li><a href="#" onclick="addFilterCustomer(this)"><%=c.customer></a></li>
         <%})%>
       </ul>
     </li>
-    <%}%>
-    <% if (locals.emp) { %> 
     <li><label for="menu2-toggle">Employee</label>
       <input type="checkbox" id="menu2-toggle"/>
       <ul id="menu2">
