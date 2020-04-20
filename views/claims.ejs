@@ -2,11 +2,10 @@
 
 <%- include("partials/header") %>
 <% if (locals.claims) { %> 
-<%=locals.claims%>
 <h1>
   Claims
 </h1>
-create claims, edit and resolve claims, email techs any questions about claims, filter and sort claims
+create claims, edit and resolve claims, filter and sort claims
 <%- include("partials/claim-edit") %>
 
 <div id="addFilter">
@@ -63,15 +62,11 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
     <b>Sort by:</b>
-    <% if (locals.sort) { %>
-    <button class="dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span></button>
-    <%}else{%>
-        <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
-    <%}%>
+      <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
     <ul class="dropdown-menu">
-<!--  <li><a href='/products/desc'>Descending Name</a></li>
+       <li><a href='/products/desc'>Descending Name</a></li>
       <li><a href='/products/greatest'>Most Expensive</a></li>
-      <li><a href='/products/least'>Least Expensive</a></li> -->
+      <li><a href='/products/least'>Least Expensive</a></li>
      </ul>
   </div>
 
@@ -135,40 +130,47 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 
 <script type=text/javascript>
   function addFilterCustomer(ele) {
-    fetch('https://ejs-views-practice.glitch.me/claims/filter/customer/'+ele.text)
-    // .then(function(response) {
-    // return response.text();
-    // }).then(function(text) {
-          // console.log(text)
-.then(response => response.json())
-.then(response => {
-      // window.location.href = ("/claims/redirect/", {response})
-
-    // console.log(response)
-    // fetch('https://ejs-views-practice.glitch.me/claims/redirect/', {
-    //     headers:{
-    //       "content-type":"application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       customer: response
-    //     }),
-    //     method: 'POST'
-    // }).then(resp=>{
           var rows = document.getElementsByTagName("tr").length
           for (var i = 1; i< rows; i++){
             if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
               document.getElementsByTagName("tr")[i].style.display="none"
             }
           }
-        }, err=>{
-          console.log(err);
-        })
+    
+    // fetch('https://ejs-views-practice.glitch.me/claims/filter/customer/'+ele.text)
+    // .then(function(response) {
+    // return response.text();
+    // }).then(function(text) {
+          // console.log(text)
+// .then(response => response.json())
+// .then(response => {
+//       // window.location.href = ("/claims/redirect/", {response})
 
-      // console.log(JSON.parse(data))
-      // window.location.href = ("/claims/redirect/"{body}) //redirect
-    .catch(function(error) {
-      console.log(error);
-    }); 
+//     // console.log(response)
+//     // fetch('https://ejs-views-practice.glitch.me/claims/redirect/', {
+//     //     headers:{
+//     //       "content-type":"application/json",
+//     //     },
+//     //     body: JSON.stringify({
+//     //       customer: response
+//     //     }),
+//     //     method: 'POST'
+//     // }).then(resp=>{
+//           var rows = document.getElementsByTagName("tr").length
+//           for (var i = 1; i< rows; i++){
+//             if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
+//               document.getElementsByTagName("tr")[i].style.display="none"
+//             }
+//           }
+//         }, err=>{
+//           console.log(err);
+//         })
+
+//       // console.log(JSON.parse(data))
+//       // window.location.href = ("/claims/redirect/"{body}) //redirect
+//     .catch(function(error) {
+//       console.log(error);
+//     }); 
     
     
     document.getElementById('create').style.display="block";
@@ -183,6 +185,12 @@ create claims, edit and resolve claims, email techs any questions about claims, 
   
   function removeFilter(val) {
     document.getElementById(val).remove();
+              var rows = document.getElementsByTagName("tr").length
+          for (var i = 1; i< rows; i++){
+            if  (document.getElementsByTagName("tr")[i].children[1].innerText != val ){
+              document.getElementsByTagName("tr")[i].style.display="block"
+            }
+          }
   }  
    
   function searchMenu() {

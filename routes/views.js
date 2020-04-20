@@ -17,10 +17,10 @@ clientrouter.get("/", (req, res) => {
 
 
 clientrouter.get("/claims", function(req, res, next) {
-  if(req.body.customer){
-     res.render("claims", { claims: (req.body.customer) })
+//   if(req.body.customer){
+//      res.render("claims", { claims: (req.body.customer) })
 
-  }else{
+//   }else{
    axios
     .get(baseURL +"/api/claims")
     .then(function(response) {
@@ -29,9 +29,22 @@ clientrouter.get("/claims", function(req, res, next) {
     .catch(function(error) {
       console.log(error);
     }); 
-  }
+  // }
 });
 
+
+// clientrouter.post("/claims/redirect/", function(req, res, next) {
+//   console.log(req.body.customer);
+//   console.log("-------------------------------------------------------------------------------------------------------------------");
+//   axios
+//     .get(baseURL +"/claims")
+//     .then(function(response) {
+//         res.render("claims", { claims: (req.body.customer) })
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//     });
+// });
 
 clientrouter.get("/claims/:var", function(req, res, next) {
 axios
@@ -57,31 +70,6 @@ clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
   }
 });
 
-clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
-  if (req.params.type === 'customer'){
-   axios
-  .get(baseURL +"/api/claims/customer/"+req.params.var)
-    .then(function(response) {
-      res.send(response.data);
-    })
-    .catch(function(error) {
-      console.log(error);
-    }); 
-  }
-});
-
-// clientrouter.post("/claims/redirect/", function(req, res, next) {
-//   console.log(req.body.customer);
-//   console.log("-------------------------------------------------------------------------------------------------------------------");
-//   axios
-//     .get(baseURL +"/claims")
-//     .then(function(response) {
-//         res.render("claims", { claims: (req.body.customer) })
-//     })
-//     .catch(function(error) {
-//       console.log(error);
-//     });
-// });
 
 clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 axios
