@@ -26,7 +26,7 @@ create claims, edit and resolve claims, email techs any questions about claims, 
         <%if (array.includes(claim.customer)){%>
         <%}else{%>
         <%array=array + claim.customer%>
-        <li><a href="#" onclick="addFilterCustomer(this)"><%=claim.customer%></a></li>
+        <li><a href="#" onclick="'<%locals.claims%>'= addFilterCustomer(this,'<%=JSON.stringify(locals.claims)%>')"><%=claim.customer%></a></li>
         <%}})%>
       </ul>
     </li>
@@ -38,7 +38,7 @@ create claims, edit and resolve claims, email techs any questions about claims, 
         <%if (array.includes(claim.employee)){%>
         <%}else{%>
         <%array=array + claim.employee%>
-        <li><a href="#" onclick="addFilterEmployee(this,'<%=local%>')"><%=claim.employee%></a></li>
+        <li><a href="#" onclick="addFilterEmployee(this,'<%claims%>')"><%=claim.employee%></a></li>
         <%}})%>
       </ul>
     </li>
@@ -134,10 +134,8 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 
 
 <script type=text/javascript>
-  function addFilterCustomer(ele) {
-    // fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
-    //     .then((resp) => resp.json()) //transform the data into json for workability 
-    //     .then(function(data) {
+  function addFilterCustomer(ele, claims) {
+    console.log(claims[0].product)
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;
