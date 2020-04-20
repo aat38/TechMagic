@@ -1,7 +1,6 @@
 <!-- SORTABLE, FILTERABLE LIST OF ALL CLAIMS  -->
 
 <%- include("partials/header") %>
-
 <% if (locals.claims) { %> 
 <h1>
   Claims
@@ -136,8 +135,12 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 <script type=text/javascript>
   function addFilterCustomer(ele) {
     fetch('https://ejs-views-practice.glitch.me/claims/filter/customer/'+ele.text)
-    .then(function(response) {
-    return "claims",{claims:response.data})
+        .then((resp) => resp.json()) //transform the data into json for workability 
+        .then(function(data) {
+          console.log(data)
+//           window.location.href = ("/claims",{claims:response.data})
+
+//       response.render("claims",{"claims:response.data);
     })
     .catch(function(error) {
       console.log(error);
