@@ -20,6 +20,7 @@ clientrouter.get("/claims", function(req, res, next) {
 var claims;
 var customers;
 var employees;
+var products;
 axios
   .get(baseURL +"/api/claims")
     .then(function(response) {
@@ -35,7 +36,8 @@ axios
             axios
               .get(baseURL +"/api/products")
               .then(function(response) {
-               res.render("claims", { claims: claims, customers:customers, employees: employees, products: response.data });
+                products=response.data
+               res.render("claims", { claims: claims, customers:customers, employees: employees, products: products });
               })
             .catch(function(error) {
               console.log(error);

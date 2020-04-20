@@ -23,7 +23,7 @@ create claims, edit and resolve claims, email techs any questions about claims
       <input type="checkbox" id="menu-toggle"/>
       <ul id="menu">
         <% customers.forEach(customer=>{ %>
-        <li><a href="#" onclick="addFilter()"><%=customer.firstname%> <%=customer.lastname%></a></li>
+        <li><a href="#" value='<%=customer.firstname%> <%=customer.lastname%>' onclick="addFilter(this)"><%=customer.firstname%> <%=customer.lastname%></a></li>
         <%})%>
       </ul>
     </li>
@@ -33,17 +33,17 @@ create claims, edit and resolve claims, email techs any questions about claims
       <input type="checkbox" id="menu2-toggle"/>
       <ul id="menu2">
         <% employees.forEach(employee=>{ %>
-        <li><a href="#" onclick="addFilter()"><%=employee.firstname%> <%=employee.lastname%></a></li>
+        <li><a href="#" value="<%=employee.firstname%> <%=employee.lastname%>" onclick="addFilter(this)"><%=employee.firstname%> <%=employee.lastname%></a></li>
         <%})%>
       </ul>
     </li>
     <%}%>
     <% if (locals.products) { %> 
-    <li><label for="menu3-toggle">Employee</label>
+    <li><label for="menu3-toggle">Products</label>
       <input type="checkbox" id="menu3-toggle"/>
       <ul id="menu3">
-        <% employees.forEach(employee=>{ %>
-        <li><a href="#" onclick="addFilter()"><%=employee.firstname%> <%=employee.lastname%></a></li>
+        <% products.forEach(product=>{ %>
+        <li><a href="#" value="<%=product.name%>" onclick="addFilter(this)"><%=product.name%></a></li>
         <%})%>
       </ul>
     </li>
@@ -124,18 +124,18 @@ create claims, edit and resolve claims, email techs any questions about claims
 </p>
 
 <script type=text/javascript>
-  function addFilter() {
+  function addFilter(ele) {
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
-    button.innerHTML = " hey";
-    button.setAttribute("id", "file")
+    button.innerHTML = ele.text;
+    button.setAttribute("id", ele.text)
     button.onclick = function () {
-                removeFilter();
+                removeFilter(ele.text);
             }
     document.getElementById('create').appendChild(button)
   }  
-  function removeFilter() {
-    document.getElementById('file').remove();
+  function removeFilter(val) {
+    document.getElementById(val).remove();
   }  
    
   function searchMenu() {
