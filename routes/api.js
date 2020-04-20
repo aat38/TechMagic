@@ -276,6 +276,22 @@ apirouter.get("/customers", (request, response) => {
   );
 });
 
+//GET claims by customer name ---------------------------------------
+apirouter.get("/claims/customer/:first/:last", (request, response) => {
+  var vals = [request.params.first,request.params.last];
+  var query =("select * from all_claims where customer='$1 $2'")
+  client.connect();
+  client.query(query, vals).then(
+    function(resp) {
+      console.log("Successfully retrieved all customers");
+      console.log(resp.rows);
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
 //GET list of SORTED customers --------------------------------------
 apirouter.get("/customers/:sort", (request, response) => {
   var sortby = request.params.sort

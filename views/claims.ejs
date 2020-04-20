@@ -124,6 +124,9 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 
 <script type=text/javascript>
   function addFilterCustomer(ele) {
+    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
+        .then((resp) => resp.json()) //transform the data into json for workability 
+        .then(function(data) {
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;
