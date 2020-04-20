@@ -36,8 +36,8 @@ axios
             axios
               .get(baseURL +"/api/products")
               .then(function(response) {
-                products=response.data
-               res.render("claims", { claims: claims, customers:customers, employees: employees, products: products });
+              products=response.data
+               res.render("claims", { claims: claims, cust:customers, emp: employees, prod: products });
               })
             .catch(function(error) {
               console.log(error);

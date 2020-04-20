@@ -18,32 +18,32 @@ create claims, edit and resolve claims, email techs any questions about claims
 <div class="dropdown">
   <p id="menu" > Menu</p>
   <ul id="menu-box" style="display: none" class="dropdown-menu">
-    <% if (locals.customers) { %> 
+    <% if (locals.cust) { %> 
     <li><label for="menu-toggle">Customer</label>
       <input type="checkbox" id="menu-toggle"/>
       <ul id="menu">
-        <% customers.forEach(customer=>{ %>
-        <li><a href="#" value='<%=customer.firstname%> <%=customer.lastname%>' onclick="addFilter(this)"><%=customer.firstname%> <%=customer.lastname%></a></li>
+        <% cust.forEach(c=>{ %>
+        <li><a href="#" onclick="addFilter(this)"><%=c.firstname%> <%=c.lastname%></a></li>
         <%})%>
       </ul>
     </li>
     <%}%>
-    <% if (locals.employees) { %> 
+    <% if (locals.emp) { %> 
     <li><label for="menu2-toggle">Employee</label>
       <input type="checkbox" id="menu2-toggle"/>
       <ul id="menu2">
-        <% employees.forEach(employee=>{ %>
-        <li><a href="#" value="<%=employee.firstname%> <%=employee.lastname%>" onclick="addFilter(this)"><%=employee.firstname%> <%=employee.lastname%></a></li>
+        <% emp.forEach(e=>{ %>
+        <li><a href="#" onclick="addFilter(this)"><%=e.firstname%> <%=e.lastname%></a></li>
         <%})%>
       </ul>
     </li>
     <%}%>
-    <% if (locals.products) { %> 
+    <% if (locals.prod) { %> 
     <li><label for="menu3-toggle">Products</label>
       <input type="checkbox" id="menu3-toggle"/>
       <ul id="menu3">
-        <% products.forEach(product=>{ %>
-        <li><a href="#" value="<%=product.name%>" onclick="addFilter(this)"><%=product.name%></a></li>
+        <% prod.forEach(p=>{ %>
+        <li><a href="#" onclick="addFilter(this)"><%=p.name%></a></li>
         <%})%>
       </ul>
     </li>
