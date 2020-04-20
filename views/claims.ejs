@@ -9,15 +9,17 @@
 create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
-
-<button onclick="add()">
+<div id="buttondiv">
+  <button onclick="add()">
   Filtesdfg
 </button>
+</div>
+
 
 
 <div class="dropdown">
 <p id="menu" onclick="add()"> Menu</p>
-<ul onmouseout="close();" id="menu-box" style="display: none" class="dropdown-menu">
+<ul id="menu-box" style="display: none" class="dropdown-menu">
   <li><label for="menu2-toggle">Customer</label>
     <input type="checkbox" id="menu2-toggle"/>
     <ul id="menu2">
@@ -118,9 +120,15 @@ create claims, edit and resolve claims, email techs any questions about claims
     menuBox.style.display = "none";
   }
   }
+  
+  function addListener(element){
+    element.onmouseout = close;
+  }
     
   function add() {
     var menuBox = document.getElementById('menu-box');    
+    var buttondiv = document.getElementsByClassName[0]('dropdown');  
+    buttondiv.onmouseover = addListener(buttondiv);
     if(menuBox.style.display == "block") { // if is menuBox displayed, hide it
       menuBox.style.display = "none";
     }
