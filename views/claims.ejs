@@ -21,7 +21,7 @@ create claims, edit and resolve claims, email techs any questions about claims
     <li><label for="menu2-toggle">Customer</label>
       <input type="checkbox" id="menu2-toggle"/>
       <ul id="menu2">
-        <li><a href="#" onclick="add()">Nancy</a></li>
+        <li><a href="#" onclick="addFilter()">Nancy</a></li>
         <li><a href="#">Ben</a></li>
       </ul>
     </li>
@@ -35,9 +35,12 @@ create claims, edit and resolve claims, email techs any questions about claims
   </ul>
 </div>
 
+<div id="create" style="display:none">
+  <b>Filters: </b>
+</div>
 
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
-    <b>Filter by:</b>
+    <b>Sort by:</b>
     <% if (locals.sort) { %>
     <button class="dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span></button>
     <%}else{%>
@@ -53,9 +56,8 @@ create claims, edit and resolve claims, email techs any questions about claims
 
 
 
-<div id="create">
-    <button onClick="addFilter()">Add Filter</button>
-</div>
+
+
 
 
 <table class="table table-hover">
@@ -113,9 +115,13 @@ create claims, edit and resolve claims, email techs any questions about claims
 
 <script type=text/javascript>
   function addFilter() {
-    var span = document.createElement('span');
-    span.innerHTML = "hey";
-    document.getElementById('create').appendChild(span)
+    document.getElementById('create').style.display="block";
+    var button = document.createElement('button');
+    <button type="button" class="close" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+    button.innerHTML = " hey x";
+    document.getElementById('create').appendChild(button)
   }  
    
   function searchMenu() {
