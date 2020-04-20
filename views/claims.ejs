@@ -10,19 +10,24 @@ create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
 <div id="buttondiv">
-  <button onclick="add()">
-  Filtesdfg
-</button>
+  <button onclick="searchMenu()">
+    Add Filter
+  </button>
 </div>
 
-
-
-<div id="yeetster" class="dropdown">
+<div class="dropdown">
   <p id="menu" > Menu</p>
   <ul id="menu-box" style="display: none" class="dropdown-menu">
     <li><label for="menu2-toggle">Customer</label>
       <input type="checkbox" id="menu2-toggle"/>
       <ul id="menu2">
+        <li><a href="#" onclick="add()">Nancy</a></li>
+        <li><a href="#">Ben</a></li>
+      </ul>
+    </li>
+    <li><label for="menu-toggle">Customer</label>
+      <input type="checkbox" id="menu-toggle"/>
+      <ul id="menu">
         <li><a href="#">Nancy</a></li>
         <li><a href="#">Ben</a></li>
       </ul>
@@ -112,30 +117,27 @@ create claims, edit and resolve claims, email techs any questions about claims
     span.innerHTML = "hey";
     document.getElementById('create').appendChild(span)
   }  
-
-  function close(){
-    console.log("hu")
-    var menuBox = document.getElementById('menu-box');    
-    if(menuBox.style.display == "block") { // if is menuBox displayed, hide it
-    menuBox.style.display = "none";
-  }
-  }
-  
-    
-    
-  function add() {
+   
+  function searchMenu() {
     var menuBox = document.getElementById('menu-box');    
 
-    if(menuBox.style.display == "block") { // if is menuBox displayed, hide it
+    if(menuBox.style.display == "block") { 
       menuBox.style.display = "none";
     }
-    else { // if is menuBox hidden, display it
+    else {
       menuBox.style.display = "block";
       menuBox.addEventListener('mouseleave', function(){
-        close();
+      closeMenu();
       });
+    }
   }
-  }
+  
+  function closeMenu(){
+    var menuBox = document.getElementById('menu-box');    
+    if(menuBox.style.display == "block") { 
+    menuBox.style.display = "none";
+    }
+  }  
 </script>
 
 <%}else{%>
