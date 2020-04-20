@@ -1,10 +1,6 @@
 <!-- SORTABLE, FILTERABLE LIST OF ALL CLAIMS  -->
 
 <%- include("partials/header") %>
-<% if (locals.claimsRedirect) { %>
-<%=claimsRedirect[0].productid%>
-
-<%}%>
 <% if (locals.claims) { %> 
 <h1>
   Claims
@@ -138,36 +134,44 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 
 <script type=text/javascript>
   function addFilterCustomer(ele) {
-    fetch('https://ejs-views-practice.glitch.me/claims/filter/customer/'+ele.text)
-    // .then(function(response) {
-    // return response.text();
-    // }).then(function(text) {
-          // console.log(text)
-.then(response => response.json())
-.then(response => {
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i<= rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
+        document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    }
 
-    console.log(response)
-    fetch('https://ejs-views-practice.glitch.me/claims/redirect/', {
-        headers:{
-          "content-type":"application/json",
-        },
-        body: JSON.stringify({
-          customer: response
-        }),
-        method: 'POST'
-    }).then(resp=>{
-           // window.location.reload();//so changes render
-        }, err=>{
-          console.log(err);
-        })
 
-      // console.log(JSON.parse(data))
-      // window.location.href = ("/claims/redirect/"{body}) //redirect
+//     fetch('https://ejs-views-practice.glitch.me/claims/filter/customer/'+ele.text)
+//     // .then(function(response) {
+//     // return response.text();
+//     // }).then(function(text) {
+//           // console.log(text)
+// .then(response => response.json())
+// .then(response => {
 
-    })
-    .catch(function(error) {
-      console.log(error);
-    }); 
+//     console.log(response)
+//     fetch('https://ejs-views-practice.glitch.me/claims/redirect/', {
+//         headers:{
+//           "content-type":"application/json",
+//         },
+//         body: JSON.stringify({
+//           customer: response
+//         }),
+//         method: 'POST'
+//     }).then(resp=>{
+//            // window.location.reload();//so changes render
+//         }, err=>{
+//           console.log(err);
+//         })
+
+//       // console.log(JSON.parse(data))
+//       // window.location.href = ("/claims/redirect/"{body}) //redirect
+
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//     }); 
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;
