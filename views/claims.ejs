@@ -9,17 +9,7 @@
 create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
-<script>
-function add() {
-  var menuBox = document.getElementById('menu-box');    
-  if(menuBox.style.display == "block") { // if is menuBox displayed, hide it
-    menuBox.style.display = "none";
-  }
-  else { // if is menuBox hidden, display it
-    menuBox.style.display = "block";
-  }
-}
-</script>
+
 <button onclick="add()">
   Filtesdfg
 </button>
@@ -27,7 +17,7 @@ function add() {
 
 <div class="dropdown">
 <p id="menu" onclick="add()"> Menu</p>
-<ul id="menu-box" style="display: none" class="dropdown-menu">
+<ul onmouseout="close();" id="menu-box" style="display: none" class="dropdown-menu">
   <li><label for="menu2-toggle">Customer</label>
     <input type="checkbox" id="menu2-toggle"/>
     <ul id="menu2">
@@ -120,16 +110,24 @@ function add() {
     span.innerHTML = "hey";
     document.getElementById('create').appendChild(span)
   }  
-$(document).mouseup(function(e) 
-{
-    var container = $("#menu");
 
-    // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) 
-    {
-        container.hide();
+  function close(){
+    console.log("hu")
+    var menuBox = document.getElementById('menu-box');    
+    if(menuBox.style.display == "block") { // if is menuBox displayed, hide it
+    menuBox.style.display = "none";
+  }
+  }
+    
+  function add() {
+    var menuBox = document.getElementById('menu-box');    
+    if(menuBox.style.display == "block") { // if is menuBox displayed, hide it
+      menuBox.style.display = "none";
     }
-});
+    else { // if is menuBox hidden, display it
+      menuBox.style.display = "block";
+    }
+  }
 </script>
 
 <%}else{%>
