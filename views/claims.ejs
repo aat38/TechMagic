@@ -21,25 +21,37 @@ create claims, edit and resolve claims, email techs any questions about claims, 
     <li><label for="menu-toggle">Customer</label>
       <input type="checkbox" id="menu-toggle"/>
       <ul id="menu">
-        <% claims.forEach(c=>{ %>
-        <li><a href="#" onclick="addFilterCustomer(this)"><%=c.customer%></a></li>
-        <%})%>
+        <%var array=[]%>
+        <% claims.forEach(claim=>{ %>
+        <%if (array.includes(claim.customer)){%>
+        <%}else{%>
+        <%array=array + claim.customer%>
+        <li><a href="#" onclick="addFilterCustomer(this)"><%=claim.customer%></a></li>
+        <%}})%>
       </ul>
     </li>
     <li><label for="menu2-toggle">Employee</label>
       <input type="checkbox" id="menu2-toggle"/>
       <ul id="menu2">
-        <% claims.forEach(e=>{ %>
-        <li><a href="#" onclick="addFilterEmployee(this)"><%=e.employee%></a></li>
-        <%})%>
+        <%var array=[]%>
+        <% claims.forEach(claim=>{ %>
+        <%if (array.includes(claim.employee)){%>
+        <%}else{%>
+        <%array=array + claim.employee%>
+        <li><a href="#" onclick="addFilterEmployee(this,'<%=local%>')"><%=claim.employee%></a></li>
+        <%}})%>
       </ul>
     </li>
     <li><label for="menu3-toggle">Products</label>
       <input type="checkbox" id="menu3-toggle"/>
       <ul id="menu3">
-        <% claims.forEach(p=>{ %>
-        <li><a href="#" onclick="addFilterProduct(this)"><%=p.product%></a></li>
-        <%})%>
+        <%var array=[]%>
+        <% claims.forEach(claim=>{ %>
+        <%if (array.includes(claim.product)){%>
+        <%}else{%>
+        <%array=array + claim.product%>
+        <li><a href="#" onclick="addFilterEmployee(this)"><%=claim.product%></a></li>
+        <%}})%>
       </ul>
     </li>
   </ul>
@@ -123,9 +135,9 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 
 <script type=text/javascript>
   function addFilterCustomer(ele) {
-    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
-        .then((resp) => resp.json()) //transform the data into json for workability 
-        .then(function(data) {
+    // fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
+    //     .then((resp) => resp.json()) //transform the data into json for workability 
+    //     .then(function(data) {
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;
