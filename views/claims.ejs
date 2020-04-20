@@ -17,17 +17,17 @@ create claims, edit and resolve claims, email techs any questions about claims
 
 
 
-<div class="dropdown">
-<p id="menu" onclick="add()"> Menu</p>
-<ul id="menu-box" style="display: none" class="dropdown-menu">
-  <li><label for="menu2-toggle">Customer</label>
-    <input type="checkbox" id="menu2-toggle"/>
-    <ul id="menu2">
-      <li><a href="#">Nancy</a></li>
-      <li><a href="#">Ben</a></li>
-    </ul>
-  </li>
-</ul>
+<div id="yeetster" class="dropdown">
+  <p id="menu" > Menu</p>
+  <ul id="menu-box" style="display: none" class="dropdown-menu">
+    <li><label for="menu2-toggle">Customer</label>
+      <input type="checkbox" id="menu2-toggle"/>
+      <ul id="menu2">
+        <li><a href="#">Nancy</a></li>
+        <li><a href="#">Ben</a></li>
+      </ul>
+    </li>
+  </ul>
 </div>
 
 
@@ -121,19 +121,21 @@ create claims, edit and resolve claims, email techs any questions about claims
   }
   }
   
-  function addListener(element){
+  function addListener(){
+    var buttondiv = document.getElementsByClassName[0]('dropdown');  
     element.onmouseout = close;
   }
     
   function add() {
     var menuBox = document.getElementById('menu-box');    
-    var buttondiv = document.getElementsByClassName[0]('dropdown');  
-    buttondiv.onmouseover = addListener(buttondiv);
+
     if(menuBox.style.display == "block") { // if is menuBox displayed, hide it
       menuBox.style.display = "none";
     }
     else { // if is menuBox hidden, display it
       menuBox.style.display = "block";
+      var buttondiv = document.getElementById('yeetster');  
+      buttondiv.mouseover = addListener;
     }
   }
 </script>
