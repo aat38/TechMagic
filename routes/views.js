@@ -44,7 +44,7 @@ clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
    axios
   .get(baseURL +"/api/claims/customer/"+req.params.var)
     .then(function(response) {
-      res.render("claims", { claims: response.data});
+      res.send(response.data);
     })
     .catch(function(error) {
       console.log(error);
