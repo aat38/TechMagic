@@ -49,10 +49,15 @@
     <div class="d-flex justify-content-center flex-column">
       <form id="updateform" onsubmit="update(this);">  
  
-      <div>
-        <b>First Name: </b>
-        <input value="" id="description" name="description" type="text" >
-      </div>
+      <span><b>First Name: </b><input value="" id="description" name="description" type="text" > </span>
+      <span><b>Last Name: </b><input value="" id="description" name="description" type="text" > </span>
+      <span><b>Email: </b><input value="" id="description" name="description" type="text" > </span>
+      <span><b>Phone Number: </b><input value="" id="description" name="description" type="text" > </span>
+      <span><b>Street Address: </b><input value="" id="description" name="description" type="text" > </span>
+      <span><b>Street Address 2: </b><input value="" id="description" name="description" type="text" > </span>
+      <span><b>City : </b><input value="" id="description" name="description" type="text" > </span>
+      <span><b>State(Abr): </b><input value="" id="description" name="description" type="text" > </span>
+      <span><b>Zip: </b><input value="" id="description" name="description" type="text" > </span>
 
 
 
@@ -72,7 +77,21 @@
     // var description=element.name.split(";")[0];
     var modal = document.getElementById("descriptionModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
 
+    //close out of modal either when clicking 'x' 
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    //or close modal when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  }  
+  
+  function update(cust){
     
     // fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
     //     .then((resp) => resp.json()) //transform the data into json for workability 
@@ -91,22 +110,35 @@
     //         document.getElementById("name").innerHTML=product;
     //         document.getElementById("description").innerHTML=description;
     //         document.getElementById("claimsBtn").action="/products/claims/"+productid;
-            modal.style.display = "block";
     //       }
     //   })  
-  
-    //close out of modal either when clicking 'x' 
-    closeBtn.onclick = function() {
-      modal.style.display = "none";
-    }
-    //or close modal when clicking outside of the modal
-    window.onclick = function(event) {
-      if (event.target == modal) {
-      modal.style.display = "none";
+    fetch('https://ejs-views-practice.glitch.me/api/customers/address', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          city,
+          state,
+          streetaddress,
+          streetaddress2,
+          zip,
+          email,
+          firstname,
+          lastname,
+          phone,
+          title
+        }),
+            method: 'POST'
+        }).then(resp=>{
+        }, err=>{
+          console.log(err);
+        })
+      location = location //refresh
       }
-    }
-  }//end function modal(element)
+  }
+
   
+
 </script>
 
 <% } %>

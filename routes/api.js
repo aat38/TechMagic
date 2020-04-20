@@ -686,6 +686,56 @@ apirouter.post("/employees/address", (request, response) => {
     });
 });
 
+//POST new CUSTOMER WITH new address ---------------------------------
+//[needs to be a nested promise where address is added first and then second promise actually adds employee]
+apirouter.post("/customers/address", (request, response) => {
+  const addressQuery =
+    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
+  const addressValues = [
+    request.body.city,
+    request.body.state,
+    request.body.streetaddress,
+    request.body.streetaddress2,
+    request.body.zip
+  ];
+  const employeeQuery =
+    "INSERT INTO customer(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4, $5, $6)";
+  client.connect();
+  client
+    .query(addressQuery, addressValues)
+    .then(
+      res => {
+        console.log("Successfully added address values.");
+        //call employee query inside res(aka resolution) of returned address promise
+        client
+          .query(employeeQuery, [
+            res.rows[0].addressid,
+            request.body.email,
+            request.body.firstname,
+            request.body.lastname,
+            request.body.phone,
+            request.body.title
+          ])
+          .then(res => {
+            console.log("Employee successfully added with new address.");
+          })
+          .catch(e => {
+            console.error(e.stack);
+            console.log("catching1.");
+          });
+      },
+      err => {
+        console.log(
+          "Failed to add address. Employee will not be added since it is dependent on address."
+        );
+      }
+    )
+    .catch(e => {
+      console.error(e.stack);
+      console.log("catching2.");
+    });
+});
+
 //ADDRESSES
 //POST new address --------------------------------------------------
 apirouter.post("/addresses", (request, response) => {
