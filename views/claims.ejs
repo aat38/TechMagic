@@ -1,6 +1,10 @@
 <!-- SORTABLE, FILTERABLE LIST OF ALL CLAIMS  -->
 
 <%- include("partials/header") %>
+<% if (locals.claimsRedirect) { %>
+<%=claimsRedirect[0].productid%>
+
+<%}%>
 <% if (locals.claims) { %> 
 <h1>
   Claims
