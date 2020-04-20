@@ -2,7 +2,7 @@
 
 <%- include("partials/header") %>
 <% if (locals.claims) { %> 
-<
+<%=locals.claims%>
 <h1>
   Claims
 </h1>
@@ -142,17 +142,18 @@ create claims, edit and resolve claims, email techs any questions about claims, 
           // console.log(text)
 .then(response => response.json())
 .then(response => {
+      // window.location.href = ("/claims/redirect/", {response})
 
-    console.log(response)
-    fetch('https://ejs-views-practice.glitch.me/claims/redirect/', {
-        headers:{
-          "content-type":"application/json",
-        },
-        body: JSON.stringify({
-          customer: response
-        }),
-        method: 'POST'
-    }).then(resp=>{
+    // console.log(response)
+    // fetch('https://ejs-views-practice.glitch.me/claims/redirect/', {
+    //     headers:{
+    //       "content-type":"application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       customer: response
+    //     }),
+    //     method: 'POST'
+    // }).then(resp=>{
           var rows = document.getElementsByTagName("tr").length
           for (var i = 1; i< rows; i++){
             if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
@@ -165,8 +166,6 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 
       // console.log(JSON.parse(data))
       // window.location.href = ("/claims/redirect/"{body}) //redirect
-
-    })
     .catch(function(error) {
       console.log(error);
     }); 
