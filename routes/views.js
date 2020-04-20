@@ -65,8 +65,8 @@ clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
   }
 });
 clientrouter.post("/claims/redirect/", function(req, res, next) {
-  console.log(req.body.customer);
-  console.log("-------------------------------------------------------------------------------------------------------------------");
+  // console.log(req.body.customer);
+  // console.log("-------------------------------------------------------------------------------------------------------------------");
   res.render("claims", { claimsRedirect: (req.body.customer) })
 })
 
