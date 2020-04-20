@@ -41,28 +41,24 @@
   </tbody>
   <%})%>
   
- <button  onclick="modal()">Create New Customer</button>
-  <!-- Modal div -->
+<button  onclick="modal()">Create New Customer</button>
+<!-- Modal div -->
 <div id="descriptionModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
-      <form id="updateform" onsubmit="update(this);">  
- 
-      <span><b>First Name: </b><input value="" id="description" name="description" type="text" > </span>
-      <span><b>Last Name: </b><input value="" id="description" name="description" type="text" > </span>
-      <span><b>Email: </b><input value="" id="description" name="description" type="text" > </span>
-      <span><b>Phone Number: </b><input value="" id="description" name="description" type="text" > </span>
-      <span><b>Street Address: </b><input value="" id="description" name="description" type="text" > </span>
-      <span><b>Street Address 2: </b><input value="" id="description" name="description" type="text" > </span>
-      <span><b>City : </b><input value="" id="description" name="description" type="text" > </span>
-      <span><b>State(Abr): </b><input value="" id="description" name="description" type="text" > </span>
-      <span><b>Zip: </b><input value="" id="description" name="description" type="text" > </span>
-
-
-
-      <input type="submit">
-    </form>
+      <form id="updateform">  
+        <span><b>First Name: </b><input value="" id="firstname" type="text" > </span>
+        <span><b>Last Name: </b><input value="" id="lastname" type="text" > </span>
+        <span><b>Email: </b><input value="" id="email"  type="text" > </span>
+        <span><b>Phone Number: </b><input value="" id="phone" type="text" > </span>
+        <span><b>Street Address: </b><input value="" id="address1" type="text" > </span>
+        <span><b>Street Address 2: </b><input value="" id="address2" type="text" > </span>
+        <span><b>City : </b><input value="" id="city"  type="text" > </span>
+        <span><b>State(Abr): </b><input value="" id="state" type="text" > </span>
+        <span><b>Zip: </b><input value="" id="zip"  type="text" > </span>
+        <button onclick="update(this);">Submit New Customer</button>
+      </form>
     </div>
   </div>
 </div>
@@ -93,40 +89,22 @@
   
   function update(cust){
     
-    // fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
-    //     .then((resp) => resp.json()) //transform the data into json for workability 
-    //     .then(function(data) {
-    //       //IF return no claims associated with this product, show the modal without providing a view claims button 
-    //       if (data.length===0){ //modal without button 
-    //         document.getElementById("noclaims").style.display = "block";
-    //         document.getElementById("claims").style.display = "none";
-    //         document.getElementById("name").innerHTML=product;
-    //         document.getElementById("description").innerHTML=description;
-    //         modal.style.display = "block";
-    //       }else{ //modal with button 
-    //         document.getElementById("noclaims").style.display = "none";
-    //         document.getElementById("claims").style.display = "block";
-    //         document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
-    //         document.getElementById("name").innerHTML=product;
-    //         document.getElementById("description").innerHTML=description;
-    //         document.getElementById("claimsBtn").action="/products/claims/"+productid;
-    //       }
-    //   })  
+
     fetch('https://ejs-views-practice.glitch.me/api/customers/address', {
         headers:{
           "content-type":"application/json",
         },
         body: JSON.stringify({
-          city,
-          state,
-          streetaddress,
-          streetaddress2,
-          zip,
-          email,
-          firstname,
-          lastname,
-          phone,
-          title
+          city:document.getElementById("city").value,
+          state:document.getElementById("state").value,
+          streetaddress:document.getElementById("address1").value,
+          streetaddress2:document.getElementById("address2").value,
+          zip:document.getElementById("zip").value,
+          email:document.getElementById("email").value,
+          firstname:document.getElementById("state").value,
+          lastname:document.getElementById("state").value,
+          phone:document.getElementById("state").value,
+          title:document.getElementById("state").value
         }),
             method: 'POST'
         }).then(resp=>{
@@ -134,8 +112,8 @@
           console.log(err);
         })
       location = location //refresh
-      }
   }
+  
 
   
 
