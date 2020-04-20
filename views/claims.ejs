@@ -9,18 +9,38 @@
 create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
-<nav>
-    <p id="menu"> Menu</p>
-        <ul id="menu-box">
-            <li><a href="index.html">Start</a></li>
-            <li><a href="animal.html">Animal</a></li>
-            <li><a href="pictures.html">Pictures</a></li>
-        </ul>
-    </nav> 
+<script>
+function add() {
+  var menuBox = document.getElementById('menu-box');    
+  if(menuBox.style.display == "block") { // if is menuBox displayed, hide it
+    menuBox.style.display = "none";
+  }
+  else { // if is menuBox hidden, display it
+    menuBox.style.display = "block";
+  }
+}
+</script>
+<button onclick="add()">
+  Filtesdfg
+</button>
 
 
-
-
+<div class="dropdown">
+<p id="menu" onclick="add()"> Menu</p>
+<ul id="menu-box" style="display: none" class="dropdown-menu">
+  <li><a href="index.html">Start</a></li>
+  <li><a href="animal.html">Animal</a></li>
+  <li><a href="pictures.html">Pictures</a></li>
+  <li><label for="menu2-toggle">Toggle menu</label>
+    <input type="checkbox" id="menu2-toggle"/>
+    <ul id="menu2">
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+    </ul>
+  </li>
+</ul>
+</div>
 
 
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
@@ -31,95 +51,14 @@ create claims, edit and resolve claims, email techs any questions about claims
         <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
     <%}%>
     <ul class="dropdown-menu">
-      <li><label for="menu2-toggle">Toggle menu</label>
-<input type="checkbox" id="menu2-toggle"/>
-<ul id="menu2">
-  <li><a href="#">Item 1</a></li>
-  <li><a href="#">Item 2</a></li>
-  <li><a href="#">Item 3</a></li>
-</ul></li>
+      
       <li><a href='/products/desc'>Descending Name</a></li>
       <li><a href='/products/greatest'>Most Expensive</a></li>
       <li><a href='/products/least'>Least Expensive</a></li>
      </ul>
   </div>
 
-<!-- <label for="menu2-toggle">Toggle menu</label>
-<input type="checkbox" id="menu2-toggle"/>
-<ul id="menu2">
-  <li><a href="#">Item 1</a></li>
-  <li><a href="#">Item 2</a></li>
-  <li><a href="#">Item 3</a></li>
-</ul> -->
-<label for="menu-toggle">Toggle menu</label>
-<input type="checkbox" id="menu-toggle"/>
-<ul id="menu">
-  <li><a href="#">Item 1</a></li>
-  <li><a href="#">Item 2</a></li>
-  <li><a href="#">Item 3</a></li>
-</ul>
 
-<style>
-
-label {
-  cursor: pointer;
-}
-
-
-#menu2-toggle,#menu-toggle {
-  display: none;
-}
-#menu2, #menu {
-  width: 780px;
-  overflow: hidden;
-  max-height: 0;
-  padding: 0;
-  margin: 0 auto;
-  -webkit-transition: all 0.3s ease;
-}
-#menu2-toggle:checked + #menu2 {
-  max-height: 100px;
-}
-  #menu-toggle:checked + #menu {
-  max-height: 100px;
-}
-  </style>
-<!-- <style>
-.dropdown-submenu {
-  position: relative;
-}
-
-.dropdown-submenu .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -1px;
-}
-</style>
-</head>
-<body>
-   
-<div class="container">
-  <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Add Filter
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <li class="dropdown-submenu">
-        <a class="test dropdown-toggle" data-toggle="dropdown" tabindex="-1" href="#">Customer<span class="caret"></span></a>
-        <ul>
-          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-        </ul>
-      </li>     
-            <li class="dropdown-submenu">
-        <a class="test dropdown-toggle" data-toggle="dropdown" tabindex="-1" href="#">Customer<span class="caret"></span></a>
-        <ul>
-          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div> -->
 
 <div id="create">
     <button onClick="addFilter()">Add Filter</button>

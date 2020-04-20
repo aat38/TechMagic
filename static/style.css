@@ -55,3 +55,25 @@
   z-index: 10000;
 }
 
+label {
+  cursor: pointer;
+}
+
+
+#menu2-toggle,#menu-toggle {
+  display: none;
+}
+#menu2, #menu {
+  width: 780px;
+  overflow: hidden;
+  max-height: 0;
+  padding: 0;
+  margin: 0 auto;
+  -webkit-transition: all 0.3s ease;
+}
+#menu2-toggle:checked + #menu2 {
+  max-height: 100px;
+}
+  #menu-toggle:checked + #menu {
+  max-height: 100px;
+}
