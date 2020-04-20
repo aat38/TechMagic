@@ -218,27 +218,26 @@ create claims, edit and resolve claims, filter and sort claims
   
   function sort(column, direction){
     console.log("sort");
-    let rows = document.getElementsByTagName("tbody");
-    rows = [].slice.call(rows);
+    let rowsOG = document.getElementsByTagName("tbody");
+    rowsOG = [].slice.call(rows);
+    rowCopy = Obect.assign({}, rows);
     rows.sort(function(a,b){
       return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
-    }
- 
-    );
-    for (var i=1; i<rows.length; i++){
-    if (i===(rows.length-1)){
-      document.getElementsByTagName("tbody")[0].replaceWith(rows[1])
-    }
-    document.getElementsByTagName("tbody")[0].remove()
-    }
-    for (var i=2; i<rows.length; i++){
-    document.getElementsByTagName("tbody")[0].appendChild(rows[i].style.display="contents")
-    }
-      //         for (var i=1; i<rows.length; i++){
-      //   for (var j=1; j<rows[i].cells.length;j++){
-      //             document.getElementsByTagName("tr")[i+1].cells[j].innerText=rows[i].cells[j].innerText
-      //   }
-      // } 
+    });
+    // for (var i=1; i<rows.length; i++){
+    // if (i===(rows.length-1)){
+    //   document.getElementsByTagName("tbody")[0].replaceWith(rows[1])
+    // }
+    // document.getElementsByTagName("tbody")[0].remove()
+    // }
+    // for (var i=2; i<rows.length; i++){
+    // document.getElementsByTagName("thead")[0].appendChild(rows[i].style.display="contents")
+    // }
+              for (var i=1; i<rows.length; i++){
+        for (var j=1; j<rows[i].cells.length;j++){
+                  document.getElementsByTagName("tr")[i+1].cells[j].innerText=rows[i].cells[j].innerText
+        }
+      } 
     // let delete = document.getElementsByTagName("tbody");
     // for(row in delete){
     //   row.remove()
