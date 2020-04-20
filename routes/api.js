@@ -742,14 +742,16 @@ apirouter.put("/resolutions/update/close", (request, response) => {
 
 //PUT// change status of claims -----------------------------------------
 apirouter.put("/claims/update", (request, response) => {
-  if(request.body.claimid==="Open"){
-    const quer =
+  console.log([request.body.claimid,request.body.status])
+  const quer =""
+  if(request.body.status==="Open"){
+    quer =
     "UPDATE claim SET status = 'Open', dateopened = current_timestamp WHERE claimid = $1";
   }else{
-    const quer =
+    quer =
     "UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1";
   }
-    const vals = [request.body.claimid];
+  const vals = [request.body.claimid];
   client.connect();
   client
     .query(quer, vals)
