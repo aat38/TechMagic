@@ -135,18 +135,7 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 
 <script type=text/javascript>
   function addFilterCustomer(ele) {
-    fetch('https://ejs-views-practice.glitch.me/claims/products/'+element.name.split(";")[1])
-        .then((resp) => resp.json()) //transform the data into json for workability 
-        .then(function(data) {
-          //IF return no claims associated with this product, show the modal without providing a view claims button 
-          if (data.length===0){ //modal without button 
-            document.getElementById("noclaims").style.display = "block";
-            document.getElementById("claims").style.display = "none";
-            document.getElementById("name").innerHTML=product;
-            document.getElementById("description").innerHTML=description;
-            modal.style.display = "block";
-          }
-      }) 
+    fetch('https://ejs-views-practice.glitch.me/claims/filter/customer/'+ele.text)
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;

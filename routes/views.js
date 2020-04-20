@@ -39,28 +39,19 @@ axios
     });
 });
 
-clientrouter.get("/claims/:type/:var", function(req, res, next) {
-  if (req.params.type === customer){
-    /claims/customer/:name
+clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
+  if (req.params.type === 'customer'){
    axios
   .get(baseURL +"/api/claims/customer/"+req.params.var)
     .then(function(response) {
-      res.render("claims", { claims: response.data , sort: req.params.var});
+      res.render("claims", { claims: response.data});
     })
     .catch(function(error) {
       console.log(error);
     }); 
   }
-  return claims where customer from claims = var
-axios
-  .get(baseURL +"/api/claims/sortby/"+req.params.var)
-    .then(function(response) {
-      res.render("claims", { claims: response.data , sort: req.params.var});
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
 });
+
 
 clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 axios
