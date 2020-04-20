@@ -24,41 +24,20 @@ create claims, edit and resolve claims, email techs any questions about claims
 <body>
    
 <div class="container">
-  <h2>Multi-Level Dropdowns</h2>
   <div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Add Filter
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><a tabindex="-1" href="#">Customer</a></li>
-      <li><a tabindex="-1" href="#">Product</a></li>
       <li class="dropdown-submenu">
-        <a class="test" tabindex="-1" href="#">New dropdown <span class="caret"></span></a>
+        <a class="test dropdown-toggle" data-toggle="dropdown" tabindex="-1" href="#">Customer<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
           <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-          <li class="dropdown-submenu">
-            <a class="test" href="#">Another dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">3rd level dropdown</a></li>
-              <li><a href="#">3rd level dropdown</a></li>
-            </ul>
-          </li>
         </ul>
-      </li>
+      </li>      
     </ul>
   </div>
 </div>
-
-<script>
-$(document).ready(function(){
-  $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  });
-});
-</script>
-
 
 <div id="create">
     <button onClick="addFilter()">Add Filter</button>
@@ -119,13 +98,24 @@ $(document).ready(function(){
 </p>
 
 <script type=text/javascript>
-
   function addFilter() {
     var span = document.createElement('span');
     span.innerHTML = "hey";
     document.getElementById('create').appendChild(span)
-  }
-  
+  }  
+  $(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+    
+      window.onclick = function(event) {
+      if (event.target != dropdown) {
+      modal.style.display = "none";
+      }
+    }
+});
 </script>
 
 <%}else{%>
