@@ -14,48 +14,6 @@ create claims, edit and resolve claims, filter and sort claims
   </button>
 </div>
 
-<div class="dropdown">
-  <p id="menu" > Menu</p>
-  <ul id="menu-box" style="display: none" class="dropdown-menu">
-    <li><label for="menu-toggle">Customer</label>
-      <input type="checkbox" id="menu-toggle"/>
-      <ul id="menu">
-        <%var array=[]%>
-        <% claims.forEach(claim=>{ %>
-        <%if (array.includes(claim.customer)){%>
-        <%}else{%>
-        <%array=array + claim.customer%>
-        <li><a href="#" onclick="addFilterCustomer(this)"><%=claim.customer%></a></li>
-        <%}})%>
-      </ul>
-    </li>
-    <li><label for="menu2-toggle">Employee</label>
-      <input type="checkbox" id="menu2-toggle"/>
-      <ul id="menu2">
-        <%var array=[]%>
-        <% claims.forEach(claim=>{ %>
-        <%if (array.includes(claim.employee)){%>
-        <%}else{%>
-        <%array=array + claim.employee%>
-        <li><a href="#" onclick="addFilterEmployee(this,'<%claims%>')"><%=claim.employee%></a></li>
-        <%}})%>
-      </ul>
-    </li>
-    <li><label for="menu3-toggle">Products</label>
-      <input type="checkbox" id="menu3-toggle"/>
-      <ul id="menu3">
-        <%var array=[]%>
-        <% claims.forEach(claim=>{ %>
-        <%if (array.includes(claim.product)){%>
-        <%}else{%>
-        <%array=array + claim.product%>
-        <li><a href="#" onclick="addFilterEmployee(this)"><%=claim.product%></a></li>
-        <%}})%>
-      </ul>
-    </li>
-  </ul>
-</div>
-
 <div id="create" style="display:none">
   <b>Filters: </b>
 </div>
@@ -64,9 +22,10 @@ create claims, edit and resolve claims, filter and sort claims
     <b>Sort by:</b>
       <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
     <ul class="dropdown-menu">
-       <li><a onclick="sort('name', 'desc')">Descending Customer</a></li>
-      <li><a href='/products/greatest'>Most Expensive</a></li>
-      <li><a href='/products/least'>Least Expensive</a></li>
+       <li><a onclick="sortCustomer('name', 'desc')">Descending Customer</a></li>
+      <li><a onclick="sortResolution('name', 'desc')">Resolution</a></li>
+      <li><a onclick="sortStatus('name', 'desc')">Status</a></li>
+      <li><a onclick="sortDate('name', 'desc')">Date</a></li>
      </ul>
   </div>
 
@@ -215,38 +174,89 @@ create claims, edit and resolve claims, filter and sort claims
     }
   }  
 
-  
-  function sort(column, direction){
+  //sort by customer
+  function sortCustomer(column, direction){
     console.log("sort");
     let rows = document.getElementsByTagName("tbody");
     rows = [].slice.call(rows);
     rows.sort(function(a,b){
       return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
     });
-    // for (var i=1; i<rows.length; i++){
-    // if (i===(rows.length-1)){
-    //   document.getElementsByTagName("tbody")[0].replaceWith(rows[1])
-    // }
-    // document.getElementsByTagName("tbody")[0].remove()
-    // }
-    // for (var i=2; i<rows.length; i++){
-    // document.getElementsByTagName("thead")[0].appendChild(rows[i].style.display="contents")
-    // }
-      //         for (var i=1; i<rows.length; i++){
-      //   for (var j=1; j<rows[i].cells.length;j++){
-      //             document.getElementsByTagName("tr")[i+1].cells[j].innerText=rows[i].cells[j].innerText
-      //   }
-      // } 
-    let table = document.getElementById("tbody");
+
+    let table = document.getElementById("table");
     let blep = document.getElementsByTagName("tbody");
     while (blep.length >0){
-      blep[0].parentNode.removeChild(blep[0]);
+      table.removeChild(blep[0]);
     }
 
     for(let k =0; k < rows.length; k++){
-      
+      table.appendChild(rows[k]);
     }
   }
+  
+    //sort by resolution
+  function sortResolution(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[8].innerText.localeCompare(b.rows[0].cells[8].innerText);
+    });
+
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  }
+  
+      //sort by status
+  function sortStatus(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[7].innerText.localeCompare(b.rows[0].cells[7].innerText);
+    });
+
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  }
+        //sort by date
+  function sortDate(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+
+    
+    rows.sort(function(a,b){
+      var a = new Date(a.rows[0].cells[6].innerText);
+      var b = new Date(b.rows[0].cells[6].innerText)
+      return a>b;
+    });
+
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  }
+  
 </script>
 
 
