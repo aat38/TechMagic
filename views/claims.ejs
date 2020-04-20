@@ -2,6 +2,12 @@
 
 <%- include("partials/header") %>
 <% if (locals.claims) { %> 
+<div>
+<%-createGrid(locals.claims)  %>
+</div>
+<div id="myGrid" style="height: 600px;width:500px;" class="ag-theme-balham"></div>
+
+
 <h1>
   Claims
 </h1>
@@ -216,14 +222,7 @@ create claims, edit and resolve claims, filter and sort claims
   }  
 
   
-  function sort(column, direction){
-    console.log("sort");
-    rows = document.getElementsByTagName("tr");
-    rows= [].slice.call(rows);
-    rows = rows.slice(1);
-    rows.sort(function(a,b){
-      return -1 * (a.cells[1].innerText.localeCompare(b.cells[1].innerText));
-    });
+  function createGrid(data){
     console.log("fuck");
   }
 </script>
