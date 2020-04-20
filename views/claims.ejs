@@ -218,7 +218,7 @@ create claims, edit and resolve claims, filter and sort claims
   
   function sort(column, direction){
     console.log("sort");
-    rows = document.getElementsByTagName("tbody");
+    let rows = document.getElementsByTagName("tbody");
     rows = [].slice.call(rows);
     rows.sort(function(a,b){
       return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
@@ -230,7 +230,10 @@ create claims, edit and resolve claims, filter and sort claims
       //             document.getElementsByTagName("tr")[i+1].cells[j].innerText=rows[i].cells[j].innerText
       //   }
       // } 
-    rows = document.getElementsByTagName("tbody").forEach();
+    // let delete = document.getElementsByTagName("tbody");
+    // for(row in delete){
+    //   row.remove()
+    // }
   }
 </script>
 
