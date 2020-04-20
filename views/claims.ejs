@@ -136,14 +136,15 @@ create claims, edit and resolve claims, email techs any questions about claims, 
   function addFilterCustomer(ele) {
     fetch('https://ejs-views-practice.glitch.me/claims/filter/customer/'+ele.text)
     // .then(function(response) {
-    // return response.json();
-    // }).then(function(json) {
-    
+    // return response.text();
+    // }).then(function(text) {
+          // console.log(text)
+
         .then((resp) => resp.json()) //transform the data into json for workability 
-        .then(function(data) {
-      console.log(JSON.stringify(data))
-      console.log(json)
-      window.location.href = ("/claims/redirect/"+json) //redirect
+        .then(function(response) {
+      console.log(JSON.stringify(response.data))
+      // console.log(JSON.parse(data))
+      window.location.href = ("/claims/redirect/"+(JSON.stringify(response.data))) //redirect
 
     })
     .catch(function(error) {
