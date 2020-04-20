@@ -2,10 +2,6 @@
 
 <%- include("partials/header") %>
 <% if (locals.claims) { %> 
-
-<div id="myGrid" style="height: 600px;width:500px;" class="ag-theme-balham"></div>
-
-
 <h1>
   Claims
 </h1>
@@ -133,9 +129,6 @@ create claims, edit and resolve claims, filter and sort claims
 
 
 <script type=text/javascript>
-  window.onload = function(){
-    createGrid({});
-  }
   function addFilterCustomer(ele) {
           var rows = document.getElementsByTagName("tr").length
           for (var i = 1; i< rows; i++){
@@ -223,31 +216,15 @@ create claims, edit and resolve claims, filter and sort claims
   }  
 
   
-  function createGrid(data){
-    var columnDefs = [
-      {headerName: "Make", field: "make"},
-      {headerName: "Model", field: "model"},
-      {headerName: "Price", field: "price"}
-    ];
-
-    // specify the data
-    var rowData = [
-      {make: "Toyota", model: "Celica", price: 35000, sortable:true},
-      {make: "Ford", model: "Mondeo", price: 32000, sortable:true},
-      {make: "Porsche", model: "Boxter", price: 72000, sortable:true}
-    ];
-
-    // let the grid know which columns and what data to use
-    var gridOptions = {
-      columnDefs: columnDefs,
-      rowData: rowData
-    };
-
-  // lookup the container we want the Grid to use
-  var eGridDiv = document.querySelector('#myGrid');
-
-  // create the grid passing in the div to use together with the columns & data we want to use
-  new agGrid.Grid(eGridDiv, gridOptions);
+  function sort(column, direction){
+    console.log("sort");
+    rows = document.getElementsByTagName("tr");
+    rows= [].slice.call(rows);
+    rows = rows.slice(1);
+    rows.sort(function(a,b){
+      return a.cells[1].innerText.localeCompare(b.cells[1].innerText);
+    });
+    console.log("fuck");
   }
 </script>
 
