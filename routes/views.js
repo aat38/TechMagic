@@ -65,7 +65,11 @@ clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
   }
 });
 clientrouter.post("/claims/redirect/", function(req, res, next) {
-  res.render("claims", { claims: (res.body.customers) })
+   console.log("-------------------------------------------------------------------------------------------------------------------");
+  console.log(req);
+     console.log("-------------------------------------------------------------------------------------------------------------------");
+
+  res.render("claims", { claims: (req.body.customer) })
 })
 
 clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {

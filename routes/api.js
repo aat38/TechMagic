@@ -281,7 +281,7 @@ apirouter.get("/claims/customer/:name", (request, response) => {
   client.connect();
   client.query("select * from all_claims where customer='"+request.params.name+"'").then(
     function(resp) {
-      console.log("Successfully retrieved all claims for customer "+request.params.name);
+      //console.log("Successfully retrieved all claims for customer "+request.params.name);
       // console.log(resp.rows);
       response.send(resp.rows);
     },
