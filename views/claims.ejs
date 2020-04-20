@@ -22,29 +22,26 @@ create claims, edit and resolve claims, email techs any questions about claims, 
       <input type="checkbox" id="menu-toggle"/>
       <ul id="menu">
         <% claims.forEach(c=>{ %>
-        <li><a href="#" onclick="addFilterCustomer(this)"><%=c.customer></a></li>
+        <li><a href="#" onclick="addFilterCustomer(this)"><%=c.customer%></a></li>
         <%})%>
       </ul>
     </li>
     <li><label for="menu2-toggle">Employee</label>
       <input type="checkbox" id="menu2-toggle"/>
       <ul id="menu2">
-        <% emp.forEach(e=>{ %>
-        <li><a href="#" onclick="addFilterEmployee(this)"><%=e.firstname%> <%=e.lastname%></a></li>
+        <% claims.forEach(e=>{ %>
+        <li><a href="#" onclick="addFilterEmployee(this)"><%=e.employee%></a></li>
         <%})%>
       </ul>
     </li>
-    <%}%>
-    <% if (locals.prod) { %> 
     <li><label for="menu3-toggle">Products</label>
       <input type="checkbox" id="menu3-toggle"/>
       <ul id="menu3">
-        <% prod.forEach(p=>{ %>
-        <li><a href="#" onclick="addFilterProduct(this)"><%=p.name%></a></li>
+        <% claims.forEach(p=>{ %>
+        <li><a href="#" onclick="addFilterProduct(this)"><%=p.product%></a></li>
         <%})%>
       </ul>
     </li>
-    <%}%>
   </ul>
 </div>
 
@@ -115,9 +112,14 @@ create claims, edit and resolve claims, email techs any questions about claims, 
     </tr> 
   </tbody>
   <%})%>
-
 </table>
-</p>
+
+<%}else{%>
+<h1>
+ No Claims Found
+</h1>
+<%}%>
+
 
 <script type=text/javascript>
   function addFilterCustomer(ele) {
@@ -159,11 +161,7 @@ create claims, edit and resolve claims, email techs any questions about claims, 
   }  
 </script>
 
-<%}else{%>
-<h1>
- No Claims Found
-</h1>
-<%}%>
+
 
 
 <%- include("partials/footer") %>

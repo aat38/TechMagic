@@ -14,6 +14,15 @@ const baseURL = "https://ejs-views-practice.glitch.me";
 clientrouter.get("/", (req, res) => { 
   res.render("index");
 }); 
+clientrouter.get("/practice", (req, res) => { 
+axios
+    .get(baseURL +"/api/claims")
+    .then(function(response) {
+      res.render("practice", { claims: response.data });
+    })
+    .catch(function(error) {
+      console.log(error);
+    });});
 
 clientrouter.get("/claims", function(req, res, next) {
   axios
@@ -25,47 +34,6 @@ clientrouter.get("/claims", function(req, res, next) {
       console.log(error);
     });
 });
-
-// clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
-// //type can be customer, employee or product
-// if (req.params.type==='product')
-//   var claims =find all claims where product = ""
-
-// var products;
-// axios
-//   .get(baseURL +"/api/claims")
-//     .then(function(response) {
-//     claims =response.data;
-//       axios
-//       .get(baseURL +"/api/customers")
-//       .then(function(response) {
-//       customers= response.data
-//       axios
-//         .get(baseURL +"/api/employees")
-//         .then(function(response) {
-//           employees= response.data
-//             axios
-//               .get(baseURL +"/api/products")
-//               .then(function(response) {
-//               products=response.data
-//                res.render("claims", { claims: claims, cust:customers, emp: employees, prod: products });
-//               })
-//             .catch(function(error) {
-//               console.log(error);
-//             });
-//           })
-//         .catch(function(error) {
-//           console.log(error);
-//         });
-//       })
-//       .catch(function(error) {
-//         console.log(error);
-//       });   
-//     })
-//     .catch(function(error) {
-//       console.log(error);
-//     });
-// });
 
 
 clientrouter.get("/claims/:var", function(req, res, next) {
