@@ -64,7 +64,7 @@ create claims, edit and resolve claims, filter and sort claims
     <b>Sort by:</b>
       <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
     <ul class="dropdown-menu">
-       <li><a href='/products/desc'>Descending Name</a></li>
+       <li><a onclick="sort('name', 'desc')">Descending Customer</a></li>
       <li><a href='/products/greatest'>Most Expensive</a></li>
       <li><a href='/products/least'>Least Expensive</a></li>
      </ul>
@@ -217,12 +217,14 @@ create claims, edit and resolve claims, filter and sort claims
 
   
   function sort(column, direction){
-    for (var i = 1; i< rows; i++){
-      if(document.getElementsByTagName("tr")[i].children[1].innerText != val ){
-        document.getElementsByTagName("tr")[i].style.display="contents";
-      }
-    }
-    document.getElementsByTagName("tr")[i].style.display="contents";
+    console.log("sort");
+    rows = document.getElementsByTagName("tr");
+    rows= [].slice.call(rows);
+    rows = rows.slice(1);
+    rows.sort(function(a,b){
+      return -1 * (a.cells[1].innerText.localeCompare(b.cells[1].innerText));
+    });
+    console.log("fuck");
   }
 </script>
 
