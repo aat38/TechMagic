@@ -223,7 +223,14 @@ create claims, edit and resolve claims, filter and sort claims
     rows = rows.slice(1);
     rows.sort(function(a,b){
       return a.cells[1].innerText.localeCompare(b.cells[1].innerText);
-    });
+    }
+ 
+    );
+              for (var i=1; i<rows.length; i++){
+        for (var j=1; j<rows[i].cells.length;j++){
+                  document.getElementsByTagName("tr")[i+1].cells[j].innerText=rows[i].cells[j].innerText
+        }
+      } 
     console.log("fuck");
   }
 </script>
