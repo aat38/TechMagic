@@ -699,7 +699,7 @@ apirouter.post("/customers/address", (request, response) => {
     request.body.zip
   ];
   const employeeQuery =
-    "INSERT INTO customer(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4, $5, $6)";
+    "INSERT INTO customer(addressid, email, firstname, lastname, phone) VALUES($1, $2, $3 ,$4, $5)";
   client.connect();
   client
     .query(addressQuery, addressValues)
@@ -713,9 +713,8 @@ apirouter.post("/customers/address", (request, response) => {
             request.body.email,
             request.body.firstname,
             request.body.lastname,
-            request.body.phone,
-            request.body.title
-          ])
+            request.body.phone
+        ])
           .then(res => {
             console.log("Employee successfully added with new address.");
           })
