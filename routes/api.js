@@ -698,8 +698,8 @@ apirouter.post("/customers/address", (request, response) => {
     request.body.streetaddress2,
     request.body.zip
   ];
-  const employeeQuery =
-    "INSERT INTO customer(addressid, email, firstname, lastname, phone) VALUES($1, $2, $3 ,$4, $5)";
+  const customerQuer =
+    "INSERT INTO customer(addressid, income, email, firstname, lastname, phone) VALUES($1, $2, $3 ,$4, $5, $6)";
   client.connect();
   client
     .query(addressQuery, addressValues)
@@ -708,8 +708,9 @@ apirouter.post("/customers/address", (request, response) => {
         console.log("Successfully added address values.");
         //call employee query inside res(aka resolution) of returned address promise
         client
-          .query(employeeQuery, [
+          .query(customerQuer, [
             res.rows[0].addressid,
+            0,
             request.body.email,
             request.body.firstname,
             request.body.lastname,
