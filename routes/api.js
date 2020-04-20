@@ -796,7 +796,7 @@ apirouter.put("/claims/update", (request, response) => {
   var quer =""
   if(request.body.status==="Open"){
     quer =
-    "UPDATE claim SET status = 'Open', dateopened = current_timestamp WHERE claimid = $1";
+    "UPDATE claim SET status = 'Open', dateopened = current_timestamp, dateclosed = NULL WHERE claimid = $1";
   }else{
     quer =
     "UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1";

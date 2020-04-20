@@ -42,6 +42,7 @@
   <% claims.forEach(result=>{ %>
   <% var dateOpened = new Date(result.dateopened) %>
   <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
+    
   <% var dateClosed = new Date(result.dateopened) %>
   <% var dateClosed= dateClosed.getDate() + "/" +  (dateClosed.getMonth()+1) + "/" + dateClosed.getFullYear() %>
     <tr>
