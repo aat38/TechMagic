@@ -64,11 +64,19 @@ clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
     }); 
   }
 });
+
 clientrouter.post("/claims/redirect/", function(req, res, next) {
-  // console.log(req.body.customer);
-  // console.log("-------------------------------------------------------------------------------------------------------------------");
-  res.render("claims", { claimsRedirect: (req.body.customer) })
-})
+  console.log(req.body.customer);
+  console.log("-------------------------------------------------------------------------------------------------------------------");
+  axios
+    .get(baseURL +"/claims")
+    .then(function(response) {
+        res.render("claims", { claims: (req.body.customer) })
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
 
 clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 axios

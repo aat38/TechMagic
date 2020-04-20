@@ -2,6 +2,7 @@
 
 <%- include("partials/header") %>
 <% if (locals.claims) { %> 
+<
 <h1>
   Claims
 </h1>
@@ -153,12 +154,11 @@ create claims, edit and resolve claims, email techs any questions about claims, 
         method: 'POST'
     }).then(resp=>{
           var rows = document.getElementsByTagName("tr").length
-    for (var i = 1; i<= rows; i++){
-      if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
-        document.getElementsByTagName("tr")[i].style.display="none"
-      }
-    }
-           // window.location.reload();//so changes render
+          for (var i = 1; i< rows; i++){
+            if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
+              document.getElementsByTagName("tr")[i].style.display="none"
+            }
+          }
         }, err=>{
           console.log(err);
         })
