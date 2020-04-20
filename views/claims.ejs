@@ -1,4 +1,4 @@
-<!-- SORTABLE LIST OF ALL CLAIMS  -->
+<!-- SORTABLE, FILTERABLE LIST OF ALL CLAIMS  -->
 
 <%- include("partials/header") %>
 
@@ -6,7 +6,7 @@
 <h1>
   Claims
 </h1>
-create claims, edit and resolve claims, email techs any questions about claims
+create claims, edit and resolve claims, email techs any questions about claims, filter and sort claims
 <%- include("partials/claim-edit") %>
 
 <div id="addFilter">
@@ -23,7 +23,7 @@ create claims, edit and resolve claims, email techs any questions about claims
       <input type="checkbox" id="menu-toggle"/>
       <ul id="menu">
         <% cust.forEach(c=>{ %>
-        <li><a href="#" onclick="addFilter(this)"><%=c.firstname%> <%=c.lastname%></a></li>
+        <li><a href="#" onclick="addFilterCustomer(this)"><%=c.firstname%> <%=c.lastname%></a></li>
         <%})%>
       </ul>
     </li>
@@ -33,7 +33,7 @@ create claims, edit and resolve claims, email techs any questions about claims
       <input type="checkbox" id="menu2-toggle"/>
       <ul id="menu2">
         <% emp.forEach(e=>{ %>
-        <li><a href="#" onclick="addFilter(this)"><%=e.firstname%> <%=e.lastname%></a></li>
+        <li><a href="#" onclick="addFilterEmployee(this)"><%=e.firstname%> <%=e.lastname%></a></li>
         <%})%>
       </ul>
     </li>
@@ -43,7 +43,7 @@ create claims, edit and resolve claims, email techs any questions about claims
       <input type="checkbox" id="menu3-toggle"/>
       <ul id="menu3">
         <% prod.forEach(p=>{ %>
-        <li><a href="#" onclick="addFilter(this)"><%=p.name%></a></li>
+        <li><a href="#" onclick="addFilterProduct(this)"><%=p.name%></a></li>
         <%})%>
       </ul>
     </li>
@@ -63,10 +63,9 @@ create claims, edit and resolve claims, email techs any questions about claims
         <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
     <%}%>
     <ul class="dropdown-menu">
-      
-      <li><a href='/products/desc'>Descending Name</a></li>
+<!--  <li><a href='/products/desc'>Descending Name</a></li>
       <li><a href='/products/greatest'>Most Expensive</a></li>
-      <li><a href='/products/least'>Least Expensive</a></li>
+      <li><a href='/products/least'>Least Expensive</a></li> -->
      </ul>
   </div>
 
@@ -124,7 +123,7 @@ create claims, edit and resolve claims, email techs any questions about claims
 </p>
 
 <script type=text/javascript>
-  function addFilter(ele) {
+  function addFilterCustomer(ele) {
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;
