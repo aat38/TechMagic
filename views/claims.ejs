@@ -121,10 +121,7 @@ create claims, edit and resolve claims, email techs any questions about claims
   }
   }
   
-  function addListener(){
-    var buttondiv = document.getElementsByClassName[0]('dropdown');  
-    element.onmouseout = close;
-  }
+    
     
   function add() {
     var menuBox = document.getElementById('menu-box');    
@@ -134,9 +131,10 @@ create claims, edit and resolve claims, email techs any questions about claims
     }
     else { // if is menuBox hidden, display it
       menuBox.style.display = "block";
-      var buttondiv = document.getElementById('yeetster');  
-      buttondiv.mouseover = addListener;
-    }
+      menuBox.addEventListener('mouseleave', function(){
+        close();
+      });
+  }
   }
 </script>
 
