@@ -14,15 +14,7 @@ const baseURL = "https://ejs-views-practice.glitch.me";
 clientrouter.get("/", (req, res) => { 
   res.render("index");
 }); 
-clientrouter.get("/practice", (req, res) => { 
-axios
-    .get(baseURL +"/api/claims")
-    .then(function(response) {
-      res.render("practice", { claims: response.data });
-    })
-    .catch(function(error) {
-      console.log(error);
-    });});
+
 
 clientrouter.get("/claims", function(req, res, next) {
   axios
@@ -37,6 +29,29 @@ clientrouter.get("/claims", function(req, res, next) {
 
 
 clientrouter.get("/claims/:var", function(req, res, next) {
+axios
+  .get(baseURL +"/api/claims/sortby/"+req.params.var)
+    .then(function(response) {
+      res.render("claims", { claims: response.data , sort: req.params.var});
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
+
+clientrouter.get("/claims/:type/:var", function(req, res, next) {
+  if (req.params.type === customer){
+    /claims/customer/:name
+   axios
+  .get(baseURL +"/api/claims/customer/"+req.params.var)
+    .then(function(response) {
+      res.render("claims", { claims: response.data , sort: req.params.var});
+    })
+    .catch(function(error) {
+      console.log(error);
+    }); 
+  }
+  return claims where customer from claims = var
 axios
   .get(baseURL +"/api/claims/sortby/"+req.params.var)
     .then(function(response) {

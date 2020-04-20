@@ -26,7 +26,7 @@ create claims, edit and resolve claims, email techs any questions about claims, 
         <%if (array.includes(claim.customer)){%>
         <%}else{%>
         <%array=array + claim.customer%>
-        <li><a href="#" onclick="'<%locals.claims%>'= addFilterCustomer(this,'<%=JSON.stringify(locals.claims)%>')"><%=claim.customer%></a></li>
+        <li><a href="#" onclick="addFilterCustomer(this)"><%=claim.customer%></a></li>
         <%}})%>
       </ul>
     </li>
@@ -134,8 +134,19 @@ create claims, edit and resolve claims, email techs any questions about claims, 
 
 
 <script type=text/javascript>
-  function addFilterCustomer(ele, claims) {
-    console.log(claims[0].product)
+  function addFilterCustomer(ele) {
+    fetch('https://ejs-views-practice.glitch.me/claims/products/'+element.name.split(";")[1])
+        .then((resp) => resp.json()) //transform the data into json for workability 
+        .then(function(data) {
+          //IF return no claims associated with this product, show the modal without providing a view claims button 
+          if (data.length===0){ //modal without button 
+            document.getElementById("noclaims").style.display = "block";
+            document.getElementById("claims").style.display = "none";
+            document.getElementById("name").innerHTML=product;
+            document.getElementById("description").innerHTML=description;
+            modal.style.display = "block";
+          }
+      }) 
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;
@@ -144,7 +155,8 @@ create claims, edit and resolve claims, email techs any questions about claims, 
                 removeFilter(ele.text);
             }
     document.getElementById('create').appendChild(button)
-  }  
+  } 
+  
   function removeFilter(val) {
     document.getElementById(val).remove();
   }  

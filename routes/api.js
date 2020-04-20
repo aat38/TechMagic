@@ -277,9 +277,9 @@ apirouter.get("/customers", (request, response) => {
 });
 
 //GET claims by customer name ---------------------------------------
-apirouter.get("/claims/customer/:first/:last", (request, response) => {
+apirouter.get("/claims/customer/:name", (request, response) => {
   client.connect();
-  client.query("select * from all_claims where customer='"+request.params.first+" "+request.params.last+"'").then(
+  client.query("select * from all_claims where customer='"+request.params.name+"'").then(
     function(resp) {
       console.log("Successfully retrieved all customers");
       console.log(resp.rows);
