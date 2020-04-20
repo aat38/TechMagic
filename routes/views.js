@@ -52,6 +52,11 @@ clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
   }
 });
 
+clientrouter.get("/claims/redirect/:data", function(req, res, next) {
+  console.log(req.params.data)
+  res.render("claims", { claims: req.params.data })
+});
+
 
 clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 axios
