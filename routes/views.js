@@ -52,9 +52,17 @@ clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
   }
 });
 
-clientrouter.get("/claims/redirect/:data", function(req, res, next) {
-  console.log(req.params.data)
-  res.render("claims", { claims: req.params.data })
+clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
+  if (req.params.type === 'customer'){
+   axios
+  .get(baseURL +"/api/claims/customer/"+req.params.var)
+    .then(function(response) {
+      res.send(response.data);
+    })
+    .catch(function(error) {
+      console.log(error);
+    }); 
+  }
 });
 
 
