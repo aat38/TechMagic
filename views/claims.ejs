@@ -70,7 +70,7 @@ create claims, edit and resolve claims, filter and sort claims
      </ul>
   </div>
 
-<table class="table table-hover">
+<table id="table" class="table table-hover">
   <thead>
     <tr>
       <th></th>
@@ -218,20 +218,19 @@ create claims, edit and resolve claims, filter and sort claims
   
   function sort(column, direction){
     console.log("sort");
-    rows = document.getElementsByTagName("tr");
-    rows= [].slice.call(rows);
-    rows = rows.slice(1);
+    rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
     rows.sort(function(a,b){
-      return a.cells[1].innerText.localeCompare(b.cells[1].innerText);
+      return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
     }
  
     );
-              for (var i=1; i<rows.length; i++){
-        for (var j=1; j<rows[i].cells.length;j++){
-                  document.getElementsByTagName("tr")[i+1].cells[j].innerText=rows[i].cells[j].innerText
-        }
-      } 
-    console.log("fuck");
+      //         for (var i=1; i<rows.length; i++){
+      //   for (var j=1; j<rows[i].cells.length;j++){
+      //             document.getElementsByTagName("tr")[i+1].cells[j].innerText=rows[i].cells[j].innerText
+      //   }
+      // } 
+    rows = document.getElementsByTagName("tbody").forEach();
   }
 </script>
 
