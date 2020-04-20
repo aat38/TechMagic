@@ -54,10 +54,10 @@
             <li><a href="#">Resolve</a></li>
             <%}%>
             <% if (result.status==='Closed') { %> <!--  add Re-open dropdown option if condition   -->
-            <li><a id="myLink" href="#" onclick="openClaim(<%=result.claimid%>)">Re-open</a></li>
+            <li><a id="myLink" href="#" onclick="openClaim('<%=result.claimid%>','<%=claims[0].product%>')">Re-open</a></li>
             <%}%>
             <% if (result.resolution!='unresolved' & result.status==='Open' ) {%> <!--  add Close dropdown option if condition   -->
-            <li><a href="#" onclick="closeClaim('<%=result.claimid%>')">Close</a></li>
+            <li><a href="#" onclick="closeClaim('<%=result.claimid%>','<%=claims[0].product%>')">Close</a></li>
             <%}%>
             <li><a href='/edit/<%=result.claimid%>'>Edit Claim</a></li>  <!--  add Edit dropdown option  -->
           </ul>
@@ -79,24 +79,24 @@
 
 <script type=text/javascript>
 
-function closeClaim(id){
-    fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
+function closeClaim(id, prod){
+   fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
         headers:{
           "content-type":"application/json",
         },
-        body: {
+        body: JSON.stringify({
           claimid: id,
           status: "Closed"
-        },
-        method: 'POST'
+        }),
+        method: 'PUT'
     }).then(resp=>{
-       window.location.reload();//so changes render
     }, err=>{
       console.log(err);
     })
+  location = location //refresh
   }
-
-function openClaim(id){
+  
+function openClaim(id, prod){
     fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
         headers:{
           "content-type":"application/json",
@@ -105,12 +105,14 @@ function openClaim(id){
           claimid: id,
           status: "Open"
         }),
-        method: 'POST'
+        method: 'PUT'
     }).then(resp=>{
-       window.location.reload();//so changes render
+         
+      
     }, err=>{
       console.log(err);
     })
+   location = location //refresh
   }
 
 
