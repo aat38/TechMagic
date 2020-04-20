@@ -60,10 +60,10 @@ label {
 }
 
 
-#menu2-toggle,#menu-toggle {
+#menu3-toggle,#menu2-toggle,#menu-toggle {
   display: none;
 }
-#menu2, #menu {
+#menu3, #menu2, #menu {
   width: 780px;
   overflow: hidden;
   max-height: 0;
@@ -71,9 +71,13 @@ label {
   margin: 0 auto;
   -webkit-transition: all 0.3s ease;
 }
+
+#menu-toggle:checked + #menu {
+  max-height: 100px;
+}
 #menu2-toggle:checked + #menu2 {
   max-height: 100px;
 }
-  #menu-toggle:checked + #menu {
+#menu3-toggle:checked + #menu3 {
   max-height: 100px;
 }

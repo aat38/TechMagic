@@ -17,15 +17,43 @@ clientrouter.get("/", (req, res) => {
 
 
 clientrouter.get("/claims", function(req, res, next) {
+var claims;
+var customers;
+var employees;
 axios
   .get(baseURL +"/api/claims")
     .then(function(response) {
-      res.render("claims", { claims: response.data });
+    claims =response.data;
+      axios
+      .get(baseURL +"/api/customers")
+      .then(function(response) {
+      customers= response.data
+      axios
+        .get(baseURL +"/api/employees")
+        .then(function(response) {
+          employees= response.data
+            axios
+              .get(baseURL +"/api/products")
+              .then(function(response) {
+               res.render("claims", { claims: claims, customers:customers, employees: employees, products: response.data });
+              })
+            .catch(function(error) {
+              console.log(error);
+            });
+          })
+        .catch(function(error) {
+          console.log(error);
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });   
     })
     .catch(function(error) {
       console.log(error);
     });
 });
+
 
 clientrouter.get("/claims/:var", function(req, res, next) {
 axios

@@ -19,29 +19,32 @@ create claims, edit and resolve claims, email techs any questions about claims
   <p id="menu" > Menu</p>
   <ul id="menu-box" style="display: none" class="dropdown-menu">
     <% if (locals.customers) { %> 
-    <li><label for="menu2-toggle">Customer</label>
-      <input type="checkbox" id="menu2-toggle"/>
-      <ul id="menu2">
-        <li><a href="#" onclick="addFilter()">Nancy</a></li>
-        <li><a href="#">Ben</a></li>
+    <li><label for="menu-toggle">Customer</label>
+      <input type="checkbox" id="menu-toggle"/>
+      <ul id="menu">
+        <% customers.forEach(customer=>{ %>
+        <li><a href="#" onclick="addFilter()"><%=customer.firstname%> <%=customer.lastname%></a></li>
+        <%})%>
       </ul>
     </li>
     <%}%>
     <% if (locals.employees) { %> 
-    <li><label for="menu2-toggle">Customer</label>
+    <li><label for="menu2-toggle">Employee</label>
       <input type="checkbox" id="menu2-toggle"/>
       <ul id="menu2">
-        <li><a href="#" onclick="addFilter()">Nancy</a></li>
-        <li><a href="#">Ben</a></li>
+        <% employees.forEach(employee=>{ %>
+        <li><a href="#" onclick="addFilter()"><%=employee.firstname%> <%=employee.lastname%></a></li>
+        <%})%>
       </ul>
     </li>
     <%}%>
     <% if (locals.products) { %> 
-    <li><label for="menu2-toggle">Customer</label>
-      <input type="checkbox" id="menu2-toggle"/>
-      <ul id="menu2">
-        <li><a href="#" onclick="addFilter()">Nancy</a></li>
-        <li><a href="#">Ben</a></li>
+    <li><label for="menu3-toggle">Employee</label>
+      <input type="checkbox" id="menu3-toggle"/>
+      <ul id="menu3">
+        <% employees.forEach(employee=>{ %>
+        <li><a href="#" onclick="addFilter()"><%=employee.firstname%> <%=employee.lastname%></a></li>
+        <%})%>
       </ul>
     </li>
     <%}%>
