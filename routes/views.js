@@ -64,8 +64,8 @@ clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
     }); 
   }
 });
-clientrouter.get("/claims/redirect/:data", function(req, res, next) {
-  res.render("claims", { claims: (JSON.parse(req.params.data)) })
+clientrouter.post("/claims/redirect/", function(req, res, next) {
+  res.render("claims", { claims: (res.body.customers) })
 })
 
 clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
