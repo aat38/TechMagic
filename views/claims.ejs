@@ -9,7 +9,44 @@
 create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
+<label for="menu-toggle">Toggle menu</label>
+<input type="checkbox" id="menu-toggle"/>
+<ul id="menu">
+  <li><a href="#">Item 1</a></li>
+  <li><a href="#">Item 2</a></li>
+  <li><a href="#">Item 3</a></li>
+  <label for="menu-toggle">Toggle menu</label>
+  <input type="checkbox" id="menu-toggle"/>
+  <ul id="menu">
+  <li><a href="#">Item 1</a></li>
+  <li><a href="#">Item 2</a></li>
+  <li><a href="#">Item 3</a></li>
+</ul>
+</ul>
+
 <style>
+
+label {
+  cursor: pointer;
+}
+
+
+#menu-toggle {
+  display: none;
+}
+#menu {
+  width: 780px;
+  overflow: hidden;
+  max-height: 0;
+  padding: 0;
+  margin: 0 auto;
+  -webkit-transition: all 0.3s ease;
+}
+#menu-toggle:checked + #menu {
+  max-height: 100px;
+}
+  </style>
+<!-- <style>
 .dropdown-submenu {
   position: relative;
 }
@@ -31,13 +68,20 @@ create claims, edit and resolve claims, email techs any questions about claims
       <li class="dropdown-submenu">
         <a class="test dropdown-toggle" data-toggle="dropdown" tabindex="-1" href="#">Customer<span class="caret"></span></a>
         <ul>
-          <li><a tabindex="0" href="#">2nd level dropdown</a></li>
-          <li><a tabindex="0" href="#">2nd level dropdown</a></li>
+          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
+          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
         </ul>
-      </li>      
+      </li>     
+            <li class="dropdown-submenu">
+        <a class="test dropdown-toggle" data-toggle="dropdown" tabindex="-1" href="#">Customer<span class="caret"></span></a>
+        <ul>
+          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
+          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
-</div>
+</div> -->
 
 <div id="create">
     <button onClick="addFilter()">Add Filter</button>
@@ -103,21 +147,21 @@ create claims, edit and resolve claims, email techs any questions about claims
     span.innerHTML = "hey";
     document.getElementById('create').appendChild(span)
   }  
-  $(document).ready(function(){
-  $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  });
+//   $(document).ready(function(){
+//   $('.dropdown-submenu a.test').on("click", function(e){
+//     $(this).next('ul').toggle();
+//     e.stopPropagation();
+//     e.preventDefault();
+//   });
     
-      window.onclick = function(event) {
-      if (event.target != dropdown) {
-      document.getElementsByClassName("dropdown-menu").style.display = "none";
+//       window.onclick = function(event) {
+//       if (event.target != dropdown) {
+//       document.getElementsByClassName("dropdown-menu").style.display = "none";
         
-      document.getElementsByClassName("dropdown-submenu").style.display = "none";
-      }
-    }
-});
+//       document.getElementsByClassName("dropdown-submenu").style.display = "none";
+//       }
+//     }
+// });
 </script>
 
 <%}else{%>
