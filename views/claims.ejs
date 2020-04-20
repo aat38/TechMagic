@@ -9,7 +9,7 @@
 create claims, edit and resolve claims, email techs any questions about claims
 <%- include("partials/claim-edit") %>
 
-<div id="buttondiv">
+<div id="addFilter">
   <button onclick="searchMenu()">
     Add Filter
   </button>
@@ -53,12 +53,6 @@ create claims, edit and resolve claims, email techs any questions about claims
       <li><a href='/products/least'>Least Expensive</a></li>
      </ul>
   </div>
-
-
-
-
-
-
 
 <table class="table table-hover">
   <thead>
@@ -117,11 +111,15 @@ create claims, edit and resolve claims, email techs any questions about claims
   function addFilter() {
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
-    <button type="button" class="close" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button>
-    button.innerHTML = " hey x";
+    button.innerHTML = " hey";
+    button.setAttribute("id", "file")
+    button.onclick = function () {
+                removeFilter();
+            }
     document.getElementById('create').appendChild(button)
+  }  
+  function removeFilter() {
+    document.getElementById('file').remove();
   }  
    
   function searchMenu() {
