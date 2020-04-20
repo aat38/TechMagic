@@ -139,12 +139,14 @@ create claims, edit and resolve claims, email techs any questions about claims, 
     // return response.text();
     // }).then(function(text) {
           // console.log(text)
+.then(response => response.json())
+.then(response => {
 
-        .then((resp) => resp.json()) //transform the data into json for workability 
-        .then(function(response) {
-      console.log(JSON.stringify(response.data))
+    console.log(response)
+
+
       // console.log(JSON.parse(data))
-      window.location.href = ("/claims/redirect/"+(JSON.stringify(response.data))) //redirect
+      window.location.href = ("/claims/redirect/"+response) //redirect
 
     })
     .catch(function(error) {
