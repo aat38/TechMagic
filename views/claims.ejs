@@ -30,9 +30,9 @@ create claims, edit and resolve claims, email techs any questions about claims
     <ul class="dropdown-menu">
       <li class="dropdown-submenu">
         <a class="test dropdown-toggle" data-toggle="dropdown" tabindex="-1" href="#">Customer<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
+        <ul>
+          <li><a tabindex="0" href="#">2nd level dropdown</a></li>
+          <li><a tabindex="0" href="#">2nd level dropdown</a></li>
         </ul>
       </li>      
     </ul>
@@ -112,7 +112,9 @@ create claims, edit and resolve claims, email techs any questions about claims
     
       window.onclick = function(event) {
       if (event.target != dropdown) {
-      modal.style.display = "none";
+      document.getElementsByClassName("dropdown-menu").style.display = "none";
+        
+      document.getElementsByClassName("dropdown-submenu").style.display = "none";
       }
     }
 });
