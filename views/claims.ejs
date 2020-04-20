@@ -28,15 +28,11 @@ function add() {
 <div class="dropdown">
 <p id="menu" onclick="add()"> Menu</p>
 <ul id="menu-box" style="display: none" class="dropdown-menu">
-  <li><a href="index.html">Start</a></li>
-  <li><a href="animal.html">Animal</a></li>
-  <li><a href="pictures.html">Pictures</a></li>
-  <li><label for="menu2-toggle">Toggle menu</label>
+  <li><label for="menu2-toggle">Customer</label>
     <input type="checkbox" id="menu2-toggle"/>
     <ul id="menu2">
-      <li><a href="#">Item 1</a></li>
-      <li><a href="#">Item 2</a></li>
-      <li><a href="#">Item 3</a></li>
+      <li><a href="#">Nancy</a></li>
+      <li><a href="#">Ben</a></li>
     </ul>
   </li>
 </ul>
@@ -124,19 +120,16 @@ function add() {
     span.innerHTML = "hey";
     document.getElementById('create').appendChild(span)
   }  
-//   $(document).ready(function(){
-//   $('.dropdown-submenu a.test').on("click", function(e){
-//     $(this).next('ul').toggle();
-//     e.stopPropagation();
-//     e.preventDefault();
-//   });
-    
-      window.onclick = function(event) {
-      if (event.target === label) {
-      document.getElementsByClassName("dropdown-menu")= "show";
-      }
+$(document).mouseup(function(e) 
+{
+    var container = $("#menu");
+
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0) 
+    {
+        container.hide();
     }
-// });
+});
 </script>
 
 <%}else{%>
