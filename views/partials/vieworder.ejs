@@ -1,12 +1,13 @@
 <% if (locals.productPurchases){%>
 <%- include("header") %>
 
-<!-- purchase
+<!-- purchaseTable
+productpurchases
+customer
+product
 claims
-customers
-productPurchases
-products
-purchaseid -->
+issues
+employees -->
 
   <% var datePurchase = new Date(purchase[purchaseid-1].date) %>
   <% var datePurchase = (datePurchase.getMonth()+1) + "/" + datePurchase.getDate() + "/" +  datePurchase.getFullYear() %>
@@ -66,7 +67,12 @@ purchaseid -->
   <div class="modal-content">
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
-      <form id="updateform">  
+      <form id="updateform"> 
+                  productpurchaseid,
+          issueid,  
+          description,
+          employeeid
+        <div id="info" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' ></div>
         <div><b>Description: </b><input value="" id="description" type="text" > </div>
         <div><b>Last Name: </b><input value="" id="lastname" type="text" > </div>
         <div><b>Title: </b><input placeholder="Support or Admin" value="" id="title" type="text" > </div>
@@ -74,7 +80,6 @@ purchaseid -->
           <b>Issue: </b>
           <select id="issueList">
           <% if (locals.issues) { %> 
-            <option value='<%=result.issueid%>' disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
             <% issues.forEach(issue=>{ %>
             <option value='<%=issue.id%>'><%=issue.name %></option>
             <% } )%>
@@ -83,7 +88,7 @@ purchaseid -->
         </div>
         <div>
 
-        <button onclick="update();">Submit New Employee</button>
+        <button onclick="update();">Submit Customer Claim</button>
       </form>
     </div>
   </div>

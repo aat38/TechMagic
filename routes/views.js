@@ -42,16 +42,26 @@ clientrouter.get("/purchases/:purchaseid", (req, res) => {
                   axios
                   .get(baseURL +"/api/claims")
                   .then(function(response) {
-                    claims = resopnse.data
-                   axios
-                      .get(baseURL +"/api/claims")
-                      .then(function(response) {
-                        res.render("partials/vieworder", { claims:response.data, purchase: purchaseTable, customers:customer, productPurchases:productpurchases , products:product, purchaseid:req.params.purchaseid });
-                      })
-                      .catch(function(error) {
-                        console.log(error);
-                      });
-                      })
+                  claims=response.data
+                    axios
+                    .get(baseURL +"/api/issues")
+                    .then(function(response) {
+                    issues=response.data
+                        axios
+                        .get(baseURL +"/api/employees")
+                        .then(function(response) {
+                          res.render("partials/vieworder", { claims:claims, issues:issues, purchase: purchaseTable, customers:customer, productPurchases:productpurchases , products:product, purchaseid:req.params.purchaseid, employees: response.data});
+                        })
+                        .catch(function(error) {
+                          console.log(error);
+                        });
+                        })
+                    
+                    .catch(function(error) {
+                      console.log(error);
+                    });
+      
+                  
                   })
                   .catch(function(error) {
                     console.log(error);
