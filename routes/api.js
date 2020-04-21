@@ -10,17 +10,17 @@ const client = new Client({
 });
 
 //not for real use - just to clean DB
-apirouter.post("/remove", (request, response) => {
-client.connect();
-  return client.query("delete from claim where description='not a bad description'").then(
-    function(resp) {
-      console.log('Sucessful Delete');   
-    },
-    function(err) {
-      console.log(err);
-    }
-  );
-});
+// apirouter.post("/remove", (request, response) => {
+// client.connect();
+//   return client.query("delete from claim where description='not a bad description'").then(
+//     function(resp) {
+//       console.log('Sucessful Delete');   
+//     },
+//     function(err) {
+//       console.log(err);
+//     }
+//   );
+// });
 
 
 /////////////////////////////// ROUTES//////////////////////////////////
@@ -815,6 +815,8 @@ apirouter.post("/addresses", (request, response) => {
       console.error(e.stack);
     });
 });
+
+
 
 
 //-------------------------------PUTS----------------------------------

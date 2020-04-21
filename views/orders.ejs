@@ -6,7 +6,7 @@
 <h1>Orders</h1>
 <%- include("partials/vieworder") %>
 <p>
-  Goals for this page: create purchases(orders), create claims based on purchases, view purchases ✓
+  Goals for this page: create purchases(orders), create claims based on purchases ✓, view purchases ✓
 </p>
 
 <button onclick="orderModal()">Create Order</button>
@@ -55,7 +55,7 @@
           </div>
           <b>Products Purchased:</b>
           <div id="product">
-            <select id="productList">
+            <select class="selectProducts" id="productList">
             <% if (locals.products) { %> 
               <% products.forEach(product=>{ %>
               <option value='<%=product.productid%>;<%=product.unitcost%>'><%=product.name%></option>
@@ -91,6 +91,8 @@
 
   
   function addProducts(){
+    //get total number of select elements -> use that # for loop when inserting products into product purchase table
+     document.getElementsByTagName("select").length //first item in this array applies to customers, not products
     
   }
   
