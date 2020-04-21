@@ -128,7 +128,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
   <div class="modal-content">
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
-      <form id="resolveform">  
+      <form id="resolveform" value='<%=result.claimid%>'  
       <div>
         <% if (locals.resolutions) { %>  
         <b>Resolution: </b>
@@ -136,7 +136,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
            <!--  keeping the selected letter visible in dropdown box -->
             <option value="" disabled selected hidden>unresolved </option> <!--  keeping the selected resolution visible in dropdown box -->
             <% resolutions.forEach(resolution=>{ %>
-            <option value='<%=resolution.name%>'><%=resolution.name%></option>
+            <option value='<%=resolution.resolutionid%>'><%=resolution.name%></option>
             <% } )%>
         </select>
         <% } %>
@@ -163,18 +163,19 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
   }
   
   function resolve(){
-    var selected = document.getElementById('resolutionList');
+    var resolution = document.getElementById('resolutionList').value;
+    var claim 
     var comment = document.getElementById('comment');
     if (comment != ""){
       //Send comment
     }
-    fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
+    fetch('https://ejs-views-practice.glitch.me/api/claims/resolution', {
         headers:{
           "content-type":"application/json",
         },
         body: JSON.stringify({
-          claimid: id,
-          status: "Closed"
+          resolutionid: id,
+          claimid: "Closed"
         }),
         method: 'PUT'
     }).then(resp=>{

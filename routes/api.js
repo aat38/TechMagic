@@ -517,6 +517,7 @@ apirouter.post("/claims", (request, response) => {
     });
 });
 
+
 //POST claim comments -----------------------------------------------
 apirouter.post("/claims/comments", (request, response) => {
   const quer =
@@ -782,6 +783,7 @@ apirouter.post("/addresses", (request, response) => {
     });
 });
 
+
 //-------------------------------PUTS----------------------------------
 
 //PUT// close a claim and submit a resolution in one request ----------
@@ -798,6 +800,32 @@ apirouter.put("/resolutions/update/close", (request, response) => {
       },
       err => {
         console.log("Failed to add resolution and close claim.");
+      }
+    )
+    .catch(e => {
+      console.error(e.stack);
+    });
+});
+
+//update JUST claim resolution
+apirouter.put("/claims/resolution", (request, response) => {
+  const quer =
+    ("update claim set resolutionid = $1, where claimid = $2");
+  const vals = [
+    request.body.resolutionid,
+    request.body.claimid
+  ];
+  client.connect();
+  client
+    .query(quer, vals)
+    .then(
+      res => {
+        // client.end();
+        console.log("Successfully added resolution");
+      },
+      err => {
+        // client.end();
+        console.log("Failed to add resolution.");
       }
     )
     .catch(e => {
