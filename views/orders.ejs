@@ -63,7 +63,15 @@
             <% } %>
             </select>
           </div>          
-          <div><p  onclick="createProductDiv('<%=products%>');">+ Add Product</p></div>
+          <% if (locals.products) { %> 
+              <% var nameArr=[]%>
+              <% var idArr=[]%>
+              <% products.forEach(product=>{ %>
+              <% nameArr=[nameArrproduct.name%>
+              <% idArr=idArr+product.productid%>
+              <% } )%>
+            <% } %>
+          <div><p  onclick="createProductDiv('<%=nameArr%>,<%=idArr%>');">+ Add Product</p></div>
           <button id="updateBtn" onclick="addProducts();">Submit New Order</button>
         </form>
       </div>
@@ -88,21 +96,20 @@
     
   }
   
-  function createProductDiv(products){
+  function createProductDiv(productnames, productids){
     var div = document.createElement('div')
     var select = document.createElement('select');
     select.setAttribute("id", count);
     document.getElementById("product").appendChild(div)
     div.appendChild(select);
     
-    for (var i = 0; i<prod)
-    var z = document.createElement("option");
-    z.setAttribute("value", products[0].productid);
-    var t = document.createTextNode(products[0].name);
-    z.appendChild(t);
-    
-    
-    document.getElementById(count).appendChild(z);
+    for (var i = 0; i<productnames.length; i++){
+      var option = document.createElement("option");
+      option.setAttribute("value", productids[i]);
+      var optiontext = document.createTextNode(productnames[i]);
+      option.appendChild(optiontext);
+      document.getElementById(count).appendChild(option);
+    }
   }
   
   function orderModal() {
