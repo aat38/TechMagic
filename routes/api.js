@@ -810,10 +810,10 @@ apirouter.put("/claims/admin", (request, response) => {
     .query(quer, vals)
     .then(
       res => {
-        console.log("Successfully updated entire claim ");
+        console.log("-----------------Successfully updated ENTIRE claim -------------------------");
       },
       err => {
-        console.log("Failed to update entire claim.");
+        console.log("Failed to update entire claim.*****************************************************");
       }
     )
     .catch(e => {

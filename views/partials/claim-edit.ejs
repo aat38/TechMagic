@@ -18,7 +18,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
           <b>Issue: </b>
           <select id="issueList">
           <% if (locals.issues) { %> 
-            <option value='<%=issue.id%>' disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
+            <option value='<%=result.issueid%>' disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
             <% issues.forEach(issue=>{ %>
             <option value='<%=issue.id%>'><%=issue.name %></option>
             <% } )%>
@@ -44,7 +44,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
           <b>Employee: </b>
           <select id="employeeList">
             <% if (locals.employees) { %> 
-              <option value='<%=employee.id%>' disabled selected hidden><%=result.employee%> </option> <!--  keeping the selected employee visible in dropdown box -->
+              <option value='<%=result.employeeid%>' disabled selected hidden><%=result.employee%> </option> <!--  keeping the selected employee visible in dropdown box -->
               <% employees.forEach(employee=>{ %>
               <option value='<%=employee.id%>'><%=employee.firstname %> <%=employee.lastname%></option>
                <% } )%>
@@ -89,7 +89,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
           <b>Resolution: </b>
           <select id="resolutionList">
              <!--  keeping the selected letter visible in dropdown box -->
-              <option value='<%=resolution.id%>' disabled selected hidden><%=result.resolution%> </option> <!--  keeping the selected resolution visible in dropdown box -->
+              <option value='<%=result.resolutionid%>' disabled selected hidden><%=result.resolution%> </option> <!--  keeping the selected resolution visible in dropdown box -->
               <% resolutions.forEach(resolution=>{ %>
               <option value='<%=resolution.id%>'><%=resolution.name%></option>
               <% } )%>
