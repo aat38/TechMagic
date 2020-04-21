@@ -169,6 +169,19 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
     var comment = document.getElementById('comment').value;
     if (comment != ""){
       //Send comment
+      fetch('https://ejs-views-practice.glitch.me/api/claims/comments', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          resolutionid: resolution,
+          claimid: claim
+        }),
+        method: 'POST'
+        }).then(resp=>{
+        }, err=>{
+          console.log(err);
+        })
     }
     fetch('https://ejs-views-practice.glitch.me/api/resolutions/update/close', {
         headers:{
