@@ -87,6 +87,7 @@ clientrouter.get("/purchases/:purchaseid", (req, res) => {
 
 clientrouter.get("/orders", (req, res) => { 
   var purchaseTable
+  var customers
    axios
    .get(baseURL +"/api/purchases")
    .then(function(response) {
@@ -94,8 +95,16 @@ clientrouter.get("/orders", (req, res) => {
        axios
           .get(baseURL +"/api/customers")
           .then(function(response) {
-          res.render("orders", { purchase: purchaseTable, customers:response.data});
-          })
+           customers = response.data
+             axios
+                .get(baseURL +"/api/products")
+                .then(function(response) {
+                res.render("orders", { purchase: purchaseTable, customers:customers, products: response.data});
+                })
+                .catch(function(error) {
+                  console.log(error);
+                }); 
+           })
           .catch(function(error) {
             console.log(error);
           }); 
