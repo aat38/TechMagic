@@ -10,18 +10,18 @@ const client = new Client({
 });
 
 //not for real use - just to clean DB
-apirouter.post("/remove", (request, response) => {
-client.connect();
-  return client.query("delete from comment where commentid=21").then(
-    function(resp) {
-      console.log("Successfully retrieved issue types");
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    }
-  );
-});
+// apirouter.post("/remove", (request, response) => {
+// client.connect();
+//   return client.query("delete from comment where description='THis is a new comment for claim 3'").then(
+//     function(resp) {
+//       console.log("Successfully retrieved issue types");
+//       response.send(resp.rows);
+//     },
+//     function(err) {
+//       console.log(err);
+//     }
+//   );
+// });
 
 
 /////////////////////////////// ROUTES//////////////////////////////////
