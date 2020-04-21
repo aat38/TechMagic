@@ -189,7 +189,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
   function resolveModal(ele){
     var modal = document.getElementById("descriptionModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
-    document.getElementById("resolveform")=ele
+    document.getElementById("resolveform").value=ele
     modal.style.display = "block";
     //close out of modal either when clicking 'x' 
     closeBtn.onclick = function() {
