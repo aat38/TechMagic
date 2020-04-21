@@ -63,7 +63,7 @@
             <% } %>
             </select>
           </div>          
-          <div><p  onclick="createProductDiv('<%=locals.products%>');">+ Add Product</p></div>
+          <div><p  onclick="createProductDiv('<%=products%>');">+ Add Product</p></div>
           <button id="updateBtn" onclick="addProducts();">Submit New Order</button>
         </form>
       </div>
@@ -89,14 +89,19 @@
   }
   
   function createProductDiv(products){
+    var div = document.createElement('div')
     var select = document.createElement('select');
     select.setAttribute("id", count);
-    document.getElementById('product').appendChild(select)
-
+    document.getElementById("product").appendChild(div)
+    div.appendChild(select);
+    
+    for (var i = 0; i<prod)
     var z = document.createElement("option");
     z.setAttribute("value", products[0].productid);
     var t = document.createTextNode(products[0].name);
     z.appendChild(t);
+    
+    
     document.getElementById(count).appendChild(z);
   }
   
@@ -107,6 +112,7 @@
       //close out of modal either when clicking 'x' 
       closeBtn.onclick = function() {
         modal.style.display = "none";
+        location=location;
       }
       //or close modal when clicking outside of the modal
       // window.onclick = function(event) {
