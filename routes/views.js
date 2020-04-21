@@ -14,19 +14,36 @@ const baseURL = "https://ejs-views-practice.glitch.me";
 clientrouter.get("/", (req, res) => { 
   res.render("index");
 }); 
-
                  
 
 clientrouter.get("/purchases/:purchaseid", (req, res) => { 
     axios
      .get(baseURL +"/api/products")
      .then(function(response) {
-        res.render("orders", { purchase: purchaseTable, customers:customers, products: response.data});
+        res.render("partials/vieworder", { response: response.data});
       })
       .catch(function(error) {
       console.log(error);
-                }); 
-}
+     }); 
+})
+//example return
+// {
+//     "customerid": 1,
+//     "firstname": "David",
+//     "lastname": "Ball",
+//     "addressid": 4,
+//     "income": "$3,045.00",
+//     "email": "David@email.com",
+//     "phone": "8001115555",
+//     "purchaseid": 15,
+//     "totalcost": "$3,000.00",
+//     "date": "2020-04-21T20:57:52.507Z",
+//     "productpurchaseid": 29,
+//     "productid": 1,
+//     "name": "Desktop",
+//     "description": "Really fast computer with lots of storage space",
+//     "unitcost": "$1,000.00"
+// }
 
 
 clientrouter.get("/orders", (req, res) => { 

@@ -1,23 +1,15 @@
-<% if (locals.productPurchases){%>
+<% if (locals.response){%>
 <%- include("header") %>
 
-<!-- purchaseTable
-productpurchases
-customer
-product
-claims
-issues
-employees -->
-
-  <% var datePurchase = new Date(purchase[purchaseid].date) %>
+  <% var datePurchase = new Date(response.date) %>
   <% var datePurchase = (datePurchase.getMonth()+1) + "/" + datePurchase.getDate() + "/" +  datePurchase.getFullYear() %>
 <div>
 <h1>Order</h1>
   <h3>
-    <b>Customer: </b><%=customers.customerid   .firstname%> <%=customers[purchase[purchaseid-1].customerid-1].lastname%>
+    <b>Customer: </b><%=response.firstname%> <%=response.lastname%>
   </h3>
   <h3>
-    <b>Total Cost: </b><%=purchase[purchaseid-1].totalcost%>
+    <b>Total Cost: </b><%=response.totalcost%>
   </h3>
   <h3>
     <b>Date: </b><%=datePurchase%> 
@@ -38,6 +30,7 @@ employees -->
   <% productPurchases.forEach(result=>{ %>
     <tr>
       <td>
+<!--    if theres claim purchaseid matching response.purchaseid, show claim else give option to create one      -->
         <%var existingclaim = "false" %>
         <% claims.forEach(claim=>{ %>
         <% if (claim.productpurchaseid===result.productpurchaseid){%>
@@ -50,10 +43,10 @@ employees -->
         <button onclick="claimModal('<%=result.productpurchaseid%>')">Create Claim </button> 
         <% }%>
       </td>
-      <td><%=products[result.productid -1].name%></td>
-      <td><%=result.productid%></td>
-      <td><%=result.productpurchaseid%></td>
-      <td><%=products[result.productid -1].unitcost%></td>
+      <td><%=response.name%></td>
+      <td><%=response.productid%></td>
+      <td><%=response.productpurchaseid%></td>
+      <td><%=response.unitcost%></td>
      </tr>
       <%})%>
 
