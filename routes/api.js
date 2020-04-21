@@ -10,17 +10,17 @@ const client = new Client({
 });
 
 //not for real use - just to clean DB
-// apirouter.post("/remove", (request, response) => {
-// client.connect();
-//   return client.query("delete from claim where description='not a bad description'").then(
-//     function(resp) {
-//       console.log('Sucessful Delete');   
-//     },
-//     function(err) {
-//       console.log(err);
-//     }
-//   );
-// });
+apirouter.post("/remove", (request, response) => {
+client.connect();
+  return client.query("delete from purchase where purchaseid=13").then(
+    function(resp) {
+      console.log('Sucessful Delete');   
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
 
 
 /////////////////////////////// ROUTES//////////////////////////////////
@@ -820,7 +820,7 @@ apirouter.post("/addresses", (request, response) => {
 //[needs to be a nested promise where purchase is added first, followed by product pruchases and then update customerincome
 apirouter.post("/purchases", (request, response) => {
   const purchasequer =
-    "INSERT INTO purchase(totalcost, customerid, date) VALUES($1,$2,current_timestamp) RETURNING purchaseid";
+    "INSERT INTO purchase(totalcost, customerid, date) VALUES($1,$2, current_timestamp) RETURNING purchaseid";
   const purchasevals = [
     request.body.totalcost,
     request.body.customerid
@@ -838,8 +838,8 @@ apirouter.post("/purchases", (request, response) => {
         for (var i = 0; i< ((request.body.productids).length) ; i++ ){
           client
           .query(productpurchase, [
-            res.rows[0].purchaseid,
-            request.body.productids[i]
+            request.body.productids[i],
+            res.rows[0].purchaseid
           ]).then(res => {
             console.log("Successful add to purchase and productpurchases");
           })
