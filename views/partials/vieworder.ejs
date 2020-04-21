@@ -70,13 +70,19 @@ purchaseid -->
         <div><b>Description: </b><input value="" id="description" type="text" > </div>
         <div><b>Last Name: </b><input value="" id="lastname" type="text" > </div>
         <div><b>Title: </b><input placeholder="Support or Admin" value="" id="title" type="text" > </div>
-        <div><b>Email: </b><input value="" id="email"  type="text" > </div>
-        <div><b>Phone Number: </b><input value="" id="phone" type="text" > </div>
-        <div><b>Street Address: </b><input value="" id="address1" type="text" > </div>
-        <div><b>Street Address 2: </b><input value="" id="address2" type="text" > </div>
-        <div><b>City : </b><input value="" id="city"  type="text" > </div>
-        <div><b>State(Abr): </b><input value="" id="state" type="text" > </div>
-        <div><b>Zip: </b><input value="" id="zip"  type="text" > </div>
+        <div>
+          <b>Issue: </b>
+          <select id="issueList">
+          <% if (locals.issues) { %> 
+            <option value='<%=result.issueid%>' disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
+            <% issues.forEach(issue=>{ %>
+            <option value='<%=issue.id%>'><%=issue.name %></option>
+            <% } )%>
+          <% } %>
+          </select>
+        </div>
+        <div>
+
         <button onclick="update();">Submit New Employee</button>
       </form>
     </div>
@@ -85,10 +91,7 @@ purchaseid -->
 <script type=text/javascript>
  
   function claimModal() {
-       request.body.productpurchaseid,
-    request.body.status,
-    request.body.description,
-    request.body.resolutionid
+    
     var modal = document.getElementById("createClaimModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
@@ -131,21 +134,18 @@ purchaseid -->
   }//end function modal(element)
   
   function update(){ 
-    fetch('https://ejs-views-practice.glitch.me/api/employees/address', {
+    fetch('https://ejs-views-practice.glitch.me/api/claims', {
         headers:{
           "content-type":"application/json",
         },
         body: JSON.stringify({
-          city:document.getElementById("city").value,
-          state:document.getElementById("state").value,
-          streetaddress:document.getElementById("address1").value,
-          streetaddress2:document.getElementById("address2").value,
-          zip:document.getElementById("zip").value,
-          email:document.getElementById("email").value,
-          firstname:document.getElementById("firstname").value,
-          lastname:document.getElementById("lastname").value,
-          phone:document.getElementById("phone").value,
-          title:document.getElementById("phone").value
+          productpurchaseid,
+          issueid,  
+          description,
+          employeeid
+          
+          // city:document.getElementById("city").value,
+
         }),
             method: 'POST'
         }).then(resp=>{
