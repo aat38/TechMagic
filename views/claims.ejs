@@ -129,8 +129,8 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
       <form id="resolveform">  
-      <% if (locals.resolutions) { %>  
       <div>
+        <% if (locals.resolutions) { %>  
         <b>Resolution: </b>
         <select id="resolutionList">
            <!--  keeping the selected letter visible in dropdown box -->
@@ -139,19 +139,11 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
             <option value='<%=resolution.name%>'><%=resolution.name%></option>
             <% } )%>
         </select>
+        <% } %>
+        <button onclick="addComment()">Add Comment</button>
+        <p id="addComment" style="display:none" ><input value="" id="comment" type="text" ></p>
       </div>
-      <% } %>
-      
-<!--         <span><b>First Name: </b><input value="" id="firstname" type="text" > </span>
-        <span><b>Last Name: </b><input value="" id="lastname" type="text" > </span>
-        <span><b>Email: </b><input value="" id="email"  type="text" > </span>
-        <span><b>Phone Number: </b><input value="" id="phone" type="text" > </span>
-        <span><b>Street Address: </b><input value="" id="address1" type="text" > </span>
-        <span><b>Street Address 2: </b><input value="" id="address2" type="text" > </span>
-        <span><b>City : </b><input value="" id="city"  type="text" > </span>
-        <span><b>State(Abr): </b><input value="" id="state" type="text" > </span>
-        <span><b>Zip: </b><input value="" id="zip"  type="text" > </span> -->
-        <button onclick="resolve(this);">Resolve Claim</button>
+      <button onclick="resolve(this);">Resolve Claim</button>
       </form>
     </div>
   </div>
@@ -166,6 +158,13 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
 
 
 <script type=text/javascript>
+  function addComment(){
+    document.getElementById("addComment").style.display = "block";
+  }
+  
+    function resolve(claim){
+     //post resolution and reload on promise return
+  }
   
   function resolveModal(ele){
     var modal = document.getElementById("descriptionModal"); 
@@ -181,10 +180,6 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
       modal.style.display = "none";
       }
     }
-  }
-  
-  function resolve(claim){
-     //post resolution and reload on promise return
   }
   
   function closeClaim(id, prod){
