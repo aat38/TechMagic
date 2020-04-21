@@ -19,17 +19,17 @@ clientrouter.get("/purchases", (req, res) => {
   var purchaseTable
   var productpurchases
    axios
-    .get(baseURL +"/api/purchases")
-    .then(function(response) {
-      purchaseTable = response.data
+   .get(baseURL +"/api/purchases")
+   .then(function(response) {
+    purchaseTable = response.data
       axios
       .get(baseURL +"/api/productpurchases")
       .then(function(response) {
-        productpurchases = response.data
+      productpurchases = response.data
         axios
           .get(baseURL +"/api/customers")
           .then(function(response) {
-            res.render("purchases", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
+          res.render("purchases", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
           })
           .catch(function(error) {
             console.log(error);
