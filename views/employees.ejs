@@ -22,6 +22,8 @@
      </ul>
   </div>
 
+<button  onclick="modal()">Create New Employee</button>
+
 <table class="table table-hover">
   <thead>
     <tr>
@@ -39,6 +41,75 @@
   </tbody>
 </table>
 <% } %>
+
+<!-- Modal div -->
+<div id="newEmployeeModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span><!-- close button -->
+    <div class="d-flex justify-content-center flex-column">
+      <form id="updateform">  
+        <span><b>First Name: </b><input value="" id="firstname" type="text" > </span>
+        <span><b>Last Name: </b><input value="" id="lastname" type="text" > </span>
+        <span><b>Title: </b><input placeholder="Support or Admin" value="" id="title" type="text" > </span>
+        <span><b>Email: </b><input value="" id="email"  type="text" > </span>
+        <span><b>Phone Number: </b><input value="" id="phone" type="text" > </span>
+        <span><b>Street Address: </b><input value="" id="address1" type="text" > </span>
+        <span><b>Street Address 2: </b><input value="" id="address2" type="text" > </span>
+        <span><b>City : </b><input value="" id="city"  type="text" > </span>
+        <span><b>State(Abr): </b><input value="" id="state" type="text" > </span>
+        <span><b>Zip: </b><input value="" id="zip"  type="text" > </span>
+        <button onclick="update();">Submit New Employee</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script type=text/javascript>
+ 
+  function modal() {
+    var modal = document.getElementById("newEmployeeModal"); 
+    var closeBtn = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+
+    //close out of modal either when clicking 'x' 
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    //or close modal when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  }    
+  
+  function update(){ 
+    fetch('https://ejs-views-practice.glitch.me/api/employees/address', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          city:document.getElementById("city").value,
+          state:document.getElementById("state").value,
+          streetaddress:document.getElementById("address1").value,
+          streetaddress2:document.getElementById("address2").value,
+          zip:document.getElementById("zip").value,
+          email:document.getElementById("email").value,
+          firstname:document.getElementById("firstname").value,
+          lastname:document.getElementById("lastname").value,
+          phone:document.getElementById("phone").value,
+          title:document.getElementById("phone").value
+        }),
+            method: 'POST'
+        }).then(resp=>{
+        }, err=>{
+          console.log(err);
+        })
+      location = location //refresh
+  }
+  
+</script>
 
 
 <%- include("partials/footer") %>

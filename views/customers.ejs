@@ -23,6 +23,8 @@
      </ul>
   </div>
 
+<button  onclick="modal()">Create New Customer</button>
+
 <table class="table table-hover">
   <thead>
     <tr>
@@ -40,8 +42,8 @@
     </tr>    
   </tbody>
   <%})%>
-  
-<button  onclick="modal()">Create New Customer</button>
+</table>
+
 <!-- Modal div -->
 <div id="descriptionModal" class="modal">
   <div class="modal-content">
@@ -57,7 +59,7 @@
         <span><b>City : </b><input value="" id="city"  type="text" > </span>
         <span><b>State(Abr): </b><input value="" id="state" type="text" > </span>
         <span><b>Zip: </b><input value="" id="zip"  type="text" > </span>
-        <button onclick="update(this);">Submit New Customer</button>
+        <button onclick="update();">Submit New Customer</button>
       </form>
     </div>
   </div>
@@ -67,10 +69,6 @@
 <script type=text/javascript>
  
   function modal() {
-    //grabbing element information from html to populate modal depending on which product row was selected
-    // var product=element.name.split(";")[2];
-    // var productid=element.name.split(";")[1];
-    // var description=element.name.split(";")[0];
     var modal = document.getElementById("descriptionModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
@@ -87,7 +85,7 @@
     }
   }  
   
-  function update(cust){ 
+  function update(){ 
     fetch('https://ejs-views-practice.glitch.me/api/customers/address', {
         headers:{
           "content-type":"application/json",
@@ -111,9 +109,6 @@
       location = location //refresh
   }
   
-
-  
-
 </script>
 
 <% } %>
