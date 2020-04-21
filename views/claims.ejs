@@ -97,7 +97,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
             <% if (result.resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
-            <li><a href="#" onclick="resolveModal('<%=result%>')">Resolve</a></li>
+            <li><a href="#" onclick="resolveModal('<%=result.claimid%>')">Resolve</a></li>
             <%}%>
             <% if (result.status==='Closed') { %> <!--  add Re-open dropdown option if condition   -->
             <li><a id="myLink" href="#" onclick="openClaim('<%=result.claimid%>','<%=claims[0].product%>')">Re-open</a></li>
@@ -128,7 +128,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
   <div class="modal-content">
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
-      <form id="resolveform" value='<%=result.claimid%>'  
+      <form id="resolveform" value="">  
       <div>
         <% if (locals.resolutions) { %>  
         <b>Resolution: </b>
@@ -158,14 +158,15 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
 
 
 <script type=text/javascript>
+  
   function addComment(){
     document.getElementById("addComment").style.display = "block";
   }
   
   function resolve(){
     var resolution = document.getElementById('resolutionList').value;
-    var claim 
-    var comment = document.getElementById('comment');
+    var claim = document.getElementById('resolveform').value
+    var comment = document.getElementById('comment').value;
     if (comment != ""){
       //Send comment
     }
@@ -174,8 +175,8 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
           "content-type":"application/json",
         },
         body: JSON.stringify({
-          resolutionid: id,
-          claimid: "Closed"
+          resolutionid: resolution,
+          claimid: claim
         }),
         method: 'PUT'
     }).then(resp=>{
@@ -184,11 +185,11 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
     })
     window.location.reload();//so changes render
   }
-  }
   
   function resolveModal(ele){
     var modal = document.getElementById("descriptionModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
+    document.getElementById("resolveform")=ele
     modal.style.display = "block";
     //close out of modal either when clicking 'x' 
     closeBtn.onclick = function() {
