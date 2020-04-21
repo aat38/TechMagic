@@ -146,7 +146,6 @@ clientrouter.get("/products/claims/:productid", function(req, res, next) {
   axios
     .get(baseURL +"/api/claims/products/"+req.params.productid)
     .then(function(response) {
-      // console.log(response.data)
       res.render("product-claims", { claims: response.data, comments: response.data});
     })
     .catch(function(error) {

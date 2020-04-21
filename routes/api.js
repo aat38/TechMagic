@@ -232,30 +232,13 @@ apirouter.get("/claims/employees/:employeeid", (request, response) => {
   );
 });
 
-//GET All comments ---------------------------------------------------------
-apirouter.get("/comments", (request, response) => {
-  var query =
-    "select * from comment";
-  client.connect();
-  client.query(query).then(
-    function(resp) {
-      console.log(
-        "Successfully retrieved claim information from claimId="
-      );
-      console.log(resp.rows);
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    }
-  );
-});
+
 
 //GET claim comment information based on claimId ----------------------------
 apirouter.get("/claims/comments/:claimid", (request, response) => {
   var claimid = [request.params.claimid];
   var query =
-    "select * from comment where commentid= $1";
+    "select * from comment where claimid= $1";
   client.connect();
   client.query(query, claimid).then(
     function(resp) {
