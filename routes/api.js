@@ -821,7 +821,7 @@ apirouter.post("/purchases", (request, response) => {
   const quer =
     "INSERT INTO purchase(totalcost, customerid, date) VALUES($1,$2,current_timestamp) RETURNING purchaseid";
   const addressValues = [
-    0,
+    request.body.totalcost,
     request.body.customerid
   ];
   client.connect();
@@ -841,6 +841,56 @@ apirouter.post("/purchases", (request, response) => {
     )
     .catch(e => {
       console.error(e.stack);
+    });
+});
+////
+///
+//[needs to be a nested promise where purchase is added first, followed by product pruchases and then update customerincome
+apirouter.post("/employees/address", (request, response) => {
+  const addressQuery =
+    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
+  const addressValues = [
+    request.body.city,
+    request.body.state,
+    request.body.streetaddress,
+    request.body.streetaddress2,
+    request.body.zip
+  ];
+  const employeeQuery =
+    "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4, $5, $6)";
+  client.connect();
+  client
+    .query(addressQuery, addressValues)
+    .then(
+      res => {
+        console.log("Successfully added address values.");
+        //call employee query inside res(aka resolution) of returned address promise
+        client
+          .query(employeeQuery, [
+            res.rows[0].addressid,
+            request.body.email,
+            request.body.firstname,
+            request.body.lastname,
+            request.body.phone,
+            request.body.title
+          ])
+          .then(res => {
+            console.log("Employee successfully added with new address.");
+          })
+          .catch(e => {
+            console.error(e.stack);
+            console.log("catching1.");
+          });
+      },
+      err => {
+        console.log(
+          "Failed to add address. Employee will not be added since it is dependent on address."
+        );
+      }
+    )
+    .catch(e => {
+      console.error(e.stack);
+      console.log("catching2.");
     });
 });
 

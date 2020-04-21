@@ -103,14 +103,15 @@
       unitcost = Number(unitcost.replace(/[^0-9.-]+/g,""))
       total=total+unitcost
     }
-    //post to purchases -send customerid, get back purchaseid
+    //post to purchases -send customerid,total & get back purchaseid
     fetch('https://ejs-views-practice.glitch.me/api/purchases', {
         headers:{
           "content-type":"application/json",
         },
         body: JSON.stringify({
           totalcost:total,
-          customerid: 1
+          customerid: document.getElementById("customerList").value,
+          productids: productids
         }),
         method: 'POST'
         }).then(resp=>{
@@ -122,8 +123,6 @@
     //update purchase with total cost 
     //get customer income and then update with new costs from this transaction
 
-    
-  }
   
   function createProductDiv(productnames, productids,unitcost){
     var div = document.createElement('div')
