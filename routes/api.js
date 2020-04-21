@@ -12,7 +12,7 @@ const client = new Client({
 //not for real use - just to clean DB
 // apirouter.post("/remove", (request, response) => {
 // client.connect();
-//   return client.query("delete from comment where description='THis is a new comment for claim 3'").then(
+//   return client.query("delete from employee where firstname='William'").then(
 //     function(resp) {
 //       console.log("Successfully retrieved issue types");
 //       response.send(resp.rows);

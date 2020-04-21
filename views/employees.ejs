@@ -6,7 +6,7 @@
 <h1>
   Employees
 </h1>
-  Goals for this page: sort employees ✓, view employee information with modal, edit employee information, create employee
+  Goals for this page: sort employees ✓, view employee information with modal, edit employee information, create employee ✓
 
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
     <b>Sort by:</b>
@@ -48,16 +48,16 @@
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
       <form id="updateform">  
-        <span><b>First Name: </b><input value="" id="firstname" type="text" > </span>
-        <span><b>Last Name: </b><input value="" id="lastname" type="text" > </span>
-        <span><b>Title: </b><input placeholder="Support or Admin" value="" id="title" type="text" > </span>
-        <span><b>Email: </b><input value="" id="email"  type="text" > </span>
-        <span><b>Phone Number: </b><input value="" id="phone" type="text" > </span>
-        <span><b>Street Address: </b><input value="" id="address1" type="text" > </span>
-        <span><b>Street Address 2: </b><input value="" id="address2" type="text" > </span>
-        <span><b>City : </b><input value="" id="city"  type="text" > </span>
-        <span><b>State(Abr): </b><input value="" id="state" type="text" > </span>
-        <span><b>Zip: </b><input value="" id="zip"  type="text" > </span>
+        <div><b>First Name: </b><input value="" id="firstname" type="text" > </div>
+        <div><b>Last Name: </b><input value="" id="lastname" type="text" > </div>
+        <div><b>Title: </b><input placeholder="Support or Admin" value="" id="title" type="text" > </div>
+        <div><b>Email: </b><input value="" id="email"  type="text" > </div>
+        <div><b>Phone Number: </b><input value="" id="phone" type="text" > </div>
+        <div><b>Street Address: </b><input value="" id="address1" type="text" > </div>
+        <div><b>Street Address 2: </b><input value="" id="address2" type="text" > </div>
+        <div><b>City : </b><input value="" id="city"  type="text" > </div>
+        <div><b>State(Abr): </b><input value="" id="state" type="text" > </div>
+        <div><b>Zip: </b><input value="" id="zip"  type="text" > </div>
         <button onclick="update();">Submit New Employee</button>
       </form>
     </div>
@@ -69,10 +69,19 @@
   <div class="modal-content">
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
-      <span><b>Name: </b></span>
-      <span><b>Title: </b></span>
-      <span><b>Email: </b></span>
-      <span><b>Phone Number: </b></span>
+      <div>
+        <h4 id="empName"></h4>
+        <h5 id="empTitle"></h5>       
+      </div>
+      <div>
+        <h5>Contact Information</h5>
+        <div>
+          <b>Email: </b><span id="empEmail"></span>
+        </div>
+        <div>
+          <b>Phone Number: </b><span id="empPhone"></span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -104,30 +113,13 @@
     var name=element.name.split(";")[3];
     var modal = document.getElementById("employeeInfo"); 
     var closeBtn = document.getElementsByClassName("close")[0];
-
-    
-    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
-        .then((resp) => resp.json()) //transform the data into json for workability 
-        .then(function(data) {
-          //IF return no claims associated with this product, show the modal without providing a view claims button 
-          if (data.length===0){ //modal without button 
-            document.getElementById("noclaims").style.display = "block";
-            document.getElementById("claims").style.display = "none";
-            document.getElementById("name").innerHTML=product;
-            document.getElementById("description").innerHTML=description;
-            modal.style.display = "block";
-          }else{ //modal with button 
-            document.getElementById("noclaims").style.display = "none";
-            document.getElementById("claims").style.display = "block";
-            document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
-            document.getElementById("name").innerHTML=product;
-            document.getElementById("description").innerHTML=description;
-            document.getElementById("claimsBtn").action="/products/claims/"+productid;
-            modal.style.display = "block";
-          }
-      })  
-  
-    //close out of modal either when clicking 'x' 
+    document.getElementById("empPhone").innerHTML=phone;
+    document.getElementById("empEmail").innerHTML=email;
+    document.getElementById("empTitle").innerHTML=title;
+    document.getElementById("empName").innerHTML=name;
+    // document.getElementById("claimsBtn").action="/products/claims/"+productid;
+    modal.style.display = "block";
+     //close out of modal either when clicking 'x' 
     closeBtn.onclick = function() {
       modal.style.display = "none";
     }
