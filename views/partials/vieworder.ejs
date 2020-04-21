@@ -1,1 +1,46 @@
+<% if (locals.productPurchases){%>
+<%- include("header") %>
+
+<% productPurchases.forEach(result=>{ %>
+<!-- purchase
+customers
+productPurchases
+products
+purchaseid -->
+
+
+
+  <% purchase.forEach(result=>{ %>
+  <% var datePurchase = new Date(result.date) %>
+  <% var datePurchase = (datePurchase.getMonth()+1) + "/" + datePurchase.getDate() + "/" +  datePurchase.getFullYear() %>
+      <%=result.purchaseid%>
+      <%=customers[result.customerid-1].firstname%> <%=customers[result.customerid-1].lastname%>
+      <%=result.totalcost%>
+      <%=datePurchase%>
+
+<table id="purchasetable" class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Order Number</th>
+      <th>Customer</th>
+      <th>Total Price</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <tr>
+      <td><button><a href="/purchases/<%=result.purchaseid%>">View Order</a></button></td>
+
+     </tr> 
+  </tbody>
+  <%})%>
+</table>
+<%}%>
+
 <button><a href="/orders">Return</a></button>
+
+<%- include("footer") %>
+<%}%>

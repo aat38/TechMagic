@@ -19,6 +19,7 @@ clientrouter.get("/", (req, res) => {
 clientrouter.get("/purchases/:purchaseid", (req, res) => { 
   var purchaseTable
   var productpurchases
+  var customer
    axios
    .get(baseURL +"/api/purchases")
    .then(function(response) {
@@ -30,7 +31,15 @@ clientrouter.get("/purchases/:purchaseid", (req, res) => {
         axios
           .get(baseURL +"/api/customers")
           .then(function(response) {
-          res.render("partials/vieworder", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
+          customer =response.data
+              axios
+              .get(baseURL +"/api/products")
+              .then(function(response) {
+              res.render("partials/vieworder", { purchase: purchaseTable, customers:customer, productPurchases:productpurchases , products:response.data, purchaseid:req.params.purchaseid });
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
           })
           .catch(function(error) {
             console.log(error);
@@ -48,28 +57,19 @@ clientrouter.get("/purchases/:purchaseid", (req, res) => {
 
 clientrouter.get("/orders", (req, res) => { 
   var purchaseTable
-  var productpurchases
    axios
    .get(baseURL +"/api/purchases")
    .then(function(response) {
     purchaseTable = response.data
-      axios
-      .get(baseURL +"/api/productpurchases")
-      .then(function(response) {
-      productpurchases = response.data
-        axios
+       axios
           .get(baseURL +"/api/customers")
           .then(function(response) {
-          res.render("orders", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
+          res.render("orders", { purchase: purchaseTable, customers:response.data});
           })
           .catch(function(error) {
             console.log(error);
           }); 
       })
-      .catch(function(error) {
-        console.log(error);
-      }); 
-    })
     .catch(function(error) {
       console.log(error);
     }); 
