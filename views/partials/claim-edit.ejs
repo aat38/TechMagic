@@ -15,7 +15,7 @@
           <% if (locals.issues) { %> 
             <option value='<%=result.issueid%>' disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
             <% issues.forEach(issue=>{ %>
-            <option value='<%=issue.id%>'><%=issue.name %></option>
+            <option value='<%=issue.issueid%>'><%=issue.name %></option>
             <% } )%>
           <% } %>
           </select>
