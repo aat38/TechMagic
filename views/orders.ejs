@@ -63,7 +63,7 @@
             <% } %>
             </select>
           </div>          
-          <div><button onclick="createProductDiv('<%=locals.products%>')">+</button>Add Product Purchase</div>
+          <div><button onclick="createProductDiv()">+</button>Add Product Purchase</div>
           <button id="updateBtn" onclick="update();">Submit New Order</button>
         </form>
       </div>
@@ -83,8 +83,8 @@
     count = count +1;
   });
   
-  function createProductDiv(products){
-     var x = document.createElement(div);
+  function createProductDiv(){
+     var x = document.createElement("div");
   // x.setAttribute("id", "mySelect");
     document.getElementById('product').appendChild(x)
 
