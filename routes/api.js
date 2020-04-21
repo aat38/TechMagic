@@ -283,7 +283,7 @@ apirouter.get("/customers", (request, response) => {
   client.query("select * from customer").then(
     function(resp) {
       console.log("Successfully retrieved all customers");
-      console.log(resp.rows);
+      // console.log(resp.rows);
       response.send(resp.rows);
     },
     function(err) {
@@ -446,6 +446,34 @@ apirouter.get("/purchases/customer/:customerid", (request, response) => {
         "Successfully retrieved purchase history of customer " +
           request.params.customerid
       );
+      // console.log(resp.rows);
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//GET list of purchases from purchase table---------------------------
+apirouter.get("/purchases", (request, response) => {
+  client.connect();
+  client.query("SELECT * from purchase").then(
+    function(resp) {
+      // console.log(resp.rows);
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+//GET list of productpurchases ---------------------------------------
+apirouter.get("/productpurchases", (request, response) => {
+  client.connect();
+  client.query("SELECT * from productpurchase").then(
+    function(resp) {
       // console.log(resp.rows);
       response.send(resp.rows);
     },

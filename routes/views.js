@@ -17,14 +17,23 @@ clientrouter.get("/", (req, res) => {
 
 clientrouter.get("/purchases", (req, res) => { 
   var purchaseTable
+  var productpurchases
    axios
-    .get(baseURL +"/api/claims")
+    .get(baseURL +"/api/purchases")
     .then(function(response) {
       purchaseTable = response.data
       axios
-      .get(baseURL +"/api/resolutions")
+      .get(baseURL +"/api/productpurchases")
       .then(function(response) {
-        res.render("claims", { purchase: purchaseTable, product:response.data });
+        productpurchases = response.data
+        axios
+          .get(baseURL +"/api/customers")
+          .then(function(response) {
+            res.render("purchases", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
+          })
+          .catch(function(error) {
+            console.log(error);
+          }); 
       })
       .catch(function(error) {
         console.log(error);

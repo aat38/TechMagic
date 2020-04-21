@@ -3,6 +3,7 @@
 
 <% if (locals.purchase){%>
 <% if (locals.productPurchase){%>
+<% if (locals.customers){%>
 <h1>Purchases</h1>
 
 Goals for this page: create purchases, create claims based on purchases, view purchases, sort & filter purchases
@@ -147,7 +148,7 @@ Goals for this page: create purchases, create claims based on purchases, view pu
     </div>
   </div>
 </div>
-
+<%}%>
 <%}%>
 <%}else{%>
 <h1>
