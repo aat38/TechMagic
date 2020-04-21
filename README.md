@@ -23,6 +23,8 @@ apirouter.get("/claims/search/:claimid", (request, response) => {
 clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 //get claims for a customer  apirouter.get("/claims/customer/:first/:last", (request, response) => {
 //update JUST claim resolution --not using anymore
+//PUT// edit ENTIRE claim ---------------------------------------------claims/admin
+
 
 
 
