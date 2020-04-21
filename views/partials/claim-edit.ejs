@@ -11,7 +11,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
 
 <button  onclick="modal()">Create New Customer</button>
 
-      <form id="updateform" onsubmit="update(this);">  
+      <form id="updateform" onsubmit="update('<%=result.status%>');">  
         <span><b>Customer: </b><%=result.customer%></span>
         <span><b>Product: </b><%=result.product%> <b>Product Id: </b><%=result.productid%></span>
         <div>
@@ -97,38 +97,53 @@ Goals for this page: POST changes to appropriate places in db upon submission
         </div>
         <% } %>
         <div>
-          <b>Date Opened: </b>
+          <b>Date Opened: </b> 
+          <%=result.dateopened%>
         </div>
         <div>
           <b>Date Closed: </b>
+          <%=result.dateopened%>
         </div>
         <input type="submit">
       </form>
 
 <script type=text/javascript>
   //if comments, add comment
-  //else update 
-  fetch('https://ejs-views-practice.glitch.me/api/customers/address', {
-        headers:{
-          "content-type":"application/json",
-        },
-        body: JSON.stringify({
-          city:document.getElementById("city").value,
-          state:document.getElementById("state").value,
-          streetaddress:document.getElementById("address1").value,
-          streetaddress2:document.getElementById("address2").value,
-          zip:document.getElementById("zip").value,
-          email:document.getElementById("email").value,
-          firstname:document.getElementById("firstname").value,
-          lastname:document.getElementById("lastname").value,
-          phone:document.getElementById("phone").value
-        }),
-            method: 'POST'
-        }).then(resp=>{
-        }, err=>{
-          console.log(err);
-        })
-      location = location //refresh
+  //else update     "UPDATE claim SET issue = $1, status= $2, description =$3, employee=$4, dateopened=$5, resolution=$6, dateclosed = $7 WHERE claimid = $8";
+  function update(ele){
+    var changedStatus
+    //if open->open || if close->close
+    if (ele===document.getElementById("status").value){
+      changedStatus=false;
+    }
+    //if open->close || if close->open 
+    if (ele===document.getElementById("status").value){
+      changedStatus=false;
+    }
+    
+
+    
+    fetch('https://ejs-views-practice.glitch.me/api/claims/admin", {
+          headers:{
+            "content-type":"application/json",
+          },
+          body: JSON.stringify({
+            issue:document.getElementById("issueList").value,
+            status:document.getElementById("status").value,
+            description:document.getElementById("description").value,
+            employee:document.getElementById("employeeList").value,
+            dateopened:document.getElementById("       ").value,
+            resolution:document.getElementById("resolutionList").value,
+            dateclosed:document.getElementById("      ").value,
+            changedStatus: changedStatus
+          }),
+              method: 'POST'
+          }).then(resp=>{
+          }, err=>{
+            console.log(err);
+          })
+        location = location //refresh
+    }
   }
 </script>
 
