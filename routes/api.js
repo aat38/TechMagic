@@ -869,6 +869,13 @@ apirouter.post("/purchases", (request, response) => {
       console.error(e.stack);
       console.log("catching2.");
     });
+  const selectquer =
+    "SELECT * from customer where customerid=$1 returning ";
+  const putquer=
+    "UPDATE customer set income=$2 where customerid=$1";
+
+  client.connect();
+  client.query(purchasequer, purchasevals)
 });
 
 

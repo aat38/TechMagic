@@ -13,32 +13,34 @@
 - [Dropdown menu to forefront](https://stackoverflow.com/questions/16149701/bootstrap-dropdowns-menus-appearing-behind-other-elements-ie7)
 - [Create div on button press](https://stackoverflow.com/questions/33154928/creating-div-on-button-click-with-javascript-not-working)
 
-get products
-// get claim based on products //////NEEEEEEEEEWWWWWWW
-apirouter.get("/claims/search/:claimid", (request, response) => {
-//added get all issue types
-//change d//GET claim information based on claimId ----------------------------
-//get all resolutions 
-//apirouter.get("/employees/:sort", (request, response) => {  //sorts by last name OR title depending on your input
-clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
-//get claims for a customer  apirouter.get("/claims/customer/:first/:last", (request, response) => {
-//update JUST claim resolution --not using anymore
-//PUT// edit ENTIRE claim ---------------------------------------------claims/admin
 
-//GET list of productpurchases ---------------------------------------
+Edited API endpoints:
+- get products
+- // get claim based on products //////NEEEEEEEEEWWWWWWW
+apirouter.get("/claims/search/:claimid", (request, response) => {
+- //added get all issue types
+- //change d//GET claim information based on claimId ----------------------------
+- //get all resolutions 
+- //apirouter.get("/employees/:sort", (request, response) => {  //sorts by last name OR title depending on your input
+- clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
+- //get claims for a customer  apirouter.get("/claims/customer/:first/:last", (request, response) => {
+- //update JUST claim resolution --not using anymore
+- //PUT// edit ENTIRE claim ---------------------------------------------claims/admin
+
+- //GET list of productpurchases ---------------------------------------
 apirouter.get("/productpurchases/:purchaseid", (request, response) => {
 
 
-//removed the dateopen paramater from create claim endpoint
+- //removed the dateopen paramater from create claim endpoint
 
 
-//PURCHASES
+- //PURCHASES
 apirouter.post("/purchases", (request, response) => {
   const quer =
     "INSERT INTO purchase(totalcost, customerid, date) VALUES($1,$2,current_timestamp) RETURNING purchaseid";
 
 
-//GET list of productpurchases ---------------------------------------
+- //GET list of productpurchases ---------------------------------------
 apirouter.get("/productpurchases/:purchaseid", (request, response) => {
   client.connect();
   select * from purchase where purchaseid=purchaseid return customerid, productid
