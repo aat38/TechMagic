@@ -34,13 +34,12 @@
         <%var existingclaim = "false" %>
         <% claims.forEach(claim=>{ %>
         <% if (claim.productpurchaseid===resp.productpurchaseid){%>
-          <button><a  href='/edit/<%=claimid%>/orders'>VIEW Claim</a></button>
+          <button><a  href='/edit/<%=claim.claimid%>/orders'>VIEW Claim</a></button>
           <% }%>
-         <%})%>
-           <% if (existingclaim != "false"){%>
-          <%}else{%>
+        <%}else{%>
         <button onclick="claimModal('<%=resp.productpurchaseid%>')">Create Claim </button> 
         <% }%>
+         <%})%>          
       </td>
       <td><%=resp.name%></td>
       <td><%=resp.productid%></td>

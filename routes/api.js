@@ -495,7 +495,8 @@ apirouter.get("/productpurchases/:purchaseid", (request, response) => {
         "Successfully retrieved productpurchases "
       );
       // console.log(resp.rows);
-      response.send(resp.rows[0]);
+      console.log(resp);
+      response.send(resp.rows);
     },
     function(err) {
       console.log("err! unsuccessful retrieval of joined table");
