@@ -87,7 +87,7 @@
 
 <script>
   var count=0;
-  document.getElementById("para").addEventListener("click", function(){count=+1});
+  document.getElementById("para").addEventListener("click", function(){count+=1});
 
   
   function addProducts(){
@@ -121,12 +121,6 @@
         modal.style.display = "none";
         location=location;
       }
-      //or close modal when clicking outside of the modal
-      // window.onclick = function(event) {
-      //   if (event.target == modal || !modal.contains(event.target)) {
-      //   modal.style.display = "none";
-      //   }
-      // }
   } 
 
 </script>
