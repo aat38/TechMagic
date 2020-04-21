@@ -797,7 +797,7 @@ apirouter.put("/claims/admin", (request, response) => {
     quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid=$4, resolutionid=$5, dateclosed=current_timestamp, dateopened=current_timestamp  WHERE claimid = $6";
   }
   if (request.body.changeOfStatus==""){ //unchanged
-    quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid=$4, resolutionid=$5, WHERE claimid = $6";
+    quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid=$4, resolutionid=$5 WHERE claimid = $6";
   }
   var vals = [
     request.body.issueid,
