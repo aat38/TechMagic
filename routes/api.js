@@ -817,70 +817,37 @@ apirouter.post("/addresses", (request, response) => {
 });
 
 //PURCHASES
+//[needs to be a nested promise where purchase is added first, followed by product pruchases and then update customerincome
 apirouter.post("/purchases", (request, response) => {
-  const quer =
+  const purchasequer =
     "INSERT INTO purchase(totalcost, customerid, date) VALUES($1,$2,current_timestamp) RETURNING purchaseid";
-  const addressValues = [
+  const purchasevals = [
     request.body.totalcost,
     request.body.customerid
   ];
+  const productpurchase =
+    "INSERT INTO productpurchase(productid,purchaseid) VALUES($1, $2)";
   client.connect();
   client
-    .query(quer, addressValues)
+    .query(purchasequer, purchasevals)
     .then(
       res => {
-        // client.end();
-        console.log("Successfully added purchase ");
-        console.log(res.rows[0].purchaseid);
-        res.send(res.rows[0].purchaseid);
-      },
-      err => {
-        // client.end();
-        console.log("Failed to add address.");
-      }
-    )
-    .catch(e => {
-      console.error(e.stack);
-    });
-});
-////
-///
-//[needs to be a nested promise where purchase is added first, followed by product pruchases and then update customerincome
-apirouter.post("/employees/address", (request, response) => {
-  const addressQuery =
-    "INSERT INTO address(city, state, streetaddress, streetaddress2, zip) VALUES($1,$2,$3,$4,$5) RETURNING addressid";
-  const addressValues = [
-    request.body.city,
-    request.body.state,
-    request.body.streetaddress,
-    request.body.streetaddress2,
-    request.body.zip
-  ];
-  const employeeQuery =
-    "INSERT INTO employee(addressid, email, firstname, lastname, phone, title) VALUES($1, $2, $3 ,$4, $5, $6)";
-  client.connect();
-  client
-    .query(addressQuery, addressValues)
-    .then(
-      res => {
-        console.log("Successfully added address values.");
-        //call employee query inside res(aka resolution) of returned address promise
-        client
-          .query(employeeQuery, [
-            res.rows[0].addressid,
-            request.body.email,
-            request.body.firstname,
-            request.body.lastname,
-            request.body.phone,
-            request.body.title
-          ])
-          .then(res => {
-            console.log("Employee successfully added with new address.");
+        console.log((request.body.productids).length)
+        console.log(request.body.productids[0])
+        console.log("Successfully added to purchase.");
+        for (var i = 0; i< ((request.body.productids).length) ; i++ ){
+          client
+          .query(productpurchase, [
+            res.rows[0].purchaseid,
+            request.body.productids[i]
+          ]).then(res => {
+            console.log("Successful add to purchase and productpurchases");
           })
           .catch(e => {
             console.error(e.stack);
             console.log("catching1.");
           });
+        }         
       },
       err => {
         console.log(
