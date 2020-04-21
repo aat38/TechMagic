@@ -54,25 +54,17 @@ employees -->
       <td><%=result.productid%></td>
       <td><%=result.productpurchaseid%></td>
       <td><%=products[result.productid -1].unitcost%></td>
-     </tr> 
-  <%})%>
-  </tbody>
-</table>
-
-
-<button><a href="/orders">Return</a></button>
-
-
+     </tr>
+    
 <div id="createClaimModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
       <form id="updateform"> 
-                  productpurchaseid,
           issueid,  
           description,
           employeeid
-        <div id="info" name='<%=result.description%>;<%=result.productid%>;<%=result.name%>' ></div>
+        <div id="info" name='<%=result.productpurchaseid%>;<%=result.productid%>;<%=result.name%>'></div>
         <div><b>Description: </b><input value="" id="description" type="text" > </div>
         <div><b>Last Name: </b><input value="" id="lastname" type="text" > </div>
         <div><b>Title: </b><input placeholder="Support or Admin" value="" id="title" type="text" > </div>
@@ -93,6 +85,16 @@ employees -->
     </div>
   </div>
 </div>
+    
+  <%})%>
+  </tbody>
+</table>
+
+
+<button><a href="/orders">Return</a></button>
+
+
+
 <script type=text/javascript>
  
   function claimModal() {
