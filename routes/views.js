@@ -18,72 +18,15 @@ clientrouter.get("/", (req, res) => {
                  
 
 clientrouter.get("/purchases/:purchaseid", (req, res) => { 
-  var purchaseTable
-  var productpurchases
-  var customer
-  var product
-  var claims
-  var issues
-   axios
-   .get(baseURL +"/api/purchases")
-   .then(function(response) {
-    purchaseTable = response.data
-      axios
-      .get(baseURL +"/api/productpurchases/"+req.params.purchaseid)
-      .then(function(response) {
-      productpurchases = response.data
-        axios
-          .get(baseURL +"/api/customers")
-          .then(function(response) {
-          customer =response.data
-              axios
-              .get(baseURL +"/api/products")
-              .then(function(response) {
-               product =response.data 
-                  axios
-                  .get(baseURL +"/api/claims")
-                  .then(function(response) {
-                  claims=response.data
-                    axios
-                    .get(baseURL +"/api/issues")
-                    .then(function(response) {
-                    issues=response.data
-                        axios
-                        .get(baseURL +"/api/employees")
-                        .then(function(response) {
-                          res.render("partials/vieworder", { claims:claims, issues:issues, purchase: purchaseTable, customers:customer, productPurchases:productpurchases , products:product, purchaseid:req.params.purchaseid, employees: response.data});
-                        })
-                        .catch(function(error) {
-                          console.log(error);
-                        });
-                        })
-                    
-                    .catch(function(error) {
-                      console.log(error);
-                    });
-      
-                  
-                  })
-                  .catch(function(error) {
-                    console.log(error);
-                  });
-                  })
-              .catch(function(error) {
-                console.log(error);
-              });
-          })
-          .catch(function(error) {
-            console.log(error);
-          }); 
+    axios
+     .get(baseURL +"/api/products")
+     .then(function(response) {
+        res.render("orders", { purchase: purchaseTable, customers:customers, products: response.data});
       })
       .catch(function(error) {
-        console.log(error);
-      }); 
-    })
-    .catch(function(error) {
       console.log(error);
-    }); 
-});
+                }); 
+}
 
 
 clientrouter.get("/orders", (req, res) => { 
