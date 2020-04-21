@@ -40,7 +40,7 @@ clientrouter.get("/purchases/:purchaseid", (req, res) => {
                   axios
                   .get(baseURL +"/api/claims")
                   .then(function(response) {
-                    res.render("partials/vieworder", { claims:response.data, purchase: purchaseTable, customers:customer, productPurchases:productpurchases , products:response.data, purchaseid:req.params.purchaseid });
+                    res.render("partials/vieworder", { claims:response.data, purchase: purchaseTable, customers:customer, productPurchases:productpurchases , products:product, purchaseid:req.params.purchaseid });
                   })
                   .catch(function(error) {
                     console.log(error);

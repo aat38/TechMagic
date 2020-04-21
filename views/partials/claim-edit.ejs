@@ -4,10 +4,8 @@
 <%- include("header") %>
 <% claimdata.forEach(result=>{ %>
 <h2>
-  Edit Claim
+  Review and Edit Claim
 </h2>
-Goals for this page: POST changes to appropriate places in db upon submission  ✓
-
       <form id="updateform" onsubmit="update('<%=result.status%>','<%=result.claimid%>');">  
         <span><b>Customer: </b><%=result.customer%></span>
         <span><b>Product: </b><%=result.product%> <b>Product Id: </b><%=result.productid%></span>
