@@ -11,7 +11,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
 
 <button  onclick="modal()">Create New Customer</button>
 
-      <form id="updateform" onsubmit="update('<%=result.status%>');">  
+      <form id="updateform" onsubmit="update('<%=result.status%>','<%=result.claimid%>');">  
         <span><b>Customer: </b><%=result.customer%></span>
         <span><b>Product: </b><%=result.product%> <b>Product Id: </b><%=result.productid%></span>
         <div>
@@ -109,8 +109,8 @@ Goals for this page: POST changes to appropriate places in db upon submission
 
 <script type=text/javascript>
   //if comments, add comment
-  //else update     "UPDATE claim SET issue = $1, status= $2, description =$3, employee=$4, dateopened=$5, resolution=$6, dateclosed = $7 WHERE claimid = $8";
-  function update(ele){
+  //else "UPDATE claim SET issue = $1, status= $2, description =$3, employee=$4, dateopened=$5, resolution=$6, dateclosed = $7 WHERE claimid = $8";
+  function update(ele, claim){
     var dateOpened
     var dateClosed
     if (ele===document.getElementById("status").value){//if open->open || if close->close
@@ -135,8 +135,9 @@ Goals for this page: POST changes to appropriate places in db upon submission
             dateopened:dateOpened,
             resolution:document.getElementById("resolutionList").value,
             dateclosed:dateClosed,
+            claimid:claim
           }),
-              method: 'POST'
+              method: 'PUT'
           }).then(resp=>{
           }, err=>{
             console.log(err);

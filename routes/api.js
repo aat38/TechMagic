@@ -789,25 +789,27 @@ apirouter.post("/addresses", (request, response) => {
 
 //PUT// edit ENTIRE claim ---------------------------------------------
 apirouter.put("/claims/admin", (request, response) => {
-  console.log([request.body.claimid,request.body.status])
-  var quer =""
-  if(request.body.status==="Open"){
-    quer =
+  var quer =
     "UPDATE claim SET issue = $1, status= $2, description =$3, employee=$4, dateopened=$5, resolution=$6, dateclosed = $7 WHERE claimid = $8";
-  }else{
-    quer =
-    "UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1";
-  }
-  var vals = [request.body.claimid];
+  var vals = [
+    request.body.issue,
+    request.body.status,
+    request.body.description,
+    request.body.employee,
+    request.body.dateopened,
+    request.body.resolution,
+    request.body.dateclosed,
+    request.body.claimid
+  ];
   client.connect();
   client
     .query(quer, vals)
     .then(
       res => {
-        console.log("Successfully updated claim ");
+        console.log("Successfully updated entire claim ");
       },
       err => {
-        console.log("Failed to update claim.");
+        console.log("Failed to update entire claim.");
       }
     )
     .catch(e => {
