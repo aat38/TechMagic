@@ -485,11 +485,20 @@ apirouter.get("/productpurchases", (request, response) => {
 //GET list of productpurchases ---------------------------------------
 apirouter.get("/productpurchases/:purchaseid", (request, response) => {
   client.connect();
-//   select * from purchase where purchaseid=purchaseid return customerid, productid
-// select * from customer where customerid=customerid 
-// select * from product where productid=productid 
-// select * from productpurchase where purchaseid=purchaseid
-  
+  let query = "select * from customer join purchase on customer.customerid = purchase.customerid join productpurchase on purchase.purchaseid = productpurchase.purchaseid join product on productpurchase.productid = product.productid WHERE purchase.purchaseid ="+request.param.purchaseid;
+  client.connect();
+  client.query(query).then(
+    function(resp) {
+      console.log(
+        "Successfully retrieved resolutions for "
+      );
+      // console.log(resp.rows);
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
   
 
 });

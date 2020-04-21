@@ -15,17 +15,6 @@ clientrouter.get("/", (req, res) => {
   res.render("index");
 }); 
 
-clientrouter.get("/purchases/:purchaseid", (req, res) => { 
-   axios
-    .get(baseURL +"/api/productpurchases/"+req.params.purchaseid)
-    .then(function(response) {
-      productpurchases = response.data
-select * from purchase where purchaseid=purchaseid return customerid, productid
-select * from customer where customerid=customerid 
-select * from customer where productid=productid 
-select * from productpurchase where purchaseid=purchaseid
-  
-}
                  
 
 clientrouter.get("/purchases/:purchaseid", (req, res) => { 
