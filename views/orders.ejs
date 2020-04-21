@@ -67,11 +67,11 @@
               <% var nameArr=[]%>
               <% var idArr=[]%>
               <% products.forEach(product=>{ %>
-              <% nameArr=[nameArrproduct.name%>
-              <% idArr=idArr+product.productid%>
+              <% nameArr.push(product.name)%>
+              <% idArr.push(product.productid)%>
               <% } )%>
             <% } %>
-          <div><p  onclick="createProductDiv('<%=nameArr%>,<%=idArr%>');">+ Add Product</p></div>
+          <div><p  onclick="createProductDiv('<%=nameArr%>','<%=idArr%>');">+ Add Product</p></div>
           <button id="updateBtn" onclick="addProducts();">Submit New Order</button>
         </form>
       </div>
