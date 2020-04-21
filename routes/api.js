@@ -842,8 +842,8 @@ apirouter.post("/purchases", (request, response) => {
     .query(purchasequer, purchasevals)
     .then(
       res => {
-        console.log((request.body.productids).length)
-        console.log(request.body.productids[0])
+        // console.log((request.body.productids).length)
+        // console.log(request.body.productids[0])
         console.log("Successfully added to purchase.");
         for (var i = 0; i< ((request.body.productids).length) ; i++ ){
           client
@@ -861,7 +861,7 @@ apirouter.post("/purchases", (request, response) => {
       },
       err => {
         console.log(
-          "Failed to add address. Employee will not be added since it is dependent on address."
+          "Failed to add purchases."
         );
       }
     )
@@ -879,6 +879,8 @@ apirouter.post("/purchases", (request, response) => {
       res => {
         console.log("Successfully retrieved income.");
           client
+          console.log(res.rows[0].income)
+          console.log(request.body.totalcost)
           .query(putquer, [
             (res.rows[0].income+request.body.totalcost),
             request.body.customerid
@@ -886,18 +888,16 @@ apirouter.post("/purchases", (request, response) => {
             console.log("Successful add to purchase and productpurchases");
           })
           .catch(e => {
-            console.error(e.stack);
             console.log("catching1.");
          });
       },
       err => {
         console.log(
-          "Failed to add address. Employee will not be added since it is dependent on address."
+          "Failed to add INCOME."
         );
       }
     )
     .catch(e => {
-      console.error(e.stack);
       console.log("catching2.");
     });
 })
