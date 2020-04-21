@@ -143,7 +143,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
         <button onclick="addComment()">Add Comment</button>
         <p id="addComment" style="display:none" ><input value="" id="comment" type="text" ></p>
       </div>
-      <button onclick="resolve(this);">Resolve Claim</button>
+      <button onclick="resolve();">Resolve Claim</button>
       </form>
     </div>
   </div>
@@ -162,8 +162,27 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
     document.getElementById("addComment").style.display = "block";
   }
   
-    function resolve(claim){
-     //post resolution and reload on promise return
+  function resolve(){
+    var selected = document.getElementById('resolutionList');
+    var comment = document.getElementById('comment');
+    if (comment != ""){
+      //Send comment
+    }
+    fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid: id,
+          status: "Closed"
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+    }, err=>{
+      console.log(err);
+    })
+    window.location.reload();//so changes render
+  }
   }
   
   function resolveModal(ele){
@@ -196,10 +215,10 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
     }, err=>{
       console.log(err);
     })
-       window.location.reload();//so changes render
+    window.location.reload();//so changes render
   }
   
-function openClaim(id, prod){
+  function openClaim(id, prod){
     fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
         headers:{
           "content-type":"application/json",
@@ -210,65 +229,54 @@ function openClaim(id, prod){
         }),
         method: 'PUT'
     }).then(resp=>{
-         
-      
     }, err=>{
       console.log(err);
     })
-       window.location.reload();//so changes render
+    window.location.reload();//so changes render
   }
   
   function addFilterCustomer(ele) {
-          var rows = document.getElementsByTagName("tr").length
-          for (var i = 1; i< rows; i++){
-            if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
-              document.getElementsByTagName("tr")[i].style.display="none"
-            }
-          } 
-    
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i< rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
+         document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    } 
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;
     button.setAttribute("id", ele.text)
-    button.onclick = function () {
-                removeFilter(ele.text);
-            }
+    button.onclick = function () {removeFilter(ele.text);}
     document.getElementById('create').appendChild(button)
   } 
   
-    function addFilterEmployee(ele) {
-          var rows = document.getElementsByTagName("tr").length
-          for (var i = 1; i< rows; i++){
-            if  (document.getElementsByTagName("tr")[i].children[5].innerText != ele.text ){
-              document.getElementsByTagName("tr")[i].style.display="none"
-            }
-          } 
-    
+  function addFilterEmployee(ele) {
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i< rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[5].innerText != ele.text ){
+        document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    }   
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;
     button.setAttribute("id", ele.text)
-    button.onclick = function () {
-                removeFilter(ele.text);
-            }
+    button.onclick = function () {removeFilter(ele.text);}
     document.getElementById('create').appendChild(button)
   } 
   
-    function addFilterProduct(ele) {
-          var rows = document.getElementsByTagName("tr").length
-          for (var i = 1; i< rows; i++){
-            if  (document.getElementsByTagName("tr")[i].children[2].innerText != ele.text ){
-              document.getElementsByTagName("tr")[i].style.display="none"
-            }
-          } 
-    
+  function addFilterProduct(ele) {
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i< rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[2].innerText != ele.text ){
+        document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    }   
     document.getElementById('create').style.display="block";
     var button = document.createElement('button');
     button.innerHTML = ele.text;
     button.setAttribute("id", ele.text)
-    button.onclick = function () {
-                removeFilter(ele.text);
-            }
+    button.onclick = function () {removeFilter(ele.text);}
     document.getElementById('create').appendChild(button)
   }
   
@@ -285,7 +293,6 @@ function openClaim(id, prod){
    
   function searchMenu() {
     var menuBox = document.getElementById('menu-box');    
-
     if(menuBox.style.display == "block") { 
       menuBox.style.display = "none";
     }
@@ -304,7 +311,7 @@ function openClaim(id, prod){
     }
   }  
 
-  //sort by customer
+  //sort by Customer
   function sortCustomer(column, direction){
     console.log("sort");
     let rows = document.getElementsByTagName("tbody");
@@ -312,59 +319,17 @@ function openClaim(id, prod){
     rows.sort(function(a,b){
       return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
     });
-
     let table = document.getElementById("table");
     let blep = document.getElementsByTagName("tbody");
     while (blep.length >0){
       table.removeChild(blep[0]);
     }
-
     for(let k =0; k < rows.length; k++){
       table.appendChild(rows[k]);
     }
   }
   
-    //sort by customer
-  function sortCustomer(column, direction){
-    console.log("sort");
-    let rows = document.getElementsByTagName("tbody");
-    rows = [].slice.call(rows);
-    rows.sort(function(a,b){
-      return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
-    });
-
-    let table = document.getElementById("table");
-    let blep = document.getElementsByTagName("tbody");
-    while (blep.length >0){
-      table.removeChild(blep[0]);
-    }
-
-    for(let k =0; k < rows.length; k++){
-      table.appendChild(rows[k]);
-    }
-  }
-  
-    //sort by customer
-  function sortCustomer(column, direction){
-    console.log("sort");
-    let rows = document.getElementsByTagName("tbody");
-    rows = [].slice.call(rows);
-    rows.sort(function(a,b){
-      return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
-    });
-
-    let table = document.getElementById("table");
-    let blep = document.getElementsByTagName("tbody");
-    while (blep.length >0){
-      table.removeChild(blep[0]);
-    }
-
-    for(let k =0; k < rows.length; k++){
-      table.appendChild(rows[k]);
-    }
-  }
-  
-      //sort by sortProduct
+  //sort by Product
   function sortProduct(column, direction){
     console.log("sort");
     let rows = document.getElementsByTagName("tbody");
@@ -384,7 +349,7 @@ function openClaim(id, prod){
     }
   }
   
-      //sort by sortStatus
+  //sort by Status
   function sortStatus(column, direction){
     console.log("sort");
     let rows = document.getElementsByTagName("tbody");
@@ -392,25 +357,17 @@ function openClaim(id, prod){
     rows.sort(function(a,b){
       return a.rows[0].cells[7].innerText.localeCompare(b.rows[0].cells[7].innerText);
     });
-
     let table = document.getElementById("table");
     let blep = document.getElementsByTagName("tbody");
     while (blep.length >0){
       table.removeChild(blep[0]);
     }
-
     for(let k =0; k < rows.length; k++){
       table.appendChild(rows[k]);
     }
-  }
-  
-  
-  
+  } 
 
 </script>
-
-
-
 
 <%- include("partials/footer") %>
 
