@@ -1,0 +1,50 @@
+<%- include("partials/header") %>
+<!-- need to import purchase and productPurchase tables -->
+
+
+<% if (locals.customers){%>
+<h1>Orders</h1>
+<%- include("partials/vieworder") %>
+Goals for this page: create purchases, create claims based on purchases, view purchases ✓
+
+
+
+<table id="table" class="table table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Order Number</th>
+      <th>Customer</th>
+      <th>Total Price</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <% purchase.forEach(result=>{ %>
+  <% var datePurchase = new Date(result.date) %>
+  <% var datePurchase = (datePurchase.getMonth()+1) + "/" + datePurchase.getDate() + "/" +  datePurchase.getFullYear() %>
+
+  <tbody>
+    <tr>
+      <td><button><a href="/productpurchases/<%=result.purchaseid%>">View Order</a></button></td>
+      <td><%=result.purchaseid%></td>
+      <td><%=customers[result.customerid-1].firstname%> <%=customers[result.customerid-1].lastname%></td>
+      <td><%=result.totalcost%></td>
+      <td><%=datePurchase%></td>
+     </tr> 
+  </tbody>
+  <%})%>
+</table>
+
+
+<%}else{%>
+<h1>
+ No Purchases Found
+</h1>
+<%}%>
+
+
+
+
+
+
+<%- include("partials/footer") %>

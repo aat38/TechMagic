@@ -15,7 +15,8 @@ clientrouter.get("/", (req, res) => {
   res.render("index");
 }); 
 
-clientrouter.get("/purchases", (req, res) => { 
+
+clientrouter.get("/productpurchases/:purchaseid", (req, res) => { 
   var purchaseTable
   var productpurchases
    axios
@@ -29,7 +30,7 @@ clientrouter.get("/purchases", (req, res) => {
         axios
           .get(baseURL +"/api/customers")
           .then(function(response) {
-          res.render("purchases", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
+          res.render("orders", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
           })
           .catch(function(error) {
             console.log(error);
@@ -43,6 +44,37 @@ clientrouter.get("/purchases", (req, res) => {
       console.log(error);
     }); 
 });
+
+
+clientrouter.get("/orders", (req, res) => { 
+  var purchaseTable
+  var productpurchases
+   axios
+   .get(baseURL +"/api/purchases")
+   .then(function(response) {
+    purchaseTable = response.data
+      axios
+      .get(baseURL +"/api/productpurchases")
+      .then(function(response) {
+      productpurchases = response.data
+        axios
+          .get(baseURL +"/api/customers")
+          .then(function(response) {
+          res.render("orders", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
+          })
+          .catch(function(error) {
+            console.log(error);
+          }); 
+      })
+      .catch(function(error) {
+        console.log(error);
+      }); 
+    })
+    .catch(function(error) {
+      console.log(error);
+    }); 
+});
+
 clientrouter.get("/claims", function(req, res, next) {
   var claims
    axios
