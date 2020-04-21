@@ -84,8 +84,8 @@ employees -->
             </select>
           </div>
           <div>
-
-          <div><b>Description: </b><input value="" id="description" type="text" > </div>
+            <span id="purchaseid" value='<%=result.productpurchaseid%>'></span>
+            <div><b>Description: </b><input value="" id="description" type="text" > </div>
           <button onclick="update();">Submit Customer's Claim</button>
         </form>
       </div>
@@ -118,47 +118,18 @@ employees -->
     }
   }    
   
-   function update() {
-    //grabbing element information from html to populate modal depending on which product row was selected
-    var phone=element.name.split(";")[0];
-    var email=element.name.split(";")[1];
-    var title=element.name.split(";")[2];
-    var name=element.name.split(";")[3];
-    var modal = document.getElementById("employeeInfo"); 
-    var closeBtn = document.getElementsByClassName("close")[0];
-    document.getElementById("empPhone").innerHTML=phone;
-    document.getElementById("empEmail").innerHTML=email;
-    document.getElementById("empTitle").innerHTML=title;
-    document.getElementById("empName").innerHTML=name;
-    // document.getElementById("claimsBtn").action="/products/claims/"+productid;
-    modal.style.display = "block";
-     //close out of modal either when clicking 'x' 
-    closeBtn.onclick = function() {
-      modal.style.display = "none";
-    }
-    //or close modal when clicking outside of the modal
-    window.onclick = function(event) {
-      if (event.target == modal) {
-      modal.style.display = "none";
-      }
-    }
-  }//end function modal(element)
-  
   function update(){ 
     fetch('https://ejs-views-practice.glitch.me/api/claims', {
         headers:{
           "content-type":"application/json",
         },
         body: JSON.stringify({
-          productpurchaseid,
-          issueid: issueList  
-          description,
-          employeeid
-          
-          // city:document.getElementById("city").value,
-
+          productpurchaseid:document.getElementById("purchaseid").value,
+          issueid: document.getElementById("issueList").value,
+          description:document.getElementById("description").value,
+          employeeid:document.getElementById("employeeList").value
         }),
-            method: 'POST'
+          method: 'POST'
         }).then(resp=>{
         }, err=>{
           console.log(err);

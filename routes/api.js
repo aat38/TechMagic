@@ -525,11 +525,12 @@ apirouter.get("/resolutions/product/:productname", (request, response) => {
 //POST a new claim ---------------------------------------------------
 apirouter.post("/claims", (request, response) => {
   const quer =
-    "insert into claim(productpurchaseid, issue, status, description, dateopened, employee )  values($1,$2,$3,current_timestamp,$4,$5)";
+    "insert into claim(productpurchaseid, issue, status, description, dateopened, employee )  values($1,$2,$3,$4,$5,$6)";
   const vals = [
     request.body.productpurchaseid,
     request.body.issueid,
     "Open",    
+    "current_timestamp",
     request.body.description,
     request.body.employeeid
   ];
@@ -539,21 +540,11 @@ apirouter.post("/claims", (request, response) => {
     .then(
       res => {
         console.log(
-          "Successfully added claim" 
-        //     request.body.productpurchaseid +
-        //     ", " +
-        //     request.body.status +
-        //     ", " +
-        //     request.body.description +
-        //     ", " +
-        //     request.body.dateopened +
-        //     ", " +
-        //     request.body.resolutionid
-        );
-        // response.send(res.rows);
+          "Successfully added claim"+vals );
+
       },
       err => {
-        console.log("Failed to add claim.");
+        console.log("Failed to add claim."+vals );
       }
     )
     .catch(e => {
