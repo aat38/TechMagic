@@ -87,7 +87,6 @@
 
 <script>
   var count=0;
-  var lists=[];
   document.getElementById("updateBtn").addEventListener("click", function(){
     count = count +1;
   });
@@ -99,10 +98,11 @@
   function createProductDiv(productnames, productids){
     var div = document.createElement('div')
     var select = document.createElement('select');
-    select.setAttribute("id", count);
+    select.setAttribute("id", "id"+count);
     document.getElementById("product").appendChild(div)
     div.appendChild(select);
-    
+    productnames = (productnames.split(","))
+    productids = (productids.split(","))
     for (var i = 0; i<productnames.length; i++){
       var option = document.createElement("option");
       option.setAttribute("value", productids[i]);
