@@ -23,7 +23,7 @@
      </ul>
   </div>
 
-<button  onclick="modal()">Create New Customer</button>
+<button  onclick="newCustModal()">Create New Customer</button>
 
 <table class="table table-hover">
   <thead>
@@ -44,8 +44,8 @@
   <%})%>
 </table>
 
-<!-- Modal div -->
-<div id="descriptionModal" class="modal">
+<!-- Adding New Customer Modal -->
+<div id="newCustomerModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
@@ -68,8 +68,8 @@
 
 <script type=text/javascript>
  
-  function modal() {
-    var modal = document.getElementById("descriptionModal"); 
+  function newCustModal() {
+    var modal = document.getElementById("newCustomerModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
 

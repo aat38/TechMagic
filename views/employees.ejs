@@ -22,7 +22,7 @@
      </ul>
   </div>
 
-<button  onclick="modal()">Create New Employee</button>
+<button  onclick="employeeModal()">Create New Employee</button>
 
 <table class="table table-hover">
   <thead>
@@ -34,15 +34,15 @@
   <tbody>
   <% employees.forEach(result=>{ %>
     <tr>
-      <td><%=result.firstname%> <%=result.lastname%></td>
-      <td><%=result.title%></td>
+      <td><input type="button" class="clickable-row" onclick="preview(this)" name='<%=result.phone%>;<%=result.email%>;<%=result.title%>;<%=result.firstname%> <%=result.lastname%>' value='<%=result.firstname%> <%=result.lastname%>'></td>
+      <td><input type="button" class="clickable-row" onclick="preview(this)" name='<%=result.phone%>;<%=result.email%>;<%=result.title%>;<%=result.firstname%> <%=result.lastname%>' value='<%=result.title%>'></td>
     </tr>    
   <%})%>
   </tbody>
 </table>
 <% } %>
 
-<!-- Modal div -->
+<!-- Adding New Employee Modal -->
 <div id="newEmployeeModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span><!-- close button -->
@@ -64,14 +64,26 @@
   </div>
 </div>
 
+<!-- Previewing Employee Information -->
+<div id="employeeInfo" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span><!-- close button -->
+    <div class="d-flex justify-content-center flex-column">
+      <span><b>Name: </b></span>
+      <span><b>Title: </b></span>
+      <span><b>Email: </b></span>
+      <span><b>Phone Number: </b></span>
+    </div>
+  </div>
+</div>
+
 
 <script type=text/javascript>
  
-  function modal() {
+  function employeeModal() {
     var modal = document.getElementById("newEmployeeModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
-
     //close out of modal either when clicking 'x' 
     closeBtn.onclick = function() {
       modal.style.display = "none";
@@ -83,6 +95,49 @@
       }
     }
   }    
+  
+   function preview(element) {
+    //grabbing element information from html to populate modal depending on which product row was selected
+    var phone=element.name.split(";")[0];
+    var email=element.name.split(";")[1];
+    var title=element.name.split(";")[2];
+    var name=element.name.split(";")[3];
+    var modal = document.getElementById("employeeInfo"); 
+    var closeBtn = document.getElementsByClassName("close")[0];
+
+    
+    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
+        .then((resp) => resp.json()) //transform the data into json for workability 
+        .then(function(data) {
+          //IF return no claims associated with this product, show the modal without providing a view claims button 
+          if (data.length===0){ //modal without button 
+            document.getElementById("noclaims").style.display = "block";
+            document.getElementById("claims").style.display = "none";
+            document.getElementById("name").innerHTML=product;
+            document.getElementById("description").innerHTML=description;
+            modal.style.display = "block";
+          }else{ //modal with button 
+            document.getElementById("noclaims").style.display = "none";
+            document.getElementById("claims").style.display = "block";
+            document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
+            document.getElementById("name").innerHTML=product;
+            document.getElementById("description").innerHTML=description;
+            document.getElementById("claimsBtn").action="/products/claims/"+productid;
+            modal.style.display = "block";
+          }
+      })  
+  
+    //close out of modal either when clicking 'x' 
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    //or close modal when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  }//end function modal(element)
   
   function update(){ 
     fetch('https://ejs-views-practice.glitch.me/api/employees/address', {
