@@ -18,7 +18,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
           <b>Issue: </b>
           <select id="issueList">
           <% if (locals.issues) { %> 
-            <option value="" disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
+            <option value='<%=issue.id%>' disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
             <% issues.forEach(issue=>{ %>
             <option value='<%=issue.id%>'><%=issue.name %></option>
             <% } )%>
@@ -28,7 +28,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
         <div>
           <b>Status: </b>
           <select id="status">
-            <option value="" disabled selected hidden><%=result.status%></option> <!--  keeping the selected status visible in dropdown box -->
+            <option value='<%=result.status%>' disabled selected hidden><%=result.status%></option> <!--  keeping the selected status visible in dropdown box -->
             <%if (result.status==="Closed"){%>
             <option value='Open'>Open</option>
              <% }else{ %>
@@ -44,7 +44,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
           <b>Employee: </b>
           <select id="employeeList">
             <% if (locals.employees) { %> 
-              <option value="" disabled selected hidden><%=result.employee%> </option> <!--  keeping the selected employee visible in dropdown box -->
+              <option value='<%=employee.id%>' disabled selected hidden><%=result.employee%> </option> <!--  keeping the selected employee visible in dropdown box -->
               <% employees.forEach(employee=>{ %>
               <option value='<%=employee.id%>'><%=employee.firstname %> <%=employee.lastname%></option>
                <% } )%>
@@ -89,7 +89,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
           <b>Resolution: </b>
           <select id="resolutionList">
              <!--  keeping the selected letter visible in dropdown box -->
-              <option value="" disabled selected hidden><%=result.resolution%> </option> <!--  keeping the selected resolution visible in dropdown box -->
+              <option value='<%=resolution.id%>' disabled selected hidden><%=result.resolution%> </option> <!--  keeping the selected resolution visible in dropdown box -->
               <% resolutions.forEach(resolution=>{ %>
               <option value='<%=resolution.id%>'><%=resolution.name%></option>
               <% } )%>
@@ -119,7 +119,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
     }else{ //if open->close
       changeofstatus="oc"
     }
-    fetch('https://ejs-views-practice.glitch.me/api/claims/admin') {
+    fetch('https://ejs-views-practice.glitch.me/api/claims/admin', {
           headers:{
             "content-type":"application/json",
           },
@@ -134,11 +134,11 @@ Goals for this page: POST changes to appropriate places in db upon submission
           }),
               method: 'PUT'
           }).then(resp=>{
+            
           }, err=>{
             console.log(err);
           })
         location = location //refresh
-    }
   }
 </script>
 

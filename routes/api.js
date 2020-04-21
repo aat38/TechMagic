@@ -789,12 +789,12 @@ apirouter.post("/addresses", (request, response) => {
 
 //PUT// edit ENTIRE claim ---------------------------------------------
 apirouter.put("/claims/admin", (request, response) => {
-  var quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid=$4, resolutionid=$5 WHERE claimid = $6"; //unchanged
+  var quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid =$4, resolutionid =$5 WHERE claimid = $6"; //unchanged
   if (request.body.changeOfStatus==="oc") {//open->close
-    quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid=$4, resolutionid=$5, dateclosed=current_timestamp  WHERE claimid = $6";
+    quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid =$4, resolutionid =$5, dateclosed=current_timestamp  WHERE claimid = $6";
   }
   if (request.body.changeOfStatus==="co"){ //close->open
-    quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid=$4, resolutionid=$5, dateclosed=current_timestamp, dateopened=current_timestamp  WHERE claimid = $6";
+    quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid =$4, dateclosed=current_timestamp, dateopened=current_timestamp, resolutionid =$5  WHERE claimid = $6";
   }
   var vals = [
     request.body.issueid,
@@ -802,8 +802,7 @@ apirouter.put("/claims/admin", (request, response) => {
     request.body.description,
     request.body.employeeid,
     request.body.resolutionid,
-    request.body.claimid,
-    request.body.changeOfStatus
+    request.body.claimid
   ];
   console.log(vals)
   client.connect();
