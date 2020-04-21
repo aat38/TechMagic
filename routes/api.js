@@ -792,7 +792,7 @@ apirouter.put("/resolutions/update/close", (request, response) => {
   const vals = [request.body.resolutionid, request.body.claimid];
   client.connect();
   client
-    .query(quer)
+    .query(quer,vals)
     .then(
       res => {
         console.log("Successfully added resolution and closed claim ");

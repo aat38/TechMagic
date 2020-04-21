@@ -22,7 +22,7 @@ apirouter.get("/claims/search/:claimid", (request, response) => {
 //apirouter.get("/employees/:sort", (request, response) => {  //sorts by last name OR title depending on your input
 clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 //get claims for a customer  apirouter.get("/claims/customer/:first/:last", (request, response) => {
-//update JUST claim resolution
+//update JUST claim resolution --not using anymore
 
 
 
