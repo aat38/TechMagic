@@ -67,7 +67,7 @@ purchaseid -->
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
       <form id="updateform">  
-        <div><b>First Name: </b><input value="" id="firstname" type="text" > </div>
+        <div><b>Description: </b><input value="" id="description" type="text" > </div>
         <div><b>Last Name: </b><input value="" id="lastname" type="text" > </div>
         <div><b>Title: </b><input placeholder="Support or Admin" value="" id="title" type="text" > </div>
         <div><b>Email: </b><input value="" id="email"  type="text" > </div>
@@ -85,6 +85,10 @@ purchaseid -->
 <script type=text/javascript>
  
   function claimModal() {
+       request.body.productpurchaseid,
+    request.body.status,
+    request.body.description,
+    request.body.resolutionid
     var modal = document.getElementById("createClaimModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
     modal.style.display = "block";

@@ -525,7 +525,7 @@ apirouter.get("/resolutions/product/:productname", (request, response) => {
 //POST a new claim ---------------------------------------------------
 apirouter.post("/claims", (request, response) => {
   const quer =
-    "insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,$3,$4,$5)";
+    "insert into claim(productpurchaseid, status, description, dateopened, resolutionid)  values($1,$2,current_timestamp,$4,$5)";
   const vals = [
     request.body.productpurchaseid,
     request.body.status,

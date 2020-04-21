@@ -29,6 +29,6 @@ clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 apirouter.get("/productpurchases/:purchaseid", (request, response) => {
 
 
-
+//removed the dateopen paramater from create claim endpoint
 
 
