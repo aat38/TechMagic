@@ -877,6 +877,7 @@ apirouter.post("/purchases", (request, response) => {
     });
   const selectquer = "SELECT * from customer where customerid=$1";
   const putquer = "UPDATE customer set income=$1 where customerid=$2";
+  console.log("LOGGGGG" + request.body.customerid)
   client
     .query(selectquer, [request.body.customerid])
     .then(
@@ -884,17 +885,14 @@ apirouter.post("/purchases", (request, response) => {
         console.log("Successfully retrieved income.");
         let currentVal = res.rows[0].income;
         let cost = request.body.totalcost;
-        let newVal = Number(currentVal.replace(/[^0-9.-]+/g,"")) + cost;
+        let newVal = Number(currentVal.replace(/[^0-9.-]+/g, "")) + cost;
         client
-          .query(putquer, [
-            res.rows[0].income + request.body.totalcost,
-            request.body.customerid
-          ])
+          .query(putquer, [newVal, request.body.customerid])
           .then(res => {
             console.log("Successful update to income");
           })
-          .catch(e => {
-            console.log("catching3.");
+          .catch(err => {
+            console.log(err);
           });
       },
       err => {
