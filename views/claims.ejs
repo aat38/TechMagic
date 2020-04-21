@@ -87,7 +87,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
   </thead>
   <% claims.forEach(result=>{ %>
   <% var dateOpened = new Date(result.dateopened) %>
-  <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
+  <% var dateOpened = (dateOpened.getMonth()+1) + "/" + dateOpened.getDate() + "/" +  dateOpened.getFullYear() %>
 
   <tbody>
     <tr>

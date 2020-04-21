@@ -1,73 +1,34 @@
 <%- include("partials/header") %>
 <!-- need to import purchase and productPurchase tables -->
 
-<% if (locals.purchase){%>
-<% if (locals.productPurchase){%>
+
 <% if (locals.customers){%>
 <h1>Purchases</h1>
 
-<%}}}%>
 Goals for this page: create purchases, create claims based on purchases, view purchases, sort & filter purchases
 
-<div id="addFilter">
-  <button onclick="searchMenu()">
-    Add Filter
-  </button>
-</div>
-
-<div class="dropdown">
-  <p id="menu" > Menu</p>
-  <ul id="menu-box" style="display: none" class="dropdown-menu">
-    <li><label for="menu-toggle">Customer</label>
-      <input type="checkbox" id="menu-toggle"/>
-      <ul id="menu">
-        <%var array=[]%>
-        <% customers.forEach(customer=>{ %>
-        <%if (array.includes(customer.lastname)){%>
-        <%}else{%>
-        <%array=array + customer.lastname%>
-        <li><a href="#" onclick="addFilterCustomer(this)"><%=customer.firstname%> <%=customer.lastname%></a></li>
-        <%}})%>
-      </ul>
-    </li>
-  </ul>
-</div>
-
-
-<div id="create" style="display:none">
-  <b>Filters: </b>
-</div>
-
-  <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
-    <b>Sort by:</b>
-      <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
-    <ul class="dropdown-menu">
-       <li><a onclick="sortCustomer('name', 'desc')">Descending Customer</a></li>
-      <li><a onclick="sortProduct('name', 'desc')">Product</a></li>
-      <li><a onclick="sortStatus('name', 'desc')">Status</a></li>
-     </ul>
-  </div>
 
 <table id="table" class="table table-hover">
   <thead>
     <tr>
       <th></th>
-      <th>Order</th>
+      <th>Order Number</th>
       <th>Customer</th>
       <th>Total Price</th>
       <th>Date</th>
     </tr>
   </thead>
   <% purchase.forEach(result=>{ %>
-  <% var dateOpened = new Date(result.date) %>
-  <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
+  <% var datePurchase = new Date(result.date) %>
+  <% var datePurchase = (datePurchase.getMonth()+1) + "/" + datePurchase.getDate() + "/" +  datePurchase.getFullYear() %>
 
   <tbody>
     <tr>
+      <td><button><a href="/>">View Order</a></button></td>
       <td><%=result.purchaseid%></td>
-      <td><%=result.customerid%></td>
+      <td><%=customers[result.customerid-1].firstname%> <%=customers[result.customerid-1].lastname%></td>
       <td><%=result.totalcost%></td>
-      <td><%=result.date%></td>
+      <td><%=datePurchase%></td>
      </tr> 
   </tbody>
   <%})%>
@@ -99,10 +60,7 @@ Goals for this page: create purchases, create claims based on purchases, view pu
     </div>
   </div>
 </div>
-<%}else{%>
-<%}%>
-<%}else{%>
-<%}%>
+
 <%}else{%>
 <h1>
  No Purchases Found

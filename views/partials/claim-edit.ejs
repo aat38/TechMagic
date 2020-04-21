@@ -94,12 +94,16 @@ Goals for this page: POST changes to appropriate places in db upon submission  â
         </div>
         <% } %>
         <div id="dateopened">
+          <% var dateOpened = new Date(result.dateopened) %>
+          <% var dateOpened = (dateOpened.getMonth()+1) + "/" + dateOpened.getDate() + "/" +  dateOpened.getFullYear() %>
           <b>Date Opened: </b> 
-          <%=result.dateopened%>
+          <%=dateOpened%>
         </div>
         <div id="dateclosed">
-          <b>Date Closed: </b>
-          <%=result.dateopened%>
+          <% var dateClosed = new Date(result.dateclosed) %>
+          <% var dateClosed = (dateClosed.getMonth()+1) + "/" + dateClosed.getDate() + "/" +  dateClosed.getFullYear() %>
+          <b>Date Closed: </b> 
+          <%=dateOpened%>
         </div>
         <input type="submit">
       </form>
