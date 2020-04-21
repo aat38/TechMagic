@@ -37,14 +37,56 @@
   <%})%>
 </table>
 
+<!--  Create Order Modal  (need customer list and product list)-->
+  <div id="createOrderModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span><!-- close button -->
+      <div class="d-flex justify-content-center flex-column">
+        <form id="createform"> 
+          <div>
+            <b>Customer: </b>
+            <select id="customerList">
+            <% if (locals.customers) { %> 
+              <% customers.forEach(customer=>{ %>
+              <option value='<%=customer.customerid%>'><%=customer.firstname %> <%=customer.lastname %></option>
+              <% } )%>
+            <% } %>
+            </select>
+          </div>
+          <div><button>+</button>Add Product Purchase</div>
+        
+            <span id="purchaseid"></span>
+            <div><b>Description: </b><input value="" id="description" type="text" > </div>
+          <button onclick="update();">Submit Customer's Claim</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
 <%}else{%>
 <h1>
- No Purchases Found
+ No Orders Found
 </h1>
 <%}%>
 
-
+<script>
+ function employeeModal() {
+    var modal = document.getElementById("newEmployeeModal"); 
+    var closeBtn = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    //close out of modal either when clicking 'x' 
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    //or close modal when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  } 
+</script>
 
 
 
