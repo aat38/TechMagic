@@ -7,16 +7,19 @@ productPurchases
 products
 purchaseid -->
 
-  <% var datePurchase = new Date(purchase[purchaseid].date) %>
+  <% var datePurchase = new Date(purchase[purchaseid-1].date) %>
   <% var datePurchase = (datePurchase.getMonth()+1) + "/" + datePurchase.getDate() + "/" +  datePurchase.getFullYear() %>
 <div>
+<h1>Order</h1>
   <h3>
-    <b>Customer: </b><%=customers[purchase[purchaseid].customerid-1].firstname%> <%=customers[purchase[purchaseid-1].customerid-1].lastname%>
+    <b>Customer: </b><%=customers[purchase[purchaseid-1].customerid-1].firstname%> <%=customers[purchase[purchaseid-1].customerid-1].lastname%>
   </h3>
-  <h5>
+  <h3>
     <b>Total Cost: </b><%=purchase[purchaseid-1].totalcost%>
+  </h3>
+  <h3>
     <b>Date: </b><%=datePurchase%> 
-  </h5>
+  </h3>
 </div>      
 
 <table id="table" class="table table-hover">
@@ -25,15 +28,17 @@ purchaseid -->
       <th></th>
       <th>Product</th>
       <th>Product ID</th>
+      <th>Item Number</th>
       <th>Unit Cost</th>
     </tr>
   </thead>
   <tbody>
   <% productPurchases.forEach(result=>{ %>
     <tr>
-      <td><button><a href="#">Create Claim</a></button></td>
+      <td><button><a href="#">Create Claim for Purchase</a></button></td>
       <td><%=products[result.productid -1].name%></td>
       <td><%=result.productid%></td>
+      <td><%=result.productpurchaseid%></td>
       <td><%=products[result.productid -1].unitcost%></td>
      </tr> 
   <%})%>
@@ -42,6 +47,11 @@ purchaseid -->
 
 
 <button><a href="/orders">Return</a></button>
+
+
+
+
+
 
 <%- include("footer") %>
 <%}%>
