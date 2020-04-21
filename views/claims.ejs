@@ -174,8 +174,9 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
           "content-type":"application/json",
         },
         body: JSON.stringify({
-          resolutionid: resolution,
-          claimid: claim
+          claimid:claim,
+          description:comment,
+          employeeid: 1
         }),
         method: 'POST'
         }).then(resp=>{
