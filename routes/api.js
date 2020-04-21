@@ -792,12 +792,12 @@ apirouter.put("/claims/admin", (request, response) => {
   var quer =
     "UPDATE claim SET issue = $1, status= $2, description =$3, employee=$4, dateopened=$5, resolution=$6, dateclosed = $7 WHERE claimid = $8";
   var vals = [
-    request.body.issue,
+    request.body.issueid,
     request.body.status,
     request.body.description,
-    request.body.employee,
+    request.body.employeeid,
     request.body.dateopened,
-    request.body.resolution,
+    request.body.resolutionid,
     request.body.dateclosed,
     request.body.claimid
   ];

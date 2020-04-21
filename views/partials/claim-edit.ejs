@@ -20,7 +20,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
           <% if (locals.issues) { %> 
             <option value="" disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
             <% issues.forEach(issue=>{ %>
-            <option value='<%=issue.name%>'><%=issue.name %></option>
+            <option value='<%=issue.id%>'><%=issue.name %></option>
             <% } )%>
           <% } %>
           </select>
@@ -46,7 +46,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
             <% if (locals.employees) { %> 
               <option value="" disabled selected hidden><%=result.employee%> </option> <!--  keeping the selected employee visible in dropdown box -->
               <% employees.forEach(employee=>{ %>
-              <option value='<%=employee.lastname%>'><%=employee.firstname %> <%=employee.lastname%></option>
+              <option value='<%=employee.id%>'><%=employee.firstname %> <%=employee.lastname%></option>
                <% } )%>
             <% } %>
           </select>
@@ -91,7 +91,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
              <!--  keeping the selected letter visible in dropdown box -->
               <option value="" disabled selected hidden><%=result.resolution%> </option> <!--  keeping the selected resolution visible in dropdown box -->
               <% resolutions.forEach(resolution=>{ %>
-              <option value='<%=resolution.name%>'><%=resolution.name%></option>
+              <option value='<%=resolution.id%>'><%=resolution.name%></option>
               <% } )%>
           </select>
         </div>
@@ -128,12 +128,12 @@ Goals for this page: POST changes to appropriate places in db upon submission
             "content-type":"application/json",
           },
           body: JSON.stringify({
-            issue:document.getElementById("issueList").value,
+            issueid:document.getElementById("issueList").value,
             status:document.getElementById("status").value,
             description:document.getElementById("description").value,
-            employee:document.getElementById("employeeList").value,
+            employeeid:document.getElementById("employeeList").value,
             dateopened:dateOpened,
-            resolution:document.getElementById("resolutionList").value,
+            resolutionid:document.getElementById("resolutionList").value,
             dateclosed:dateClosed,
             claimid:claim
           }),
