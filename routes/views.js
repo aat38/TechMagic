@@ -15,7 +15,25 @@ clientrouter.get("/", (req, res) => {
   res.render("index");
 }); 
 
-
+clientrouter.get("/purchases", (req, res) => { 
+  var purchaseTable
+   axios
+    .get(baseURL +"/api/claims")
+    .then(function(response) {
+      purchaseTable = response.data
+      axios
+      .get(baseURL +"/api/resolutions")
+      .then(function(response) {
+        res.render("claims", { purchase: purchaseTable, product:response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      }); 
+    })
+    .catch(function(error) {
+      console.log(error);
+    }); 
+});
 clientrouter.get("/claims", function(req, res, next) {
   var claims
    axios

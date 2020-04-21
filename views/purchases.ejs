@@ -1,0 +1,390 @@
+<%- include("partials/header") %>
+<!-- need to import purchase and productPurchase tables -->
+
+<% if (locals.purchase){%>
+<% if (locals.productPurchase){%>
+<h1>Purchases</h1>
+
+Goals for this page: create purchases, create claims based on purchases, view purchases, sort & filter purchases
+
+<div id="addFilter">
+  <button onclick="searchMenu()">
+    Add Filter
+  </button>
+</div>
+
+<div class="dropdown">
+  <p id="menu" > Menu</p>
+  <ul id="menu-box" style="display: none" class="dropdown-menu">
+    <li><label for="menu-toggle">Customer</label>
+      <input type="checkbox" id="menu-toggle"/>
+      <ul id="menu">
+        <%var array=[]%>
+        <% claims.forEach(claim=>{ %>
+        <%if (array.includes(claim.customer)){%>
+        <%}else{%>
+        <%array=array + claim.customer%>
+        <li><a href="#" onclick="addFilterCustomer(this)"><%=claim.customer%></a></li>
+        <%}})%>
+      </ul>
+    </li>
+    <li><label for="menu2-toggle">Employee</label>
+      <input type="checkbox" id="menu2-toggle"/>
+      <ul id="menu2">
+        <%var array=[]%>
+        <% claims.forEach(claim=>{ %>
+        <%if (array.includes(claim.employee)){%>
+        <%}else{%>
+        <%array=array + claim.employee%>
+        <li><a href="#" onclick="addFilterEmployee(this)"><%=claim.employee%></a></li>
+        <%}})%>
+      </ul>
+    </li>
+    <li><label for="menu3-toggle">Products</label>
+      <input type="checkbox" id="menu3-toggle"/>
+      <ul id="menu3">
+        <%var array=[]%>
+        <% claims.forEach(claim=>{ %>
+        <%if (array.includes(claim.product)){%>
+        <%}else{%>
+        <%array=array + claim.product%>
+        <li><a href="#" onclick="addFilterProduct(this)"><%=claim.product%></a></li>
+        <%}})%>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+
+<div id="create" style="display:none">
+  <b>Filters: </b>
+</div>
+
+  <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
+    <b>Sort by:</b>
+      <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
+    <ul class="dropdown-menu">
+       <li><a onclick="sortCustomer('name', 'desc')">Descending Customer</a></li>
+      <li><a onclick="sortProduct('name', 'desc')">Product</a></li>
+      <li><a onclick="sortStatus('name', 'desc')">Status</a></li>
+     </ul>
+  </div>
+
+<table id="table" class="table table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Customer</th>
+      <th>Product</th>
+      <th>Issue</th>
+      <th>Description</th>
+      <th>Technician</th>
+      <th>Open Date</th>
+      <th>Status</th>
+      <th>Resolution</th>
+    </tr>
+  </thead>
+  <% claims.forEach(result=>{ %>
+  <% var dateOpened = new Date(result.dateopened) %>
+  <% var dateOpened = dateOpened.getDate() + "/" +  (dateOpened.getMonth()+1) + "/" + dateOpened.getFullYear() %>
+
+  <tbody>
+    <tr>
+      <td>
+        <div class="dropdown">
+          <button class="dropdown-toggle" type="button" data-toggle="dropdown">Edit
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <% if (result.resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
+            <li><a href="#" onclick="resolveModal('<%=result.claimid%>')">Resolve</a></li>
+            <%}%>
+            <% if (result.status==='Closed') { %> <!--  add Re-open dropdown option if condition   -->
+            <li><a id="myLink" href="#" onclick="openClaim('<%=result.claimid%>','<%=claims[0].product%>')">Re-open</a></li>
+            <%}%>
+            <% if (result.resolution!='unresolved' & result.status==='Open' ) {%> <!--  add Close dropdown option if condition   -->
+            <li><a href="#" onclick="closeClaim('<%=result.claimid%>','<%=claims[0].product%>')">Close</a></li>
+            <%}%>
+            <li><a href='/edit/<%=result.claimid%>/claims'>Edit Claim</a></li>  <!--  add Edit dropdown option  -->
+          </ul>
+        </div>
+      </td>
+      <td><%=result.customer%></td>
+      <td><%=result.product%></td>
+      <td><%=result.issue%></td>
+      <td><%=result.description%></td>
+      <td><%=result.employee%></td>
+      <td><%= dateOpened %></td>
+      <td><%=result.status%></td>
+      <td><%=result.resolution%></td> 
+    </tr> 
+  </tbody>
+  <%})%>
+</table>
+
+
+<!-- Modal div -->
+<div id="descriptionModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span><!-- close button -->
+    <div class="d-flex justify-content-center flex-column">
+      <form id="resolveform" value="">  
+      <div>
+        <% if (locals.resolutions) { %>  
+        <b>Resolution: </b>
+        <select id="resolutionList">
+           <!--  keeping the selected letter visible in dropdown box -->
+            <option value="" disabled selected hidden>unresolved </option> <!--  keeping the selected resolution visible in dropdown box -->
+            <% resolutions.forEach(resolution=>{ %>
+            <option value='<%=resolution.resolutionid%>'><%=resolution.name%></option>
+            <% } )%>
+        </select>
+        <% } %>
+        <button onclick="addComment()">Add Comment</button>
+        <p id="addComment" style="display:none" ><input value="" id="comment" type="text" ></p>
+      </div>
+      <button onclick="resolve();">Resolve Claim</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%}%>
+<%}else{%>
+<h1>
+ No Purchases Found
+</h1>
+<%}%>
+
+
+<script type=text/javascript>
+  
+  function addComment(){
+    document.getElementById("addComment").style.display = "block";
+  }
+  
+  function resolve(){
+    var resolution = document.getElementById('resolutionList').value;
+    var claim = document.getElementById('resolveform').value
+    var comment = document.getElementById('comment').value;
+    if (comment != ""){
+      //Send comment
+      fetch('https://ejs-views-practice.glitch.me/api/claims/comments', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid:claim,
+          description:comment,
+          employeeid: 1
+        }),
+        method: 'POST'
+        }).then(resp=>{
+        }, err=>{
+          console.log(err);
+        })
+    }
+    fetch('https://ejs-views-practice.glitch.me/api/resolutions/update/close', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          resolutionid: resolution,
+          claimid: claim
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+    }, err=>{
+      console.log(err);
+    })
+    window.location.reload();//so changes render
+  }
+  
+  function resolveModal(ele){
+    var modal = document.getElementById("descriptionModal"); 
+    var closeBtn = document.getElementsByClassName("close")[0];
+    document.getElementById("resolveform").value=ele
+    modal.style.display = "block";
+    //close out of modal either when clicking 'x' 
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    //or close modal when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  }
+  
+  function closeClaim(id, prod){
+   fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid: id,
+          status: "Closed"
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+    }, err=>{
+      console.log(err);
+    })
+    window.location.reload();//so changes render
+  }
+  
+  function openClaim(id, prod){
+    fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid: id,
+          status: "Open"
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+    }, err=>{
+      console.log(err);
+    })
+    window.location.reload();//so changes render
+  }
+  
+  function addFilterCustomer(ele) {
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i< rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
+         document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    } 
+    document.getElementById('create').style.display="block";
+    var button = document.createElement('button');
+    button.innerHTML = ele.text;
+    button.setAttribute("id", ele.text)
+    button.onclick = function () {removeFilter(ele.text);}
+    document.getElementById('create').appendChild(button)
+  } 
+  
+  function addFilterEmployee(ele) {
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i< rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[5].innerText != ele.text ){
+        document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    }   
+    document.getElementById('create').style.display="block";
+    var button = document.createElement('button');
+    button.innerHTML = ele.text;
+    button.setAttribute("id", ele.text)
+    button.onclick = function () {removeFilter(ele.text);}
+    document.getElementById('create').appendChild(button)
+  } 
+  
+  function addFilterProduct(ele) {
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i< rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[2].innerText != ele.text ){
+        document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    }   
+    document.getElementById('create').style.display="block";
+    var button = document.createElement('button');
+    button.innerHTML = ele.text;
+    button.setAttribute("id", ele.text)
+    button.onclick = function () {removeFilter(ele.text);}
+    document.getElementById('create').appendChild(button)
+  }
+  
+  function removeFilter(val) {
+    document.getElementById(val).remove();
+    console.log(val);
+    var rows = document.getElementsByTagName("tr").length;
+    for (var i = 1; i< rows; i++){
+      if(document.getElementsByTagName("tr")[i].children[1].innerText != val ){
+        document.getElementsByTagName("tr")[i].style.display="contents";
+      }
+    }
+  }  
+   
+  function searchMenu() {
+    var menuBox = document.getElementById('menu-box');    
+    if(menuBox.style.display == "block") { 
+      menuBox.style.display = "none";
+    }
+    else {
+      menuBox.style.display = "block";
+      menuBox.addEventListener('mouseleave', function(){
+      closeMenu();
+      });
+    }
+  }
+  
+  function closeMenu(){
+    var menuBox = document.getElementById('menu-box');    
+    if(menuBox.style.display == "block") { 
+    menuBox.style.display = "none";
+    }
+  }  
+
+  //sort by Customer
+  function sortCustomer(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
+    });
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  }
+  
+  //sort by Product
+  function sortProduct(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[2].innerText.localeCompare(b.rows[0].cells[2].innerText);
+    });
+
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  }
+  
+  //sort by Status
+  function sortStatus(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[7].innerText.localeCompare(b.rows[0].cells[7].innerText);
+    });
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  } 
+
+</script>
+
+
+
+
+<%- include("partials/footer") %>
