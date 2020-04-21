@@ -129,6 +129,19 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
       <form id="resolveform">  
+      <% if (locals.resolutions) { %>  
+      <div>
+        <b>Resolution: </b>
+        <select id="resolutionList">
+           <!--  keeping the selected letter visible in dropdown box -->
+            <option value="" disabled selected hidden>unresolved </option> <!--  keeping the selected resolution visible in dropdown box -->
+            <% resolutions.forEach(resolution=>{ %>
+            <option value='<%=resolution.name%>'><%=resolution.name%></option>
+            <% } )%>
+        </select>
+      </div>
+      <% } %>
+      
 <!--         <span><b>First Name: </b><input value="" id="firstname" type="text" > </span>
         <span><b>Last Name: </b><input value="" id="lastname" type="text" > </span>
         <span><b>Email: </b><input value="" id="email"  type="text" > </span>
@@ -171,27 +184,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
   }
   
   function resolve(claim){
-     fetch('https://ejs-views-practice.glitch.me/api/resolutions")
-        .then((resp) => resp.json()) //transform the data into json for workability 
-        .then(function(data) {
-          //IF return no claims associated with this product, show the modal without providing a view claims button 
-          if (data.length===0){ //modal without button 
-            document.getElementById("noclaims").style.display = "block";
-            document.getElementById("claims").style.display = "none";
-            document.getElementById("name").innerHTML=product;
-            document.getElementById("description").innerHTML=description;
-            modal.style.display = "block";
-          }else{ //modal with button 
-            document.getElementById("noclaims").style.display = "none";
-            document.getElementById("claims").style.display = "block";
-            document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
-            document.getElementById("name").innerHTML=product;
-            document.getElementById("description").innerHTML=description;
-            document.getElementById("claimsBtn").action="/products/claims/"+productid;
-            modal.style.display = "block";
-          }
-      })  
-    //post resolution and reload on promise return
+     //post resolution and reload on promise return
   }
   
   function closeClaim(id, prod){

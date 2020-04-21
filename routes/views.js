@@ -17,34 +17,25 @@ clientrouter.get("/", (req, res) => {
 
 
 clientrouter.get("/claims", function(req, res, next) {
-//   if(req.body.customer){
-//      res.render("claims", { claims: (req.body.customer) })
-
-//   }else{
+  var claims
    axios
     .get(baseURL +"/api/claims")
     .then(function(response) {
-      res.render("claims", { claims: response.data });
+      claims = response.data
+      axios
+      .get(baseURL +"/api/resolutions")
+      .then(function(response) {
+        res.render("claims", { claims: claims, resolutions:response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      }); 
     })
     .catch(function(error) {
       console.log(error);
     }); 
-  // }
 });
 
-
-// clientrouter.post("/claims/redirect/", function(req, res, next) {
-//   console.log(req.body.customer);
-//   console.log("-------------------------------------------------------------------------------------------------------------------");
-//   axios
-//     .get(baseURL +"/claims")
-//     .then(function(response) {
-//         res.render("claims", { claims: (req.body.customer) })
-//     })
-//     .catch(function(error) {
-//       console.log(error);
-//     });
-// });
 
 clientrouter.get("/claims/:var", function(req, res, next) {
 axios

@@ -57,11 +57,15 @@ Goals for this page: POST changes to appropriate places in db upon submission
   <% if (locals.comments) { %>  
   <div>
    <b>Employee Comments: </b>
-    <p>
+    <table class="table">
       <% comments.forEach(comment=>{ %>
-        <%=comment.description%>-<%=result.employee%>
+        <tr>
+          <td><%=comment.description%>
+          </td>
+          <td><%=result.employee%></td>
+        </tr>
       <%})%>
-    </p>
+    </table>
   </div>
   <%}%>
   
