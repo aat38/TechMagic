@@ -63,8 +63,8 @@
             <% } %>
             </select>
           </div>          
-          <div><button onclick="createProductDiv();">+</button>Add Product Purchase</div>
-          <button id="updateBtn" onclick="update();">Submit New Order</button>
+          <div><p  onclick="createProductDiv();">+</p>Add Product Purchase</div>
+          <button id="updateBtn" onclick="addProduct();">Submit New Order</button>
         </form>
       </div>
     </div>
@@ -78,15 +78,19 @@
 <%}%>
 
 <script>
-  var count=0
+  var count=0;
   document.getElementById("updateBtn").addEventListener("click", function(){
     count = count +1;
   });
   
+  
+  function addProduct(){
+    
+  }
   function createProductDiv(){
-     var x = document.createElement("div");
+     // var x = document.createElement("div");
   // x.setAttribute("id", "mySelect");
-    document.getElementById('product').appendChild(x)
+    // document.getElementById('product').appendChild(x)
 
 //   var z = document.createElement("option");
 //   z.setAttribute("value", "volvocar");
