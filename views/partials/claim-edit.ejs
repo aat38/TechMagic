@@ -69,15 +69,22 @@ Goals for this page: POST changes to appropriate places in db upon submission
         <tr>
           <td><%=comment.description%></td>
           <td>
-            <% if (locals.employees & locals.comments){%>
-            <%=employees[comment.employeeid].firstname%> <%=employees[comment.employeeid].lastname%>
+            <% if (locals.employees){%>
+            <% if (locals.comments){%>
+            <% if (comment.employeeid>0){%>
+              <%=employees[comment.employeeid-1].firstname%> 
+              <%=employees[comment.employeeid-1].lastname%>
+            <%}else{%>
+              <%=employees[0].firstname%> 
+              <%=employees[0].lastname%>
+            <%}%>
+            <%}%>
             <%}%>
           </td>
         </tr>
       <%})%>
       </tbody>
     </table>
-
   </div>
   <%}%>
   
