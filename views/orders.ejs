@@ -97,14 +97,27 @@
     //get product costs and total them
     var total = 0;;
     var productids=[];
-    for (var i = 1; i<=document.getElementsByTagName("select").length; i++){ //first item in this array applies to customers, not products
+    for (var i = 1; i<document.getElementsByTagName("select").length; i++){ //first item in this array applies to customers, not products
       productids.push(document.getElementsByTagName("select")[i].value.split(";")[0]) //productid
-      total = total + document.getElementsByTagName("select")[i].value.split(";")[1] //unitcost
+      var unitcost= document.getElementsByTagName("select")[i].value.split(";")[1] //unitcost
+      unitcost = Number(unitcost.replace(/[^0-9.-]+/g,""))
+      total=total+unitcost
     }
-    
-    
-
-    //send customerid to purchases, get back purchaseid
+    //post to purchases -send customerid, get back purchaseid
+    fetch('https://ejs-views-practice.glitch.me/api/purchases', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          totalcost:total,
+          customerid: 1
+        }),
+        method: 'POST'
+        }).then(resp=>{
+        }, err=>{
+          console.log(err);
+        })
+    }
     //use purchaseid to insert the products(selected) into productpurchase table
     //update purchase with total cost 
     //get customer income and then update with new costs from this transaction
