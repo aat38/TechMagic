@@ -10,18 +10,17 @@ const client = new Client({
 });
 
 //not for real use - just to clean DB
-// apirouter.post("/remove", (request, response) => {
-// client.connect();
-//   return client.query("delete from employee where firstname='William'").then(
-//     function(resp) {
-//       console.log("Successfully retrieved issue types");
-//       response.send(resp.rows);
-//     },
-//     function(err) {
-//       console.log(err);
-//     }
-//   );
-// });
+apirouter.post("/remove", (request, response) => {
+client.connect();
+  return client.query("delete from claim where description='The is HUGE'").then(
+    function(resp) {
+      console.log('Sucessful Delete');   
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
 
 
 /////////////////////////////// ROUTES//////////////////////////////////
@@ -525,13 +524,12 @@ apirouter.get("/resolutions/product/:productname", (request, response) => {
 //POST a new claim ---------------------------------------------------
 apirouter.post("/claims", (request, response) => {
   const quer =
-    "insert into claim(productpurchaseid, issue, status, description, dateopened, employee )  values($1,$2,$3,$4,$5,$6)";
+    "insert into claim(productpurchaseid, issueid, status, dateopened, description, employeeid, resolutionid )  values($1,$2,'Open',current_timestamp,$3,$4,6)"
+
   const vals = [
     request.body.productpurchaseid,
     request.body.issueid,
-    "Open",    
-    "current_timestamp",
-    request.body.description,
+    ""+request.body.description,
     request.body.employeeid
   ];
   client.connect();
