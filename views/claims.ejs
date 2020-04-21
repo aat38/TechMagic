@@ -5,7 +5,7 @@
 <h1>
   Claims
 </h1>
-Goals for this page: create claims, Re-open a closed claim ✓, close a claim if theres a resolution attached ✓, edit and resolve claims  ✓, filter and sort claims based on existing claims ✓ 
+Goals for this page: Re-open a closed claim ✓, close a claim if theres a resolution attached ✓, edit and resolve claims  ✓, filter and sort claims based on existing claims ✓ 
 <%- include("partials/claim-edit") %>
 
 <div id="addFilter">
@@ -105,7 +105,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
             <% if (result.resolution!='unresolved' & result.status==='Open' ) {%> <!--  add Close dropdown option if condition   -->
             <li><a href="#" onclick="closeClaim('<%=result.claimid%>','<%=claims[0].product%>')">Close</a></li>
             <%}%>
-            <li><a href='/edit/<%=result.claimid%>'>Edit Claim</a></li>  <!--  add Edit dropdown option  -->
+            <li><a href='/edit/<%=result.claimid%>/claims'>Edit Claim</a></li>  <!--  add Edit dropdown option  -->
           </ul>
         </div>
       </td>

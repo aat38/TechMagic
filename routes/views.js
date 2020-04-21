@@ -153,7 +153,7 @@ clientrouter.get("/products/claims/:productid", function(req, res, next) {
     });
 });
 
-clientrouter.get("/edit/:claimid", function(req, res, next) {
+clientrouter.get("/edit/:claimid/:derivationpage", function(req, res, next) {
   var response1;
   var response2;
   var response3;
@@ -180,7 +180,7 @@ clientrouter.get("/edit/:claimid", function(req, res, next) {
                     .then(function(response) {
                       response5=response.data
                       // console.log([response1, response3])
-                      res.render("partials/claim-edit", { claimdata: response1, issues: response2, comments:response3, employees: response4, resolutions: response5}) 
+                      res.render("partials/claim-edit", { claimdata: response1, issues: response2, comments:response3, employees: response4, resolutions: response5, returnpg: req.params.derivationpage}) 
                      })
                     .catch(function(error) {
                       console.log(error);
