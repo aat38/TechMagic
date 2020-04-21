@@ -36,8 +36,20 @@ purchaseid -->
   <tbody>
   <% productPurchases.forEach(result=>{ %>
     <tr>
-      <td><button onclick="claimModal()">Create Claim for Purchase</button>
-      <% if (claims[])%>
+      <td>
+      <%var existingclaim = "false" %>
+      <% claims.forEach(claim=>{ %>
+      <% if (claim.productpurchaseid===result.productpurchaseid){%>
+        <%existingclaim = "true" %>
+      <% }%>
+     <%})%>
+     <% if (existingclaim = "true"){%>
+        <%}else{%>
+                <button onclick="claimModal()">Create Claim </button>
+
+        <button >VIEW Claim </button>
+      <% }%>
+     <%})%>        
       </td>
       <td><%=products[result.productid -1].name%></td>
       <td><%=result.productid%></td>
