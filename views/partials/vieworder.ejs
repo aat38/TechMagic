@@ -9,7 +9,7 @@ claims
 issues
 employees -->
 
-  <% var datePurchase = new Date(purchase[purchaseid-1].date) %>
+  <% var datePurchase = new Date(purchase[purchaseid].date) %>
   <% var datePurchase = (datePurchase.getMonth()+1) + "/" + datePurchase.getDate() + "/" +  datePurchase.getFullYear() %>
 <div>
 <h1>Order</h1>
@@ -137,6 +137,7 @@ employees -->
           console.log(err);
         })
       // location = location //refresh
+
   }
   
 </script>
