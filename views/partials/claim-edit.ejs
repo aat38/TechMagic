@@ -109,21 +109,16 @@ Goals for this page: POST changes to appropriate places in db upon submission
 
 <script type=text/javascript>
   //if comments, add comment
-  //else "UPDATE claim SET issue = $1, status= $2, description =$3, employee=$4, dateopened=$5, resolution=$6, dateclosed = $7 WHERE claimid = $8";
   function update(ele, claim){
-    var dateOpened
-    var dateClosed
+    var changeofstatus
     if (ele===document.getElementById("status").value){//if open->open || if close->close
-      dateOpened=document.getElementById("dateopened").innerHTML
-      dateClosed=document.getElementById("dateclosed").innerHTML
+       changeofstatus=""
     }else if(ele!=document.getElementById("status").value & ele==="Closed"){ //if close->open 
-      dateOpened=new Date()
-      dateClosed="NULL"
+      changeofstatus="co"
     }else{ //if open->close
-      dateOpened=document.getElementById("dateopened").innerHTML
-      dateClosed=new Date()
+      changeofstatus="oc"
     }
-    fetch('https://ejs-views-practice.glitch.me/api/claims/admin", {
+    fetch('https://ejs-views-practice.glitch.me/api/claims/admin') {
           headers:{
             "content-type":"application/json",
           },
@@ -132,10 +127,9 @@ Goals for this page: POST changes to appropriate places in db upon submission
             status:document.getElementById("status").value,
             description:document.getElementById("description").value,
             employeeid:document.getElementById("employeeList").value,
-            dateopened:dateOpened,
             resolutionid:document.getElementById("resolutionList").value,
-            dateclosed:dateClosed,
-            claimid:claim
+            claimid:claim,
+            changeOfStatus:changeofstatus
           }),
               method: 'PUT'
           }).then(resp=>{
