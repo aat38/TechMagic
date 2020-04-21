@@ -12,7 +12,7 @@ const client = new Client({
 //not for real use - just to clean DB
 apirouter.post("/remove", (request, response) => {
 client.connect();
-  return client.query("delete from claim where description='The is HUGE'").then(
+  return client.query("delete from claim where description='not a bad description'").then(
     function(resp) {
       console.log('Sucessful Delete');   
     },
