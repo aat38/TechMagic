@@ -67,7 +67,7 @@ employees -->
             <select id="issueList">
             <% if (locals.issues) { %> 
               <% issues.forEach(issue=>{ %>
-              <option value='<%=issue.id%>'><%=issue.name %></option>
+              <option value='<%=issue.issueid%>'><%=issue.name %></option>
               <% } )%>
             <% } %>
             </select>
@@ -119,6 +119,7 @@ employees -->
   }    
   
   function update(){ 
+
     fetch('https://ejs-views-practice.glitch.me/api/claims', {
         headers:{
           "content-type":"application/json",
@@ -134,7 +135,12 @@ employees -->
         }, err=>{
           console.log(err);
         })
-      location = location //refresh
+      // location = location //refresh
+    console.log("purchaseid: "+document.getElementById("purchaseid").value)
+    console.log("issueid: "+document.getElementById("issueList").value)
+    console.log("description: "+document.getElementById("description").value)
+    console.log("employeeid: "+document.getElementById("employeeList").value)
+
   }
   
 </script>
