@@ -66,12 +66,14 @@
           <% if (locals.products) { %> 
               <% var nameArr=[]%>
               <% var idArr=[]%>
+              <% var costArr=[]%>
               <% products.forEach(product=>{ %>
-              <% nameArr.push(product.name)%>
-              <% idArr.push(product.productid)%>
+                <% nameArr.push(product.name)%>
+                <% idArr.push(product.productid)%>
+                <% costArr=costArr + product.unitcost+";"%>
               <% } )%>
             <% } %>
-          <div><p id="para" onclick="createProductDiv('<%=nameArr%>','<%=idArr%>');">+ Add Product</p></div>
+          <div><p id="para" onclick="createProductDiv('<%=nameArr%>','<%=idArr%>','<%=costArr%>');">+ Add Product</p></div>
           <button  onclick="addProducts();">Submit New Order</button>
         </form>
       </div>
@@ -92,10 +94,15 @@
   
   function addProducts(){ /////WHERE ADDING PURCHASES HAPPENS
     //get total number of select elements -> use that # for loop when inserting products into product purchase table
-     document.getElementsByTagName("select").length //first item in this array applies to customers, not products
     //get product costs and total them
-    document.getElementsByTagName("select")[1].value.split(";")[0] //productid
-    document.getElementsByTagName("select")[1].value.split(";")[1] //cost
+    var total = 0;;
+    var productids=[];
+    for (var i = 1; i<=document.getElementsByTagName("select").length; i++){ //first item in this array applies to customers, not products
+      productids.push(document.getElementsByTagName("select")[i].value.split(";")[0]) //productid
+      total = total + document.getElementsByTagName("select")[i].value.split(";")[1] //unitcost
+    }
+    
+    
 
     //send customerid to purchases, get back purchaseid
     //use purchaseid to insert the products(selected) into productpurchase table
@@ -105,7 +112,7 @@
     
   }
   
-  function createProductDiv(productnames, productids){
+  function createProductDiv(productnames, productids,unitcost){
     var div = document.createElement('div')
     var select = document.createElement('select');
     select.setAttribute("id", count);
@@ -113,9 +120,10 @@
     div.appendChild(select);
     productnames = (productnames.split(","))
     productids = (productids.split(","))
+    unitcost = (unitcost.split(";"))
     for (var i = 0; i<productnames.length; i++){
       var option = document.createElement("option");
-      option.setAttribute("value", (productids[i]+";"+productnames[i]));
+      option.setAttribute("value", (productids[i]+";"+unitcost[i]));
       var optiontext = document.createTextNode(productnames[i]);
       option.appendChild(optiontext);
       document.getElementById(count).appendChild(option);
