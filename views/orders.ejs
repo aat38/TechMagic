@@ -63,8 +63,8 @@
             <% } %>
             </select>
           </div>          
-          <div><p  onclick="createProductDiv();">+</p>Add Product Purchase</div>
-          <button id="updateBtn" onclick="addProduct();">Submit New Order</button>
+          <div><p  onclick="createProductDiv('<%=locals.products%>');">+ Add Product</p></div>
+          <button id="updateBtn" onclick="addProducts();">Submit New Order</button>
         </form>
       </div>
     </div>
@@ -79,24 +79,25 @@
 
 <script>
   var count=0;
+  var lists=[];
   document.getElementById("updateBtn").addEventListener("click", function(){
     count = count +1;
   });
   
-  
-  function addProduct(){
+  function addProducts(){
     
   }
-  function createProductDiv(){
-     // var x = document.createElement("div");
-  // x.setAttribute("id", "mySelect");
-    // document.getElementById('product').appendChild(x)
+  
+  function createProductDiv(products){
+    var select = document.createElement('select');
+    select.setAttribute("id", count);
+    document.getElementById('product').appendChild(select)
 
-//   var z = document.createElement("option");
-//   z.setAttribute("value", "volvocar");
-//   var t = document.createTextNode("Volvo");
-//   z.appendChild(t);
-//   document.getElementById("mySelect").appendChild(z);
+    var z = document.createElement("option");
+    z.setAttribute("value", products[0].productid);
+    var t = document.createTextNode(products[0].name);
+    z.appendChild(t);
+    document.getElementById(count).appendChild(z);
   }
   
   function orderModal() {
