@@ -56,6 +56,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
   </ul>
 </div>
 
+
 <div id="create" style="display:none">
   <b>Filters: </b>
 </div>
@@ -96,7 +97,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
             <% if (result.resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
-            <li><a href="#">Resolve</a></li>
+            <li><a href="#" onclick="resolveModal('<%=result%>')">Resolve</a></li>
             <%}%>
             <% if (result.status==='Closed') { %> <!--  add Re-open dropdown option if condition   -->
             <li><a id="myLink" href="#" onclick="openClaim('<%=result.claimid%>','<%=claims[0].product%>')">Re-open</a></li>
@@ -121,6 +122,29 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
   <%})%>
 </table>
 
+
+<!-- Modal div -->
+<div id="descriptionModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span><!-- close button -->
+    <div class="d-flex justify-content-center flex-column">
+      <form id="resolveform">  
+<!--         <span><b>First Name: </b><input value="" id="firstname" type="text" > </span>
+        <span><b>Last Name: </b><input value="" id="lastname" type="text" > </span>
+        <span><b>Email: </b><input value="" id="email"  type="text" > </span>
+        <span><b>Phone Number: </b><input value="" id="phone" type="text" > </span>
+        <span><b>Street Address: </b><input value="" id="address1" type="text" > </span>
+        <span><b>Street Address 2: </b><input value="" id="address2" type="text" > </span>
+        <span><b>City : </b><input value="" id="city"  type="text" > </span>
+        <span><b>State(Abr): </b><input value="" id="state" type="text" > </span>
+        <span><b>Zip: </b><input value="" id="zip"  type="text" > </span> -->
+        <button onclick="resolve(this);">Resolve Claim</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <%}else{%>
 <h1>
  No Claims Found
@@ -129,6 +153,26 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
 
 
 <script type=text/javascript>
+  
+  function resolveModal(ele){
+    var modal = document.getElementById("descriptionModal"); 
+    var closeBtn = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    //close out of modal either when clicking 'x' 
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    //or close modal when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  }
+  
+  function resolve(claim){
+    //post resolution and reload on promise return
+  }
   
   function closeClaim(id, prod){
    fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
@@ -144,7 +188,7 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
     }, err=>{
       console.log(err);
     })
-  location = location //refresh
+       window.location.reload();//so changes render
   }
   
 function openClaim(id, prod){
@@ -163,7 +207,7 @@ function openClaim(id, prod){
     }, err=>{
       console.log(err);
     })
-   location = location //refresh
+       window.location.reload();//so changes render
   }
   
   function addFilterCustomer(ele) {
