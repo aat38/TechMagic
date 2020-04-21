@@ -33,7 +33,7 @@ clientrouter.get("/purchases/:purchaseid", (req, res) => {
              .then(function(response) {
               employees=response.data
                   axios
-                 .get(baseURL +"/api/purchases/:purchaseid")
+                 .get(baseURL +"/api/productpurchases/"+ req.params.purchaseid)
                  .then(function(response) {
                     res.render("partials/vieworder", { response: response.data, employees: employees, issues: issues, claims:claims});
                   })

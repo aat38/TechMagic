@@ -27,26 +27,28 @@
     </tr>
   </thead>
   <tbody>
+  <% response.forEach(resp=>{%>
     <tr>
       <td>
 <!--    if theres claim purchaseid matching response.purchaseid, show claim else give option to create one      -->
         <%var existingclaim = "false" %>
         <% claims.forEach(claim=>{ %>
-        <% if (claim.productpurchaseid===result.productpurchaseid){%>
-          <%existingclaim = claim.claimid %>
+        <% if (claim.productpurchaseid===resp.productpurchaseid){%>
+          <button><a  href='/edit/<%=claimid%>/orders'>VIEW Claim</a></button>
           <% }%>
          <%})%>
            <% if (existingclaim != "false"){%>
-          <button><a  href='/edit/<%=existingclaim%>/orders'>VIEW Claim</a></button>
           <%}else{%>
-        <button onclick="claimModal('<%=result.productpurchaseid%>')">Create Claim </button> 
+        <button onclick="claimModal('<%=resp.productpurchaseid%>')">Create Claim </button> 
         <% }%>
       </td>
-      <td><%=response.name%></td>
-      <td><%=response.productid%></td>
-      <td><%=response.productpurchaseid%></td>
-      <td><%=response.unitcost%></td>
+      <td><%=resp.name%></td>
+      <td><%=resp.productid%></td>
+      <td><%=resp.productpurchaseid%></td>
+      <td><%=resp.unitcost%></td>
      </tr>
+    
+    <%})%>
 
 <!--  Create Claim Modal  -->
   <div id="createClaimModal" class="modal">
