@@ -870,15 +870,38 @@ apirouter.post("/purchases", (request, response) => {
       console.log("catching2.");
     });
   const selectquer =
-    "SELECT * from customer where customerid=$1 returning ";
+    "SELECT * from customer where customerid=$2 returning income";
   const putquer=
-    "UPDATE customer set income=$2 where customerid=$1";
-
-  client.connect();
-  client.query(purchasequer, purchasevals)
-});
-
-
+    "UPDATE customer set income=$1 where customerid=$2";
+  client
+  .query(selectquer, purchasevals)
+  .then(
+      res => {
+        console.log("Successfully retrieved income.");
+          client
+          .query(putquer, [
+            (res.rows[0].income+request.body.totalcost),
+            request.body.customerid
+          ]).then(res => {
+            console.log("Successful add to purchase and productpurchases");
+          })
+          .catch(e => {
+            console.error(e.stack);
+            console.log("catching1.");
+         });
+      },
+      err => {
+        console.log(
+          "Failed to add address. Employee will not be added since it is dependent on address."
+        );
+      }
+    )
+    .catch(e => {
+      console.error(e.stack);
+      console.log("catching2.");
+    });
+})
+          
 //-------------------------------PUTS----------------------------------
 
 //PUT// edit ENTIRE claim ---------------------------------------------
