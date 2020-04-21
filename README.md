@@ -25,6 +25,9 @@ clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
 //update JUST claim resolution --not using anymore
 //PUT// edit ENTIRE claim ---------------------------------------------claims/admin
 
+//GET list of productpurchases ---------------------------------------
+apirouter.get("/productpurchases/:purchaseid", (request, response) => {
+
 
 
 

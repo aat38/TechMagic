@@ -25,7 +25,7 @@ Goals for this page: create purchases, create claims based on purchases, view pu
 
   <tbody>
     <tr>
-      <td><button><a href="/productpurchases/<%=result.purchaseid%>">View Order</a></button></td>
+      <td><button><a href="/purchases/<%=result.purchaseid%>">View Order</a></button></td>
       <td><%=result.purchaseid%></td>
       <td><%=customers[result.customerid-1].firstname%> <%=customers[result.customerid-1].lastname%></td>
       <td><%=result.totalcost%></td>

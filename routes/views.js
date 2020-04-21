@@ -16,7 +16,7 @@ clientrouter.get("/", (req, res) => {
 }); 
 
 
-clientrouter.get("/productpurchases/:purchaseid", (req, res) => { 
+clientrouter.get("/purchases/:purchaseid", (req, res) => { 
   var purchaseTable
   var productpurchases
    axios
@@ -24,13 +24,13 @@ clientrouter.get("/productpurchases/:purchaseid", (req, res) => {
    .then(function(response) {
     purchaseTable = response.data
       axios
-      .get(baseURL +"/api/productpurchases")
+      .get(baseURL +"/api/productpurchases/"+req.params.purchaseid)
       .then(function(response) {
       productpurchases = response.data
         axios
           .get(baseURL +"/api/customers")
           .then(function(response) {
-          res.render("orders", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
+          res.render("partials/vieworder", { purchase: purchaseTable, customers:response.data , productPurchases:productpurchases });
           })
           .catch(function(error) {
             console.log(error);

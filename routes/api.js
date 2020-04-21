@@ -483,6 +483,21 @@ apirouter.get("/productpurchases", (request, response) => {
   );
 });
 
+//GET list of productpurchases ---------------------------------------
+apirouter.get("/productpurchases/:purchaseid", (request, response) => {
+  client.connect();
+  client.query("SELECT * from productpurchase WHERE purchaseid="+request.params.purchaseid).then(
+    function(resp) {
+      // console.log(resp.rows);
+      response.send(resp.rows);
+    },
+    function(err) {
+      console.log(err);
+    }
+  );
+});
+
+
 //RESOLUTIONS
 //GET resolutions by product ----------------------------------------
 apirouter.get("/resolutions/product/:productname", (request, response) => {
