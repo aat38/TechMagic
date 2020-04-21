@@ -54,7 +54,7 @@
             </select>
           </div>
           <b>Products Purchased:</b>
-          <div class="product">
+          <div id="product">
             <select id="productList">
             <% if (locals.products) { %> 
               <% products.forEach(product=>{ %>
@@ -63,8 +63,8 @@
             <% } %>
             </select>
           </div>          
-          <div><button onclick="createProductDiv()">+</button>Add Product Purchase</div>
-          <button onclick="update();">Submit New Order</button>
+          <div><button onclick="createProductDiv('<%=locals.products%>')">+</button>Add Product Purchase</div>
+          <button id="updateBtn" onclick="update();">Submit New Order</button>
         </form>
       </div>
     </div>
@@ -78,8 +78,15 @@
 <%}%>
 
 <script>
-  function createProductDiv(){
-    
+  var count=0
+  document.getElementById("updateBtn").addEventListener("click", function(){
+    count = count +1;
+  });
+  
+  function createProductDiv(products){
+    var select = document.createElement('select');
+    select.setAttribute("id", count)
+    document.getElementById('product').appendChild(select)
   }
   
   function orderModal() {
