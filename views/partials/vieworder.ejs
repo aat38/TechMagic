@@ -47,7 +47,7 @@ employees -->
            <% if (existingclaim != "false"){%>
           <button><a  href='/edit/<%=existingclaim%>/orders'>VIEW Claim</a></button>
           <%}else{%>
-        <button onclick="claimModal()">Create Claim </button> 
+        <button onclick="claimModal('<%=result.productpurchaseid%>')">Create Claim </button> 
         <% }%>
       </td>
       <td><%=products[result.productid -1].name%></td>
@@ -55,7 +55,8 @@ employees -->
       <td><%=result.productpurchaseid%></td>
       <td><%=products[result.productid -1].unitcost%></td>
      </tr>
-    
+      <%})%>
+
 <!--  Create Claim Modal  -->
   <div id="createClaimModal" class="modal">
     <div class="modal-content">
@@ -84,7 +85,7 @@ employees -->
             </select>
           </div>
           <div>
-            <span id="purchaseid" value='<%=result.productpurchaseid%>'></span>
+            <span id="purchaseid"></span>
             <div><b>Description: </b><input value="" id="description" type="text" > </div>
           <button onclick="update();">Submit Customer's Claim</button>
         </form>
@@ -92,7 +93,6 @@ employees -->
     </div>
   </div>
     
-  <%})%>
   </tbody>
 </table>
 
@@ -102,7 +102,8 @@ employees -->
 
 <script type=text/javascript>
  
-  function claimModal() {
+  function claimModal(purchaseid) {
+    document.getElementById("purchaseid").value = purchaseid;
     var modal = document.getElementById("createClaimModal"); 
     var closeBtn = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
@@ -136,11 +137,6 @@ employees -->
           console.log(err);
         })
       // location = location //refresh
-    console.log("purchaseid: "+document.getElementById("purchaseid").value)
-    console.log("issueid: "+document.getElementById("issueList").value)
-    console.log("description: "+document.getElementById("description").value)
-    console.log("employeeid: "+document.getElementById("employeeList").value)
-
   }
   
 </script>
