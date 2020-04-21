@@ -9,6 +9,21 @@ const client = new Client({
   ssl: true//ssl needs to be set to true bc heroku reqires this
 });
 
+//not for real use - just to clean DB
+// apirouter.post("/remove", (request, response) => {
+// client.connect();
+//   return client.query("delete from employee where firstname='first'").then(
+//     function(resp) {
+//       console.log("Successfully retrieved issue types");
+//       response.send(resp.rows);
+//     },
+//     function(err) {
+//       console.log(err);
+//     }
+//   );
+// });
+
+
 
 /////////////////////////////// ROUTES//////////////////////////////////
 //-------------------------------GETS----------------------------------

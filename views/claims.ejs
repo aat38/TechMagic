@@ -171,6 +171,26 @@ Goals for this page: create claims, Re-open a closed claim ✓, close a claim if
   }
   
   function resolve(claim){
+     fetch('https://ejs-views-practice.glitch.me/api/resolutions")
+        .then((resp) => resp.json()) //transform the data into json for workability 
+        .then(function(data) {
+          //IF return no claims associated with this product, show the modal without providing a view claims button 
+          if (data.length===0){ //modal without button 
+            document.getElementById("noclaims").style.display = "block";
+            document.getElementById("claims").style.display = "none";
+            document.getElementById("name").innerHTML=product;
+            document.getElementById("description").innerHTML=description;
+            modal.style.display = "block";
+          }else{ //modal with button 
+            document.getElementById("noclaims").style.display = "none";
+            document.getElementById("claims").style.display = "block";
+            document.getElementById("claims").innerHTML="View "+data.length+" claims for this product";
+            document.getElementById("name").innerHTML=product;
+            document.getElementById("description").innerHTML=description;
+            document.getElementById("claimsBtn").action="/products/claims/"+productid;
+            modal.style.display = "block";
+          }
+      })  
     //post resolution and reload on promise return
   }
   
