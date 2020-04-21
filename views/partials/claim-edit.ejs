@@ -113,7 +113,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
   function update(ele, claim){
     var changeofstatus
     if (ele===document.getElementById("status").value){//if open->open || if close->close
-       changeofstatus=""
+       changeofstatus="false"
     }else if(ele!=document.getElementById("status").value & ele==="Closed"){ //if close->open 
       changeofstatus="co"
     }else{ //if open->close
