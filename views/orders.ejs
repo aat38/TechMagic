@@ -71,8 +71,8 @@
               <% idArr.push(product.productid)%>
               <% } )%>
             <% } %>
-          <div><p  onclick="createProductDiv('<%=nameArr%>','<%=idArr%>');">+ Add Product</p></div>
-          <button id="updateBtn" onclick="addProducts();">Submit New Order</button>
+          <div><p id="para" onclick="createProductDiv('<%=nameArr%>','<%=idArr%>');">+ Add Product</p></div>
+          <button  onclick="addProducts();">Submit New Order</button>
         </form>
       </div>
     </div>
@@ -87,9 +87,8 @@
 
 <script>
   var count=0;
-  document.getElementById("updateBtn").addEventListener("click", function(){
-    count = count +1;
-  });
+  document.getElementById("para").addEventListener("click", function(){count=+1});
+
   
   function addProducts(){
     
@@ -98,7 +97,7 @@
   function createProductDiv(productnames, productids){
     var div = document.createElement('div')
     var select = document.createElement('select');
-    select.setAttribute("id", "id"+count);
+    select.setAttribute("id", count);
     document.getElementById("product").appendChild(div)
     div.appendChild(select);
     productnames = (productnames.split(","))
@@ -113,6 +112,7 @@
   }
   
   function orderModal() {
+
       var modal = document.getElementById("createOrderModal"); 
       var closeBtn = document.getElementsByClassName("close")[0];
       modal.style.display = "block";
