@@ -816,7 +816,33 @@ apirouter.post("/addresses", (request, response) => {
     });
 });
 
-
+//PURCHASES
+apirouter.post("/purchases", (request, response) => {
+  const quer =
+    "INSERT INTO purchase(totalcost, customerid, date) VALUES($1,$2,current_timestamp) RETURNING purchaseid";
+  const addressValues = [
+    0,
+    request.body.customerid
+  ];
+  client.connect();
+  client
+    .query(quer, addressValues)
+    .then(
+      res => {
+        // client.end();
+        console.log("Successfully added purchase ");
+        console.log(res.rows[0].purchaseid);
+        res.send(res.rows[0].purchaseid);
+      },
+      err => {
+        // client.end();
+        console.log("Failed to add address.");
+      }
+    )
+    .catch(e => {
+      console.error(e.stack);
+    });
+});
 
 
 //-------------------------------PUTS----------------------------------

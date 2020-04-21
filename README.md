@@ -32,3 +32,8 @@ apirouter.get("/productpurchases/:purchaseid", (request, response) => {
 //removed the dateopen paramater from create claim endpoint
 
 
+//PURCHASES
+apirouter.post("/purchases", (request, response) => {
+  const quer =
+    "INSERT INTO purchase(totalcost, customerid, date) VALUES($1,$2,current_timestamp) RETURNING purchaseid";
+

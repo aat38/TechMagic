@@ -90,9 +90,18 @@
   document.getElementById("para").addEventListener("click", function(){count+=1});
 
   
-  function addProducts(){
+  function addProducts(){ /////WHERE ADDING PURCHASES HAPPENS
     //get total number of select elements -> use that # for loop when inserting products into product purchase table
      document.getElementsByTagName("select").length //first item in this array applies to customers, not products
+    //get product costs and total them
+    document.getElementsByTagName("select")[1].value.split(";")[0] //productid
+    document.getElementsByTagName("select")[1].value.split(";")[1] //cost
+
+    //send customerid to purchases, get back purchaseid
+    //use purchaseid to insert the products(selected) into productpurchase table
+    //update purchase with total cost 
+    //get customer income and then update with new costs from this transaction
+
     
   }
   
@@ -106,7 +115,7 @@
     productids = (productids.split(","))
     for (var i = 0; i<productnames.length; i++){
       var option = document.createElement("option");
-      option.setAttribute("value", productids[i]);
+      option.setAttribute("value", (productids[i]+";"+productnames[i]));
       var optiontext = document.createTextNode(productnames[i]);
       option.appendChild(optiontext);
       document.getElementById(count).appendChild(option);
