@@ -2,19 +2,19 @@
 //////////////////////// all routes begin with /api /////////////////////
 const express = require("express");
 const apirouter = express.Router();
-const { Client } = require("pg");// import {Client} from "pg"; is what line is absically saying
+const { Client } = require("pg"); // import {Client} from "pg"; is what line is absically saying
 
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,//database url is stored in env
-  ssl: true//ssl needs to be set to true bc heroku reqires this
+  connectionString: process.env.DATABASE_URL, //database url is stored in env
+  ssl: true //ssl needs to be set to true bc heroku reqires this
 });
 
 //not for real use - just to clean DB
 apirouter.post("/remove", (request, response) => {
-client.connect();
+  client.connect();
   return client.query("delete from purchase where purchaseid=13").then(
     function(resp) {
-      console.log('Sucessful Delete');   
+      console.log("Sucessful Delete");
     },
     function(err) {
       console.log(err);
@@ -22,12 +22,11 @@ client.connect();
   );
 });
 
-
 /////////////////////////////// ROUTES//////////////////////////////////
 //-------------------------------GETS----------------------------------
 //GET all issues {
 apirouter.get("/issues", (request, response) => {
-client.connect();
+  client.connect();
   return client.query("select * from issue ").then(
     function(resp) {
       console.log("Successfully retrieved issue types");
@@ -39,9 +38,9 @@ client.connect();
   );
 });
 
-//get all resolutions 
+//get all resolutions
 apirouter.get("/resolutions", (request, response) => {
-client.connect();
+  client.connect();
   return client.query("select * from resolution").then(
     function(resp) {
       console.log("Successfully retrieved resolutions");
@@ -131,7 +130,7 @@ apirouter.get("/claims/newest", (request, response) => {
   );
 });
 
-//GET claim information based on STATUS DESC ---------shows open first 
+//GET claim information based on STATUS DESC ---------shows open first
 apirouter.get("/claims/status/desc", (request, response) => {
   client.connect();
   client.query("select * from all_claims order by status DESC").then(
@@ -146,7 +145,7 @@ apirouter.get("/claims/status/desc", (request, response) => {
   );
 });
 
-//GET claim information based on STATUS ASC ----------shows closed first 
+//GET claim information based on STATUS ASC ----------shows closed first
 apirouter.get("/claims/status/asc", (request, response) => {
   client.connect();
   client.query("select * from all_claims order by status ASC").then(
@@ -161,52 +160,66 @@ apirouter.get("/claims/status/asc", (request, response) => {
   );
 });
 
-// get SORTED claims 
+// get SORTED claims
 apirouter.get("/claims/sortby/:var", (request, response) => {
-    client.connect();
-    client.query("select * from all_claims order by "+request.params.var+" asc").then(
-    function(resp) {
-      console.log("Successfully retrieved sorted claims");
-      // console.log(resp.rows)
-      response.send(resp.rows)
-    },
-    function(err) {
-      console.log("ERROR" +err);
-    }
-  );
+  client.connect();
+  client
+    .query("select * from all_claims order by " + request.params.var + " asc")
+    .then(
+      function(resp) {
+        console.log("Successfully retrieved sorted claims");
+        // console.log(resp.rows)
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log("ERROR" + err);
+      }
+    );
 });
 
 // get claim based on products //////NEEEEEEEEEWWWWWWW
 apirouter.get("/claims/products/:productid", (request, response) => {
   var productid = [request.params.productid];
-  var query =("select * from all_claims where productid=$1")
+  var query = "select * from all_claims where productid=$1";
   client.connect();
   client.query(query, productid).then(
     function(resp) {
-      console.log("Successfully retrieved all claims for productid=" + productid);
+      console.log(
+        "Successfully retrieved all claims for productid=" + productid
+      );
       // console.log(resp.rows)
-      response.send(resp.rows)
+      response.send(resp.rows);
     },
     function(err) {
-      console.log("ERROR" +err);
-      
+      console.log("ERROR" + err);
     }
   );
 });
 
 // get SORTED claim based on products //////NEEEEEEEEEWWWWWWW
 apirouter.get("/claims/:productid/sortby/:var", (request, response) => {
-    client.connect();
-    client.query("select * from all_claims where productid="+request.params.productid+" order by "+request.params.var+" asc").then(
-    function(resp) {
-      console.log("Successfully retrieved sorted claims for productid="+request.params.productid);
-      // console.log(resp.rows)
-      response.send(resp.rows)
-    },
-    function(err) {
-      console.log("ERROR" +err);
-    }
-  );
+  client.connect();
+  client
+    .query(
+      "select * from all_claims where productid=" +
+        request.params.productid +
+        " order by " +
+        request.params.var +
+        " asc"
+    )
+    .then(
+      function(resp) {
+        console.log(
+          "Successfully retrieved sorted claims for productid=" +
+            request.params.productid
+        );
+        // console.log(resp.rows)
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log("ERROR" + err);
+      }
+    );
 });
 
 //GET all claims belonging to an EMPLOYEE based on their ID passed to this endpoint
@@ -231,13 +244,10 @@ apirouter.get("/claims/employees/:employeeid", (request, response) => {
   );
 });
 
-
-
 //GET claim comment information based on claimId ----------------------------
 apirouter.get("/claims/comments/:claimid", (request, response) => {
   var claimid = [request.params.claimid];
-  var query =
-    "select * from comment where claimid= $1";
+  var query = "select * from comment where claimid= $1";
   client.connect();
   client.query(query, claimid).then(
     function(resp) {
@@ -253,12 +263,10 @@ apirouter.get("/claims/comments/:claimid", (request, response) => {
   );
 });
 
-
 //GET claim based on claimId ----------------------------
 apirouter.get("/claims/search/:claimid", (request, response) => {
   var claimid = [request.params.claimid];
-  var query =
-    "select * from all_claims where claimid=$1"
+  var query = "select * from all_claims where claimid=$1";
   client.connect();
   client.query(query, claimid).then(
     function(resp) {
@@ -273,7 +281,6 @@ apirouter.get("/claims/search/:claimid", (request, response) => {
     }
   );
 });
-
 
 //CUSTOMERS
 //GET all customers --------------------------------------------------
@@ -294,49 +301,56 @@ apirouter.get("/customers", (request, response) => {
 //GET claims by customer name ---------------------------------------
 apirouter.get("/claims/customer/:name", (request, response) => {
   client.connect();
-  client.query("select * from all_claims where customer='"+request.params.name+"'").then(
-    function(resp) {
-      //console.log("Successfully retrieved all claims for customer "+request.params.name);
-      // console.log(resp.rows);
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    }
-  );
+  client
+    .query(
+      "select * from all_claims where customer='" + request.params.name + "'"
+    )
+    .then(
+      function(resp) {
+        //console.log("Successfully retrieved all claims for customer "+request.params.name);
+        // console.log(resp.rows);
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
 });
 //GET list of SORTED customers --------------------------------------
 apirouter.get("/customers/:sort", (request, response) => {
-  var sortby = request.params.sort
-  if (sortby === 'asc' || sortby ==='desc'){
+  var sortby = request.params.sort;
+  if (sortby === "asc" || sortby === "desc") {
     client.connect();
-    client.query("select * from customer order by lastname "+sortby).then(
-    function(resp) {
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    });
+    client.query("select * from customer order by lastname " + sortby).then(
+      function(resp) {
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
   }
-  if(sortby === 'greatest' ){
+  if (sortby === "greatest") {
     client.connect();
     client.query("select * from customer ORDER BY income desc").then(
-    function(resp) {
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    });
+      function(resp) {
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
   }
-  if(sortby === 'least' ){
+  if (sortby === "least") {
     client.connect();
     client.query("select * from customer ORDER BY income asc").then(
-    function(resp) {
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    });
+      function(resp) {
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
   }
 });
 
@@ -357,30 +371,30 @@ apirouter.get("/employees", (request, response) => {
 
 //GET list of SORTED employees ---------------------------------------
 apirouter.get("/employees/:sort", (request, response) => {
-  var sortby = request.params.sort
-  if (sortby === 'asc' || sortby ==='desc'){
+  var sortby = request.params.sort;
+  if (sortby === "asc" || sortby === "desc") {
     client.connect();
-    client.query("select * from employee order by lastname "+sortby).then(
-    function(resp) {
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    });
+    client.query("select * from employee order by lastname " + sortby).then(
+      function(resp) {
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
   }
-  if(sortby === 'title'){
+  if (sortby === "title") {
     client.connect();
     client.query("select * from employee order by title asc").then(
-    function(resp) {
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    });
+      function(resp) {
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
   }
 });
-
-
 
 //PRODUCTS
 //GET list of products ----------------------------------------------
@@ -399,36 +413,39 @@ apirouter.get("/products", (request, response) => {
 
 //GET list of SORTED products --------------------------------------
 apirouter.get("/products/:sort", (request, response) => {
-  var sortby = request.params.sort
-  if (sortby === 'asc' || sortby ==='desc'){
+  var sortby = request.params.sort;
+  if (sortby === "asc" || sortby === "desc") {
     client.connect();
-    client.query("select * from product order by name "+sortby).then(
-    function(resp) {
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    });
+    client.query("select * from product order by name " + sortby).then(
+      function(resp) {
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
   }
-  if(sortby === 'greatest' ){
+  if (sortby === "greatest") {
     client.connect();
     client.query("select * from product order by unitcost desc").then(
-    function(resp) {
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    });
+      function(resp) {
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
   }
-  if(sortby === 'least' ){
+  if (sortby === "least") {
     client.connect();
     client.query("select * from product order by unitcost asc").then(
-    function(resp) {
-      response.send(resp.rows);
-    },
-    function(err) {
-      console.log(err);
-    });
+      function(resp) {
+        response.send(resp.rows);
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
   }
 });
 
@@ -486,14 +503,13 @@ apirouter.get("/productpurchases", (request, response) => {
 apirouter.get("/productpurchases/:purchaseid", (request, response) => {
   client.connect();
   console.log(request);
-  var val = [request.params.purchaseid]
-  let query = "select * from customer join purchase on customer.customerid = purchase.customerid join productpurchase on purchase.purchaseid = productpurchase.purchaseid join product on productpurchase.productid = product.productid WHERE purchase.purchaseid =$1";
+  var val = [request.params.purchaseid];
+  let query =
+    "select * from customer join purchase on customer.customerid = purchase.customerid join productpurchase on purchase.purchaseid = productpurchase.purchaseid join product on productpurchase.productid = product.productid WHERE purchase.purchaseid =$1";
   client.connect();
   client.query(query, val).then(
     function(resp) {
-      console.log(
-        "Successfully retrieved productpurchases "
-      );
+      console.log("Successfully retrieved productpurchases ");
       // console.log(resp.rows);
       console.log(resp);
       response.send(resp.rows);
@@ -502,10 +518,7 @@ apirouter.get("/productpurchases/:purchaseid", (request, response) => {
       console.log("err! unsuccessful retrieval of joined table");
     }
   );
-  
-
 });
-
 
 //RESOLUTIONS
 //GET resolutions by product ----------------------------------------
@@ -534,12 +547,12 @@ apirouter.get("/resolutions/product/:productname", (request, response) => {
 //POST a new claim ---------------------------------------------------
 apirouter.post("/claims", (request, response) => {
   const quer =
-    "insert into claim(productpurchaseid, issueid, status, dateopened, description, employeeid, resolutionid )  values($1,$2,'Open',current_timestamp,$3,$4,6)"
+    "insert into claim(productpurchaseid, issueid, status, dateopened, description, employeeid, resolutionid )  values($1,$2,'Open',current_timestamp,$3,$4,6)";
 
   const vals = [
     request.body.productpurchaseid,
     request.body.issueid,
-    ""+request.body.description,
+    "" + request.body.description,
     request.body.employeeid
   ];
   client.connect();
@@ -547,19 +560,16 @@ apirouter.post("/claims", (request, response) => {
     .query(quer, vals)
     .then(
       res => {
-        console.log(
-          "Successfully added claim"+vals );
-
+        console.log("Successfully added claim" + vals);
       },
       err => {
-        console.log("Failed to add claim."+vals );
+        console.log("Failed to add claim." + vals);
       }
     )
     .catch(e => {
       console.error(e.stack);
     });
 });
-
 
 //POST claim comments -----------------------------------------------
 apirouter.post("/claims/comments", (request, response) => {
@@ -576,7 +586,7 @@ apirouter.post("/claims/comments", (request, response) => {
     .then(
       res => {
         console.log("Successfully added comments");
-      // response.send(res.rows);
+        // response.send(res.rows);
       },
       err => {
         console.log("Failed to add comments.");
@@ -774,7 +784,7 @@ apirouter.post("/customers/address", (request, response) => {
             request.body.firstname,
             request.body.lastname,
             request.body.phone
-        ])
+          ])
           .then(res => {
             console.log("Employee successfully added with new address.");
           })
@@ -831,10 +841,7 @@ apirouter.post("/addresses", (request, response) => {
 apirouter.post("/purchases", (request, response) => {
   const purchasequer =
     "INSERT INTO purchase(totalcost, customerid, date) VALUES($1,$2, current_timestamp) RETURNING purchaseid";
-  const purchasevals = [
-    request.body.totalcost,
-    request.body.customerid
-  ];
+  const purchasevals = [request.body.totalcost, request.body.customerid];
   const productpurchase =
     "INSERT INTO productpurchase(productid,purchaseid) VALUES($1, $2)";
   client.connect();
@@ -845,73 +852,75 @@ apirouter.post("/purchases", (request, response) => {
         // console.log((request.body.productids).length)
         // console.log(request.body.productids[0])
         console.log("Successfully added to purchase.");
-        for (var i = 0; i< ((request.body.productids).length) ; i++ ){
+        for (var i = 0; i < request.body.productids.length; i++) {
           client
-          .query(productpurchase, [
-            request.body.productids[i],
-            res.rows[0].purchaseid
-          ]).then(res => {
-            console.log("Successful add to purchase and productpurchases");
-          })
-          .catch(e => {
-            console.error(e.stack);
-            console.log("catching1.");
-          });
-        }         
+            .query(productpurchase, [
+              request.body.productids[i],
+              res.rows[0].purchaseid
+            ])
+            .then(res => {
+              console.log("Successful add to purchase and productpurchases");
+            })
+            .catch(e => {
+              console.error(e.stack);
+              console.log("catching1.");
+            });
+        }
       },
       err => {
-        console.log(
-          "Failed to add purchases."
-        );
+        console.log("Failed to add purchases.");
       }
     )
     .catch(e => {
       console.error(e.stack);
       console.log("catching2.");
     });
-  const selectquer =
-    "SELECT * from customer where customerid=$2 returning income";
-  const putquer=
-    "UPDATE customer set income=$1 where customerid=$2";
+  const selectquer = "SELECT * from customer where customerid=$1";
+  const putquer = "UPDATE customer set income=$1 where customerid=$2";
   client
-  .query(selectquer, purchasevals)
-  .then(
+    .query(selectquer, [request.body.customerid])
+    .then(
       res => {
         console.log("Successfully retrieved income.");
-          client
-          console.log(res.rows[0].income)
-          console.log(request.body.totalcost)
+        let currentVal = res.rows[0].income;
+        let cost = request.body.totalcost;
+        let newVal = Number(currentVal.replace(/[^0-9.-]+/g,"")) + cost;
+        client
           .query(putquer, [
-            (res.rows[0].income+request.body.totalcost),
+            res.rows[0].income + request.body.totalcost,
             request.body.customerid
-          ]).then(res => {
-            console.log("Successful add to purchase and productpurchases");
+          ])
+          .then(res => {
+            console.log("Successful update to income");
           })
           .catch(e => {
-            console.log("catching1.");
-         });
+            console.log("catching3.");
+          });
       },
       err => {
-        console.log(
-          "Failed to add INCOME."
-        );
+        console.log(err);
       }
     )
     .catch(e => {
-      console.log("catching2.");
+      console.log("catching4.");
     });
-})
-          
+});
+
 //-------------------------------PUTS----------------------------------
 
 //PUT// edit ENTIRE claim ---------------------------------------------
 apirouter.put("/claims/admin", (request, response) => {
-  var quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid =$4, resolutionid =$5 WHERE claimid = $6"; //unchanged
-  if (request.body.changeOfStatus==="oc") {//open->close
-    quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid =$4, resolutionid =$5, dateclosed=current_timestamp  WHERE claimid = $6";
+  var quer =
+    "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid =$4, resolutionid =$5 WHERE claimid = $6"; //unchanged
+  if (request.body.changeOfStatus === "oc") {
+    //open->close
+    quer =
+      "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid =$4, resolutionid =$5, dateclosed=current_timestamp  WHERE claimid = $6";
   }
-  if (request.body.changeOfStatus==="co"){ //close->open
-    quer = "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid =$4, dateclosed=current_timestamp, dateopened=current_timestamp, resolutionid =$5  WHERE claimid = $6";
+  if (request.body.changeOfStatus === "co") {
+    //close->open
+    quer =
+      "UPDATE claim SET issueid = $1, status= $2, description =$3, employeeid =$4, dateclosed=current_timestamp, dateopened=current_timestamp, resolutionid =$5  WHERE claimid = $6";
   }
   var vals = [
     request.body.issueid,
@@ -921,16 +930,20 @@ apirouter.put("/claims/admin", (request, response) => {
     request.body.resolutionid,
     request.body.claimid
   ];
-  console.log(vals)
+  console.log(vals);
   client.connect();
   client
     .query(quer, vals)
     .then(
       res => {
-        console.log("-----------------Successfully updated ENTIRE claim -------------------------");
+        console.log(
+          "-----------------Successfully updated ENTIRE claim -------------------------"
+        );
       },
       err => {
-        console.log("Failed to update entire claim.*****************************************************");
+        console.log(
+          "Failed to update entire claim.*****************************************************"
+        );
       }
     )
     .catch(e => {
@@ -945,7 +958,7 @@ apirouter.put("/resolutions/update/close", (request, response) => {
   const vals = [request.body.resolutionid, request.body.claimid];
   client.connect();
   client
-    .query(quer,vals)
+    .query(quer, vals)
     .then(
       res => {
         console.log("Successfully added resolution and closed claim ");
@@ -961,12 +974,8 @@ apirouter.put("/resolutions/update/close", (request, response) => {
 
 //update JUST claim resolution
 apirouter.put("/claims/resolution", (request, response) => {
-  const quer =
-    ("update claim set resolutionid = $1, where claimid = $2");
-  const vals = [
-    request.body.resolutionid,
-    request.body.claimid
-  ];
+  const quer = "update claim set resolutionid = $1, where claimid = $2";
+  const vals = [request.body.resolutionid, request.body.claimid];
   client.connect();
   client
     .query(quer, vals)
@@ -987,14 +996,14 @@ apirouter.put("/claims/resolution", (request, response) => {
 
 //PUT// change status of claims -----------------------------------------
 apirouter.put("/claims/update", (request, response) => {
-  console.log([request.body.claimid,request.body.status])
-  var quer =""
-  if(request.body.status==="Open"){
+  console.log([request.body.claimid, request.body.status]);
+  var quer = "";
+  if (request.body.status === "Open") {
     quer =
-    "UPDATE claim SET status = 'Open', dateopened = current_timestamp, dateclosed = NULL WHERE claimid = $1";
-  }else{
+      "UPDATE claim SET status = 'Open', dateopened = current_timestamp, dateclosed = NULL WHERE claimid = $1";
+  } else {
     quer =
-    "UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1";
+      "UPDATE claim SET status = 'Closed', dateclosed = current_timestamp WHERE claimid = $1";
   }
   var vals = [request.body.claimid];
   client.connect();
