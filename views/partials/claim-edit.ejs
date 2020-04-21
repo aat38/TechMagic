@@ -96,11 +96,11 @@ Goals for this page: POST changes to appropriate places in db upon submission
           </select>
         </div>
         <% } %>
-        <div>
+        <div id="dateopened">
           <b>Date Opened: </b> 
           <%=result.dateopened%>
         </div>
-        <div>
+        <div id="dateclosed">
           <b>Date Closed: </b>
           <%=result.dateopened%>
         </div>
@@ -111,18 +111,18 @@ Goals for this page: POST changes to appropriate places in db upon submission
   //if comments, add comment
   //else update     "UPDATE claim SET issue = $1, status= $2, description =$3, employee=$4, dateopened=$5, resolution=$6, dateclosed = $7 WHERE claimid = $8";
   function update(ele){
-    var changedStatus
-    //if open->open || if close->close
-    if (ele===document.getElementById("status").value){
-      changedStatus=false;
+    var dateOpened
+    var dateClosed
+    if (ele===document.getElementById("status").value){//if open->open || if close->close
+      dateOpened=document.getElementById("dateopened").innerHTML
+      dateClosed=document.getElementById("dateclosed").innerHTML
+    }else if(ele!=document.getElementById("status").value & ele==="Closed"){ //if close->open 
+      dateOpened=new Date()
+      dateClosed="NULL"
+    }else{ //if open->close
+      dateOpened=document.getElementById("dateopened").innerHTML
+      dateClosed=new Date()
     }
-    //if open->close || if close->open 
-    if (ele===document.getElementById("status").value){
-      changedStatus=false;
-    }
-    
-
-    
     fetch('https://ejs-views-practice.glitch.me/api/claims/admin", {
           headers:{
             "content-type":"application/json",
@@ -132,10 +132,9 @@ Goals for this page: POST changes to appropriate places in db upon submission
             status:document.getElementById("status").value,
             description:document.getElementById("description").value,
             employee:document.getElementById("employeeList").value,
-            dateopened:document.getElementById("       ").value,
+            dateopened:dateOpened,
             resolution:document.getElementById("resolutionList").value,
-            dateclosed:document.getElementById("      ").value,
-            changedStatus: changedStatus
+            dateclosed:dateClosed,
           }),
               method: 'POST'
           }).then(resp=>{
