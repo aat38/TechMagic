@@ -17,16 +17,45 @@ clientrouter.get("/", (req, res) => {
                  
 
 clientrouter.get("/purchases/:purchaseid", (req, res) => { 
+  var claims
+  var issues
+  var employees
     axios
-     .get(baseURL +"/api/products")
+     .get(baseURL +"/api/claims")
      .then(function(response) {
-        res.render("partials/vieworder", { response: response.data});
-      })
+      claims=response.data
+        axios
+         .get(baseURL +"/api/issues")
+         .then(function(response) {
+          issues=response.data
+            axios
+             .get(baseURL +"/api/employees")
+             .then(function(response) {
+              employees=response.data
+                  axios
+                 .get(baseURL +"/api/purchases/:purchaseid")
+                 .then(function(response) {
+                    res.render("partials/vieworder", { response: response.data, employees: employees, issues: issues, claims:claims});
+                  })
+                  .catch(function(error) {
+                  console.log("error!!!1");
+                 });
+              })
+              .catch(function(error) {
+              console.log("error!!!2");
+             }); 
+        
+          })
+          .catch(function(error) {
+          console.log("error!!!3");
+         }); 
+     
+     })
       .catch(function(error) {
-      console.log(error);
+      console.log("error!!!4");
      }); 
 })
-//example return
+//example return of "response" var
 // {
 //     "customerid": 1,
 //     "firstname": "David",

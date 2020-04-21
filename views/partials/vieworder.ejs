@@ -27,7 +27,6 @@
     </tr>
   </thead>
   <tbody>
-  <% productPurchases.forEach(result=>{ %>
     <tr>
       <td>
 <!--    if theres claim purchaseid matching response.purchaseid, show claim else give option to create one      -->
@@ -48,7 +47,6 @@
       <td><%=response.productpurchaseid%></td>
       <td><%=response.unitcost%></td>
      </tr>
-      <%})%>
 
 <!--  Create Claim Modal  -->
   <div id="createClaimModal" class="modal">
