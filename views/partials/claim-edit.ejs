@@ -38,13 +38,13 @@ Goals for this page: POST changes to appropriate places in db upon submission
         </div>
         <div>
           <b>Description: </b>
-          <input value="<%=result.description%>" id="description" name="description" type="text" >
+          <input value='<%=result.description%>' id="description" name="description" type="text" >
         </div>
         <div>
           <b>Employee: </b>
           <select id="employeeList">
             <% if (locals.employees) { %> 
-              <option value='<%=result.employeeid%>' disabled selected hidden><%=result.employee%> </option> <!--  keeping the selected employee visible in dropdown box -->
+              <option value=<%=result.employeeid%> disabled selected hidden><%=result.employee%> </option> <!--  keeping the selected employee visible in dropdown box -->
               <% employees.forEach(employee=>{ %>
               <option value='<%=employee.id%>'><%=employee.firstname %> <%=employee.lastname%></option>
                <% } )%>
@@ -91,7 +91,7 @@ Goals for this page: POST changes to appropriate places in db upon submission
              <!--  keeping the selected letter visible in dropdown box -->
               <option value='<%=result.resolutionid%>' disabled selected hidden><%=result.resolution%> </option> <!--  keeping the selected resolution visible in dropdown box -->
               <% resolutions.forEach(resolution=>{ %>
-              <option value='<%=resolution.id%>'><%=resolution.name%></option>
+              <option value='<%=resolution.resolutionid%>'><%=resolution.name%></option>
               <% } )%>
           </select>
         </div>
