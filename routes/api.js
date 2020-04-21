@@ -790,15 +790,15 @@ apirouter.post("/addresses", (request, response) => {
 //PUT// edit ENTIRE claim ---------------------------------------------
 apirouter.put("/claims/admin", (request, response) => {
   var quer =
-    "UPDATE claim SET issue = $1, status= $2, description =$3, employee=$4, dateopened=$5, resolution=$6, dateclosed = $7 WHERE claimid = $8";
+    "UPDATE claim SET issueid = $1, status=$2 WHERE claimid = $2";
   var vals = [
     request.body.issueid,
-    request.body.status,
-    request.body.description,
-    request.body.employeeid,
-    request.body.dateopened,
-    request.body.resolutionid,
-    request.body.dateclosed,
+    // request.body.status,
+    // request.body.description,
+    // request.body.employeeid,
+    // request.body.dateopened,
+    // request.body.resolutionid,
+    // request.body.dateclosed, , status= $2, description =$3, employeeid=$4, dateopened=$5, resolutionid=$6, dateclosed = $7 
     request.body.claimid
   ];
   client.connect();
