@@ -3,17 +3,18 @@
 <%- include("partials/header") %>
 
 <% if (locals.customers) { %> 
-<h1>
+
+<body id= "home" class = "container">
+<h1 id= "hometitle" class = "h1 text-center mt-5">
   Customers
 </h1>
   Goals for this page: sort customers ✓, create customers ✓
 
-  <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
-    <b>Sort by:</b>
+  <div class="dropdown mt-3"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
     <% if (locals.sort) { %>
-    <button class="dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span></button>
+    <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle"  type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span>Sort By</button>
     <%}else{%>
-        <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
+        <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span>Sort By</button>
     <%}%>
     <ul class="dropdown-menu">
       <li><a href='/customers/asc'>Ascending Last Name</a></li>
@@ -23,9 +24,9 @@
      </ul>
   </div>
 
-<button  onclick="newCustModal()">Create New Customer</button>
+<button id = "homebtn" class= "btn btn-success w-50 h-50 responsive-width"   onclick="newCustModal()">Create New Customer</button>
 
-<table class="table table-hover">
+<table class="table table-hover mt-3">
   <thead>
     <tr>
       <th>First Name</th>
@@ -64,6 +65,8 @@
     </div>
   </div>
 </div>
+  
+</body>
 
 
 <script type=text/javascript>

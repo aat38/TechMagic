@@ -9,7 +9,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
 <%- include("partials/claim-edit") %>
 
 <div id="addFilter">
-  <button id = "homebtn" class = "btn btn-success" onclick="searchMenu()">
+  <button id = "homebtn" class = "btn btn-success mt-3" onclick="searchMenu()">
     Add Filter
   </button>
 </div>
@@ -61,7 +61,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
   <b>Filters: </b>
 </div>
 
-  <div class="dropdown mt-3 mb-5"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
+  <div class="dropdown mt-3"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
       <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span>Sort By</button>
     <ul class="dropdown-menu  w-25">
        <li><a onclick="sortCustomer('name', 'desc')">Descending Customer</a></li>
@@ -70,7 +70,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
      </ul>
   </div>
 
-<table id="table" class="table table-hover mt-5">
+<table id="table" class="table table-hover mt-3">
   <thead>
     <tr>
       <th></th>
