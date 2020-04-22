@@ -146,7 +146,9 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
         </div>
         
         <% } %>
-        <button onclick="addComment()">Add Comment</button>
+        <div class = "row mt-3">
+          <div class = "col-sm-4">
+        <button id = "homebtn" class = "btn btn-success w-50 h-50 responsive-width" onclick="addComment()">Add Comment</button>
         <p id="addComment" style="display:none" ><input value="" id="comment" type="text" ></p>
       </div>
       <button onclick="resolve();">Resolve Claim</button>
