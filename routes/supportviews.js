@@ -5,6 +5,8 @@ const headers = {
   "Access-Control-Allow-Origin": "*" //not necessary. really only needed if calling api from outside our application
 };
 
+const baseURL = "https://techmagic.glitch.me";
+
 //Render SUPPORTNAV page ------------------------------------------------
 supportviewsrouter.get("/supportnav", (req, res) => { 
   res.render("supportnav",{
@@ -96,21 +98,30 @@ supportviewsrouter.get("/employeeclaims/:employeeid/date", function(req, res, ne
 //Render specific Claim for an employee--------------------------------------------------
 supportviewsrouter.get("/employeeclaims/claim/:claimid", function(req, res, next) {
   var claimid = req.params.claimid;
+  var claims;
   console.log(claimid);
   axios
     .get("https://techmagic.glitch.me/supportapi/claims/" + claimid, { headers })
     .then(function(response) {
+    claims =response.data
+    axios
+      .get(baseURL +"/api/resolutions")
+      .then(function(response) {
+    
       res.render("supportclaim", {
-        data: response.data,
+        data: claims,
         claimtype: "employeeclaims",
-        id: response.data[0].employeeid,
-        title: "Employee"
+        id: claims[0].employeeid,
+        title: "Employee",
+        resolutions:response.data
       });
     })
     .catch(function(error) {
       console.log(error);
     });
 });
+});
+
 
 //Render page where users can add comments ----------------------------
 supportviewsrouter.get("/createcomment/:employeeid/:claimid", (req, res) => { 

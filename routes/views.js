@@ -7,7 +7,7 @@ const headers = {
   "Access-Control-Allow-Origin": "*" //not necessary. really only needed if calling api from outside our application
 };
 
-const baseURL = "https://ejs-views-practice.glitch.me";
+const baseURL = "https://techmagic.glitch.me";
 
 /////////////////////////////////ROUTES//////////////////////////////////
 
