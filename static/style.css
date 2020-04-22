@@ -96,6 +96,6 @@ li{
 #homebtn{
   background-color: #006a4e;
   border: #006a4e;
-  height: 50px;
   color: white;
+  font-size: 1rem;
 }
