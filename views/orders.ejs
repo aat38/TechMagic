@@ -5,7 +5,7 @@
 
 <% if (locals.customers){%>
 <% console.log(customers) %>
-<h1 id= "hometitle" class = "h1 text-center">Orders</h1>
+<h1 id= "hometitle" class = "h1 text-center mt-5">Orders</h1>
 <%- include("partials/vieworder") %>
 <p>
   Goals for this page: create purchases(orders)✓, create claims based on purchases ✓, view purchases ✓
@@ -43,10 +43,13 @@
   <div id="createOrderModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span><!-- close button -->
-      <div class="d-flex justify-content-center flex-column">
+      
         <form id="createform"> 
-          <div>
+          <div class = "row mt-5">
+            <div class = "col-sm-6">
             <b>Customer: </b>
+            </div>
+            <div class = "col-sm-6">
             <select id="customerList">
             <% if (locals.customers) { %> 
               <% customers.forEach(customer=>{ %>
@@ -54,8 +57,13 @@
               <% } )%>
             <% } %>
             </select>
+              </div>
           </div>
+          <div class = "row mt-5">
+            <div class = "col-sm-6">
           <b>Products Purchased:</b>
+            </div>
+            <div class = "col-sm-6">
           <div id="product">
             <select class="selectProducts" id="productList">
             <% if (locals.products) { %> 
@@ -64,7 +72,9 @@
               <% } )%>
             <% } %>
             </select>
-          </div>          
+          </div> 
+  
+            </div>
           <% if (locals.products) { %> 
               <% var nameArr=[]%>
               <% var idArr=[]%>
@@ -75,8 +85,11 @@
                 <% costArr=costArr + product.unitcost+";"%>
               <% } )%>
             <% } %>
-          <div><p id="para" onclick="createProductDiv('<%=nameArr%>','<%=idArr%>','<%=costArr%>');">+ Add Product</p></div>
+
+          <div class = "row mt-5"><div class = "col-sm-12 d-flex flex-row-reverse" id="para" onclick="createProductDiv('<%=nameArr%>','<%=idArr%>','<%=costArr%>');">+ Add Product</div></div>
+           </div> 
           <button  onclick="addProducts();">Submit New Order</button>
+            
         </form>
       </div>
     </div>
