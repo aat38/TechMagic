@@ -22,8 +22,8 @@
     </h1>
 
     <form action="/supportapi/claims/<%=claimtype%>/newcomment/<%= employeeid %>/<%= claimid %>" method="POST">
-      <input type="text" name="description" required placeholder="Type Comment Here" value = ""></input><br><br>
-      <input type="Submit" value = "Submit"></input><br><br>
+      <textarea type="text" name="description" required placeholder="Type Comment Here" value = "" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <input id = "homebtn" class= "btn btn-success w-50 h-50 responsive-width"  type="Submit" value = "Submit" ></input><br><br>
     </form>
   
   </body>
