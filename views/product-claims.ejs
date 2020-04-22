@@ -55,7 +55,7 @@
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
             <% if (result.resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
-            <li><a href="#"  onclick="resolveClaim('<%=result.claimid%>','<%=claims[0].product%>')">Resolve</a></li>
+            <li><a href="#"  onclick="openResolveModal('<%=result.claimid%>')">Resolve</a></li>
             <%}%>
             <% if (result.status==='Closed') { %> <!--  add Re-open dropdown option if condition   -->
             <li><a id="myLink" href="#" onclick="openClaim('<%=result.claimid%>','<%=claims[0].product%>')">Re-open</a></li>
@@ -78,8 +78,47 @@
   <%})%> <!--  end claims for loop  -->
   </tbody>
 </table>
+  
+  <!-- Resolve Modal div -->
+<div id="descriptionModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span><!-- close button -->
+    <div class="d-flex justify-content-center flex-column">
+      <form id="resolveform" value="">  
+      <div>
+        <% if (locals.resolutions) { %>  
+        <div class = "row mt-3">
+          <div class = "col-sm-4">
+            <b>Resolution: </b>
+          </div>
+          <div class = "col-sm-4">
+            <select id="resolutionList">
+           <!--  keeping the selected letter visible in dropdown box -->
+            <option value="" disabled selected hidden>unresolved </option> <!--  keeping the selected resolution visible in dropdown box -->
+            <% resolutions.forEach(resolution=>{ %>
+            <option value='<%=resolution.resolutionid%>'><%=resolution.name%></option>
+            <% } )%>
+        </select>
+          </div>
+        </div>
+        
+        <% } %>
+        <button onclick="addComment()">Add Comment</button>
+        <p id="addComment" style="display:none" ><input value="" id="comment" type="text" ></p>
+      </div>
+      <button onclick="resolve();">Resolve Claim</button>
+      </form>
+    </div>
+  </div>
+</div>
+  
+  
+  
+  
 <% } %>
 
+
+  
 
 <script type=text/javascript>
 
@@ -119,5 +158,62 @@ function openClaim(id, prod){
    location = location //refresh
   }
 
+  function addComment(){
+    document.getElementById("addComment").style.display = "block";
+  }
+  
+  function resolve(){
+    var resolution = document.getElementById('resolutionList').value;
+    var claim = document.getElementById('resolveform').value
+    var comment = document.getElementById('comment').value;
+    if (comment != ""){
+      //Send comment
+      fetch('https://techmagic.glitch.me/api/claims/comments', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid:claim,
+          description:comment,
+          employeeid: 1
+        }),
+        method: 'POST'
+        }).then(resp=>{
+        }, err=>{
+          console.log(err);
+        })
+    }
+    fetch('https://techmagic.glitch.me/api/resolutions/update/close', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          resolutionid: resolution,
+          claimid: claim
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+    }, err=>{
+      console.log(err);
+    })
+    window.location.reload();//so changes render
+  }
+  
+  function resolveModal(ele){
+    var modal = document.getElementById("descriptionModal"); 
+    var closeBtn = document.getElementsByClassName("close")[0];
+    document.getElementById("resolveform").value=ele
+    modal.style.display = "block";
+    //close out of modal either when clicking 'x' 
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    //or close modal when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  }
 
 </script>

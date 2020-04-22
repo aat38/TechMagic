@@ -155,14 +155,23 @@ clientrouter.get("/claims/filter/:type/:var", function(req, res, next) {
 
 
 clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
-axios
-  .get(baseURL +"/api/claims/"+req.params.productid+"/sortby/"+req.params.var)
+  var claims
+   axios
+    .get(baseURL +"/api/claims/"+req.params.productid+"/sortby/"+req.params.var)
     .then(function(response) {
-      res.render("product-claims", { claims: response.data , sort: req.params.var});
+      claims = response.data
+      axios
+      .get(baseURL +"/api/resolutions")
+      .then(function(response) {
+        res.render("claims", { claims: claims, resolutions:response.data , sort: req.params.var });
+      })
+      .catch(function(error) {
+        console.log(error);
+      }); 
     })
     .catch(function(error) {
       console.log(error);
-    });
+    }); 
 });
 
 clientrouter.get("/customers", function(req, res, next) {
@@ -235,15 +244,24 @@ clientrouter.get("/products/:sort", function(req, res, next) {
 });
 
 clientrouter.get("/products/claims/:productid", function(req, res, next) {
-  axios
+  var claims
+   axios
     .get(baseURL +"/api/claims/products/"+req.params.productid)
     .then(function(response) {
-      res.render("product-claims", { claims: response.data, comments: response.data});
+      claims = response.data
+      axios
+      .get(baseURL +"/api/resolutions")
+      .then(function(response) {
+        res.render("claims", { claims: claims, resolutions:response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      }); 
     })
     .catch(function(error) {
       console.log(error);
-    });
-});
+    }); 
+  });
 
 clientrouter.get("/edit/:claimid/:derivationpage", function(req, res, next) {
   var response1;
