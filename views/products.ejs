@@ -72,7 +72,7 @@
     var closeBtn = document.getElementsByClassName("close")[0];
 
     
-    fetch('https://ejs-views-practice.glitch.me/api/claims/products/'+element.name.split(";")[1])
+    fetch('https://techmagic.glitch.me/api/claims/products/'+element.name.split(";")[1])
         .then((resp) => resp.json()) //transform the data into json for workability 
         .then(function(data) {
           //IF return no claims associated with this product, show the modal without providing a view claims button 
