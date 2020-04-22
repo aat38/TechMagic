@@ -9,12 +9,12 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
 <%- include("partials/claim-edit") %>
 
 <div id="addFilter">
-  <button onclick="searchMenu()">
+  <button id = "homebtn" class = "btn btn-success responsive-width"  onclick="searchMenu()">
     Add Filter
   </button>
 </div>
 
-<div class="dropdown w-50">
+<div class="dropdownw-100">
   <p id="menu" > Menu</p>
   <ul id="menu-box" style="display: none" class="dropdown-menu">
     <li><label for="menu-toggle">Customer</label>
@@ -62,9 +62,8 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
 </div>
 
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
-    <b>Sort by:</b>
-      <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
-    <ul class="dropdown-menu">
+      <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span>Sort By</button>
+    <ul class="dropdown-menu  w-25">
        <li><a onclick="sortCustomer('name', 'desc')">Descending Customer</a></li>
       <li><a onclick="sortProduct('name', 'desc')">Product</a></li>
       <li><a onclick="sortStatus('name', 'desc')">Status</a></li>
@@ -93,7 +92,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
     <tr>
       <td>
         <div class="dropdown">
-          <button class="dropdown-toggle" type="button" data-toggle="dropdown">Edit
+          <button id = "homebtn" class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Edit
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
             <% if (result.resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
