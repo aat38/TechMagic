@@ -13,11 +13,10 @@
 </p>
   
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
-    <b>Sort by:</b>
     <% if (locals.sort) { %>
-    <button class="dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span></button>
+    <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span>Sort By</button>
     <%}else{%>
-        <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
+        <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span> Sort By</button>
     <%}%>
     <ul class="dropdown-menu">
       <li><a href='/products/asc'>Ascending Name</a></li>
@@ -27,7 +26,7 @@
      </ul>
   </div>
 
-<table class="table table-hover">
+<table class="table table-hover mt-3">
   <thead>
     <tr>
       <th>Name</th>
@@ -55,7 +54,7 @@
       <h2 id="name" >Product Name</h2>
       <p id="description">Product description</p>
       <form id="claimsBtn" method="get">
-        <button type="submit" id="claims">View Claims for this product</button>  <!-- need button to be in a form to later redirect by setting form's action in javascript below -->
+        <button class="btn btn-success w-50 mt-3" type="submit" id="claims">View Claims for this product</button>  <!-- need button to be in a form to later redirect by setting form's action in javascript below -->
       </form>
      <p id="noclaims">No claims for this product</p> <!-- displays if button above is not (controlled in javascript below) -->
     </div>

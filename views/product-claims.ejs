@@ -3,16 +3,19 @@
 <%- include("partials/header") %>
 
 <% if (locals.claims) { %> 
-  <h1>
+
+
+<body id= "home" class = "container">
+  <h1 id= "hometitle" class = "h1 text-center mt-5">
     <%=claims[0].product%> Claims
   </h1>
   Goals for this page: Re-open a closed claim ✓, close a claim if theres a resolution attached ✓, allow updates to mutable fields by redirecting to edit page✓ 
-  <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
-    <b>Sort by:</b>
+  <div class="dropdown mt-3"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
+
     <% if (locals.sort) { %>
-    <button class="dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span></button>
+    <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span> Sort By</button>
     <%}else{%>
-    <button class="dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
+    <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span> Sort By</button>
     <%}%>
     <ul class="dropdown-menu">
       <li><a href='/claims/<%=claims[0].productid%>/sortby/customer'>Customer</a></li>
@@ -24,7 +27,7 @@
      </ul>
   </div>
 
-<table class="table">
+<table class="table mt-3">
   <thead>
     <tr>
       <th></th> <!--   leaving this first col empty to accomidate the rows to follow that have an edit button here    -->
@@ -48,7 +51,7 @@
     <tr>
       <td>
         <div class="dropdown">
-          <button class="dropdown-toggle" type="button" data-toggle="dropdown">Edit
+          <button id = "homebtn" class="btn btn-success dropdown-toggle"  type="button" data-toggle="dropdown">Edit
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
             <% if (result.resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
