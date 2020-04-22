@@ -54,10 +54,23 @@
   </div>
   <div class = "row pt-2">
     <div class = "col-md-4 ">
-    <% if (claimtype === "employeeclaims" && data[0].status === "Open") { %>
-      <form action="" formmethod"GET">
-          <input id="homebtn" class = "btn btn-success w-50 h-50 responsive-width" type="submit" value="Resolve and Close">
-      </form>
+    <% if (claimtype === "employeeclaims") { %>
+      <div class="dropdown">
+          <button id = "homebtn" class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Edit
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <% if (data[0].resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
+            <li><a href="#" onclick="resolveModal('<%=data[0].claimid%>')">Resolve</a></li>
+            <%}%>
+            <% if (data[0].status==='Closed') { %> <!--  add Re-open dropdown option if condition   -->
+            <li><a id="myLink" href="#" onclick="openClaim('<%=data[0].claimid%>','<%=claims[0].product%>')">Re-open</a></li>
+            <%}%>
+            <% if (data[0].resolution!='unresolved' & data[0].status==='Open' ) {%> <!--  add Close dropdown option if condition   -->
+            <li><a href="#" onclick="closeClaim('<%=data[0].claimid%>','<%=claims[0].product%>')">Close</a></li>
+            <%}%>
+            <li><a href='/edit/<%=data[0].claimid%>/claims'>Edit Claim</a></li>  <!--  add Edit dropdown option  -->
+          </ul>
+        </div>
     <%} else { %>
     <% } %>
     </div>
@@ -75,6 +88,46 @@
         <% }); %>
       </tbody>
     </table>
+    
+    
+  <!-- Modal div -->
+<div id="descriptionModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span><!-- close button -->
+    <div class="d-flex justify-content-center flex-column">
+      <form id="resolveform" value="">  
+      <div>
+        <% if (locals.resolutions) { %>  
+        <div class = "row mt-3">
+          <div class = "col-sm-4">
+            <b>Resolution: </b>
+          </div>
+          <div class = "col-sm-4">
+            <select id="resolutionList">
+           <!--  keeping the selected letter visible in dropdown box -->
+            <option value="" disabled selected hidden>unresolved </option> <!--  keeping the selected resolution visible in dropdown box -->
+            <% resolutions.forEach(resolution=>{ %>
+            <option value='<%=resolution.resolutionid%>'><%=resolution.name%></option>
+            <% } )%>
+        </select>
+          </div>
+        </div>
+        
+        <% } %>
+        <div class = "row mt-3">
+          <div class = "col-sm-4">
+        <button id = "homebtn" class = "btn btn-success w-50 responsive-width mb-3" onclick="addComment()">Add Comment</button>
+        <p id="addComment" style="display:none" ><input value="" id="comment" type="text" ></p>
+          </div>
+          <div class = "col-sm-4">
+          <button id = "homebtn" class = "btn btn-success responsive-width" onclick="resolve();">Resolve Claim</button>
+            </div>
+      </div>
+      
+      </form>
+    </div>
+  </div>
+</div>
   
   </body>
 

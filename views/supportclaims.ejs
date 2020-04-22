@@ -61,10 +61,242 @@
     <% } else { %>
     <p>There are no books in the database.</p>
     <% } %>
+  
+  
+  
+  
     <!-- include the Glitch button to show what the webpage is about and
 to make it easier for folks to view source and remix -->
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
     <script src="https://button.glitch.me/button.js"></script>
   </body>
 
+  <script type=text/javascript>
+  
+  function addComment(){
+    document.getElementById("addComment").style.display = "block";
+  }
+  
+  function resolve(){
+    var resolution = document.getElementById('resolutionList').value;
+    var claim = document.getElementById('resolveform').value
+    var comment = document.getElementById('comment').value;
+    if (comment != ""){
+      //Send comment
+      fetch('https://techmagic.glitch.me/api/claims/comments', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid:claim,
+          description:comment,
+          employeeid: 1
+        }),
+        method: 'POST'
+        }).then(resp=>{
+        }, err=>{
+          console.log(err);
+        })
+    }
+    fetch('https://techmagic.glitch.me/api/resolutions/update/close', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          resolutionid: resolution,
+          claimid: claim
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+    }, err=>{
+      console.log(err);
+    })
+    window.location.reload();//so changes render
+  }
+  
+  function resolveModal(ele){
+    var modal = document.getElementById("descriptionModal"); 
+    var closeBtn = document.getElementsByClassName("close")[0];
+    document.getElementById("resolveform").value=ele
+    modal.style.display = "block";
+    //close out of modal either when clicking 'x' 
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    //or close modal when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+    }
+  }
+  
+  function closeClaim(id, prod){
+   fetch('https://techmagic.glitch.me/api/claims/update', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid: id,
+          status: "Closed"
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+    }, err=>{
+      console.log(err);
+    })
+    window.location.reload();//so changes render
+  }
+  
+  function openClaim(id, prod){
+    fetch('https://techmagic.glitch.me/api/claims/update', {
+        headers:{
+          "content-type":"application/json",
+        },
+        body: JSON.stringify({
+          claimid: id,
+          status: "Open"
+        }),
+        method: 'PUT'
+    }).then(resp=>{
+    }, err=>{
+      console.log(err);
+    })
+    window.location.reload();//so changes render
+  }
+  
+  function addFilterCustomer(ele) {
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i< rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[1].innerText != ele.text ){
+         document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    } 
+    document.getElementById('create').style.display="block";
+    var button = document.createElement('button');
+    button.innerHTML = ele.text;
+    button.setAttribute("id", ele.text)
+    button.onclick = function () {removeFilter(ele.text);}
+    document.getElementById('create').appendChild(button)
+  } 
+  
+  function addFilterEmployee(ele) {
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i< rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[5].innerText != ele.text ){
+        document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    }   
+    document.getElementById('create').style.display="block";
+    var button = document.createElement('button');
+    button.innerHTML = ele.text;
+    button.setAttribute("id", ele.text)
+    button.onclick = function () {removeFilter(ele.text);}
+    document.getElementById('create').appendChild(button)
+  } 
+  
+  function addFilterProduct(ele) {
+    var rows = document.getElementsByTagName("tr").length
+    for (var i = 1; i< rows; i++){
+      if  (document.getElementsByTagName("tr")[i].children[2].innerText != ele.text ){
+        document.getElementsByTagName("tr")[i].style.display="none"
+      }
+    }   
+    document.getElementById('create').style.display="block";
+    var button = document.createElement('button');
+    button.innerHTML = ele.text;
+    button.setAttribute("id", ele.text)
+    button.onclick = function () {removeFilter(ele.text);}
+    document.getElementById('create').appendChild(button)
+  }
+  
+  function removeFilter(val) {
+    document.getElementById(val).remove();
+    console.log(val);
+    var rows = document.getElementsByTagName("tr").length;
+    for (var i = 1; i< rows; i++){
+      if(document.getElementsByTagName("tr")[i].children[1].innerText != val ){
+        document.getElementsByTagName("tr")[i].style.display="contents";
+      }
+    }
+  }  
+   
+  function searchMenu() {
+    var menuBox = document.getElementById('menu-box');    
+    if(menuBox.style.display == "block") { 
+      menuBox.style.display = "none";
+    }
+    else {
+      menuBox.style.display = "block";
+      menuBox.addEventListener('mouseleave', function(){
+      closeMenu();
+      });
+    }
+  }
+  
+  function closeMenu(){
+    var menuBox = document.getElementById('menu-box');    
+    if(menuBox.style.display == "block") { 
+    menuBox.style.display = "none";
+    }
+  }  
+
+  //sort by Customer
+  function sortCustomer(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[1].innerText.localeCompare(b.rows[0].cells[1].innerText);
+    });
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  }
+  
+  //sort by Product
+  function sortProduct(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[2].innerText.localeCompare(b.rows[0].cells[2].innerText);
+    });
+
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  }
+  
+  //sort by Status
+  function sortStatus(column, direction){
+    console.log("sort");
+    let rows = document.getElementsByTagName("tbody");
+    rows = [].slice.call(rows);
+    rows.sort(function(a,b){
+      return a.rows[0].cells[7].innerText.localeCompare(b.rows[0].cells[7].innerText);
+    });
+    let table = document.getElementById("table");
+    let blep = document.getElementsByTagName("tbody");
+    while (blep.length >0){
+      table.removeChild(blep[0]);
+    }
+    for(let k =0; k < rows.length; k++){
+      table.appendChild(rows[k]);
+    }
+  } 
+
+</script>
+  
 <%- include("partials/footer") %>
