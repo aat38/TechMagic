@@ -47,12 +47,14 @@
     <table class="table">
       <tbody><tr><th>ID</th><th>Customer</th><th>Product</th><th>Status</th><th>Date Opened</th><th>Action</th></tr>
         <% claims.forEach(function(claim){ %>
+        <% var dateOpened = new Date(claim.dateopened) %>
+        <% var dateOpened = (dateOpened.getMonth()+1) + "/" + dateOpened.getDate() + "/" +  dateOpened.getFullYear() %>
         <tr>
           <td><%= claim.claimid %></td>
           <td><%= claim.customer %></td>
           <td><%= claim.product %></td>
           <td><%= claim.status %></td>
-          <td><%= claim.dateopened%> </td>
+          <td><%= dateOpened %></td>
           <td><form action="/supportviews/<%= claimtype%>/claim/<%= claim.claimid%>" method="GET"><input type="submit" value="See Details" id = "homebtn" class = "btn btn-success h-50"></form><br><br></td>
         </tr>
         <% }); %>
