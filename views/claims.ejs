@@ -169,7 +169,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
     var comment = document.getElementById('comment').value;
     if (comment != ""){
       //Send comment
-      fetch('https://ejs-views-practice.glitch.me/api/claims/comments', {
+      fetch('https://techmagic.glitch.me/api/claims/comments', {
         headers:{
           "content-type":"application/json",
         },
@@ -184,7 +184,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
           console.log(err);
         })
     }
-    fetch('https://ejs-views-practice.glitch.me/api/resolutions/update/close', {
+    fetch('https://techmagic.glitch.me/api/resolutions/update/close', {
         headers:{
           "content-type":"application/json",
         },
@@ -218,7 +218,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
   }
   
   function closeClaim(id, prod){
-   fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
+   fetch('https://techmagic.glitch.me/api/claims/update', {
         headers:{
           "content-type":"application/json",
         },
@@ -235,7 +235,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
   }
   
   function openClaim(id, prod){
-    fetch('https://ejs-views-practice.glitch.me/api/claims/update', {
+    fetch('https://techmagic.glitch.me/api/claims/update', {
         headers:{
           "content-type":"application/json",
         },

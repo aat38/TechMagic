@@ -9,20 +9,19 @@
   Goals for this page: sort employees ✓, view employee information with modal✓, edit employee information, create employee ✓
 
   <div class="dropdown"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
-    <b>Sort by:</b>
     <% if (locals.sort) { %>
-    <button class="btn btn-success w-25 dropdown-toggle"  type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span>Sort By</button>
+    <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle"  type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span>Sort By</button>
     <%}else{%>
-    <button class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
+    <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span>Sort By</button>
     <%}%>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu w-25">
       <li><a href='/employees/asc'>Ascending Last Name</a></li>
       <li><a href='/employees/desc'>Descending Last Name</a></li>
       <li><a href='/employees/title'>Title</a></li>
      </ul>
   </div>
 
-<button  onclick="employeeModal()">Create New Employee</button>
+<button id = "homebtn"  class="btn btn-success w-25"   onclick="employeeModal()">Create New Employee</button>
 
 <table class="table table-hover">
   <thead>

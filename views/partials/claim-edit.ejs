@@ -1,11 +1,11 @@
 <!-- EDIT SPECIFIC CLAIM -->
-
+<body id= "home" class = "container">
 <% if (locals.claimdata) { %>  
 <%- include("header") %>
 <% claimdata.forEach(result=>{ %>
-<h2>
+<h1  id= "hometitle" class = "h1 text-center mt-5">
   Review and Edit Claim
-</h2>
+</h1>
       <form id="updateform" onsubmit="update('<%=result.status%>','<%=result.claimid%>');">  
         <span><b>Customer: </b><%=result.customer%></span>
         <span><b>Product: </b><%=result.product%> <b>Product Id: </b><%=result.productid%></span>
@@ -108,7 +108,7 @@
 <%if (locals.returnpg){%>
 <button><a href="/<%=returnpg%>">Return</a></button>
 <%}%>
-
+</body>
 <script type=text/javascript>
   //if comments, add comment
   //then update claim
@@ -121,7 +121,7 @@
     }else{ //if open->close
       changeofstatus="oc"
     }
-    fetch('https://ejs-views-practice.glitch.me/api/claims/admin', {
+    fetch('https://techmagic.glitch.me/api/claims/admin', {
           headers:{
             "content-type":"application/json",
           },

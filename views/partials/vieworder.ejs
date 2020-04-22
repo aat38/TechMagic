@@ -35,7 +35,10 @@
         <% claims.forEach(claim=>{ %>
         <% if (claim.productpurchaseid===resp.productpurchaseid){%>
           <% existingclaim = "true" %>
-          <button id = "homebtn" class = "btn btn-success w-50 h-50"><a  href='/edit/<%=claim.claimid%>/orders'>View Claim</a></button>
+        <form>
+          <button id = "homebtn" class = "btn btn-success w-50 h-50" formaction='/edit/<%=claim.claimid%>/orders' formmethod="GET" type="submit">View Claim</button>
+        </form>
+          
           <% }%>
          <%})%>
            <% if (existingclaim != "false"){%>
@@ -115,7 +118,7 @@
   
   function update(){ 
 
-    fetch('https://ejs-views-practice.glitch.me/api/claims', {
+    fetch('https://techmagic.glitch.me/api/claims', {
         headers:{
           "content-type":"application/json",
         },
