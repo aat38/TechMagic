@@ -1,12 +1,13 @@
+<body id= "home" class = "container">
 <% if (locals.response){%>
 <%- include("header") %>
 
   <% var datePurchase = new Date(response[0].date) %>
   <% datePurchase = (datePurchase.getMonth()+1) + "/" + datePurchase.getDate() + "/" +  datePurchase.getFullYear() %>
-<div>
-<h1>Order</h1>
+
+<h1 id= "hometitle" class = "h1 text-center mt-5">Order</h1>
   <h3>
-    <b>Customer: </b><%=response.firstname%> <%=response.lastname%>
+    Customer: <%=response.firstname%> <%=response.lastname%>
   </h3>
   <h3>
     <b>Total Cost: </b><%=response.totalcost%>
@@ -14,8 +15,7 @@
   <h3>
     <b>Date: </b><%=datePurchase%> 
   </h3>
-</div>      
-
+   
 <table id="table" class="table table-hover">
   <thead>
     <tr>
@@ -35,12 +35,12 @@
         <% claims.forEach(claim=>{ %>
         <% if (claim.productpurchaseid===resp.productpurchaseid){%>
           <% existingclaim = "true" %>
-          <button><a  href='/edit/<%=claim.claimid%>/orders'>VIEW Claim</a></button>
+          <button id = "homebtn" class = "btn btn-success w-50 h-50"><a  href='/edit/<%=claim.claimid%>/orders'>View Claim</a></button>
           <% }%>
          <%})%>
            <% if (existingclaim != "false"){%>
           <%}else{%>
-        <button onclick="claimModal('<%=resp.productpurchaseid%>')">Create Claim </button> 
+        <button id = "homebtn" class = "btn btn-success w-50 h-50" onclick="claimModal('<%=resp.productpurchaseid%>')">Create Claim </button> 
         <% }%>
       </td>
       <td><%=resp.name%></td>
@@ -92,7 +92,7 @@
 
 
 <button><a href="/orders">Return</a></button>
-
+  </body>
 
 <script type=text/javascript>
  

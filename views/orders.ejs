@@ -29,7 +29,7 @@
   <% let cust = customers.find(cust => cust.customerid === result.customerid) %>
   <tbody>
     <tr>
-      <td><form><button id = "homebtn" class = "btn btn-success w-50 h-50" formaction="/purchases/<%=result.purchaseid%>" formmethod="GET" type="submit">View Order</button>        </form></td>
+      <td><form><button id = "homebtn" class = "btn btn-success w-50 h-50" formaction="/purchases/<%=result.purchaseid%>" formmethod="GET" type="submit">View Order</button></form></td>
       <td><%=result.purchaseid%></td>
       <td><%=cust.firstname%> <%=cust.lastname%></td>
       <td><%=result.totalcost%></td>
