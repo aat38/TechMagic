@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+  <script src="/static/script.js"></script>
+  <!--   BOOTSTRAP -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css" type="text/css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body class="container">
+    <h1>
+      Claim #<%= data[0].claimid %>
+    </h1>
+  <div class = "row pt-2">
+    <div class = "col-md-4 ">
+      Employee: <%= data[0].employee %><br>
+      Customer: <%= data[0].customer%>
+    </div>
+    <div class = "col-md-4">
+      Product: <%= data[0].product %><br>
+    </div>
+    <div class = "col-md-4">
+      Issue: <%= data[0].issue%><br>
+      Resolution: <%= data[0].resolution %><br>
+    </div>
+  </div>
+  <div class = "row pt-2">
+    <div class = "col-md-4">
+      Description: <%= data[0].claimdescription %><br>
+      Status: <%= data[0].status %><br>
+    </div>
+    <div class = "col-md-4">
+      <% if (claimtype === "employeeclaims") { %>
+       <form action="/supportviews/createcomment/<%= id %>/<%= data[0].claimid %>" method="GET">
+          <input type="submit" value="Add Comment">
+       </form><br>
+      <%} else { %>
+      <% } %>
+    </div>
+    <div class = "col-md-4">
+      <form action="/supportviews/<%= claimtype%>/<%= id %>" formmethod"GET">
+          <input type="submit" value="Back to <%= title %> Claims">
+      </form>
+    </div>
+  </div>
+  <div class = "row pt-2">
+    <div class = "col-md-4 ">
+    <% if (claimtype === "employeeclaims") { %>
+      <form action="" formmethod"GET">
+          <input type="submit" value="Update Claim">
+      </form>
+    <%} else { %>
+    <% } %>
+    </div>
+    <h2>
+      Comments
+  </h2>
+
+    <table class="table">
+      <tbody><tr><th>Comment</th><th>Date</th></tr>
+        <% data.forEach(function(datum){ %>
+        <tr>
+          <td><%= datum.commentdescription %></td>
+          <td><%= datum.date %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  
+  </body>
+
+<%- include("partials/footer") %>

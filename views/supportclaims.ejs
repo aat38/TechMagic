@@ -21,7 +21,7 @@
     
   <div class = "row">
     <div class = "col-sm-6">
-    <form action="/<%= claimtype%>/<%= id %>/status" formmethod="GET">
+    <form action="/supportviews/<%= claimtype%>/<%= id %>/status" formmethod="GET">
       <input type="radio" id="Open" name="status" value="Open">
       <label for="Open">Open</label><br>
       <input type="radio" id="Closed" name="status" value="Closed">
@@ -30,7 +30,7 @@
     </form><br>
   </div>
     <div class = "col-sm-6">
-      <form action="/<%= claimtype%>/<%= id%>/date" formmethod="GET">
+      <form action="/supportviews/<%= claimtype%>/<%= id%>/date" formmethod="GET">
       <input type="radio" id="Oldest" name="order" value="asc">
       <label for="Oldest">Oldest</label><br>
       <input type="radio" id="Newest" name="order" value="desc">
@@ -38,7 +38,7 @@
       <input type="submit" value="Submit" id = "homebtn" class = "btn btn-success h-50">
     </form><br>
     </div>
-  <form action="/<%= claimtype%>/<%= id%>" formmethod"GET">
+  <form action="/supportviews/<%= claimtype%>/<%= id%>" formmethod"GET">
       <input type="submit" value="Reset" id = "homebtn" class = "btn btn-success h-50">
     </form><br>
   </div>
@@ -53,7 +53,7 @@
           <td><%= claim.product %></td>
           <td><%= claim.status %></td>
           <td><%= claim.dateopened%> </td>
-          <td><form action="/<%= claimtype%>/claim/<%= claim.claimid%>" method="GET"><input type="submit" value="See Details" id = "homebtn" class = "btn btn-success h-50"></form><br><br></td>
+          <td><form action="/supportviews/<%= claimtype%>/claim/<%= claim.claimid%>" method="GET"><input type="submit" value="See Details" id = "homebtn" class = "btn btn-success h-50"></form><br><br></td>
         </tr>
         <% }); %>
       </tbody>

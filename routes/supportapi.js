@@ -244,7 +244,7 @@ supportapirouter.post("/claims/employees/newcomment/:employeeid/:claimid", (requ
     .then(
       res => {
         console.log("Successfully added comments");
-        response.redirect("/employeeclaims/claim/"+request.params.claimid)
+        response.redirect("/supportviews/employeeclaims/claim/"+request.params.claimid)
         // response.send(res.rows);
       },
       err => {
