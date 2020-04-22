@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+  <script src="/static/script.js"></script>
+  <!--   BOOTSTRAP -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css" type="text/css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body class="container">
+    <h1>
+      Products
+    </h1>
+  
+  
+  <div class = "row">
+    <div class = "col-sm-6">
+      <form action="/supportviews/products/claimnumber" formmethod="GET">
+      <input type="radio" id="fewer" name="order" value="asc">
+      <label for="fewer">Fewer Claims</label><br>
+      <input type="radio" id="most" name="order" value="desc">
+      <label for="most">More Claims</label><br>
+      <input type="submit" value="Submit">
+    </form><br>
+    </div>
+  </div>
+    
+  
+    <% if (products) { %>
+    <table class="table">
+      <tbody><tr><th>ID</th><th>Product</th><th>Description</th><th>Unit Cost</th><th>Claims</th><th>Action</th></tr>
+        <% products.forEach(function(product){ %>
+        <tr>
+          <td><%= product.productid %></td>
+          <td><%= product.name %></td>
+          <td><%= product.description %></td>
+          <td><%= product.unitcost%></td>
+          <td><%= product.claimcount%></td>
+          <td><form action="/supportviews/productclaims/<%= product.productid %>" method="GET"><input type="submit" value="See Product Claims"></form><br><br></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <p>There are no products in the database.</p>
+    <% } %>
+    <!-- include the Glitch button to show what the webpage is about and
+to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+
+<%- include("partials/footer") %>

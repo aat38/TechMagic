@@ -9,13 +9,30 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-  
-<nav>  
-  <button><a href="/">Admin Home</a></button>
-  <button><a href="/orders">Orders</a></button>
-  <button><a href="/claims">Claims</a></button>
-  <button><a href="/employees">Employees</a></button>
-  <button><a href="/customers">Customers</a></button>
-  <button><a href="/products">Products</a></button>
+<div id= "home"  class = container>
+  <div class = "row mt-5">
 
-</nav>
+  <div class = "col-sm-2 text-center h-100">
+    <button id = "homebtn" class = "btn btn-success w-100 h-50" formaction="/admin" formmethod="GET" type="submit">Admin Home</button>
+  </div>
+  <div class = "col-sm-2 text-center h-100">
+    <button id = "homebtn" class = "btn btn-success w-100 h-50" formaction="/orders" formmethod="GET" type="submit">Orders</button>
+  </div>
+  <div class = "col-sm-2 text-center h-100">
+    <button id = "homebtn" class = "btn btn-success w-100 h-50"><a href="/claims">Claims</a></button>
+  </div>
+  <div class = "col-sm-2 text-center h-100">
+    <button id = "homebtn" class = "btn btn-success w-100 h-50"><a href="/employees">Employees</a></button>
+  </div>
+  <div class = "col-sm-2 text-center h-100">
+    <button id = "homebtn" class = "btn btn-success w-100 h-50"><a href="/customers">Customers</a></button>
+  </div>
+  <div class = "col-sm-2 text-center h-100">
+  <button id = "homebtn" class = "btn btn-success w-100 h-50"><a href="/products">Products</a></button>
+  </div>
+
+  </div>
+  
+
+
+</div>
