@@ -45,12 +45,12 @@
       <span class="close">&times;</span><!-- close button -->
       
         <form id="createform"> 
-          <div class = "row mt-5">
+          <div class = "row mt-3">
             <div class = "col-sm-6">
             <b>Customer: </b>
             </div>
             <div class = "col-sm-6">
-            <select id="customerList">
+            <select id="customerList" class="w-100">
             <% if (locals.customers) { %> 
               <% customers.forEach(customer=>{ %>
               <option value='<%=customer.customerid%>'><%=customer.firstname %> <%=customer.lastname %></option>
@@ -59,13 +59,13 @@
             </select>
               </div>
           </div>
-          <div class = "row mt-5">
+          <div class = "row mt-3">
             <div class = "col-sm-6">
           <b>Products Purchased:</b>
             </div>
             <div class = "col-sm-6">
           <div id="product">
-            <select class="selectProducts" id="productList">
+            <select class="selectProducts w-100" id="productList">
             <% if (locals.products) { %> 
               <% products.forEach(product=>{ %>
               <option value='<%=product.productid%>;<%=product.unitcost%>'><%=product.name%></option>
@@ -74,6 +74,7 @@
             </select>
           </div> 
   
+            </div>
             </div>
           <% if (locals.products) { %> 
               <% var nameArr=[]%>
@@ -86,10 +87,12 @@
               <% } )%>
             <% } %>
 
-          <div class = "row mt-5"><div class = "col-sm-12 d-flex flex-row-reverse" id="para" onclick="createProductDiv('<%=nameArr%>','<%=idArr%>','<%=costArr%>');">+ Add Product</div></div>
-           </div> 
-          <button  onclick="addProducts();">Submit New Order</button>
-            
+          <div class = "row mt-3 justify-content-right">
+            <div class = "col-sm-12" id="para" onclick="createProductDiv('<%=nameArr%>','<%=idArr%>','<%=costArr%>');">+ Add Product</div>
+          </div>
+           <div class = "row mt-3 justify-content-center">
+          <button id = "homebtn" class = "btn btn-success w-50 h-50"  onclick="addProducts();">Submit New Order</button>
+            </div>
         </form>
       </div>
     </div>
