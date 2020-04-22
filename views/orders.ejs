@@ -25,7 +25,7 @@
   <% purchase.forEach(result=>{ %>
   <% var datePurchase = new Date(result.date) %>
   <% var datePurchase = (datePurchase.getMonth()+1) + "/" + datePurchase.getDate() + "/" +  datePurchase.getFullYear() %>
-  <% let cust = customers.find(cust => cust.customerid = result.customerid) %>
+  <% let cust = customers.find(cust => cust.customerid === result.customerid) %>
   <tbody>
     <tr>
       <td><button><a href="/purchases/<%=result.purchaseid%>">View Order</a></button></td>
