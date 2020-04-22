@@ -12,7 +12,7 @@ const client = new Client({
 //not for real use - just to clean DB
 apirouter.post("/remove", (request, response) => {
   client.connect();
-  return client.query("delete from productpurchase where productpurchaseid=30").then(
+  return client.query("delete from productpurchase where purchaseid=31").then(
     function(resp) {
       console.log("Sucessful Delete");
     },
