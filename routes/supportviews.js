@@ -23,7 +23,7 @@ supportviewsrouter.get("/employeeclaims", function(req, res, next) {
   axios
     .get("https://dbms-support-side.glitch.me/api/claims/employees/" + employeeid, { headers })
     .then(function(response) {
-      res.render("claims", {
+      res.render("supportclaims", {
         claims: response.data,
         claimtype: "employeeclaims",
         id: employeeid,
@@ -41,7 +41,7 @@ supportviewsrouter.get("/employeeclaims/:employeeid", function(req, res, next) {
   axios
     .get("https://dbms-support-side.glitch.me/api/claims/employees/" + employeeid, { headers })
     .then(function(response) {
-      res.render("claims", {
+      res.render("supportclaims", {
         claims: response.data,
         claimtype: "employeeclaims",
         id: employeeid,
@@ -61,7 +61,7 @@ supportviewsrouter.get("/employeeclaims/:employeeid/status", function(req, res, 
   axios
     .get("https://dbms-support-side.glitch.me/api/claims/employees/status/"+ employeeid + "/" + status, { headers })
     .then(function(response) {
-      res.render("claims", {
+      res.render("supportclaims", {
         claims: response.data,
         claimtype: "employeeclaims",
         id: employeeid,
@@ -81,7 +81,7 @@ supportviewsrouter.get("/employeeclaims/:employeeid/date", function(req, res, ne
     .get("https://dbms-support-side.glitch.me/api/claims/employees/date/"+employeeid+"/"+order, { headers })
     .then(function(response) {
     
-      res.render("claims", {
+      res.render("supportclaims", {
         claims: response.data,
         claimtype: "employeeclaims",
         id: employeeid,
@@ -100,7 +100,7 @@ supportviewsrouter.get("/employeeclaims/claim/:claimid", function(req, res, next
   axios
     .get("https://dbms-support-side.glitch.me/api/claims/" + claimid, { headers })
     .then(function(response) {
-      res.render("claim", {
+      res.render("supportclaim", {
         data: response.data,
         claimtype: "employeeclaims",
         id: response.data[0].employeeid,
@@ -127,7 +127,7 @@ supportviewsrouter.get("/products", function(req, res, next) {
   axios
     .get("https://dbms-support-side.glitch.me/api/products", { headers })
     .then(function(response) {
-      res.render("products", {
+      res.render("supportproducts", {
         products: response.data
       });
     })
@@ -142,7 +142,7 @@ supportviewsrouter.get("/products/claimnumber", function(req, res, next) {
   axios
     .get("https://dbms-support-side.glitch.me/api/products/order/" +order, { headers })
     .then(function(response) {
-      res.render("products", {
+      res.render("supportproducts", {
         products: response.data
       });
     })
@@ -158,7 +158,7 @@ supportviewsrouter.get("/productclaims/:productid", function(req, res, next) {
   axios
     .get("https://dbms-support-side.glitch.me/api/claims/products/" + productid, { headers })
     .then(function(response) {
-      res.render("claims", {
+      res.render("supportclaims", {
         claims: response.data,
         claimtype: "productclaims",
         id: productid,
@@ -178,7 +178,7 @@ supportviewsrouter.get("/productclaims/:productid/status", function(req, res, ne
   axios
     .get("https://dbms-support-side.glitch.me/api/claims/products/status/"+ productid + "/" + status, { headers })
     .then(function(response) {
-      res.render("claims", {
+      res.render("supportclaims", {
         claims: response.data,
         claimtype: "productclaims",
         id: productid,
@@ -198,7 +198,7 @@ supportviewsrouter.get("/productclaims/:productid/date", function(req, res, next
     .get("https://dbms-support-side.glitch.me/api/claims/products/date/"+productid+"/"+order, { headers })
     .then(function(response) {
     
-      res.render("claims", {
+      res.render("supportclaims", {
         claims: response.data,
         claimtype: "productclaims",
         id: productid,
@@ -217,7 +217,7 @@ supportviewsrouter.get("/productclaims/claim/:claimid", function(req, res, next)
   axios
     .get("https://dbms-support-side.glitch.me/api/claims/" + claimid, { headers })
     .then(function(response) {
-      res.render("claim", {
+      res.render("supportclaim", {
         data: response.data,
         claimtype: "productclaims",
         id: response.data[0].productid,

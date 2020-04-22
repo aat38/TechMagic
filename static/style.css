@@ -84,3 +84,17 @@ li{
 #menu3-toggle:checked + #menu3 {
   max-height: 100px;
 }
+
+#home{
+ background-color: #f2f2f2;
+}
+
+#hometitle{
+  color: #006a4e;
+}
+
+#homebtn{
+  background-color: #006a4e;
+  border: #006a4e;
+  height: 50px;
+}
