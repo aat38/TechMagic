@@ -58,22 +58,29 @@
   <div id="createClaimModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span><!-- close button -->
-      <div class="d-flex justify-content-center flex-column">
         <form id="updateform"> 
-          <div>
+          
+          <div class = "row mt-3">
+            <div class = "col-sm-6">
             <b>Percieved Issue: </b>
-            <select id="issueList">
+            </div>
+            <div class = "col-sm-6">
+            <select id="issueList" class="w-100">
             <% if (locals.issues) { %> 
               <% issues.forEach(issue=>{ %>
               <option value='<%=issue.issueid%>'><%=issue.name %></option>
               <% } )%>
             <% } %>
             </select>
+            </div>
           </div>
-          <div>
-          <div>
+          
+          <div class = "row mt-3">
+            <div class = "col-sm-6">
             <b>Assign Claim to: </b>
-            <select id="employeeList">
+            </div>
+            <div class = "col-sm-6">
+            <select id="employeeList" class="w-100"> 
             <% if (locals.employees) { %> 
               <% employees.forEach(employee=>{ %>
               <option value='<%=employee.employeeid%>'><%=employee.firstname %> <%=employee.lastname %></option>
@@ -81,10 +88,20 @@
             <% } %>
             </select>
           </div>
-          <div>
+          </div>
+          
+          <div class = "row mt-3">
+            <div class = "col-sm-6">
             <span id="purchaseid"></span>
-            <div><b>Description: </b><input value="" id="description" type="text" > </div>
-          <button onclick="update();">Submit Customer's Claim</button>
+            <b>Description: </b>
+            </div>
+            <div class = "col-sm-6">
+              <input value="" id="description" type="text" class="w-100 h-100"> 
+            </div>
+          </div>
+          <div class = "row mt-3">
+          <button id = "homebtn" class= "btn btn-success w-50 h-50 responsive-width"  onclick="update();">Submit Customer's Claim</button>
+             </div>
         </form>
       </div>
     </div>

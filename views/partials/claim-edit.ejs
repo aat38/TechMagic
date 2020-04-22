@@ -167,11 +167,17 @@
           </div>
         </div>
         
-        <input type="submit">
+        <div class = "row mt-3">
+        <input id = "homebtn" class= "btn btn-success responsive-width"  type="submit">
+        </div>
       </form>
   
 <%if (locals.returnpg){%>
-<button><a href="/<%=returnpg%>">Return</a></button>
+  <div class = "row mt-3">
+    <form>
+    <button  id = "homebtn" class= "btn btn-successresponsive-width" formaction="/<%=returnpg%>" formmethod="GET" type="submit">Return</button>
+    </form>
+  </div>
 <%}%>
 </body>
 
