@@ -16,8 +16,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body class="container">
-    <h1>
+<body id = "home" class="container">
+    <h1  id= "hometitle" class = "h1 text-center mt-5">
       Products
     </h1>
   
@@ -29,7 +29,7 @@
       <label for="fewer">Fewer Claims</label><br>
       <input type="radio" id="most" name="order" value="desc">
       <label for="most">More Claims</label><br>
-      <input type="submit" value="Submit">
+      <input id = "homebtn" class = "btn btn-success w-50 h-50 responsive-width" type="submit" value="Submit">
     </form><br>
     </div>
   </div>
@@ -45,7 +45,7 @@
           <td><%= product.description %></td>
           <td><%= product.unitcost%></td>
           <td><%= product.claimcount%></td>
-          <td><form action="/supportviews/productclaims/<%= product.productid %>" method="GET"><input type="submit" value="See Product Claims"></form><br><br></td>
+          <td><form action="/supportviews/productclaims/<%= product.productid %>" method="GET"><input id = "homebtn" class = "btn btn-success h-50 responsive-width" type="submit" value="See Product Claims"></form><br><br></td>
         </tr>
         <% }); %>
       </tbody>

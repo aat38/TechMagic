@@ -16,8 +16,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body class="container">
-    <h1>
+<body id= "home" class="container">
+    <h1 id= "hometitle" class = "h1 text-center mt-5">
       Claim #<%= data[0].claimid %>
     </h1>
   <div class = "row pt-2">
@@ -41,22 +41,22 @@
     <div class = "col-md-4">
       <% if (claimtype === "employeeclaims") { %>
        <form action="/supportviews/createcomment/<%= id %>/<%= data[0].claimid %>" method="GET">
-          <input type="submit" value="Add Comment">
+          <input id="homebtn" class = "btn btn-success w-50 h-50 responsive-width" type="submit" value="Add Comment">
        </form><br>
       <%} else { %>
       <% } %>
     </div>
     <div class = "col-md-4">
       <form action="/supportviews/<%= claimtype%>/<%= id %>" formmethod"GET">
-          <input type="submit" value="Back to <%= title %> Claims">
+          <input  id= "homebtn" class = "btn btn-success h-50 responsive-width" type="submit" value="Back to <%= title %> Claims">
       </form>
     </div>
   </div>
   <div class = "row pt-2">
     <div class = "col-md-4 ">
-    <% if (claimtype === "employeeclaims") { %>
+    <% if (claimtype === "employeeclaims" && data[0].status === "Open") { %>
       <form action="" formmethod"GET">
-          <input type="submit" value="Update Claim">
+          <input id="homebtn" class = "btn btn-success w-50 h-50 responsive-width" type="submit" value="Resolve and Close">
       </form>
     <%} else { %>
     <% } %>
