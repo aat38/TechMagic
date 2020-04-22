@@ -49,14 +49,13 @@
           </select>
           </div>
         </div>
-       
-        <div>
-          
-          
-        </div>
-        <div>
-          <b>Status: </b>
-          <select id="status">
+         
+        <div class = "row mt-3">
+          <div class = "col-sm-3">
+           <b>Status: </b>
+          </div>
+          <div class = "col-sm-3">
+            <select id="status">
             <option value='<%=result.status%>' disabled selected hidden><%=result.status%></option> <!--  keeping the selected status visible in dropdown box -->
             <%if (result.status==="Closed"){%>
             <option value='Open'>Open</option>
@@ -64,24 +63,38 @@
             <option value='Closed'>Closed</option>
             <% } %>
           </select>
+          </div>
         </div>
-        <div>
-          <b>Description: </b>
-          <input value='<%=result.description%>' id="description" name="description" type="text" >
+        
+        <div class = "row mt-3">
+          <div class = "col-sm-3">
+           <b>Description: </b>
+          </div>
+          <div class = "col-sm-3">
+            <input value='<%=result.description%>' id="description" name="description" type="text" class = "w-100 h-100">
+          </div>
         </div>
-        <div>
-          <b>Employee: </b>
-          <select id="employeeList">
+        
+        <div class = "row mt-3">
+          <div class = "col-sm-3">
+           <b>Employee: </b>
+          </div>
+          <div class = "col-sm-3">
+            <select id="employeeList">
             <% if (locals.employees) { %> 
               <option value=<%=result.employeeid%> disabled selected hidden><%=result.employee%> </option> <!--  keeping the selected employee visible in dropdown box -->
               <% employees.forEach(employee=>{ %>
               <option value='<%=employee.employeeid%>'><%=employee.firstname %> <%=employee.lastname%></option>
                <% } )%>
             <% } %>
-          </select>
+            </select>
+          </div>
         </div>
+        
+        
+        
         <% if (locals.comments.length >0 ) { %>  
-        <div>
+        <div classe = "mt-5">
          <b>Comments: </b>
           <table class="table table-striped table-bordered">
             <thead>
@@ -114,35 +127,55 @@
         </div>
         <%}%>
         <% if (locals.resolutions) { %>  
-        <div>
-          <b>Resolution: </b>
-          <select id="resolutionList">
+        
+        <div class = "row mt-3">
+          <div class = "col-sm-3">
+           <b>Resolution: </b>
+          </div>
+          <div class = "col-sm-3">
+             <select id="resolutionList">
              <!--  keeping the selected letter visible in dropdown box -->
               <option value='<%=result.resolutionid%>' disabled selected hidden><%=result.resolution%> </option> <!--  keeping the selected resolution visible in dropdown box -->
               <% resolutions.forEach(resolution=>{ %>
               <option value='<%=resolution.resolutionid%>'><%=resolution.name%></option>
               <% } )%>
           </select>
+          </div>
         </div>
+        
         <% } %>
-        <div id="dateopened">
-          <% var dateOpened = new Date(result.dateopened) %>
+        
+        <div id="dateopened" class = "row mt-3">
+          <div class = "col-sm-3">
+           <% var dateOpened = new Date(result.dateopened) %>
           <% var dateOpened = (dateOpened.getMonth()+1) + "/" + dateOpened.getDate() + "/" +  dateOpened.getFullYear() %>
           <b>Date Opened: </b> 
-          <%=dateOpened%>
+          </div>
+          <div class = "col-sm-3">
+             <%=dateOpened%>
+          </div>
         </div>
-        <div id="dateclosed">
-          <% var dateClosed = new Date(result.dateclosed) %>
+        
+        <div id="dateclosed" class = "row mt-3">
+          <div class = "col-sm-3">
+           <% var dateClosed = new Date(result.dateclosed) %>
           <% var dateClosed = (dateClosed.getMonth()+1) + "/" + dateClosed.getDate() + "/" +  dateClosed.getFullYear() %>
           <b>Date Closed: </b> 
-          <%=dateOpened%>
+          </div>
+          <div class = "col-sm-3">
+             <%=dateClosed%>
+          </div>
         </div>
+        
         <input type="submit">
       </form>
+  
 <%if (locals.returnpg){%>
 <button><a href="/<%=returnpg%>">Return</a></button>
 <%}%>
 </body>
+
+
 <script type=text/javascript>
   //if comments, add comment
   //then update claim
