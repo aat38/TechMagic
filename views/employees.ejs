@@ -53,7 +53,7 @@
             <b>First Name: </b>
           </div>
           <div class = col-sm-4>
-          <input value="" id="firstname" type="text" > 
+          <input value="" id="firstname" type="text" required > 
           </div>
         </div>
         
@@ -62,7 +62,7 @@
             <b>Last Name: </b>
           </div>
           <div class = col-sm-4>
-          <input value="" id="lastname" type="text" > 
+          <input value="" id="lastname" type="text" required > 
           </div>
         </div>
         
@@ -71,7 +71,7 @@
             <b>Title: </b>
           </div>
           <div class = col-sm-4>
-          <input placeholder="Support or Admin" value="" id="title" type="text" > 
+          <input placeholder="Support or Admin" value="" id="title" type="text" required > 
           </div>
         </div>
         
@@ -80,7 +80,7 @@
             <b>Email: </b>
           </div>
           <div class = col-sm-4>
-          <input value="" id="email"  type="text" > 
+          <input value="" id="email"  type="email" required > 
           </div>
         </div>
         
@@ -89,7 +89,7 @@
             <b>Phone Number: </b>
           </div>
           <div class = col-sm-4>
-          <input value="" id="phone" type="text" > 
+          <input value="" id="phone" type="text" required > 
           </div>
         </div>
         
@@ -98,7 +98,7 @@
             <b>Street Address: </b>
           </div>
           <div class = col-sm-4>
-            <input value="" id="address1" type="text" > 
+            <input value="" id="address1" type="text" required > 
           </div>
         </div>
         
@@ -107,7 +107,7 @@
             <b>Street Address 2: </b>
           </div>
           <div class = col-sm-4>
-            <input value="" id="address2" type="text" >
+            <input value="" id="address2" type="text" required >
           </div>
         </div>
         
@@ -116,7 +116,7 @@
             <b>City : </b>
           </div>
           <div class = col-sm-4>
-            <input value="" id="city"  type="text" >
+            <input value="" id="city"  type="text" required >
           </div>
         </div>
         
@@ -125,7 +125,7 @@
             <b>State(Abr): </b>
           </div>
           <div class = col-sm-4>
-            <input value="" id="state" type="text" > 
+            <input value="" id="state" type="text" required > 
           </div>
         </div>
         
@@ -134,13 +134,13 @@
             <b>Zip: </b>
           </div>
           <div class = col-sm-4>
-            <input value="" id="zip"  type="text" >
+            <input value="" id="zip"  type="text" required >
           </div>
         </div>
         
         <div class = "row mt-3">
           <div class = col-sm-4>
-        <button id = "homebtn" class = "btn btn-success responsive-width"  onclick="update();">Submit New Employee</button>
+        <input type="submit" id = "homebtn" class = "btn btn-success responsive-width"  onclick="update();"></input>
           </div>
         </div>
         
