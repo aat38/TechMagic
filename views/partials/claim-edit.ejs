@@ -6,12 +6,40 @@
 <h1  id= "hometitle" class = "h1 text-center mt-5">
   Review and Edit Claim
 </h1>
-      <form id="updateform" onsubmit="update('<%=result.status%>','<%=result.claimid%>');">  
-        <span><b>Customer: </b><%=result.customer%></span>
-        <span><b>Product: </b><%=result.product%> <b>Product Id: </b><%=result.productid%></span>
-        <div>
-          <b>Issue: </b>
-          <select id="issueList">
+      <form id="updateform" onsubmit="update('<%=result.status%>','<%=result.claimid%>');">
+        
+        <div class = "row mt-3">
+          <div class = "col-sm-3">
+            <b>Customer: </b>
+          </div>
+          <div class = "col-sm-3">
+            <%=result.customer%>
+          </div>
+        </div>
+        <div class = "row mt-3">
+          <div class = "col-sm-3">
+           <b>Product: </b>
+          </div>
+          <div class = "col-sm-3">
+            <%=result.product%> 
+          </div>
+        </div>
+        
+        <div class = "row mt-3">
+          <div class = "col-sm-3">
+           <b>Product Id: </b>
+          </div>
+          <div class = "col-sm-3">
+            <%=result.productid%>
+          </div>
+        </div>
+        
+        <div class = "row mt-3">
+          <div class = "col-sm-3">
+           <b>Issue: </b>
+          </div>
+          <div class = "col-sm-3">
+            <select id="issueList">
           <% if (locals.issues) { %> 
             <option value='<%=result.issueid%>' disabled selected hidden><%=result.issue%> </option> <!--  keeping the selected issue visible in dropdown box -->
             <% issues.forEach(issue=>{ %>
@@ -19,6 +47,12 @@
             <% } )%>
           <% } %>
           </select>
+          </div>
+        </div>
+       
+        <div>
+          
+          
         </div>
         <div>
           <b>Status: </b>
