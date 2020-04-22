@@ -1,8 +1,8 @@
 <!-- SORTABLE, FILTERABLE LIST OF ALL CLAIMS  -->
-
+<body id= "home" class = "container">
 <%- include("partials/header") %>
 <% if (locals.claims) { %> 
-<h1>
+<h1 id= "hometitle" class = "h1 text-center">
   Claims
 </h1>
 Goals for this page: Re-open a closed claim ✓, close a claim if theres a resolution attached ✓, edit and resolve claims  ✓, filter and sort claims based on existing claims ✓ 
@@ -14,7 +14,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
   </button>
 </div>
 
-<div class="dropdown">
+<div class="dropdown w-50">
   <p id="menu" > Menu</p>
   <ul id="menu-box" style="display: none" class="dropdown-menu">
     <li><label for="menu-toggle">Customer</label>
@@ -156,6 +156,7 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
 </h1>
 <%}%>
 
+</body>
 
 <script type=text/javascript>
   
