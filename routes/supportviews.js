@@ -21,7 +21,7 @@ supportviewsrouter.get("/login", (req, res) => {
 supportviewsrouter.get("/employeeclaims", function(req, res, next) {
   var employeeid = [require("url").parse(req.url, true).query.employeeid];
   axios
-    .get("https://dbms-support-side.glitch.me/api/claims/employees/" + employeeid, { headers })
+    .get("https://techmagic.glitch.me/supportapi/claims/employees/" + employeeid, { headers })
     .then(function(response) {
       res.render("supportclaims", {
         claims: response.data,
@@ -39,7 +39,7 @@ supportviewsrouter.get("/employeeclaims", function(req, res, next) {
 supportviewsrouter.get("/employeeclaims/:employeeid", function(req, res, next) {
   var employeeid = req.params.employeeid;
   axios
-    .get("https://dbms-support-side.glitch.me/api/claims/employees/" + employeeid, { headers })
+    .get("https://techmagic.glitch.me/supportapi/claims/employees/" + employeeid, { headers })
     .then(function(response) {
       res.render("supportclaims", {
         claims: response.data,
@@ -59,7 +59,7 @@ supportviewsrouter.get("/employeeclaims/:employeeid/status", function(req, res, 
   var employeeid = req.params.employeeid;
   
   axios
-    .get("https://dbms-support-side.glitch.me/api/claims/employees/status/"+ employeeid + "/" + status, { headers })
+    .get("https://techmagic.glitch.me/supportapi/claims/employees/status/"+ employeeid + "/" + status, { headers })
     .then(function(response) {
       res.render("supportclaims", {
         claims: response.data,
@@ -78,7 +78,7 @@ supportviewsrouter.get("/employeeclaims/:employeeid/date", function(req, res, ne
   var order = require("url").parse(req.url, true).query.order;
   var employeeid = req.params.employeeid;
   axios
-    .get("https://dbms-support-side.glitch.me/api/claims/employees/date/"+employeeid+"/"+order, { headers })
+    .get("https://techmagic.glitch.me/supportapi/claims/employees/date/"+employeeid+"/"+order, { headers })
     .then(function(response) {
     
       res.render("supportclaims", {
@@ -98,7 +98,7 @@ supportviewsrouter.get("/employeeclaims/claim/:claimid", function(req, res, next
   var claimid = req.params.claimid;
   console.log(claimid);
   axios
-    .get("https://dbms-support-side.glitch.me/api/claims/" + claimid, { headers })
+    .get("https://techmagic.glitch.me/supportapi/claims/" + claimid, { headers })
     .then(function(response) {
       res.render("supportclaim", {
         data: response.data,
@@ -125,7 +125,7 @@ supportviewsrouter.get("/createcomment/:employeeid/:claimid", (req, res) => {
 //Render all Products page------ --------------------------------
 supportviewsrouter.get("/products", function(req, res, next) {
   axios
-    .get("https://dbms-support-side.glitch.me/api/products", { headers })
+    .get("https://techmagic.glitch.me/supportapi/products", { headers })
     .then(function(response) {
       res.render("supportproducts", {
         products: response.data
@@ -140,7 +140,7 @@ supportviewsrouter.get("/products", function(req, res, next) {
 supportviewsrouter.get("/products/claimnumber", function(req, res, next) {
   var order = require("url").parse(req.url, true).query.order;
   axios
-    .get("https://dbms-support-side.glitch.me/api/products/order/" +order, { headers })
+    .get("https://techmagic.glitch.me/supportapi/products/order/" +order, { headers })
     .then(function(response) {
       res.render("supportproducts", {
         products: response.data
@@ -156,7 +156,7 @@ supportviewsrouter.get("/productclaims/:productid", function(req, res, next) {
   var productid = req.params.productid;
   console.log(productid);
   axios
-    .get("https://dbms-support-side.glitch.me/api/claims/products/" + productid, { headers })
+    .get("https://techmagic.glitch.me/supportapi/claims/products/" + productid, { headers })
     .then(function(response) {
       res.render("supportclaims", {
         claims: response.data,
@@ -176,7 +176,7 @@ supportviewsrouter.get("/productclaims/:productid/status", function(req, res, ne
   var productid = req.params.productid;
   
   axios
-    .get("https://dbms-support-side.glitch.me/api/claims/products/status/"+ productid + "/" + status, { headers })
+    .get("https://techmagic.glitch.me/supportapi/claims/products/status/"+ productid + "/" + status, { headers })
     .then(function(response) {
       res.render("supportclaims", {
         claims: response.data,
@@ -195,7 +195,7 @@ supportviewsrouter.get("/productclaims/:productid/date", function(req, res, next
   var order = require("url").parse(req.url, true).query.order;
   var productid = req.params.productid;
   axios
-    .get("https://dbms-support-side.glitch.me/api/claims/products/date/"+productid+"/"+order, { headers })
+    .get("https://techmagic.glitch.me/supportapi/claims/products/date/"+productid+"/"+order, { headers })
     .then(function(response) {
     
       res.render("supportclaims", {
@@ -215,7 +215,7 @@ supportviewsrouter.get("/productclaims/claim/:claimid", function(req, res, next)
   var claimid = req.params.claimid;
   console.log(claimid);
   axios
-    .get("https://dbms-support-side.glitch.me/api/claims/" + claimid, { headers })
+    .get("https://techmagic.glitch.me/supportapi/claims/" + claimid, { headers })
     .then(function(response) {
       res.render("supportclaim", {
         data: response.data,
