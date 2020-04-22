@@ -1,9 +1,11 @@
 <!-- SORTABLE, CLICKABLE LIST OF ALL PRODUCTS  -->
 
+<body id= "home" class = "container">
+
 <%- include("partials/header") %>
 
 <% if (locals.products) { %> 
-<h1>
+<h1 id= "hometitle" class = "h1 text-center mt-5">
   Products
 </h1>
 <p>
@@ -59,6 +61,8 @@
     </div>
   </div>
 </div>
+  
+</body>
 
 
 <script type=text/javascript>

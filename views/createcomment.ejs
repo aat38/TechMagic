@@ -16,14 +16,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body class="container">
-    <h1>
+<body id = "home" class="container">
+    <h1 id= "hometitle" class = "h1 text-center mt-5">
       Create Comment
     </h1>
 
     <form action="/supportapi/claims/<%=claimtype%>/newcomment/<%= employeeid %>/<%= claimid %>" method="POST">
       <textarea type="text" name="description" required placeholder="Type Comment Here" value = "" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      <input id = "homebtn" class= "btn btn-success w-50 h-50 responsive-width"  type="Submit" value = "Submit" ></input><br><br>
+      <input id = "homebtn" class= "btn btn-success responsive-width mt-3"  type="Submit" value = "Submit" ></input><br><br>
     </form>
   
   </body>
