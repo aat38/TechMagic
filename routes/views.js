@@ -12,6 +12,10 @@ const baseURL = "https://ejs-views-practice.glitch.me";
 /////////////////////////////////ROUTES//////////////////////////////////
 
 clientrouter.get("/", (req, res) => { 
+  res.render("home");
+}); 
+
+clientrouter.get("/admin", (req, res) => { 
   res.render("index");
 }); 
                  

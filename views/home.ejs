@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+  <script src="/static/script.js"></script>
+  <!--   BOOTSTRAP -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css" type="text/css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body id= "home" class = "container">
+  
+<div id= "hometitle" class = "h1 text-center">TechMagic Support</div>
+<div class = "row mt-5">
+
+  <div class = "col-sm-6 text-center h-100">
+    <form>
+    <button id = "homebtn" class = "btn btn-success w-50 h-50" formaction="/admin" formmethod="GET" type="submit"> Admin </button><br><br>
+    </form>
+  </div>
+
+ 
+  <div class = "col-sm-6 text-center">
+    <form>
+    <button id = "homebtn" class= "btn btn-success w-50 h-50" formaction="/supportviews/supportnav" formmethod="GET" type="submit"> Support </button>
+    </form>
+  </div>
+
+</div>
+
+</body>
+
+<%- include("partials/footer") %>
