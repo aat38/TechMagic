@@ -130,14 +130,21 @@ Goals for this page: Re-open a closed claim ✓, close a claim if theres a resol
       <form id="resolveform" value="">  
       <div>
         <% if (locals.resolutions) { %>  
-        <b>Resolution: </b>
-        <select id="resolutionList">
+        <div class = "row mt-3">
+          <div class = "col-sm-4">
+            <b>Resolution: </b>
+          </div>
+          <div class = "col-sm-4">
+            <select id="resolutionList">
            <!--  keeping the selected letter visible in dropdown box -->
             <option value="" disabled selected hidden>unresolved </option> <!--  keeping the selected resolution visible in dropdown box -->
             <% resolutions.forEach(resolution=>{ %>
             <option value='<%=resolution.resolutionid%>'><%=resolution.name%></option>
             <% } )%>
         </select>
+          </div>
+        </div>
+        
         <% } %>
         <button onclick="addComment()">Add Comment</button>
         <p id="addComment" style="display:none" ><input value="" id="comment" type="text" ></p>

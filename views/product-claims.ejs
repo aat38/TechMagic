@@ -55,7 +55,7 @@
           <span class="caret"></span></button>
           <ul class="dropdown-menu">
             <% if (result.resolution==='unresolved') { %> <!--  add Resolve dropdown option if condition   -->
-            <li><a href="#">Resolve</a></li>
+            <li><a href="#"  onclick="resolveClaim('<%=result.claimid%>','<%=claims[0].product%>')">Resolve</a></li>
             <%}%>
             <% if (result.status==='Closed') { %> <!--  add Re-open dropdown option if condition   -->
             <li><a id="myLink" href="#" onclick="openClaim('<%=result.claimid%>','<%=claims[0].product%>')">Re-open</a></li>
