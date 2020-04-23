@@ -12,7 +12,7 @@
 
   <div class="dropdown mt-3"> <!-- dropdown is a bootstrap class p sure, so is dropdown menu-->
     <% if (locals.sort) { %>
-    <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle"  type="button" data-toggle="dropdown"><%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span>Sort By</button>
+    <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle"  type="button" data-toggle="dropdown">Sort By <%=sort.charAt(0).toUpperCase()+ sort.slice(1).toLowerCase()%><span class="caret"></span></button>
     <%}else{%>
         <button id = "homebtn" class="btn btn-success w-25 dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span>Sort By</button>
     <%}%>
