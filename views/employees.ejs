@@ -44,7 +44,7 @@
 <!-- Adding New Employee Modal -->
 <div id="newEmployeeModal" class="modal">
   <div class="modal-content">
-    <span id="close" class="close">&times;</span><!-- close button -->
+    <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
       <form id="updateform"> 
         
@@ -152,7 +152,7 @@
 <!-- Previewing Employee Information -->
 <div id="employeeInfo" class="modal">
   <div class="modal-content">
-    <span class="close">&times;</span><!-- close button -->
+<!--     <span class="close">&times;</span><!-- close button -->
     <div class="d-flex justify-content-center flex-column">
       <div>
         <h4 id="empName"></h4>
@@ -176,10 +176,10 @@
  
   function employeeModal() {
     var modal = document.getElementById("newEmployeeModal"); 
-    var closeBtn = document.getElementsByClassName("close")[0];
+    var closeBtn1 = document.getElementsByClassName("close")[0];
     modal.style.display = "block";
     //close out of modal either when clicking 'x' 
-    closeBtn.onclick = function() {
+    closeBtn1.onclick = function() {
       modal.style.display = "none";
     }
     //or close modal when clicking outside of the modal
