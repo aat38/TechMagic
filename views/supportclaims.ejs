@@ -5,16 +5,16 @@
   <body id="home" class="container">
     <h1 id= "hometitle" class = "h1 text-center mt-5">Claims for <%= title %> <%= id %></h1>
     
-  <div class="button-group" style="display:flex">
       <div class = "row">
-        <form class="form-inline" style="width:100%; justify-content:right" action="/supportviews/<%= claimtype%>/<%= id %>/status" formmethod="GET">
-          <input type="radio" id="Open" name="status" value="Open">
-          <label for="Open">Open</label><br>
-          <input type="radio" id="Closed" name="status" value="Closed">
-          <label for="closed">Closed</label><br>
-          <input type="submit" value="Submit" id = "homebtn" class = "btn btn-success h-100" >
-        </form><br>
-      </div>
+          <form class="form-inline" style="justify-content:right" action="/supportviews/<%= claimtype%>/<%= id %>/status" formmethod="GET">
+            <input type="radio" id="Open" name="status" value="Open">
+            <label for="Open">Open</label><br>
+            <input type="radio" id="Closed" name="status" value="Closed">
+            <label for="closed">Closed</label><br>
+            <input type="submit" value="Submit" id = "homebtn" class = "btn btn-success h-100" >
+          </form><br>
+          </div>
+
   
       <div class = "row">
           <form class="form-inline" style="justify-content:right" action="/supportviews/<%= claimtype%>/<%= id%>/date" formmethod="GET">
@@ -27,11 +27,11 @@
       </div>
   
       <div class = "row">
-          <form class="form-inline"style="justify-content:right" action="/supportviews/<%= claimtype%>/<%= id%>" formmethod"GET">
+          <form class="form-inline" action="/supportviews/<%= claimtype%>/<%= id%>" formmethod"GET">
             <input type="submit" value="Reset" id = "homebtn" class = "btn btn-success h-100">
           </form><br>
       </div>
-  </div>
+
 
     
     <% if (claims) { %>
