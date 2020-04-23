@@ -111,7 +111,7 @@ supportviewsrouter.get("/employeeclaims/claim/:claimid", function(req, res, next
       res.render("supportclaim", {
         data: claims,
         claimtype: "employeeclaims",
-        pid: claims[0].employeeid,
+        id: claims[0].employeeid,
         title: "Employee",
         resolutions:response.data
       });
@@ -134,15 +134,12 @@ supportviewsrouter.get("/createcomment/:employeeid/:claimid", (req, res) => {
 
 /////////////////////////////////PRODUCTS//////////////////////////////////
 //Render all Products page------ --------------------------------
-supportviewsrouter.get("/products/:employeeid", function(req, res, next) {
-    var employeeid = req.params.employeeid;
-
+supportviewsrouter.get("/products", function(req, res, next) {
   axios
     .get("https://techmagic.glitch.me/supportapi/products", { headers })
     .then(function(response) {
       res.render("supportproducts", {
-        products: response.data,
-        id:employeeid
+        products: response.data
       });
     })
     .catch(function(error) {
@@ -151,15 +148,13 @@ supportviewsrouter.get("/products/:employeeid", function(req, res, next) {
 });
 
 //Render all products in either ascending or descending order by number of claims
-supportviewsrouter.get("/products/claimnumber/:employeeid", function(req, res, next) {
-  var employeeid = req.params.employeeid;
+supportviewsrouter.get("/products/claimnumber", function(req, res, next) {
   var order = require("url").parse(req.url, true).query.order;
   axios
     .get("https://techmagic.glitch.me/supportapi/products/order/" +order, { headers })
     .then(function(response) {
       res.render("supportproducts", {
-        products: response.data,
-        id:employeeid
+        products: response.data
       });
     })
     .catch(function(error) {
@@ -168,10 +163,8 @@ supportviewsrouter.get("/products/claimnumber/:employeeid", function(req, res, n
 });
 
 //Render all claims for a specific product--------------------------------------------------
-supportviewsrouter.get("/productclaims/:productid/:employeeid", function(req, res, next) {
+supportviewsrouter.get("/productclaims/:productid", function(req, res, next) {
   var productid = req.params.productid;
-  var employeeid = req.params.employeeid;
-
   console.log(productid);
   axios
     .get("https://techmagic.glitch.me/supportapi/claims/products/" + productid, { headers })
@@ -179,8 +172,7 @@ supportviewsrouter.get("/productclaims/:productid/:employeeid", function(req, re
       res.render("supportclaims", {
         claims: response.data,
         claimtype: "productclaims",
-        pid: productid,
-        id:req.params.employeeid,
+        id: productid,
         title: "Product"
       });
     })
@@ -200,7 +192,7 @@ supportviewsrouter.get("/productclaims/:productid/status", function(req, res, ne
       res.render("supportclaims", {
         claims: response.data,
         claimtype: "productclaims",
-        pid: productid,
+        id: productid,
         title: "Product"
       });
     })
@@ -220,7 +212,7 @@ supportviewsrouter.get("/productclaims/:productid/date", function(req, res, next
       res.render("supportclaims", {
         claims: response.data,
         claimtype: "productclaims",
-        pid: productid,
+        id: productid,
         title: "Product"
       });
     })
@@ -239,7 +231,7 @@ supportviewsrouter.get("/productclaims/claim/:claimid", function(req, res, next)
       res.render("supportclaim", {
         data: response.data,
         claimtype: "productclaims",
-        pid: response.data[0].productid,
+        id: response.data[0].productid,
         title: "Product"
       });
     })

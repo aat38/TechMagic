@@ -3,11 +3,11 @@
 <%- include("partials/supportHeader") %>
 
   <body id="home" class="container">
-    <h1 id= "hometitle" class = "h1 text-center mt-5">Claims for <%= title %> <%= pid %></h1>
+    <h1 id= "hometitle" class = "h1 text-center mt-5">Claims for <%= title %> <%= id %></h1>
     
   <div class = "row">
     <div class = "col-sm-6">
-    <form action="/supportviews/<%= claimtype%>/<%= pid %>/status" formmethod="GET">
+    <form action="/supportviews/<%= claimtype%>/<%= id %>/status" formmethod="GET">
       <input type="radio" id="Open" name="status" value="Open">
       <label for="Open">Open</label><br>
       <input type="radio" id="Closed" name="status" value="Closed">
@@ -16,7 +16,7 @@
     </form><br>
   </div>
     <div class = "col-sm-6">
-      <form action="/supportviews/<%= claimtype%>/<%= pid%>/date" formmethod="GET">
+      <form action="/supportviews/<%= claimtype%>/<%= id%>/date" formmethod="GET">
       <input type="radio" id="Oldest" name="order" value="asc">
       <label for="Oldest">Oldest</label><br>
       <input type="radio" id="Newest" name="order" value="desc">
@@ -24,7 +24,7 @@
       <input type="submit" value="Submit" id = "homebtn" class = "btn btn-success h-50">
     </form><br>
     </div>
-  <form action="/supportviews/<%= claimtype%>/<%= pid%>" formmethod"GET">
+  <form action="/supportviews/<%= claimtype%>/<%= id%>" formmethod"GET">
       <input type="submit" value="Reset" id = "homebtn" class = "btn btn-success h-50">
     </form><br>
   </div>
