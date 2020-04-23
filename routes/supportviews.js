@@ -134,12 +134,15 @@ supportviewsrouter.get("/createcomment/:employeeid/:claimid", (req, res) => {
 
 /////////////////////////////////PRODUCTS//////////////////////////////////
 //Render all Products page------ --------------------------------
-supportviewsrouter.get("/products", function(req, res, next) {
+supportviewsrouter.get("/products/:employeeid", function(req, res, next) {
+    var employeeid = req.params.employeeid;
+
   axios
     .get("https://techmagic.glitch.me/supportapi/products", { headers })
     .then(function(response) {
       res.render("supportproducts", {
-        products: response.data
+        products: response.data,
+        id:employeeid
       });
     })
     .catch(function(error) {
@@ -148,13 +151,15 @@ supportviewsrouter.get("/products", function(req, res, next) {
 });
 
 //Render all products in either ascending or descending order by number of claims
-supportviewsrouter.get("/products/claimnumber", function(req, res, next) {
+supportviewsrouter.get("/products/claimnumber/:employeeid", function(req, res, next) {
+  var employeeid = req.params.employeeid;
   var order = require("url").parse(req.url, true).query.order;
   axios
     .get("https://techmagic.glitch.me/supportapi/products/order/" +order, { headers })
     .then(function(response) {
       res.render("supportproducts", {
-        products: response.data
+        products: response.data,
+        id:employeeid
       });
     })
     .catch(function(error) {
@@ -163,8 +168,10 @@ supportviewsrouter.get("/products/claimnumber", function(req, res, next) {
 });
 
 //Render all claims for a specific product--------------------------------------------------
-supportviewsrouter.get("/productclaims/:productid", function(req, res, next) {
+supportviewsrouter.get("/productclaims/:productid/:employeeid", function(req, res, next) {
   var productid = req.params.productid;
+  var employeeid = req.params.employeeid;
+
   console.log(productid);
   axios
     .get("https://techmagic.glitch.me/supportapi/claims/products/" + productid, { headers })
@@ -172,7 +179,8 @@ supportviewsrouter.get("/productclaims/:productid", function(req, res, next) {
       res.render("supportclaims", {
         claims: response.data,
         claimtype: "productclaims",
-        id: productid,
+        pid: productid,
+        id:req.params.employeeid,
         title: "Product"
       });
     })

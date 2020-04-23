@@ -3,11 +3,11 @@
 <%- include("partials/supportHeader") %>
 
   <body id="home" class="container">
-    <h1 id= "hometitle" class = "h1 text-center mt-5">Claims for <%= title %> <%= id %></h1>
+    <h1 id= "hometitle" class = "h1 text-center mt-5">Claims for <%= title %> <%= pid %></h1>
     
   <div class = "row">
     <div class = "col-sm-6">
-    <form action="/supportviews/<%= claimtype%>/<%= id %>/status" formmethod="GET">
+    <form action="/supportviews/<%= claimtype%>/<%= pid %>/status" formmethod="GET">
       <input type="radio" id="Open" name="status" value="Open">
       <label for="Open">Open</label><br>
       <input type="radio" id="Closed" name="status" value="Closed">
