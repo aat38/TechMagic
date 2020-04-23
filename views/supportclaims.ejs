@@ -5,31 +5,34 @@
   <body id="home" class="container">
     <h1 id= "hometitle" class = "h1 text-center mt-5">Claims for <%= title %> <%= id %></h1>
     
-      <div class = "row">
+      <div class = "row" style="justify-content:flex-end">
           <form class="form-inline" style="justify-content:right" action="/supportviews/<%= claimtype%>/<%= id %>/status" formmethod="GET">
             <input type="radio" id="Open" name="status" value="Open">
-            <label for="Open">Open</label><br>
+            <label for="Open" style="padding-right:10px">Open</label><br>
             <input type="radio" id="Closed" name="status" value="Closed">
-            <label for="closed">Closed</label><br>
+            <label for="closed" style="padding-right:10px">Closed</label><br>
             <input type="submit" value="Submit" id = "homebtn" class = "btn btn-success h-100" >
           </form><br>
           </div>
 
   
-      <div class = "row">
+      <div class = "row" style="justify-content:flex-end">
           <form class="form-inline" style="justify-content:right" action="/supportviews/<%= claimtype%>/<%= id%>/date" formmethod="GET">
             <input type="radio" id="Oldest" name="order" value="asc">
-            <label for="Oldest">Oldest</label><br>
+            <label for="Oldest"style="padding-right:10px">Oldest</label><br>
             <input type="radio" id="Newest" name="order" value="desc">
-            <label for="Newest">Newest</label><br>
+            <label for="Newest"style="padding-right:10px">Newest</label><br>
             <input type="submit" value="Submit" id = "homebtn" class = "btn btn-success h-100">
         </form><br>
       </div>
   
-      <div class = "row">
-          <form class="form-inline" action="/supportviews/<%= claimtype%>/<%= id%>" formmethod"GET">
-            <input type="submit" value="Reset" id = "homebtn" class = "btn btn-success h-100">
-          </form><br>
+      <div class = "row" style="justify-content:flex-end">
+        <div class="col-3"style="padding-right:0px">
+                 <form class="form-inline" action="/supportviews/<%= claimtype%>/<%= id%>" formmethod"GET">
+            <input type="submit" style="width:500px"value="Reset" id = "homebtn" class = "btn btn-success h-100">
+          </form><br>   
+        </div>
+
       </div>
 
 
