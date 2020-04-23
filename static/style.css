@@ -81,6 +81,7 @@ li{
 #menu2-toggle:checked + #menu2 {
   max-height: 100px;
 }
+
 #menu3-toggle:checked + #menu3 {
   max-height: 100px;
 }
