@@ -111,7 +111,7 @@ supportviewsrouter.get("/employeeclaims/claim/:claimid", function(req, res, next
       res.render("supportclaim", {
         data: claims,
         claimtype: "employeeclaims",
-        id: claims[0].employeeid,
+        pid: claims[0].employeeid,
         title: "Employee",
         resolutions:response.data
       });
@@ -200,7 +200,7 @@ supportviewsrouter.get("/productclaims/:productid/status", function(req, res, ne
       res.render("supportclaims", {
         claims: response.data,
         claimtype: "productclaims",
-        id: productid,
+        pid: productid,
         title: "Product"
       });
     })
@@ -220,7 +220,7 @@ supportviewsrouter.get("/productclaims/:productid/date", function(req, res, next
       res.render("supportclaims", {
         claims: response.data,
         claimtype: "productclaims",
-        id: productid,
+        pid: productid,
         title: "Product"
       });
     })
@@ -239,7 +239,7 @@ supportviewsrouter.get("/productclaims/claim/:claimid", function(req, res, next)
       res.render("supportclaim", {
         data: response.data,
         claimtype: "productclaims",
-        id: response.data[0].productid,
+        pid: response.data[0].productid,
         title: "Product"
       });
     })
