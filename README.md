@@ -1,6 +1,6 @@
 # View Project: https://glitch.com/~techmagic
 ## TechMagic
-This project references a Heroku hosted PostgresSQL database via the RESTful API architectural style. My classmate and I built the site together, I worked on the Admin side while they worked on the Support side. This project was created for Database Management Systems at the University of Pittsburgh and is hosted on [Glitch](https://techmagic.glitch.me)
+This project references a Heroku hosted PostgresSQL database via the RESTful API architectural style. My classmate and I built the site together, I worked on the Admin side while they worked on the Support side. This project was created for Database Management Systems at the University of Pittsburgh and is hosted on [Glitch](https://glitch.com/about)
 
 Writen with:
   Node.js, Bootstrap, Fetch and AXIOS HTTP Calls, EJS, JavaScript
@@ -22,20 +22,3 @@ Writen with:
 
 
 
-
-- //removed the dateopen paramater from create claim endpoint
-
-
-- //PURCHASES
-apirouter.post("/purchases", (request, response) => {
-  const quer =
-    "INSERT INTO purchase(totalcost, customerid, date) VALUES($1,$2,current_timestamp) RETURNING purchaseid";
-
-
-- //GET list of productpurchases ---------------------------------------
-apirouter.get("/productpurchases/:purchaseid", (request, response) => {
-  client.connect();
-  select * from purchase where purchaseid=purchaseid return customerid, productid
-select * from customer where customerid=customerid 
-select * from customer where productid=productid 
-select * from productpurchase where purchaseid=purchaseid
