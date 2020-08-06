@@ -1,3 +1,7 @@
+## TechMagic
+This project references a Heroku hosted PostgresSQL database via the RESTful API architectural style. My classmate and I built the site together, I worked on the Admin side while they worked on the Support side.
+
+
 ## referenced: 
 - [NodeJS For Beginners: Getting Started With EJS Templates With Express](https://www.youtube.com/watch?v=VM-2xSaDxJc)
 - [noobcoder1137/ejs_templates_express](https://github.com/noobcoder1137/ejs_templates_express)
@@ -14,21 +18,6 @@
 - [Create div on button press](https://stackoverflow.com/questions/33154928/creating-div-on-button-click-with-javascript-not-working)
 
 
-Edited API endpoints:
-- get products
-- // get claim based on products //////NEEEEEEEEEWWWWWWW
-apirouter.get("/claims/search/:claimid", (request, response) => {
-- //added get all issue types
-- //change d//GET claim information based on claimId ----------------------------
-- //get all resolutions 
-- //apirouter.get("/employees/:sort", (request, response) => {  //sorts by last name OR title depending on your input
-- clientrouter.get("/claims/:productid/sortby/:var", function(req, res, next) {
-- //get claims for a customer  apirouter.get("/claims/customer/:first/:last", (request, response) => {
-- //update JUST claim resolution --not using anymore
-- //PUT// edit ENTIRE claim ---------------------------------------------claims/admin
-
-- //GET list of productpurchases ---------------------------------------
-apirouter.get("/productpurchases/:purchaseid", (request, response) => {
 
 
 - //removed the dateopen paramater from create claim endpoint
