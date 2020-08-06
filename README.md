@@ -6,7 +6,7 @@ Writen with:
   Node.js, Bootstrap, Fetch and AXIOS HTTP Calls, EJS, JavaScript
 
 ## referenced: 
-- [NodeJS For Beginners: Getting Started With EJS Templates With Express](https://www.youtube.com/watch?v=VM-2xSaDxJc)
+- [NodeJS: Getting Started With EJS Templates With Express](https://www.youtube.com/watch?v=VM-2xSaDxJc)
 - [noobcoder1137/ejs_templates_express](https://github.com/noobcoder1137/ejs_templates_express)
 - [JSON Stringify](https://stackoverflow.com/questions/47066222/can-i-render-json-parse-data-to-ejs)
 - ['formaction' instead of 'action'](https://stackoverflow.com/questions/38512402/ejs-form-action-is-not-working-with-node-js)
@@ -18,7 +18,7 @@ Writen with:
 - [Parse date](https://stackoverflow.com/questions/9363263/how-to-format-json-date)
 - [Screen position of mouse](https://www.kirupa.com/html5/getting_mouse_click_position.htm)
 - [Dropdown menu to forefront](https://stackoverflow.com/questions/16149701/bootstrap-dropdowns-menus-appearing-behind-other-elements-ie7)
-- [Create div on button press](https://stackoverflow.com/questions/33154928/creating-div-on-button-click-with-javascript-not-working)
+- [Create div on event](https://stackoverflow.com/questions/33154928/creating-div-on-button-click-with-javascript-not-working)
 
 
 
