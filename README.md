@@ -1,6 +1,8 @@
 ## TechMagic
 This project references a Heroku hosted PostgresSQL database via the RESTful API architectural style. My classmate and I built the site together, I worked on the Admin side while they worked on the Support side.
 
+Writen with:
+  Node.js, Bootstrap, Fetch and AXIOS HTTP Calls, EJS, JavaScript
 
 ## referenced: 
 - [NodeJS For Beginners: Getting Started With EJS Templates With Express](https://www.youtube.com/watch?v=VM-2xSaDxJc)
