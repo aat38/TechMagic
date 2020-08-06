@@ -1,5 +1,6 @@
+# View Project: https://glitch.com/~techmagic
 ## TechMagic
-This project references a Heroku hosted PostgresSQL database via the RESTful API architectural style. My classmate and I built the site together, I worked on the Admin side while they worked on the Support side.
+This project references a Heroku hosted PostgresSQL database via the RESTful API architectural style. My classmate and I built the site together, I worked on the Admin side while they worked on the Support side. This project was created for Database Management Systems at the University of Pittsburgh and is hosted on [Glitch](https://techmagic.glitch.me)
 
 Writen with:
   Node.js, Bootstrap, Fetch and AXIOS HTTP Calls, EJS, JavaScript
